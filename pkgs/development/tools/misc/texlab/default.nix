@@ -12,24 +12,23 @@
 
 let
   isCross = stdenv.hostPlatform != stdenv.buildPlatform;
-in
-rustPlatform.buildRustPackage rec {
+in rustPlatform.buildRustPackage rec {
   pname = "texlab";
-  version = "5.1.0";
+  version = "4.3.0";
 
   src = fetchFromGitHub {
     owner = "latex-lsp";
-    repo = "texlab";
+    repo = pname;
     rev = "refs/tags/v${version}";
-    sha256 = "sha256-rTRUiRL8zGZ6F1hzCPpsakXkxSrumLRRNd+CykXw0vo=";
+    sha256 = "sha256-PhzxWLkqsHU32vIZwHzdy86bwIzDDmnxp12PS774P3k=";
   };
 
-  cargoSha256 = "sha256-c7/5koNdIaQx4x54qvaKI/mdioPICAjrvRhi1Jzxpu0=";
+  cargoSha256 = "sha256-tH566L0oHnI9mNp1KtJYaBaWCkiAOrtBYkfVSCA2N6w=";
 
   outputs = [ "out" ] ++ lib.optional (!isCross) "man";
 
   nativeBuildInputs = [ installShellFiles ]
-    ++ lib.optional (!isCross) help2man;
+  ++ lib.optional (!isCross) help2man;
 
   buildInputs = lib.optionals stdenv.isDarwin [
     libiconv
@@ -37,16 +36,26 @@ rustPlatform.buildRustPackage rec {
     CoreServices
   ];
 
+  postInstall = ''
+    # Remove generated dylib of human_name dependency. TexLab statically
+    # links to the generated rlib and doesn't reference the dylib. I
+    # couldn't find any way to prevent building this by passing cargo flags.
+    # See https://github.com/djudd/human-name/blob/master/Cargo.toml#L43
+    rm "$out/lib/libhuman_name${stdenv.hostPlatform.extensions.sharedLibrary}"
+    rmdir "$out/lib"
+  ''
   # When we cross compile we cannot run the output executable to
   # generate the man page
-  postInstall = lib.optionalString (!isCross) ''
+  + lib.optionalString (!isCross) ''
     # TexLab builds man page separately in CI:
-    # https://github.com/latex-lsp/texlab/blob/v5.1.0/.github/workflows/publish.yml#L127-L131
+    # https://github.com/latex-lsp/texlab/blob/v4.3.0/.github/workflows/publish.yml#L131-L135
     help2man --no-info "$out/bin/texlab" > texlab.1
     installManPage texlab.1
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    attrPath = pname;
+  };
 
   meta = with lib; {
     description = "An implementation of the Language Server Protocol for LaTeX";

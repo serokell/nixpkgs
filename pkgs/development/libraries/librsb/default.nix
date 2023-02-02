@@ -61,13 +61,13 @@ stdenv.mkDerivation rec {
     make cleanall
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     octave
   ];
   checkTarget = "tests";
 
   meta = with lib; {
-    homepage = "https://librsb.sourceforge.net/";
+    homepage = "http://librsb.sourceforge.net/";
     description = "Shared memory parallel sparse matrix and sparse BLAS library";
     longDescription = ''
       Library for sparse matrix computations featuring the Recursive Sparse

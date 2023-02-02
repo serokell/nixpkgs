@@ -12,7 +12,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ python-slugify jinja2 setuptools ];
-  nativeCheckInputs = [ coverage ];
+  checkInputs = [ coverage ];
 
   checkPhase = ''
     coverage run --source=nvd3 setup.py test

@@ -45,7 +45,7 @@ buildPythonPackage rec {
     ujson
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     mypy
     pydantic

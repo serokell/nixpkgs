@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     patchShebangs tests
   '';
 
-  nativeCheckInputs = [ perl ];
+  checkInputs = [ perl ];
 
   buildInputs = [ libpcap ];
 

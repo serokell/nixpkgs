@@ -33,7 +33,7 @@ buildPythonPackage rec {
     pydantic
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     aioresponses
     pytest-aiohttp
     pytestCheckHook

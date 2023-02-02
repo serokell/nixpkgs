@@ -17,6 +17,7 @@ services.parsedmarc = {
     host = "imap.example.com";
     user = "alice@example.com";
     password = "/path/to/imap_password_file";
+    watch = true;
   };
   provision.geoIp = false; # Not recommended!
 };
@@ -25,7 +26,7 @@ services.parsedmarc = {
 Note that GeoIP provisioning is disabled in the example for
 simplicity, but should be turned on for fully functional reports.
 
-## Local mail {#module-services-parsedmarc-local-mail}
+## Local mail
 Instead of watching an external inbox, a local inbox can be
 automatically provisioned. The recipient's name is by default set to
 `dmarc`, but can be configured in
@@ -49,7 +50,7 @@ services.parsedmarc = {
 };
 ```
 
-## Grafana and GeoIP {#module-services-parsedmarc-grafana-geoip}
+## Grafana and GeoIP
 The reports can be visualized and summarized with parsedmarc's
 official Grafana dashboard. For all views to work, and for the data to
 be complete, GeoIP databases are also required. The following example

@@ -1,4 +1,4 @@
-{ lib, stdenv, icu, expat, zlib, bzip2, python ? null, fixDarwinDylibNames, libiconv, libxcrypt
+{ lib, stdenv, icu, expat, zlib, bzip2, python ? null, fixDarwinDylibNames, libiconv
 , boost-build
 , fetchpatch
 , which
@@ -13,7 +13,6 @@
 , enableStatic ? !enableShared
 , enablePython ? false
 , enableNumpy ? false
-, enableIcu ? stdenv.hostPlatform == stdenv.buildPlatform
 , taggedLayout ? ((enableRelease && enableDebug) || (enableSingleThreaded && enableMultiThreaded) || (enableShared && enableStatic))
 , patches ? []
 , boostBuildPatches ? []
@@ -82,9 +81,7 @@ let
     "-sEXPAT_LIBPATH=${expat.out}/lib"
 
     # TODO: make this unconditional
-  ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform ||
-                  # required on mips; see 61d9f201baeef4c4bb91ad8a8f5f89b747e0dfe4
-                  (stdenv.hostPlatform.isMips && versionAtLeast version "1.79")) [
+  ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "address-model=${toString stdenv.hostPlatform.parsed.cpu.bits}"
     "architecture=${if stdenv.hostPlatform.isMips64
                     then if versionOlder version "1.78" then "mips1" else "mips"
@@ -208,15 +205,6 @@ stdenv.mkDerivation {
         <ranlib>$RANLIB
       ;
     EOF
-  ''
-  # b2 needs to be explicitly told how to find Python when cross-compiling
-  + optionalString enablePython ''
-    cat << EOF >> user-config.jam
-    using python : : ${python.interpreter}
-      : ${python}/include/python${python.pythonVersion}
-      : ${python}/lib
-      ;
-    EOF
   '';
 
   NIX_CFLAGS_LINK = lib.optionalString stdenv.isDarwin
@@ -227,8 +215,8 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ which boost-build ]
     ++ optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
   buildInputs = [ expat zlib bzip2 libiconv ]
-    ++ optional enableIcu icu
-    ++ optionals enablePython [ libxcrypt python ]
+    ++ optional (stdenv.hostPlatform == stdenv.buildPlatform) icu
+    ++ optional enablePython python
     ++ optional enableNumpy python.pkgs.numpy;
 
   configureScript = "./bootstrap.sh";
@@ -239,8 +227,9 @@ stdenv.mkDerivation {
     "--includedir=$(dev)/include"
     "--libdir=$(out)/lib"
     "--with-bjam=b2" # prevent bootstrapping b2 in configurePhase
-  ] ++ optional (toolset != null) "--with-toolset=${toolset}"
-    ++ [ (if enableIcu then "--with-icu=${icu.dev}" else "--without-icu") ];
+  ] ++ optional enablePython "--with-python=${python.interpreter}"
+    ++ optional (toolset != null) "--with-toolset=${toolset}"
+    ++ [ (if stdenv.hostPlatform == stdenv.buildPlatform then "--with-icu=${icu.dev}" else "--without-icu") ];
 
   buildPhase = ''
     runHook preBuild

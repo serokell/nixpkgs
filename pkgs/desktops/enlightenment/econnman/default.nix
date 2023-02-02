@@ -1,45 +1,23 @@
-{ lib
-, stdenv
-, fetchurl
-, makeWrapper
-, pkg-config
-, dbus
-, efl
-, python3Packages
-, directoryListingUpdater
-}:
+{ lib, stdenv, fetchurl, pkg-config, efl, python3Packages, dbus, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "econnman";
   version = "1.1";
 
   src = fetchurl {
-    url = "http://download.enlightenment.org/rel/apps/econnman/${pname}-${version}.tar.xz";
-    sha256 = "sha256-DM6HaB+ufKcPHmPP4K5l/fF7wzRycFQxfiXjiXYZ7YU=";
+    url = "http://download.enlightenment.org/rel/apps/econnman/${pname}-${version}.tar.gz";
+    sha256 = "057pwwavlvrrq26bncqnfrf449zzaim0zq717xv86av4n940gwv0";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-    python3Packages.wrapPython
-  ];
+  nativeBuildInputs = [ makeWrapper pkg-config python3Packages.wrapPython ];
 
-  buildInputs = [
-    dbus
-    efl
-    python3Packages.python
-  ];
+  buildInputs = [ efl python3Packages.python dbus ];
 
-  pythonPath = [
-    python3Packages.dbus-python
-    python3Packages.pythonefl
-  ];
+  pythonPath = [ python3Packages.pythonefl python3Packages.dbus-python ];
 
   postInstall = ''
     wrapPythonPrograms
   '';
-
-  passthru.updateScript = directoryListingUpdater { };
 
   meta = with lib; {
     description = "A user interface for the connman network connection manager";

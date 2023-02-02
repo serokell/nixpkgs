@@ -7,34 +7,29 @@ let
   setoptconf-tmp = python3.pkgs.callPackage ./setoptconf.nix { };
 in
 
-python3.pkgs.buildPythonApplication rec {
+with python3.pkgs;
+
+buildPythonApplication rec {
   pname = "prospector";
-  version = "1.8.3";
+  version = "1.7.7";
   format = "pyproject";
+
+  disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "PyCQA";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-R3Sc4Qx6bht+XJhNj+fy32akzDOgSDF5LP3WE1qEyms=";
+    rev = version;
+    hash = "sha256-sbPZmVeJtNphtjuZEfKcUgty9bJ3E/2Ya9RuX3u/XEs=";
   };
 
-  pythonRelaxDeps = [
-    "pyflakes"
-    "pep8-naming"
-    "flake8"
-  ];
-
-  nativeBuildInputs = with python3.pkgs; [
+  nativeBuildInputs = [
     poetry-core
-    pythonRelaxDepsHook
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
+  propagatedBuildInputs = [
     bandit
     dodgy
-    flake8
-    gitpython
     mccabe
     mypy
     pep8-naming
@@ -55,24 +50,25 @@ python3.pkgs.buildPythonApplication rec {
     vulture
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = [
     pytestCheckHook
   ];
+
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace 'requirements-detector = "^0.7"' 'requirements-detector = "*"' \
+      --replace 'pep8-naming = ">=0.3.3,<=0.10.0"' 'pep8-naming = "*"' \
+      --replace 'mccabe = "^0.6.0"' 'mccabe = "*"' \
+      --replace 'pycodestyle = ">=2.6.0,<2.9.0"' 'pycodestyle = "*"'
+  '';
 
   pythonImportsCheck = [
     "prospector"
   ];
 
-  disabledTestPaths = [
-    # distutils.errors.DistutilsArgError: no commands supplied
-    "tests/tools/pyroma/test_pyroma_tool.py"
-  ];
-
-
   meta = with lib; {
     description = "Tool to analyse Python code and output information about errors, potential problems, convention violations and complexity";
     homepage = "https://github.com/PyCQA/prospector";
-    changelog = "https://github.com/PyCQA/prospector/blob/v${version}/CHANGELOG.rst";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ kamadorueda ];
   };

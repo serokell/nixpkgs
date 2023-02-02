@@ -1,10 +1,8 @@
-{ lib, fetchFromGitHub, stdenv, autoreconfHook, pkg-config
+{ lib, fetchFromGitHub, stdenv, autoreconfHook
 , ncurses
 , IOKit
-, libcap
-, libnl
 , sensorsSupport ? stdenv.isLinux, lm_sensors
-, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd
+, systemdSupport ? stdenv.isLinux, systemd
 }:
 
 assert systemdSupport -> stdenv.isLinux;
@@ -20,30 +18,23 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MwtsvdPHcUdegsYj9NGyded5XJQxXri1IM1j4gef1Xk=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ]
-    ++ lib.optional stdenv.isLinux pkg-config
-  ;
+  nativeBuildInputs = [ autoreconfHook ];
 
   buildInputs = [ ncurses ]
     ++ lib.optional stdenv.isDarwin IOKit
-    ++ lib.optionals stdenv.isLinux [ libcap libnl ]
     ++ lib.optional sensorsSupport lm_sensors
     ++ lib.optional systemdSupport systemd
   ;
 
   configureFlags = [ "--enable-unicode" "--sysconfdir=/etc" ]
-    ++ lib.optionals stdenv.isLinux [
-      "--enable-affinity"
-      "--enable-capabilities"
-      "--enable-delayacct"
-    ]
     ++ lib.optional sensorsSupport "--with-sensors"
   ;
 
   postFixup =
     let
       optionalPatch = pred: so: lib.optionalString pred "patchelf --add-needed ${so} $out/bin/htop";
-    in lib.optionalString (!stdenv.hostPlatform.isStatic) ''
+    in
+    ''
       ${optionalPatch sensorsSupport "${lm_sensors}/lib/libsensors.so"}
       ${optionalPatch systemdSupport "${systemd}/lib/libsystemd.so"}
     '';

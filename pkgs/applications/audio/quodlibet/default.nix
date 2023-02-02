@@ -97,7 +97,6 @@ python3.pkgs.buildPythonApplication rec {
     gst-plugins-base
     gstreamer
   ] ++ lib.optionals (withGstPlugins) [
-    gst-libav
     gst-plugins-bad
     gst-plugins-good
     gst-plugins-ugly
@@ -119,8 +118,8 @@ python3.pkgs.buildPythonApplication rec {
 
   LC_ALL = "en_US.UTF-8";
 
-  nativeCheckInputs = [
-    dbus
+  checkInputs = [
+    dbus.daemon
     gdk-pixbuf
     glibcLocales
     hicolor-icon-theme
@@ -155,7 +154,7 @@ python3.pkgs.buildPythonApplication rec {
     runHook preCheck
 
     xvfb-run -s '-screen 0 1920x1080x24' \
-      dbus-run-session --config-file=${dbus}/share/dbus-1/session.conf \
+      dbus-run-session --config-file=${dbus.daemon}/share/dbus-1/session.conf \
       pytest $pytestFlags
 
     runHook postCheck

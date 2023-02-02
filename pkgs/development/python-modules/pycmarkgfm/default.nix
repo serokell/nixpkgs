@@ -2,13 +2,12 @@
 
 buildPythonPackage rec {
   pname = "pycmarkgfm";
-  version = "1.2.0";
-  format = "setuptools";
+  version = "1.1.0";
   disabled = isPy27;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-qvTMXpQhC3Yx8LwbQDiELhgdkGzjirKT30N1NkXF5ps=";
+    sha256 = "694cb242f4961437c30b5b015dfbce9d1a1fa48305c2e39f902ce7c65b4cbe0e";
   };
 
   propagatedNativeBuildInputs = [ cffi ];
@@ -20,7 +19,7 @@ buildPythonPackage rec {
   # pytest in an environment that does not contain this extension, which fails.
   # cmarkgfm has virtually the same build setup as this package, and uses the
   # same trick: pkgs/development/python-modules/cmarkgfm/default.nix
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
   checkPhase = ''
     pytest
   '';
@@ -28,7 +27,6 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/zopieux/pycmarkgfm";
     description = "Bindings to GitHub's Flavored Markdown (cmark-gfm), with enhanced support for task lists";
-    changelog = "https://github.com/zopieux/pycmarkgfm/raw/v${version}/CHANGELOG.md";
     platforms = platforms.linux ++ platforms.darwin;
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ zopieux ];

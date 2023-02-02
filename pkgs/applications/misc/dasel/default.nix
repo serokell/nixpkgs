@@ -5,16 +5,16 @@
 
 buildGoModule rec {
   pname = "dasel";
-  version = "2.1.0";
+  version = "1.27.3";
 
   src = fetchFromGitHub {
     owner = "TomWright";
     repo = "dasel";
     rev = "v${version}";
-    sha256 = "sha256-7JGafJE9nwZ95bOWUyVw2uWA2LltE9HxolHGYU079to=";
+    sha256 = "sha256-VrdjP9HlaBg8GY+2HPkQDwqJsoFtzTMz9QtQxhrUdxw=";
   };
 
-  vendorHash = "sha256-GO5Vg8zsXfjMBzRDC1/s/SYpviKUf59JB14vauKVFcE=";
+  vendorSha256 = "sha256-zli9SEBU6n0JusAquqb9+O2W4yPZS7zmC5PCebVSeIA=";
 
   ldflags = [
     "-s" "-w" "-X github.com/tomwright/dasel/internal.Version=${version}"
@@ -22,15 +22,13 @@ buildGoModule rec {
 
   doInstallCheck = true;
   installCheckPhase = ''
-    runHook preInstallCheck
-    if [[ $($out/bin/dasel --version) == "dasel version ${version}" ]]; then
-      echo '{ "my": { "favourites": { "colour": "blue" } } }' \
-        | $out/bin/dasel put -t json -r json -t string -v "red" "my.favourites.colour" \
-        | grep "red"
+    if [[ "$("$out/bin/${pname}" --version)" == "${pname} version ${version}" ]]; then
+      echo "" | $out/bin/dasel put object -p yaml -t string -t int "my.favourites" colour=red number=3 | grep -q red
+      echo '${pname} smoke check passed'
     else
+      echo '${pname} smoke check failed'
       return 1
     fi
-    runHook postInstallCheck
   '';
 
   meta = with lib; {

@@ -42,7 +42,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     ddt
     pylatexenc

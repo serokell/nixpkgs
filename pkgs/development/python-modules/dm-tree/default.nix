@@ -13,13 +13,14 @@
 
 buildPythonPackage rec {
   pname = "dm-tree";
-  version = "0.1.8";
+  # As of 2021-12-29, the latest stable version still builds with Bazel.
+  version = "unstable-2021-12-20";
 
   src = fetchFromGitHub {
     owner = "deepmind";
     repo = "tree";
-    rev = "refs/tags/${version}";
-    hash = "sha256-VvSJTuEYjIz/4TTibSLkbg65YmcYqHImTHOomeorMJc=";
+    rev = "b452e5c2743e7489b4ba7f16ecd51c516d7cd8e3";
+    sha256 = "1r187xwpvnnj98lyasngcv3lbxz0ziihpl5dbnjbfbjr0kh6z0j9";
   };
 
   patches = [
@@ -38,7 +39,7 @@ buildPythonPackage rec {
     pybind11
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     absl-py
     attrs
     numpy

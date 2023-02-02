@@ -7,47 +7,32 @@
 , filelock
 , execnet
 , pytest
+, pytest-forked
 , psutil
-, setproctitle
+, pexpect
 }:
 
 buildPythonPackage rec {
   pname = "pytest-xdist";
-  version = "3.1.0";
+  version = "2.5.0";
   disabled = pythonOlder "3.6";
-
-  format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-QP2481RJIcXfzUhqwIDOIocOcdgs7W0uePqXwq3dSAw=";
+    sha256 = "sha256-RYDeyj/wTdsqxT66Oddstd1e3qwFDLb7x2iw3XErTt8=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
-
+  nativeBuildInputs = [ setuptools-scm ];
   buildInputs = [
     pytest
   ];
-
-  propagatedBuildInputs = [
-    execnet
-  ];
-
-  nativeCheckInputs = [
-    filelock
-    pytestCheckHook
-  ];
-
-  passthru.optional-dependencies = {
-    psutil = [ psutil ];
-    setproctitle = [ setproctitle ];
-  };
+  checkInputs = [ pytestCheckHook filelock pexpect ];
+  propagatedBuildInputs = [ execnet pytest-forked psutil ];
 
   pytestFlagsArray = [
     # pytest can already use xdist at this point
     "--numprocesses=$NIX_BUILD_CORES"
+    "--forked"
   ];
 
   # access file system

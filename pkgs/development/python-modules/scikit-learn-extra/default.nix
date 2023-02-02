@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ numpy cython ];
   propagatedBuildInputs = [ numpy scipy scikit-learn ];
-  nativeCheckInputs = [ matplotlib pytestCheckHook ];
+  checkInputs = [ matplotlib pytestCheckHook ];
 
   preCheck = ''
     # Remove the package in the build dir, because Python defaults to it and

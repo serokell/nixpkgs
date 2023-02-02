@@ -15,6 +15,5 @@ stdenvNoCC.mkDerivation rec {
     description = "Default fallback theme used by implementations of the icon theme specification";
     homepage = "https://icon-theme.freedesktop.org/releases/";
     platforms = platforms.unix;
-    license = licenses.gpl2Only;
   };
 }

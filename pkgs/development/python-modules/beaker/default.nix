@@ -40,7 +40,7 @@ buildPythonPackage rec {
     pycryptopp
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     glibcLocales
     python-memcached
     mock

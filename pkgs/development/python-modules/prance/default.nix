@@ -65,7 +65,7 @@ buildPythonPackage rec {
     semver
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     openapi-spec-validator
   ];

@@ -22,47 +22,43 @@
 , cmake
 , nix
 , samba
-, buildPackages
 }:
 
-let
-  autoreconfHook = buildPackages.autoreconfHook269;
-in
 assert xarSupport -> libxml2 != null;
-stdenv.mkDerivation (finalAttrs: {
+
+stdenv.mkDerivation rec {
   pname = "libarchive";
-  version = "3.6.2";
+  version = "3.6.1";
 
   src = fetchFromGitHub {
     owner = "libarchive";
     repo = "libarchive";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-wQbA6vlXH8pnpY7LJLkjrRFEBpcaPR1SqxnK71UVwxg=";
+    rev = "v${version}";
+    hash = "sha256-G4wL5DDbX0FqaA4cnOlVLZ25ObN8dNsRtxyas29tpDA=";
   };
 
-  outputs = [ "out" "lib" "dev" ];
-
-  postPatch = let
-    skipTestPaths = [
-      # test won't work in nix sandbox
-      "libarchive/test/test_write_disk_perms.c"
-      # the filesystem does not necessarily have sparse capabilities
-      "libarchive/test/test_sparse_basic.c"
-      # the filesystem does not necessarily have hardlink capabilities
-      "libarchive/test/test_write_disk_hardlink.c"
-      # access-time-related tests flakey on some systems
-      "cpio/test/test_option_a.c"
-      "cpio/test/test_option_t.c"
-    ];
-    removeTest = testPath: ''
-      substituteInPlace Makefile.am --replace "${testPath}" ""
-      rm "${testPath}"
-    '';
-  in ''
+  postPatch = ''
     substituteInPlace Makefile.am --replace '/bin/pwd' "$(type -P pwd)"
 
-    ${lib.concatStringsSep "\n" (map removeTest skipTestPaths)}
+    declare -a skip_test_paths=(
+      # test won't work in nix sandbox
+      'libarchive/test/test_write_disk_perms.c'
+      # can't be sure builder will have sparse-capable fs
+      'libarchive/test/test_sparse_basic.c'
+      # can't even be sure builder will have hardlink-capable fs
+      'libarchive/test/test_write_disk_hardlink.c'
+      # access-time-related tests flakey on some systems
+      'cpio/test/test_option_a.c'
+      'cpio/test/test_option_t.c'
+    )
+
+    for test_path in "''${skip_test_paths[@]}" ; do
+      substituteInPlace Makefile.am --replace "$test_path" ""
+      rm "$test_path"
+    done
   '';
+
+  outputs = [ "out" "lib" "dev" ];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -109,7 +105,7 @@ stdenv.mkDerivation (finalAttrs: {
       includes implementations of the common tar, cpio, and zcat command-line
       tools that use the libarchive library.
     '';
-    changelog = "https://github.com/libarchive/libarchive/releases/tag/v${finalAttrs.version}";
+    changelog = "https://github.com/libarchive/libarchive/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ jcumming AndersonTorres ];
     platforms = platforms.all;
@@ -118,4 +114,4 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.tests = {
     inherit cmake nix samba;
   };
-})
+}

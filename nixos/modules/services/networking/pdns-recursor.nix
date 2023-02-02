@@ -38,7 +38,7 @@ in {
     };
 
     dns.port = mkOption {
-      type = types.port;
+      type = types.int;
       default = 53;
       description = lib.mdDoc ''
         Port number Recursor DNS server will bind to.
@@ -67,7 +67,7 @@ in {
     };
 
     api.port = mkOption {
-      type = types.port;
+      type = types.int;
       default = 8082;
       description = lib.mdDoc ''
         Port number Recursor REST API server will bind to.

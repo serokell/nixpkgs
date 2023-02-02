@@ -1,11 +1,19 @@
 { lib
 , buildPackages, pkgs, targetPackages
-, generateSplicesForMkScope, makeScopeWithSplicing
-, stdenv
+, pkgsBuildBuild, pkgsBuildHost, pkgsBuildTarget, pkgsHostHost, pkgsTargetTarget
+, stdenv, splicePackages, newScope
 , preLibcCrossHeaders
 }:
 
 let
+  otherSplices = {
+    selfBuildBuild = pkgsBuildBuild.darwin;
+    selfBuildHost = pkgsBuildHost.darwin;
+    selfBuildTarget = pkgsBuildTarget.darwin;
+    selfHostHost = pkgsHostHost.darwin;
+    selfTargetTarget = pkgsTargetTarget.darwin or {}; # might be missing
+  };
+
   # Prefix for binaries. Customarily ends with a dash separator.
   #
   # TODO(@Ericson2314) Make unconditional, or optional but always true by
@@ -14,7 +22,7 @@ let
                                         (stdenv.targetPlatform.config + "-");
 in
 
-makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: {}) (spliced: spliced.apple_sdk.frameworks) (self: let
+lib.makeScopeWithSplicing splicePackages newScope otherSplices (_: {}) (spliced: spliced.apple_sdk.frameworks) (self: let
   inherit (self) mkDerivation callPackage;
 
   # Must use pkgs.callPackage to avoid infinite recursion.
@@ -81,30 +89,12 @@ impure-cmds // appleSourcePackages // chooseLibs // {
     bintools = self.binutils-unwrapped;
   };
 
-  binutilsDualAs-unwrapped = callPackage ../os-specific/darwin/binutils {
-    inherit (pkgs) binutils-unwrapped;
-    inherit (pkgs.llvmPackages) llvm clang-unwrapped;
-    dualAs = true;
-  };
-
-  binutilsDualAs = pkgs.wrapBintoolsWith {
-    libc =
-      if stdenv.targetPlatform != stdenv.hostPlatform
-      then pkgs.libcCross
-      else pkgs.stdenv.cc.libc;
-    bintools = self.binutilsDualAs-unwrapped;
-  };
-
   binutilsNoLibc = pkgs.wrapBintoolsWith {
     libc = preLibcCrossHeaders;
     bintools = self.binutils-unwrapped;
   };
 
   cctools = callPackage ../os-specific/darwin/cctools/port.nix {
-    stdenv = if stdenv.isDarwin then stdenv else pkgs.libcxxStdenv;
-  };
-
-  cctools-apple = callPackage ../os-specific/darwin/cctools/apple.nix {
     stdenv = if stdenv.isDarwin then stdenv else pkgs.libcxxStdenv;
   };
 
@@ -215,23 +205,4 @@ impure-cmds // appleSourcePackages // chooseLibs // {
 
   discrete-scroll = callPackage ../os-specific/darwin/discrete-scroll { };
 
-  # See doc/builders/special/darwin-builder.section.md
-  builder =
-    let
-      toGuest = builtins.replaceStrings [ "darwin" ] [ "linux" ];
-
-      nixos = import ../../nixos {
-        configuration = {
-          imports = [
-            ../../nixos/modules/profiles/macos-builder.nix
-          ];
-
-          virtualisation.host = { inherit pkgs; };
-        };
-
-        system = toGuest stdenv.hostPlatform.system;
-      };
-
-    in
-      nixos.config.system.build.macos-builder-installer;
 })

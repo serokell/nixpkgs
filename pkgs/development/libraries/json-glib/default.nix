@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     libxslt
     gobject-introspection
     gi-docgen
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+  ] ++ lib.optional stdenv.hostPlatform.isDarwin [
     fixDarwinDylibNames
   ];
 

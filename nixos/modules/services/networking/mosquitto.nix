@@ -56,10 +56,8 @@ let
         default = null;
         description = mdDoc ''
           Specifies the hashed password for the MQTT User.
-          To generate hashed password install the `mosquitto`
-          package and use `mosquitto_passwd`, then extract
-          the second field (after the `:`) from the generated
-          file.
+          To generate hashed password install `mosquitto`
+          package and use `mosquitto_passwd`.
         '';
       };
 
@@ -70,9 +68,8 @@ let
         description = mdDoc ''
           Specifies the path to a file containing the
           hashed password for the MQTT user.
-          To generate hashed password install the `mosquitto`
-          package and use `mosquitto_passwd`, then remove the
-          `username:` prefix from the generated file.
+          To generate hashed password install `mosquitto`
+          package and use `mosquitto_passwd`.
         '';
       };
 
@@ -479,7 +476,7 @@ let
         Directories to be scanned for further config files to include.
         Directories will processed in the order given,
         `*.conf` files in the directory will be
-        read in case-sensitive alphabetical order.
+        read in case-sensistive alphabetical order.
       '';
       default = [];
     };
@@ -671,6 +668,8 @@ in
 
   meta = {
     maintainers = with lib.maintainers; [ pennae ];
+    # Don't edit the docbook xml directly, edit the md and generate it:
+    # `pandoc mosquitto.md -t docbook --top-level-division=chapter --extract-media=media -f markdown+smart > mosquitto.xml`
     doc = ./mosquitto.xml;
   };
 }

@@ -6,11 +6,11 @@
 , jdupes
 , boldPanelIcons ? false
 , blackPanelIcons ? false
-, alternativeIcons ? false
 , themeVariants ? []
 }:
 
-let pname = "Whitesur-icon-theme";
+let
+  pname = "Whitesur-icon-theme";
 in
 lib.checkListOfEnum "${pname}: theme variants" [
   "default"
@@ -27,13 +27,13 @@ lib.checkListOfEnum "${pname}: theme variants" [
 
 stdenvNoCC.mkDerivation rec {
   inherit pname;
-  version = "2023-01-08";
+  version = "2022-08-30";
 
   src = fetchFromGitHub {
     owner = "vinceliuice";
     repo = pname;
     rev = version;
-    hash = "sha256-xqKGZPlGl8kNZ4AQYZWAywL+6UxwGzYOZ9WvB85JKZk=";
+    sha256 = "pcvRD4CUwUT46/kmMbnerj5mqPCcHIRreVIh9wz6Kfg=";
   };
 
   nativeBuildInputs = [ gtk3 jdupes ];
@@ -55,7 +55,6 @@ stdenvNoCC.mkDerivation rec {
     ./install.sh --dest $out/share/icons \
       --name WhiteSur \
       --theme ${builtins.toString themeVariants} \
-      ${lib.optionalString alternativeIcons "--alternative"} \
       ${lib.optionalString boldPanelIcons "--bold"} \
       ${lib.optionalString blackPanelIcons "--black"}
 

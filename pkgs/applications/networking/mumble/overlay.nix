@@ -8,7 +8,6 @@ in stdenv.mkDerivation {
   version = mumble.version;
 
   inherit (mumble) src;
-  patches = mumble.patches or [];
 
   installPhase = ''
     mkdir -p $out/lib

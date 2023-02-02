@@ -1,12 +1,13 @@
 { lib
 , buildPythonPackage
 , fetchPypi
+, isPy36
 }:
 
 buildPythonPackage rec {
   pname = "mailcap-fix";
   version = "1.0.1";
-  format = "setuptools";
+  disabled = isPy36; # this fix is merged into python 3.6
 
   src = fetchPypi {
     inherit pname version;

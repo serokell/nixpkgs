@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     "--with-unbound-root-key-file=${dns-root-data}/root.key"
     (lib.withFeature withP11-kit "p11-kit")
     (lib.enableFeature cxxBindings "cxx")
-  ] ++ lib.optionals guileBindings [
+  ] ++ lib.optional guileBindings [
     "--enable-guile"
     "--with-guile-site-dir=\${out}/share/guile/site"
     "--with-guile-site-ccache-dir=\${out}/share/guile/site"

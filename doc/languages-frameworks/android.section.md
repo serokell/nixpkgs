@@ -232,6 +232,7 @@ androidenv.emulateApp {
   platformVersion = "24";
   abiVersion = "armeabi-v7a"; # mips, x86, x86_64
   systemImageType = "default";
+  useGoogleAPIs = false;
   app = ./MyApp.apk;
   package = "MyApp";
   activity = "MainActivity";

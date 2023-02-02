@@ -1,23 +1,16 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, numpy
-, pandas
 , py4j
-, pyarrow
-, pythonOlder
 }:
 
 buildPythonPackage rec {
   pname = "pyspark";
-  version = "3.3.1";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "3.3.0";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-6Z+n3pK+QGiEv9gxwyuTBqOpneRM/Dmi7vtu0HRF1fo=";
+    sha256 = "sha256-fr6OlQVke00STVqC/KYN/TiRAhz4rWxeyId37uzpLPc=";
   };
 
   # pypandoc is broken with pandoc2, so we just lose docs.
@@ -31,20 +24,6 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     py4j
   ];
-
-  passthru.optional-dependencies = {
-    ml = [
-      numpy
-    ];
-    mllib = [
-      numpy
-    ];
-    sql = [
-      numpy
-      pandas
-      pyarrow
-    ];
-  };
 
   # Tests assume running spark instance
   doCheck = false;
@@ -61,6 +40,6 @@ buildPythonPackage rec {
       binaryBytecode
     ];
     license = licenses.asl20;
-    maintainers = with maintainers; [ shlevy ];
+    maintainers = [ maintainers.shlevy ];
   };
 }

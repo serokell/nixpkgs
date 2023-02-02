@@ -1,5 +1,4 @@
 { lib
-, gitUpdater
 , buildPythonApplication
 , fetchFromGitHub
 , pythonOlder
@@ -33,9 +32,5 @@ buildPythonApplication rec {
     homepage = "https://github.com/Heroic-Games-Launcher/heroic-gogdl";
     license = with licenses; [ gpl3 ];
     maintainers = with maintainers; [ aidalgol ];
-  };
-
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "v";
   };
 }

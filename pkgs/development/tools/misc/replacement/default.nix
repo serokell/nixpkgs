@@ -20,7 +20,7 @@ python3Packages.buildPythonApplication rec {
     ruamel-yaml
   ];
 
-  nativeCheckInputs = with python3Packages; [
+  checkInputs = with python3Packages; [
     pytestCheckHook
     sh
   ];

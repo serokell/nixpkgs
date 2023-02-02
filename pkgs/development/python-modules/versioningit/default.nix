@@ -16,14 +16,13 @@
 
 buildPythonPackage rec {
   pname = "versioningit";
-  version = "2.1.0";
-  format = "pyproject";
-
+  version = "2.0.1";
   disabled = pythonOlder "3.8";
+  format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-c/KWXjDS6/1/+ra/JjaPIjdXBiLdKknH+8GZXenGdtY=";
+    hash = "sha256-gJfiYNm99nZYW9gTO/e1//rDeox2KWJVtC2Gy1EqsuM=";
   };
 
   postPatch = ''
@@ -36,13 +35,12 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     packaging
     setuptools
+    tomli
   ] ++ lib.optionals (pythonOlder "3.10") [
     importlib-metadata
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     build
     pydantic

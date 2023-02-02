@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "3ad100780721a1911f57a165809b7ea265a7863305acb66708220820caf8aa0d";
   };
 
-  nativeCheckInputs = [ mock nose pytest ];
+  checkInputs = [ mock nose pytest ];
 
   checkPhase = ''
     # based on tox.ini

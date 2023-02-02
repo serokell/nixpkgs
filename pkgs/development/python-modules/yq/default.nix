@@ -38,7 +38,7 @@ buildPythonPackage rec {
     argcomplete
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
    pytestCheckHook
   ];
 

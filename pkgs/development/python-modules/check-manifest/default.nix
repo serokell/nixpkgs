@@ -3,7 +3,6 @@
 , build
 , buildPythonPackage
 , fetchPypi
-, fetchpatch
 , git
 , mock
 , pep517
@@ -24,21 +23,13 @@ buildPythonPackage rec {
     hash = "sha256-O1dfHa3nvrMHjvS/M6lFGYNEV8coHbxyaxXFRmtVxlc=";
   };
 
-  patches = [
-    # Fix git submodule tests using file: protocol
-    (fetchpatch {
-      url = "https://github.com/mgedmin/check-manifest/pull/159.patch";
-      hash = "sha256-CDtuIoHgP4THLt+xF32C/OrjakwPOEVTKUh5JuQB5wM=";
-    })
-  ];
-
   propagatedBuildInputs = [
     build
     pep517
     toml
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     breezy
     git
     mock

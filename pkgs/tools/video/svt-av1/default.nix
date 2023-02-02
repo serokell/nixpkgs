@@ -1,35 +1,20 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, gitUpdater
-, cmake
-, nasm
-}:
+{ lib, stdenv, fetchFromGitLab, cmake, nasm }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation rec {
   pname = "svt-av1";
-  version = "1.4.1";
+  version = "1.2.1";
 
   src = fetchFromGitLab {
     owner = "AOMediaCodec";
     repo = "SVT-AV1";
-    rev = "v${finalAttrs.version}";
-    sha256 = "sha256-jmr5egbuqLnBW7OFuaQk3F4s5xqTpXhWcJAfZySGWeU=";
+    rev = "v${version}";
+    sha256 = "sha256-gK2Yabh9AwAX1AecOPGTOthE4ENCA4NIjwWNJNkXxJc=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    nasm
-  ];
-
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "v";
-  };
+  nativeBuildInputs = [ cmake nasm ];
 
   meta = with lib; {
-    homepage = "https://gitlab.com/AOMediaCodec/SVT-AV1";
     description = "AV1-compliant encoder/decoder library core";
-
     longDescription = ''
       The Scalable Video Technology for AV1 (SVT-AV1 Encoder and Decoder) is an
       AV1-compliant encoder/decoder library core. The SVT-AV1 encoder
@@ -38,11 +23,14 @@ stdenv.mkDerivation (finalAttrs: {
       SVT-AV1 decoder implementation is targeting future codec research
       activities.
     '';
-
-    changelog = "https://gitlab.com/AOMediaCodec/SVT-AV1/-/blob/v${finalAttrs.version}/CHANGELOG.md";
-    license = with licenses; [ aom bsd3 ];
-    maintainers = with maintainers; [ Madouura ];
+    inherit (src.meta) homepage;
+    changelog = "https://gitlab.com/AOMediaCodec/SVT-AV1/-/blob/v${version}/CHANGELOG.md";
+    license = with licenses; [
+      aom
+      bsd3
+    ];
     platforms = platforms.unix;
     broken = stdenv.isAarch64; # undefined reference to `cpuinfo_arm_linux_init'
+    maintainers = with maintainers; [ Madouura ];
   };
-})
+}

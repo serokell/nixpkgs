@@ -25,7 +25,7 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = with python3.pkgs; [
     pytest-runner
     pytest
   ];
@@ -41,6 +41,6 @@ python3.pkgs.buildPythonApplication rec {
       on mobile phones or computers.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ edwtjo pSub infinisil ];
+    maintainers = with maintainers; [ edwtjo pSub aneeshusa infinisil ];
   };
 }

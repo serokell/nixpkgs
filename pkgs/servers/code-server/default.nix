@@ -1,15 +1,15 @@
 { lib, stdenv, fetchFromGitHub, buildGoModule, makeWrapper, runCommand
 , cacert, moreutils, jq, git, rsync, pkg-config, yarn, python3
-, esbuild, nodejs-16_x, node-gyp, libsecret, xorg, ripgrep
-, AppKit, Cocoa, CoreServices, Security, cctools, xcbuild, quilt }:
+, esbuild, nodejs-14_x, node-gyp, libsecret, xorg, ripgrep
+, AppKit, Cocoa, CoreServices, Security, cctools, xcbuild }:
 
 let
   system = stdenv.hostPlatform.system;
 
-  nodejs = nodejs-16_x;
+  nodejs = nodejs-14_x;
   python = python3;
   yarn' = yarn.override { inherit nodejs; };
-  defaultYarnOpts = [ ];
+  defaultYarnOpts = [ "frozen-lockfile" "non-interactive" "no-progress"];
 
   # replaces esbuild's download script with a binary from nixpkgs
   patchEsbuild = path : version : ''
@@ -21,28 +21,28 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "code-server";
-  version = "4.8.3";
+  version = "4.0.1";
+  commit = "7fe23daf009e5234eaa54a1ea5ff26df384c47ac";
 
   src = fetchFromGitHub {
-    owner = "coder";
+    owner = "cdr";
     repo = "code-server";
     rev = "v${version}";
-    fetchSubmodules = true;
-    sha256 = "1h5ng60wf3gpsydfkv20x30xsw1f5zcvv77l1mzrqz1mhcw93lvz";
+    sha256 = "1s3dcmzlkyh7qfs3ai1p7dlp45iys0ax1fbxxz17p395pw9anrrl";
   };
 
   cloudAgent = buildGoModule rec {
     pname = "cloud-agent";
-    version = "0.2.6";
+    version = "0.2.3";
 
     src = fetchFromGitHub {
-      owner = "coder";
+      owner = "cdr";
       repo = "cloud-agent";
       rev = "v${version}";
-      sha256 = "1s3jpgvzizc9skc27c3x35sya2p4ywhvdi3l73927z3j47wszy7f";
+      sha256 = "14i1qq273f0yn5v52ryiqwj7izkd1yd212di4gh4bqypmmzhw3jj";
     };
 
-    vendorSha256 = "14xzlbmki8fk8mbcci62q8sklyd0nyga07ww1ap0vdrv7d1g31hn";
+    vendorSha256 = "0k9v10wkzx53r5syf6bmm81gr4s5dalyaa07y9zvx6vv5r2h0661";
 
     postPatch = ''
       # the cloud-agent release tag has an empty version string, so add it back in
@@ -66,20 +66,16 @@ in stdenv.mkDerivation rec {
         xargs -I {} yarn --cwd {} \
           --frozen-lockfile --ignore-scripts --ignore-platform \
           --ignore-engines --no-progress --non-interactive
-
-      find ./lib/vscode -name "yarn.lock" -printf "%h\n" | \
-        xargs -I {} yarn --cwd {} \
-          --ignore-scripts --ignore-engines
     '';
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
 
     # to get hash values use nix-build -A code-server.prefetchYarnCache
-    outputHash = "0jzzbmmgv1nfq975mi9ii9l6c4f1wy10fyy117xgm4s6vxana7qn";
+    outputHash = "0qmfsirld1qfl2s26rxbpmvxsyj2pvzkgk8w89zlrgbhgc5fj8p9";
   };
 
   nativeBuildInputs = [
-    nodejs yarn' python pkg-config makeWrapper git rsync jq moreutils quilt
+    nodejs yarn' python pkg-config makeWrapper git rsync jq moreutils
   ];
   buildInputs = lib.optionals (!stdenv.isDarwin) [ libsecret ]
     ++ (with xorg; [ libX11 libxkbfile ])
@@ -90,8 +86,6 @@ in stdenv.mkDerivation rec {
   patches = [
     # remove download of coder-cloud agent
     ./remove-cloud-agent-download.patch
-    # remove git calls from vscode build script
-    ./build-vscode-nogit.patch
   ];
 
   postPatch = ''
@@ -139,68 +133,79 @@ in stdenv.mkDerivation rec {
     # install code-server dependencies
     yarn --offline --ignore-scripts
 
-    # apply patches
-    quilt push -a
-
     # patch shebangs of everything to allow binary packages to build
     patchShebangs .
 
-    export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
-    export SKIP_SUBMODULE_DEPS=1
-    export NODE_OPTIONS=--openssl-legacy-provider
+    # Skip shellcheck download
+    jq "del(.scripts.preinstall)" node_modules/shellcheck/package.json | sponge node_modules/shellcheck/package.json
 
     # rebuild binary packages now that scripts have been patched
-    echo "----- NPM rebuild"
-    npm rebuild --prefer-offline
+    npm rebuild
 
     # Replicate ci/dev/postinstall.sh
     echo "----- Replicate ci/dev/postinstall.sh"
     yarn --cwd "./vendor" install --modules-folder modules --offline --ignore-scripts --frozen-lockfile
 
+    # Replicate vendor/postinstall.sh
+    echo " ----- Replicate vendor/postinstall.sh"
+    yarn --cwd "./vendor/modules/code-oss-dev" --offline --frozen-lockfile --ignore-scripts install
+
     # remove all built-in extensions, as these are 3rd party extensions that
     # get downloaded from vscode marketplace
-    jq --slurp '.[0] * .[1]' "./lib/vscode/product.json" <(
+    jq --slurp '.[0] * .[1]' "vendor/modules/code-oss-dev/product.json" <(
       cat << EOF
     {
       "builtInExtensions": []
     }
     EOF
-    ) | sponge ./lib/vscode/product.json
+    ) | sponge vendor/modules/code-oss-dev/product.json
 
     # disable automatic updates
     sed -i '/update.mode/,/\}/{s/default:.*/default: "none",/g}' \
-      lib/vscode/src/vs/platform/update/common/update.config.contribution.ts
+      vendor/modules/code-oss-dev/src/vs/platform/update/common/update.config.contribution.ts
+
+    # put ripgrep binary into bin, so postinstall does not try to download it
+    find -name vscode-ripgrep -type d \
+      -execdir mkdir -p {}/bin \; \
+      -execdir ln -s ${ripgrep}/bin/rg {}/bin/rg \;
+
+    # Playwright is only needed for tests, we can disable it for builds.
+    # There's an environment variable to disable downloads, but the package makes a breaking call to
+    # sw_vers before that variable is checked.
+    patch -p1 -i ${./playwright.patch}
 
     # Patch out remote download of nodejs from build script
     patch -p1 -i ${./remove-node-download.patch}
 
-    # Fetch packages for vscode
-    find ./lib/vscode -name "yarn.lock" -printf "%h\n" | \
+    # Replicate install vscode dependencies without running script for all vscode packages
+    # that require patching for postinstall scripts to succeed
+    find ./vendor/modules/code-oss-dev -path "*node_modules" -prune -o \
+      -path "./*/*/*/*/*" -name "yarn.lock" -printf "%h\n" | \
         xargs -I {} yarn --cwd {} \
-          --frozen-lockfile --ignore-scripts --ignore-engines
+          --frozen-lockfile --offline --ignore-scripts --ignore-engines
+
 
     # patch shebangs of everything to allow binary packages to build
     patchShebangs .
 
-    ${patchEsbuild "./lib/vscode/build" "0.12.6"}
-    ${patchEsbuild "./lib/vscode/extensions" "0.11.23"}
-    '' + lib.optionalString stdenv.isDarwin ''
+    ${patchEsbuild "./vendor/modules/code-oss-dev/build" "0.12.6"}
+    ${patchEsbuild "./vendor/modules/code-oss-dev/extensions" "0.11.23"}
+  '' + lib.optionalString stdenv.isDarwin ''
     # use prebuilt binary for @parcel/watcher, which requires macOS SDK 10.13+
     # (see issue #101229)
-    pushd ./lib/vscode/remote/node_modules/@parcel/watcher
+    pushd ./vendor/modules/code-oss-dev/remote/node_modules/@parcel/watcher
     mkdir -p ./build/Release
     mv ./prebuilds/darwin-x64/node.napi.glibc.node ./build/Release/watcher.node
     jq "del(.scripts) | .gypfile = false" ./package.json | sponge ./package.json
     popd
   '' + ''
-
-    # put ripgrep binary into bin, so postinstall does not try to download it
-    find -name ripgrep -type d \
-      -execdir mkdir -p {}/bin \; \
-      -execdir ln -s ${ripgrep}/bin/rg {}/bin/rg \;
+    # rebuild binaries, we use npm here, as yarn does not provide an alternative
+    # that would not attempt to try to reinstall everything and break our
+    # patching attempts
+    npm rebuild --prefix vendor/modules/code-oss-dev --update-binary
 
     # run postinstall scripts after patching
-    find ./lib/vscode -path "*node_modules" -prune -o \
+    find ./vendor/modules/code-oss-dev -path "*node_modules" -prune -o \
       -path "./*/*/*/*/*" -name "yarn.lock" -printf "%h\n" | \
         xargs -I {} sh -c 'jq -e ".scripts.postinstall" {}/package.json >/dev/null && yarn --cwd {} postinstall --frozen-lockfile --offline || true'
 
@@ -228,7 +233,7 @@ in stdenv.mkDerivation rec {
     ln -s "${cloudAgent}/bin/cloud-agent" $out/libexec/code-server/lib/coder-cloud-agent
 
     # create wrapper
-    makeWrapper "${nodejs-16_x}/bin/node" "$out/bin/code-server" \
+    makeWrapper "${nodejs-14_x}/bin/node" "$out/bin/code-server" \
       --add-flags "$out/libexec/code-server/out/node/entry.js"
   '';
 
@@ -244,9 +249,9 @@ in stdenv.mkDerivation rec {
       code-server is VS Code running on a remote server, accessible through the
       browser.
     '';
-    homepage = "https://github.com/coder/code-server";
+    homepage = "https://github.com/cdr/code-server";
     license = licenses.mit;
-    maintainers = with maintainers; [ offline henkery ];
+    maintainers = with maintainers; [ offline ];
     platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ];
   };
 }

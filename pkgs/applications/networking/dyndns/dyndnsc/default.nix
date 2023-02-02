@@ -22,7 +22,7 @@ python3Packages.buildPythonApplication rec {
     json-logging
     setuptools
   ];
-  nativeCheckInputs = with python3Packages; [ bottle mock pytest-console-scripts pytestCheckHook ];
+  checkInputs = with python3Packages; [ bottle mock pytest-console-scripts pytestCheckHook ];
 
   disabledTests = [
     # dnswanip connects to an external server to discover the

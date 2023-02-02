@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitHub
-, imake, gccmakedep, libX11, libXext, libXScrnSaver, xorgproto
+{ lib, stdenv, fetchFromGitHub, xlibsWrapper
+, imake, gccmakedep, libXScrnSaver, xorgproto
 }:
 
 stdenv.mkDerivation rec {
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ imake gccmakedep ];
-  buildInputs = [ libX11 libXext libXScrnSaver xorgproto ];
+  buildInputs = [ xlibsWrapper libXScrnSaver xorgproto ];
 
   makeFlags = [
     "BINDIR=$(out)/bin"

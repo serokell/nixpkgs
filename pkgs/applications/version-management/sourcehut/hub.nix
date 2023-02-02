@@ -2,7 +2,6 @@
 , fetchFromSourcehut
 , buildPythonPackage
 , srht
-, pyyaml
 }:
 
 buildPythonPackage rec {
@@ -16,9 +15,10 @@ buildPythonPackage rec {
     sha256 = "sha256-4n6oQ+AAvdJY/5KflxAp62chjyrlSUkmt319DKZk33w=";
   };
 
+  nativeBuildInputs = srht.nativeBuildInputs;
+
   propagatedBuildInputs = [
     srht
-    pyyaml
   ];
 
   preBuild = ''

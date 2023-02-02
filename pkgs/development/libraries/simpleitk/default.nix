@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, swig4, lua, itk_5_2 }:
+{ lib, stdenv, fetchFromGitHub, cmake, swig4, lua, itk }:
 
 stdenv.mkDerivation rec {
   pname = "simpleitk";
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake swig4 ];
-  buildInputs = [ lua itk_5_2 ];
+  buildInputs = [ lua itk ];
 
   # 2.0.0: linker error building examples
   cmakeFlags = [ "-DBUILD_EXAMPLES=OFF" "-DBUILD_SHARED_LIBS=ON" ];

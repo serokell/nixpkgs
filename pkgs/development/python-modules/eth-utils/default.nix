@@ -30,7 +30,7 @@ buildPythonPackage rec {
   ++ lib.optional isPyPy toolz;
 
 
-  nativeCheckInputs = [
+  checkInputs = [
     hypothesis
     pytestCheckHook
   ] ++ eth-hash.optional-dependencies.pycryptodome;

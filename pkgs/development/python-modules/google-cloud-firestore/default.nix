@@ -1,43 +1,37 @@
 { lib
-, aiounittest
 , buildPythonPackage
 , fetchPypi
+, aiounittest
 , google-api-core
-, google-cloud-core
 , google-cloud-testutils
+, google-cloud-core
 , mock
 , proto-plus
-, protobuf
-, pytest-asyncio
 , pytestCheckHook
-, pythonOlder
+, pytest-asyncio
 }:
 
 buildPythonPackage rec {
   pname = "google-cloud-firestore";
-  version = "2.9.0";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "2.7.2";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-gEgTYUsaac9dJIxCZJU/axjwiNqttUQiL6UskhzjsJg=";
+    sha256 = "sha256-yGB6dLcRxEuqPYGEbpOI5DInos/1ILWmzeXN+ck/W+g=";
   };
 
   propagatedBuildInputs = [
     google-api-core
     google-cloud-core
     proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     aiounittest
     google-cloud-testutils
     mock
-    pytest-asyncio
     pytestCheckHook
+    pytest-asyncio
   ];
 
   preCheck = ''
@@ -66,7 +60,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Google Cloud Firestore API client library";
     homepage = "https://github.com/googleapis/python-firestore";
-    changelog = "https://github.com/googleapis/python-firestore/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

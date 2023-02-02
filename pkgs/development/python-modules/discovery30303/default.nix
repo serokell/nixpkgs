@@ -26,13 +26,13 @@ buildPythonPackage rec {
     poetry-core
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytestCheckHook
   ];
 
   pytestFlagsArray = [
-    "--asyncio-mode=auto"
+    "--asyncio-mode=legacy"
   ];
 
   postPatch = ''

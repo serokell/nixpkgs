@@ -17,16 +17,15 @@
 , xorg
 , mesa
 , libdrm
-, libappindicator
 }:
 
 stdenv.mkDerivation rec {
   pname = "mailspring";
-  version = "1.10.8";
+  version = "1.10.5";
 
   src = fetchurl {
     url = "https://github.com/Foundry376/Mailspring/releases/download/${version}/mailspring-${version}-amd64.deb";
-    sha256 = "sha256-aXpPn6tpSOwWL/34qlpJ+on/H+X7303J1jwvwcVOTNs=";
+    sha256 = "sha256-eVwb7E04DzGdqfH4T+gkvmBtvN7ja4o8u7LvHk/581I=";
   };
 
   nativeBuildInputs = [
@@ -56,7 +55,6 @@ stdenv.mkDerivation rec {
     coreutils
     openssl
     (lib.getLib udev)
-    libappindicator
   ];
 
   unpackPhase = ''

@@ -46,7 +46,7 @@ python3Packages.buildPythonApplication rec {
     gtk3
   ];
 
-  nativeCheckInputs = with python3Packages; [
+  checkInputs = with python3Packages; [
     glibcLocales
     pytest
     tox

@@ -20,7 +20,7 @@ buildPythonPackage rec {
   # only returns information how to really build
   dontConfigure = true;
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

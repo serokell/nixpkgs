@@ -1,15 +1,13 @@
 { lib
+, awkward
 , buildPythonPackage
 , fetchFromGitHub
-, pythonOlder
-, awkward
-, hatchling
 , importlib-metadata
+, lz4
 , numpy
 , packaging
 , pytestCheckHook
-, lz4
-, pytest-timeout
+, pythonOlder
 , scikit-hep-testdata
 , xxhash
 , zstandard
@@ -17,37 +15,32 @@
 
 buildPythonPackage rec {
   pname = "uproot";
-  version = "5.0.2";
-  format = "pyproject";
+  version = "4.3.6";
+  format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "scikit-hep";
-    repo = "uproot5";
+    repo = "uproot4";
     rev = "refs/tags/v${version}";
-    hash = "sha256-cklLbTO/EooQpq8vavKgloncSlyIX7DW+T9Cauyn6ng=";
+    hash = "sha256-Te4D2tHVD5fD8DH2njjQMGnTUvLQdcGBzApklnGn6g8=";
   };
-
-  nativeBuildInputs = [
-    hatchling
-  ];
 
   propagatedBuildInputs = [
     awkward
     numpy
+    lz4
     packaging
+    xxhash
+    zstandard
   ]  ++ lib.optionals (pythonOlder "3.8") [
     importlib-metadata
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
-    lz4
-    pytest-timeout
     scikit-hep-testdata
-    xxhash
-    zstandard
   ];
 
   preCheck = ''

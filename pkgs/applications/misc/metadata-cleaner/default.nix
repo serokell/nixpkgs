@@ -18,23 +18,22 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "metadata-cleaner";
-  version = "2.3.1";
+  version = "2.2.3";
 
   format = "other";
 
   src = fetchFromGitLab {
     owner = "rmnvgr";
-    repo = pname;
+    repo = "metadata-cleaner";
     rev = "v${version}";
-    hash = "sha256-nH2BsfXFwBdu7/YH2OuG90HxYgiuqKJqMC4p0PRlgPw=";
+    hash = "sha256-ykJd1ZjAqT8OtJsZiSjbDdkN5fFlQcWtTO88x3zAfU8=";
   };
 
   nativeBuildInputs = [
     appstream
     desktop-file-utils
-    glib # glib-compile-resources
-    gtk4 # gtk4-update-icon-cache
-    gobject-introspection
+    glib
+    gtk4
     itstool
     meson
     ninja
@@ -43,7 +42,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   buildInputs = [
-    glib
+    gobject-introspection
     gtk4
     libadwaita
     librsvg

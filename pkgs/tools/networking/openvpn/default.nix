@@ -7,7 +7,7 @@
 , openssl
 , openssl_1_1
 , pam
-, useSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
+, useSystemd ? stdenv.isLinux
 , systemd
 , update-systemd-resolved
 , util-linux
@@ -81,8 +81,8 @@ in
   };
 
   openvpn = generic {
-    version = "2.5.8";
-    sha256 = "1cixqm4gn2d1v8qkbww75j30fzvxz13gc7whcmz54i0x4fvibwx6";
+    version = "2.5.6";
+    sha256 = "0gdd88rcan9vfiwkzsqn6fxxdim7kb1bsxrcra59c5xksprpwfik";
     extraBuildInputs = [ openssl ];
   };
 }

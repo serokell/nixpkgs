@@ -5,21 +5,18 @@
 , msrestazure
 , azure-common
 , azure-mgmt-core
-, pythonOlder
-, typing-extensions
+, azure-mgmt-nspkg
+, isPy3k
 }:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-recoveryservices";
-  version = "2.2.0";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "2.1.0";
 
   src = fetchPypi {
     inherit pname version;
     extension = "zip";
-    hash = "sha256-2rU5Mc5tcSHEaej4LeiJ/WwWjk3fZFdd7MIwqmHgRss=";
+    sha256 = "sha256-2DeOemVpkjeI/hUdG04IuHU2h3cmk3oG4kr1wIDvdbM=";
   };
 
   propagatedBuildInputs = [
@@ -27,16 +24,13 @@ buildPythonPackage rec {
     azure-mgmt-core
     msrest
     msrestazure
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
+  ] ++ lib.optionals (!isPy3k) [
+    azure-mgmt-nspkg
   ];
 
-  # Module has no tests
+  # has no tests
   doCheck = false;
-
-  pythonImportsCheck = [
-    "azure.mgmt.recoveryservices"
-  ];
+  pythonImportsCheck = [ "azure.mgmt.recoveryservices" ];
 
   meta = with lib; {
     description = "This is the Microsoft Azure Recovery Services Client Library";

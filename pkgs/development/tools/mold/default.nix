@@ -12,38 +12,27 @@
 
 stdenv.mkDerivation rec {
   pname = "mold";
-  version = "1.9.0";
+  version = "1.5.1";
 
   src = fetchFromGitHub {
     owner = "rui314";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-i4+MOEZWt+Qb05HgXcGR0uDuMoOAyMhVeLPQwnGiEw8=";
+    rev = "v${version}";
+    hash = "sha256-s57mXWZsj7S5O91I3tc/ecHJDbQR7amiyTxhYt7jzUM=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ];
+  nativeBuildInputs = [ cmake ninja ];
 
-  buildInputs = [
-    openssl
-    zlib
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    mimalloc
-  ];
+  buildInputs = [ openssl zlib ]
+    ++ lib.optionals (!stdenv.isDarwin) [ mimalloc ];
 
   postPatch = ''
     sed -i CMakeLists.txt -e '/.*set(DEST\ .*/d'
   '';
 
-  cmakeFlags = [
-    "-DMOLD_USE_SYSTEM_MIMALLOC:BOOL=ON"
-  ];
+  cmakeFlags = [ "-DMOLD_USE_SYSTEM_MIMALLOC:BOOL=ON" ];
 
-  NIX_CFLAGS_COMPILE = lib.optionals stdenv.isDarwin [
-    "-faligned-allocation"
-  ];
+  NIX_CFLAGS_COMPILE = lib.optionals stdenv.isDarwin [ "-faligned-allocation" ];
 
   passthru.tests.version = testers.testVersion { package = mold; };
 
@@ -56,9 +45,10 @@ stdenv.mkDerivation rec {
       rapid debug-edit-rebuild cycles.
     '';
     homepage = "https://github.com/rui314/mold";
-    changelog = "https://github.com/rui314/mold/releases/tag/v${version}";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ azahi nitsky ];
     platforms = platforms.unix;
+    # https://github.com/NixOS/nixpkgs/pull/189712#issuecomment-1237791234
+    broken = (stdenv.isLinux && stdenv.isAarch64);
   };
 }

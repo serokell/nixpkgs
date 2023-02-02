@@ -12,7 +12,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ coloredlogs humanfriendly verboselogs ];
-  nativeCheckInputs = [ pytest pytest-cov ];
+  checkInputs = [ pytest pytest-cov ];
 
   meta = with lib; {
     description = "Useful property variants for Python programming";

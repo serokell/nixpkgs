@@ -2,13 +2,14 @@
 , ssreflect
 , deriving
 }:
+with lib;
 
 (mkCoqDerivation {
   pname = "extructures";
   owner = "arthuraa";
 
   inherit version;
-  defaultVersion = with lib.versions; lib.switch [coq.coq-version ssreflect.version] [
+  defaultVersion = with versions; switch [coq.coq-version ssreflect.version] [
     { cases = [(range "8.11" "8.16") (isGe "1.12.0") ]; out = "0.3.1"; }
     { cases = [(range "8.11" "8.14") (isLe "1.12.0") ]; out = "0.3.0"; }
     { cases = [(range "8.10" "8.12") (isLe "1.12.0") ]; out = "0.2.2"; }
@@ -22,7 +23,7 @@
 
   propagatedBuildInputs = [ ssreflect ];
 
-  meta = with lib; {
+  meta = {
     description = "Finite data structures with extensional reasoning";
     license = licenses.mit;
     maintainers = [ maintainers.vbgl ];
@@ -30,5 +31,5 @@
 
 }).overrideAttrs (o: {
   propagatedBuildInputs = o.propagatedBuildInputs
-  ++ lib.optional (lib.versionAtLeast o.version "0.3.0") deriving;
+  ++ optional (versionAtLeast o.version "0.3.0") deriving;
 })

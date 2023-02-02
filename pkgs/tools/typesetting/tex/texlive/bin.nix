@@ -14,17 +14,26 @@
 let
   withSystemLibs = map (libname: "--with-system-${libname}");
 
-  year = "2022";
+  year = "2021";
   version = year; # keep names simple for now
 
   common = {
     src = fetchurl {
       urls = [
-        "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${year}/texlive-${year}0321-source.tar.xz"
-              "ftp://tug.ctan.org/pub/tex/historic/systems/texlive/${year}/texlive-${year}0321-source.tar.xz"
+        "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${year}/texlive-${year}0325-source.tar.xz"
+              "ftp://tug.ctan.org/pub/tex/historic/systems/texlive/${year}/texlive-${year}0325-source.tar.xz"
       ];
-      hash = "sha256-X/o0heUessRJBJZFD8abnXvXy55TNX2S20vNT9YXm1Y=";
+      sha256 = "0jsq1p66l46k2qq0gbqmx25flj2nprsz4wrd1ybn286p11kdkvvs";
     };
+    patches = [
+      # Pull upstream fix for -fno-common toolchains.
+      (fetchpatch {
+        name = "fno-common.patch";
+        url = "https://github.com/TeX-Live/texlive-source/commit/7748582aeda70ffa02105f6e3e2fc2476e76aac6.patch";
+        sha256 = "1y59cwa41kbg0i071g488jhi9qg0h8l7hqd69brhx2yj95za8c40";
+        excludes = [ "texk/xdvik/ChangeLog" ];
+      })
+    ];
 
     prePatch = ''
       for i in texk/kpathsea/mktex*; do
@@ -53,8 +62,7 @@ let
     '';
   };
 
-  # RISC-V: https://github.com/LuaJIT/LuaJIT/issues/628
-  withLuaJIT = !(stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit) && !stdenv.hostPlatform.isRiscV;
+  withLuaJIT = !(stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit);
 in rec { # un-indented
 
 inherit (common) cleanBrokenLinks;
@@ -170,18 +178,6 @@ core-big = stdenv.mkDerivation { #TODO: upmendex
 
   inherit (common) src prePatch;
 
-  patches = [
-    # improves reproducibility of fmt files. This patch has been proposed upstream,
-    # but they are considering some other approaches as well. This is fairly
-    # conservative so we can safely apply it until they make a decision
-    # https://mailman.ntg.nl/pipermail/dev-luatex/2022-April/006650.html
-    (fetchpatch {
-      name = "reproducible_exception_strings.patch";
-      url = "https://bugs.debian.org/cgi-bin/bugreport.cgi?att=1;bug=1009196;filename=reproducible_exception_strings.patch;msg=5";
-      sha256 = "sha256-RNZoEeTcWnrLaltcYrhNIORh42fFdwMzBfxMRWVurbk=";
-    })
-  ];
-
   hardeningDisable = [ "format" ];
 
   inherit (core) nativeBuildInputs;
@@ -212,8 +208,8 @@ core-big = stdenv.mkDerivation { #TODO: upmendex
         mkdir -p "$path" && cd "$path"
         "../../../$path/configure" $configureFlags $extraConfig
 
-        if [[ "$path" =~ "libs/luajit" ]] || [[ "$path" =~ "libs/pplib" ]]; then
-          # ../../../texk/web2c/mfluadir/luapeg/lpeg.h:29:10: fatal error: 'lua.h' file not found
+        if [[ "$path" =~ "libs/pplib" ]]; then
+          # TODO: revert for texlive 2022
           # ../../../texk/web2c/luatexdir/luamd5/md5lib.c:197:10: fatal error: 'utilsha.h' file not found
           make ''${enableParallelBuilding:+-j''${NIX_BUILD_CORES}}
         fi
@@ -239,7 +235,7 @@ core-big = stdenv.mkDerivation { #TODO: upmendex
     "xetex"
   ];
   postInstall = ''
-    for output in $(getAllOutputNames); do
+    for output in $outputs; do
       mkdir -p "''${!output}/bin"
     done
 
@@ -429,7 +425,7 @@ xdvi = stdenv.mkDerivation {
   pname = "texlive-xdvi.bin";
   inherit version;
 
-  inherit (common) src;
+  inherit (common) src patches;
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ core/*kpathsea*/ freetype ghostscript ]

@@ -25,6 +25,14 @@ buildPythonPackage rec {
     sha256 = "sha256-4IPBulzRoAAplyM/1MPE40IW4IXBIGYLydzpY64Gl0c=";
   };
 
+  postPatch = ''
+    # https://github.com/alandtse/auth_capture_proxy/issues/14
+    # https://github.com/alandtse/auth_capture_proxy/issues/15
+    substituteInPlace pyproject.toml \
+       --replace "poetry.masonry.api" "poetry.core.masonry.api" \
+       --replace 'importlib-metadata = "^3.4.0"' 'importlib-metadata = "*"'
+  '';
+
   nativeBuildInputs = [
     poetry-core
   ];
@@ -39,7 +47,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytestCheckHook
   ];

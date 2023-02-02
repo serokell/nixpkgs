@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ gevent ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     hostname
     pytest
   ];

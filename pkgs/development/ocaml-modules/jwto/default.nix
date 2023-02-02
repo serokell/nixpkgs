@@ -1,28 +1,28 @@
-{ lib, buildDunePackage, fetchFromGitHub, alcotest, digestif, fmt, yojson
+{ lib, buildDunePackage, fetchFromGitHub, alcotest, cryptokit, fmt, yojson
 , ppxlib
 , base64, re, ppx_deriving }:
 
 buildDunePackage rec {
   pname = "jwto";
-  version = "0.4.0";
+  version = "0.3.0";
 
-  duneVersion = "3";
+  useDune2 = true;
 
-  minimalOCamlVersion = "4.08";
+  minimumOCamlVersion = "4.05";
 
   src = fetchFromGitHub {
     owner = "sporto";
     repo = "jwto";
     rev = version;
-    hash = "sha256-TOWwNyrOqboCm8Y4mM6GgtmxGO3NmyDdAX7m8CifA7Y=";
+    sha256 = "1p799zk8j9c0002xzi2x7ndj1bzqf14744ampcqndrjnsi7mq71s";
   };
 
   buildInputs = [ ppxlib ];
 
   propagatedBuildInputs =
-    [ digestif fmt yojson base64 re ppx_deriving ];
+    [ cryptokit fmt yojson base64 re ppx_deriving ];
 
-  nativeCheckInputs = [ alcotest ];
+  checkInputs = [ alcotest ];
 
   doCheck = true;
 

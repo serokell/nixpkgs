@@ -4,25 +4,22 @@
 , aiohttp
 , dask
 , distributed
-, setuptools
 }:
 
 buildPythonPackage rec {
   pname = "dask-gateway";
   # update dask-gateway lock step with dask-gateway-server
-  version = "2023.1.1";
+  version = "2022.6.1";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "dask";
     repo = "dask-gateway";
     rev = "refs/tags/${version}";
-    hash = "sha256-+YCHIfNq8E2rXO8b91Q1D21dVzNWnJZIKZeY4AETa7s=";
+    hash = "sha256-PsagZdEPpeuZH9hFL98xB5z6zOdd4Cx/skGQ0eOYkCA=";
   };
 
   sourceRoot = "source/dask-gateway";
-
-  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     aiohttp

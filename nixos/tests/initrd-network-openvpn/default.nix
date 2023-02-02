@@ -91,7 +91,6 @@ import ../make-test-python.nix ({ lib, ...}:
             config = ''
               dev tun0
               ifconfig 10.8.0.1 10.8.0.2
-              cipher AES-256-CBC
               ${secretblock}
             '';
           };

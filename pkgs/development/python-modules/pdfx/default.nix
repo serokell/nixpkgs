@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pdfminer-six chardet ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     inherit (src.meta) homepage;

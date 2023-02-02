@@ -1,22 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, cmake, flex, bison, systemd, postgresql, openssl, libyaml }:
+{ lib, stdenv, fetchFromGitHub, cmake, flex, bison, systemd, openssl, libyaml }:
 
 stdenv.mkDerivation rec {
   pname = "fluent-bit";
-  version = "2.0.8";
+  version = "1.9.9";
 
   src = fetchFromGitHub {
     owner = "fluent";
     repo = "fluent-bit";
     rev = "v${version}";
-    sha256 = "sha256-kgjLjGloudigDTP6K4W8Tv42uK/dHyH1W2aI9+uh/ws=";
+    sha256 = "sha256-6+4DOi61WwUstIkHzUU4eBsfeqEUxJY54RccvpXjlJY=";
   };
 
   nativeBuildInputs = [ cmake flex bison ];
 
-  buildInputs = [ openssl libyaml postgresql ]
+  buildInputs = [ openssl libyaml ]
     ++ lib.optionals stdenv.isLinux [ systemd ];
 
-  cmakeFlags = [ "-DFLB_METRICS=ON" "-DFLB_HTTP_SERVER=ON" "-DFLB_OUT_PGSQL=ON"  ];
+  cmakeFlags = [ "-DFLB_METRICS=ON" "-DFLB_HTTP_SERVER=ON" ];
 
   # _FORTIFY_SOURCE requires compiling with optimization (-O)
   NIX_CFLAGS_COMPILE = lib.optionals stdenv.cc.isGNU [ "-O" ]
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "https://fluentbit.io";
     maintainers = with maintainers; [ samrose fpletz ];
     license = licenses.asl20;
-    platforms = platforms.linux;
+    platforms = platforms.unix;
   };
 }

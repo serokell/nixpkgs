@@ -78,7 +78,7 @@ in
           };
 
           port = mkOption {
-            type = types.port;
+            type = types.int;
             default = 0;
             example = 123;
             description = lib.mdDoc "Port number of the service.";

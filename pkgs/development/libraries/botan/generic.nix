@@ -46,8 +46,6 @@ stdenv.mkDerivation rec {
     ln -s botan-*.pc botan.pc || true
   '';
 
-  doCheck = true;
-
   meta = with lib; {
     description = "Cryptographic algorithms library";
     maintainers = with maintainers; [ raskin ];

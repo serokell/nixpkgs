@@ -101,10 +101,10 @@ buildPythonApplication rec {
     setuptools
   ]
   ++ lib.optional plotsSupport matplotlib
-  ++ lib.optionals stdenv.isDarwin [ CoreAudio ]
+  ++ lib.optional stdenv.isDarwin [ CoreAudio ]
   ;
 
-  nativeCheckInputs = [ pytest glibcLocales nose ];
+  checkInputs = [ pytest glibcLocales nose ];
 
   nativeBuildInputs = [ pyqtwebengine.wrapQtAppsHook ];
   buildInputs = [ lame mpv-unwrapped libpulseaudio ];

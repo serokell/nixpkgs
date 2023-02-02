@@ -33,7 +33,7 @@ buildPythonPackage rec {
     django
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nodejs
     js2py
     six

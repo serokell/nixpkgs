@@ -2,18 +2,23 @@
 
 stdenv.mkDerivation rec {
   pname = "cdk";
-  version = "5.0-20221025";
+  version ="5.0-20210109";
+
+  buildInputs = [
+    ncurses
+  ];
 
   src = fetchurl {
     urls = [
       "ftp://ftp.invisible-island.net/cdk/cdk-${version}.tgz"
       "https://invisible-mirror.net/archives/cdk/cdk-${version}.tgz"
     ];
-    hash = "sha256-A8z6Icn8PWHd0P2hnaVFNZBVu+71ociC37n/SPN0avI=";
+    sha256 = "sha256-xBbJh793tPGycD18XkM7qUWMi+Uma/RUy/gBrYfnKTY=";
   };
 
-  buildInputs = [
-    ncurses
+  patches = [
+    # Proposed upstream as https://lists.gnu.org/archive/html/bug-ncurses/2021-12/msg00004.html
+    ./parallel.patch
   ];
 
   enableParallelBuilding = true;
@@ -21,9 +26,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Curses development kit";
     homepage = "https://invisible-island.net/cdk/";
-    changelog = "https://invisible-island.net/cdk/CHANGES";
-    license = licenses.mit;
-    maintainers = with maintainers; [ raskin ];
+    license = licenses.bsdOriginal ;
+    maintainers = [ maintainers.raskin ];
     platforms = platforms.linux;
   };
 }

@@ -6,14 +6,14 @@
 
 buildPythonPackage rec {
   pname = "mailchecker";
-  version = "5.0.6";
+  version = "5.0.1";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-g70FjY0tc4KjgdVweuBBkFrByt8xlGPJEPz/OvTtjZk=";
+    hash = "sha256-fJoV/mNImdcTpJC6c2zmYWZCXlBWLOP+5W5Hsmw2yOQ=";
   };
 
   # Module has no tests
@@ -26,7 +26,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module for temporary (disposable/throwaway) email detection";
     homepage = "https://github.com/FGRibreau/mailchecker";
-    changelog = "https://github.com/FGRibreau/mailchecker/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

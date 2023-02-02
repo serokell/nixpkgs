@@ -10,14 +10,14 @@
 
 buildPythonPackage rec {
   pname = "databricks-sql-connector";
-  version = "2.2.1";
+  version = "2.0.5";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "databricks";
     repo = "databricks-sql-python";
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-EMLUXGeVGIXFeaMvaJ+crivRZtOt7W/LCycIO2gwqXA=";
+    rev = "v${version}";
+    sha256 = "sha256-Qpdyn6z1mbO4bzyUZ2eYdd9pfIkIP/Aj4YgNXaYwxpE=";
   };
 
   postPatch = ''
@@ -35,7 +35,7 @@ buildPythonPackage rec {
     pyarrow
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

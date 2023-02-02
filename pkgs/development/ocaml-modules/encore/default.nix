@@ -15,7 +15,7 @@ buildDunePackage rec {
   useDune2 = true;
 
   propagatedBuildInputs = [ angstrom fmt bigstringaf ];
-  nativeCheckInputs = [ alcotest ];
+  checkInputs = [ alcotest ];
   doCheck = true;
 
   meta = {

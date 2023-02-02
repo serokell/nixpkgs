@@ -15,23 +15,19 @@
 , scdoc
 , wayland
 , wayland-protocols
-, wlroots_0_16
-, xcbutilwm
+, wlroots
 , xwayland
 }:
 
-let
-  wlroots = wlroots_0_16;
-in
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation rec {
   pname = "labwc";
-  version = "0.6.0";
+  version = "0.5.3";
 
   src = fetchFromGitHub {
     owner = "labwc";
-    repo = "labwc";
-    rev = finalAttrs.version;
-    hash = "sha256-P1hKYTW++dpV3kdmI5nBGun080gVTrKzi2WOJKR84j4=";
+    repo = pname;
+    rev = version;
+    hash = "sha256-YD2bGxa7uss6KRvOGM0kn8dM+277ubaYeOB7ugRZCcY=";
   };
 
   nativeBuildInputs = [
@@ -53,13 +49,10 @@ stdenv.mkDerivation (finalAttrs: {
     wayland
     wayland-protocols
     wlroots
-    xcbutilwm
     xwayland
   ];
 
-  mesonFlags = [
-    (lib.mesonEnable "xwayland" true)
-  ];
+  mesonFlags = [ "-Dxwayland=enabled" ];
 
   meta = with lib; {
     homepage = "https://github.com/labwc/labwc";
@@ -68,4 +61,4 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = with maintainers; [ AndersonTorres ];
     inherit (wayland.meta) platforms;
   };
-})
+}

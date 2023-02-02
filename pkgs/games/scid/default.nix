@@ -53,7 +53,7 @@ tcl.mkTclDerivation {
   meta = {
     description = "Chess database with play and training functionality";
     maintainers = with lib.maintainers; [ agbrooks ];
-    homepage = "https://scid.sourceforge.net/";
+    homepage = "http://scid.sourceforge.net/";
     license = lib.licenses.gpl2;
   };
 }

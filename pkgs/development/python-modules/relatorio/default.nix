@@ -32,7 +32,7 @@ buildPythonPackage rec {
     fodt = [ python-magic ];
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ] ++ passthru.optional-dependencies.fodt;
 

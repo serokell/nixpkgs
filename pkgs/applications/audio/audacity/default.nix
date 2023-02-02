@@ -4,7 +4,6 @@
 , fetchpatch
 , cmake
 , makeWrapper
-, wrapGAppsHook
 , pkg-config
 , python3
 , gettext
@@ -53,21 +52,30 @@
 , libpng
 , libjpeg
 , AppKit
+, AudioToolbox
+, AudioUnit
+, Carbon
+, CoreAudio
 , CoreAudioKit
+, CoreServices
 }:
 
 # TODO
 # 1. detach sbsms
 
-stdenv.mkDerivation rec {
+let
+  inherit (lib) optionals;
   pname = "audacity";
-  version = "3.2.3";
+  version = "3.2.1";
+in
+stdenv.mkDerivation rec {
+  inherit pname version;
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = "Audacity-${version}";
-    sha256 = "sha256-0F9+4hyUoKb0UP5t02yws/ErogscvI1nsdnSTpcr53E=";
+    sha256 = "sha256-7rfttp9LnfM2LBT5seupPyDckS7LEzWDZoqtLsGgqgI=";
   };
 
   postPatch = ''
@@ -83,8 +91,7 @@ stdenv.mkDerivation rec {
     pkg-config
     python3
     makeWrapper
-    wrapGAppsHook
-  ] ++ lib.optionals stdenv.isLinux [
+  ] ++ optionals stdenv.isLinux [
     linuxHeaders
   ];
 
@@ -93,9 +100,6 @@ stdenv.mkDerivation rec {
     ffmpeg_4
     file
     flac
-  ] ++ lib.optionals stdenv.isDarwin [
-    AppKit
-  ] ++ [
     gtk3
     lame
     libid3tag
@@ -121,7 +125,7 @@ stdenv.mkDerivation rec {
     portaudio
     wavpack
     wxGTK32
-  ] ++ lib.optionals stdenv.isLinux [
+  ] ++ optionals stdenv.isLinux [
     alsa-lib # for portaudio
     at-spi2-core
     dbus
@@ -134,14 +138,15 @@ stdenv.mkDerivation rec {
     libsepol
     libuuid
     util-linux
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreAudioKit # for portaudio
+  ] ++ optionals stdenv.isDarwin [
+    AppKit
+    CoreAudioKit
+    AudioUnit AudioToolbox CoreAudio CoreServices Carbon # for portaudio
     libpng
     libjpeg
   ];
 
   cmakeFlags = [
-    "-DAUDACITY_BUILD_LEVEL=2"
     "-DAUDACITY_REV_LONG=nixpkgs"
     "-DAUDACITY_REV_TIME=nixpkgs"
     "-DDISABLE_DYNAMIC_LOADING_FFMPEG=ON"
@@ -191,5 +196,7 @@ stdenv.mkDerivation rec {
     ];
     maintainers = with maintainers; [ lheckemann veprbl wegank ];
     platforms = platforms.unix;
+    # error: unknown type name 'NSAppearanceName'
+    broken = stdenv.isDarwin && stdenv.isx86_64;
   };
 }

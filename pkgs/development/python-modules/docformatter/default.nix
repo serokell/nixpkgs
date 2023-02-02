@@ -26,7 +26,7 @@ buildPythonPackage rec {
     untokenize
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     pytestCheckHook
   ];

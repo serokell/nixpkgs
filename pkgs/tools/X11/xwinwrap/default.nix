@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchbzr, xorg }:
+{ lib, stdenv, fetchbzr, xlibsWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "xwinwrap";
@@ -11,9 +11,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    xorg.libX11
-    xorg.libXext
-    xorg.libXrender
+    xlibsWrapper
   ];
 
   buildPhase = if stdenv.hostPlatform.system == "x86_64-linux" then ''

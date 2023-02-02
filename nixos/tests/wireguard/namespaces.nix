@@ -1,3 +1,5 @@
+{ kernelPackages ? null }:
+
 let
   listenPort = 12345;
   socketNamespace = "foo";
@@ -13,7 +15,7 @@ let
 
 in
 
-import ../make-test-python.nix ({ pkgs, lib, kernelPackages ? null, ... } : {
+import ../make-test-python.nix ({ pkgs, lib, ... } : {
   name = "wireguard-with-namespaces";
   meta = with pkgs.lib.maintainers; {
     maintainers = [ asymmetric ];

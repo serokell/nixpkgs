@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A sed-like editor for binary files";
-    homepage = "https://bbe-.sourceforge.net/";
+    homepage = "http://bbe-.sourceforge.net/";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
     maintainers = [ maintainers.hhm ];

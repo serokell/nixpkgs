@@ -6,19 +6,19 @@
 }:
 buildGoModule rec {
   pname = "garble";
-  version = "0.8.0";
+  version = "0.7.2";
 
   src = fetchFromGitHub {
     owner = "burrowers";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-f7coWG1CS4UL8GGqwADx5CvIk2sPONPlWW+JgRhFsb8=";
+    sha256 = "sha256-T6iUhfBcHlz9oUuovwU4ljHh4y6PRd3sRhwG6RwuspM=";
   };
 
-  vendorSha256 = "sha256-SOdIlu0QrQokl9j9Ff594+1K6twU1mCuECFQaVKaPV4=";
+  vendorSha256 = "sha256-lGU9jbeOM8tSYZGIqQhH5I2RlBGnqrA6JUQpuHrLwKU=";
 
   # Used for some of the tests.
-  nativeCheckInputs = [git];
+  checkInputs = [git];
 
   preBuild = lib.optionalString (!stdenv.isx86_64) ''
     # The test assumex amd64 assembly

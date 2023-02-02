@@ -41,13 +41,13 @@
 
 stdenv.mkDerivation rec {
   pname = "gnome-builder";
-  version = "43.4";
+  version = "43.2";
 
   outputs = [ "out" "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
-    sha256 = "Hg1tZ4RcGb7J463VlpX5pTHXKg5UKyA6zJD7OBInwrw=";
+    sha256 = "dzIhF6ERsnR7zOitYFeKZ5wgIeSGkRz29OY0FjKKuzM=";
   };
 
   patches = [
@@ -66,7 +66,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     desktop-file-utils
-    gi-docgen
+    (gi-docgen.overrideAttrs (attrs: {
+      patches = attrs.patches ++ [
+        (fetchpatch {
+          url = "https://gitlab.gnome.org/GNOME/gi-docgen/-/commit/f4ff4787cce962b705fb2588b31f2988c5063c13.patch";
+          sha256 = "11VGFFb2PLVxnX/qUQdLPLfhGQWx4sf4apBP7R2JWjA=";
+        })
+      ];
+    }))
     gobject-introspection
     meson
     ninja
@@ -104,7 +111,7 @@ stdenv.mkDerivation rec {
     webkitgtk_5_0
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     dbus
     xvfb-run
   ];
@@ -129,9 +136,9 @@ stdenv.mkDerivation rec {
   '';
 
   checkPhase = ''
-    GTK_A11Y=none \
+    export NO_AT_BRIDGE=1
     xvfb-run -s '-screen 0 800x600x24' dbus-run-session \
-      --config-file=${dbus}/share/dbus-1/session.conf \
+      --config-file=${dbus.daemon}/share/dbus-1/session.conf \
       meson test --print-errorlogs
   '';
 

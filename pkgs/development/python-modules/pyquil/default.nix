@@ -54,7 +54,7 @@ buildPythonPackage rec {
     importlib-metadata
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytest-freezegun
     pytest-httpx

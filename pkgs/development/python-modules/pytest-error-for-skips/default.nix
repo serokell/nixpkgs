@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "pytest_error_for_skips" ];
 

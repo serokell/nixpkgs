@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "sha256-9/8aM/G/EdapCZJlx0ZPzNbmw2uYjA1zGbNWJAWoeCU=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Load, configure, and compose WSGI applications and servers";

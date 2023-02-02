@@ -38,7 +38,7 @@ buildPythonPackage rec {
     djangorestframework
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-django
     datadiff

@@ -37,7 +37,7 @@ buildPythonPackage rec {
     semver
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     responses
   ];

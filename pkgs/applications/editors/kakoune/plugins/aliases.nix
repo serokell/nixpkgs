@@ -1,8 +1,8 @@
 # Deprecated aliases - for backward compatibility
 
-lib: overridden:
+lib: overriden:
 
-with overridden;
+with overriden;
 
 let
   # Removing recurseForDerivation prevents derivations of aliased attribute
@@ -21,7 +21,7 @@ let
 
   # Make sure that we are not shadowing something from
   # all-packages.nix.
-  checkInPkgs = n: alias: if builtins.hasAttr n overridden
+  checkInPkgs = n: alias: if builtins.hasAttr n overriden
                           then throw "Alias ${n} is still in kakounePlugins"
                           else alias;
 

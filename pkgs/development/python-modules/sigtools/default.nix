@@ -1,25 +1,24 @@
 { lib
-, attrs
 , buildPythonPackage
 , fetchPypi
-, mock
-, pythonOlder
-, repeated-test
-, setuptools-scm
 , sphinx
-, unittestCheckHook
+, mock
+, coverage
+, unittest2
+, attrs
+, funcsigs
+, six
+, setuptools-scm
 }:
 
 buildPythonPackage rec {
   pname = "sigtools";
-  version = "4.0.1";
+  version = "4.0.0";
   format = "pyproject";
-
-  disabled = pythonOlder "3.4";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-S44TWpzU0uoA2mcMCTNy105nK6OruH9MmNjnPepURFw=";
+    sha256 = "sha256-fMhKC6VuNLfxXkM3RCaPEODEp21r/s6JzswaHKkROLY=";
   };
 
   nativeBuildInputs = [
@@ -30,21 +29,17 @@ buildPythonPackage rec {
     attrs
   ];
 
-  nativeCheckInputs = [
-    mock
-    repeated-test
-    sphinx
-    unittestCheckHook
-  ];
+  patchPhase = ''sed -i s/test_suite="'"sigtools.tests"'"/test_suite="'"unittest2.collector"'"/ setup.py'';
 
-  pythonImportsCheck = [
-    "sigtools"
-  ];
+  # repeated_test no longer exists in nixpkgs
+  # Also see: https://github.com/epsy/sigtools/issues/26
+  doCheck = false;
+  checkInputs = [ sphinx mock coverage unittest2 ];
 
   meta = with lib; {
-    description = "Utilities for working with inspect.Signature objects";
-    homepage = "https://sigtools.readthedocs.io/";
+    description = "Utilities for working with 3.3's inspect.Signature objects.";
+    homepage = "https://pypi.python.org/pypi/sigtools";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
   };
+
 }

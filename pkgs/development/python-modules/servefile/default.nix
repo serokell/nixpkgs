@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyopenssl ];
 
-  nativeCheckInputs = [ pytestCheckHook requests ];
+  checkInputs = [ pytestCheckHook requests ];
   # Test attempts to connect to a port on localhost which fails in nix build
   # environment.
   disabledTests = [

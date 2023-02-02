@@ -28,7 +28,7 @@ buildPythonPackage rec {
     python-magic
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

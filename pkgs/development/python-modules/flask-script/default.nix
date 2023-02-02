@@ -10,7 +10,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ flask ];
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
 
   # No tests in archive
   doCheck = false;

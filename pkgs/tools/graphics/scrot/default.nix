@@ -2,10 +2,9 @@
 , stdenv
 , fetchFromGitHub
 , imlib2
+, xlibsWrapper
 , autoreconfHook
 , autoconf-archive
-, libX11
-, libXext
 , libXfixes
 , libXcomposite
 , pkg-config
@@ -31,8 +30,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     imlib2
-    libX11
-    libXext
+    xlibsWrapper
     libXfixes
     libXcomposite
     libbsd

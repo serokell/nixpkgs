@@ -15,14 +15,14 @@
 
 buildPythonPackage rec {
   pname = "coincurve";
-  version = "18.0.0";
+  version = "17.0.0";
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "ofek";
     repo = "coincurve";
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-Z5g6ten8wNICoFu7+aZc6r8ET+RDmFeb93ONjsTzcbw=";
+    rev = "v${version}";
+    sha256 = "sha256-7H4/TDxteuMTrj1PdfpA5rc7CegJAOjqn1PteImfGiQ=";
   };
 
   postPatch = ''
@@ -55,7 +55,7 @@ buildPythonPackage rec {
     rm tests/test_bench.py
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

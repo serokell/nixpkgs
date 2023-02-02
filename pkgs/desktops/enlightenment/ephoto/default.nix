@@ -5,7 +5,6 @@
 , ninja
 , pkg-config
 , efl
-, directoryListingUpdater
 }:
 
 stdenv.mkDerivation rec {
@@ -26,8 +25,6 @@ stdenv.mkDerivation rec {
   buildInputs = [
     efl
   ];
-
-  passthru.updateScript = directoryListingUpdater { };
 
   meta = with lib; {
     description = "Image viewer and editor written using the Enlightenment Foundation Libraries";

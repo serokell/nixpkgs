@@ -25,10 +25,6 @@ stdenv.mkDerivation rec {
     bc
   ];
 
-  patches = [
-    ./fix-install-path.patch
-  ];
-
   dontConfigure = true;
 
   # emulating build_all.sh configuration variables

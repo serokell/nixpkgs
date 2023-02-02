@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ sortedcontainers ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-cov
     pytestCheckHook
   ];

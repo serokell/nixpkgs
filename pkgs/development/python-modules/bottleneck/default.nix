@@ -9,7 +9,7 @@
 
 buildPythonPackage rec {
   pname = "bottleneck";
-  version = "1.3.6";
+  version = "1.3.5";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -17,14 +17,14 @@ buildPythonPackage rec {
   src = fetchPypi {
     pname = "Bottleneck";
     inherit version;
-    hash = "sha256-vBXiVF1CgtbyUpWX3xvW5MXwxEKWs/hCW8g1MFvZQ8k=";
+    hash = "sha256-LA0nr+RTUfb0IYkzYmIYBPp96hT+KaeOqlLUMj9kbec=";
   };
 
   propagatedBuildInputs = [
     numpy
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

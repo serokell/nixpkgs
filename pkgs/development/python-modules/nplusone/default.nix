@@ -31,7 +31,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     flake8
     flask-sqlalchemy
     mock

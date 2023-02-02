@@ -3,9 +3,7 @@
 , gjs
 , gnome
 , gobject-introspection
-, gsound
 , hddtemp
-, libgda
 , liquidctl
 , lm_sensors
 , netcat-gnu
@@ -79,15 +77,6 @@ super: lib.trivial.pipe super [
         substituteInPlace $file --replace "gjs" "${gjs}/bin/gjs"
       done
     '';
-  }))
-
-  (patchExtension "pano@elhan.io" (old: {
-    patches = [
-      (substituteAll {
-        src = ./extensionOverridesPatches/pano_at_elhan.io.patch;
-        inherit gsound libgda;
-      })
-    ];
   }))
 
   (patchExtension "screen-autorotate@kosmospredanie.yandex.ru" (old: {

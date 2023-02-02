@@ -1,39 +1,22 @@
-{ lib, stdenv, fetchurl, jdk17_headless, jdk11_headless, makeWrapper, bash, coreutils, gnugrep, gnused, ps,
+{ lib, stdenv, fetchurl, jdk8_headless, jdk11_headless, makeWrapper, bash, coreutils, gnugrep, gnused, ps,
   majorVersion ? "1.0" }:
 
 let
+  jre8 = jdk8_headless;
+  jre11 = jdk11_headless;
   versionMap = {
-    "3.3" = {
-      kafkaVersion = "3.3.1";
+    "2.7" = {
+      kafkaVersion = "2.7.1";
       scalaVersion = "2.13";
-      sha256 = "sha256-GK2KNl+xEd4knTu4vzyWzRrwYOyPs+PR/Ep64Q2QQt4=";
-      jre = jdk17_headless;
-    };
-    "3.2" = {
-      kafkaVersion = "3.2.3";
-      scalaVersion = "2.13";
-      sha256 = "sha256-tvkbwBP83M1zl31J4g6uu4/LEhqJoIA9Eam48fyT24A=";
-      jre = jdk17_headless;
-    };
-    "3.1" = {
-      kafkaVersion = "3.1.2";
-      scalaVersion = "2.13";
-      sha256 = "sha256-SO1bTQkG3YQSv657QjwBeBCWbDlDqS3E5eUp7ciojnI=";
-      jre = jdk17_headless;
-    };
-    "3.0" = {
-      kafkaVersion = "3.0.2";
-      scalaVersion = "2.13";
-      sha256 = "sha256-G8b6STGlwow+iDqMCeZkF3HTKd94TKccmyfZ7AT/7yE=";
-      jre = jdk17_headless;
+      sha256 = "1qv6blf99211bc80xnd4k42r9v9c5vilyqkplyhsa6hqymg32gfa";
+      jre = jre11;
     };
     "2.8" = {
       kafkaVersion = "2.8.2";
       scalaVersion = "2.13";
       sha256 = "sha256-inZXZJSs8ivtEqF6E/ApoyUHn8vg38wUG3KhowP8mfQ=";
-      jre = jdk11_headless;
+      jre = jre11;
     };
-
   };
 in
 
@@ -75,10 +58,6 @@ stdenv.mkDerivation rec {
     chmod +x $out/bin\/*
   '';
 
-  passthru = {
-    inherit jre; # Used by the NixOS module to select the supported jre
-  };
-
   meta = with lib; {
     homepage = "https://kafka.apache.org";
     description = "A high-throughput distributed messaging system";
@@ -87,4 +66,5 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.ragge ];
     platforms = platforms.unix;
   };
+  passthru = { inherit jre; };
 }

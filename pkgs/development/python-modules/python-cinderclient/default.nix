@@ -17,11 +17,11 @@
 
 buildPythonPackage rec {
   pname = "python-cinderclient";
-  version = "9.2.0";
+  version = "9.1.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-qnYodaJwr0kFfKyofVsDTmMLMYDexqGTz8uSefPWPfQ=";
+    sha256 = "sha256-+bMK8ubm5aEmwsgfNRRcWu5wwglV5t1AmRm+TRuHs0M=";
   };
 
   propagatedBuildInputs = [
@@ -35,7 +35,7 @@ buildPythonPackage rec {
     stevedore
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     ddt
     oslo-serialization
     requests-mock

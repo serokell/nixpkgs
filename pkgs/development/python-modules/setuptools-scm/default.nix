@@ -5,33 +5,24 @@
 , typing-extensions
 , tomli
 , setuptools
-, pythonOlder
 , lib
 }:
 
 buildPythonPackage rec {
   pname = "setuptools-scm";
-  version = "7.1.0";
-  format = "pyproject";
+  version = "7.0.5";
 
   src = fetchPypi {
     pname = "setuptools_scm";
     inherit version;
-    hash = "sha256-bFCDRadxqtfVbr/w5wYovysOx1c3Yr6ZYCFHMN4njyc=";
+    sha256 = "sha256-Ax4Tr3cdb4krlBrbbqBFRbv5Hrxc5ox4qvP/9uH7SEQ=";
   };
-
-  nativeBuildInputs = [
-    packaging
-    setuptools
-    typing-extensions
-  ];
 
   propagatedBuildInputs = [
     packaging
-    setuptools
     typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.11") [
     tomli
+    setuptools
   ];
 
   pythonImportsCheck = [

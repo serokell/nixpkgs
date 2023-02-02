@@ -2,16 +2,16 @@
 
 stdenv.mkDerivation rec {
   pname = "mysql-connector-java";
-  version = "8.0.31";
+  version = "5.1.49";
 
   src = fetchurl {
-    url = "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-${version}.zip";
-    sha256 = "sha256-Wo86n/4mono7YAagI/5Efm/X+2jjpOPaFSCMNAB6btI=";
+    url = "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-${version}.zip";
+    sha256 = "1bm4mm4xka4pq2rwxx3k8xlcpa1vjcglr3pf4ls2i4hamww047yk";
   };
 
   installPhase = ''
     mkdir -p $out/share/java
-    cp mysql-connector-j-*.jar $out/share/java/mysql-connector-j.jar
+    cp mysql-connector-java-*-bin.jar $out/share/java/mysql-connector-java.jar
   '';
 
   nativeBuildInputs = [ unzip ];

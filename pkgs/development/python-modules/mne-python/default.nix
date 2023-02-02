@@ -15,21 +15,18 @@
 , pooch
 , tqdm
 , setuptools
-, pythonOlder
 }:
 
 buildPythonPackage rec {
   pname = "mne-python";
-  version = "1.3.0";
-  format = "setuptools";
+  version = "1.2.0";
 
-  disabled = pythonOlder "3.7";
-
+  # PyPI dist insufficient to run tests
   src = fetchFromGitHub {
     owner = "mne-tools";
     repo = pname;
     rev = "refs/tags/v${version}";
-    hash = "sha256-3N9S8QhQ3vtC9SZBQqvwVpE8V062VVWTV3nBhPI1lmA=";
+    sha256 = "sha256-IqZYkPomS/AjZrPDZapPaZ1jhtrzAvi5MOd9rYrSdKo=";
   };
 
   propagatedBuildInputs = [
@@ -43,7 +40,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     h5py
     nibabel
     pandas
@@ -58,16 +55,14 @@ buildPythonPackage rec {
     export MNE_SKIP_NETWORK_TESTS=1
   '';
 
-  # All tests pass, but Pytest hangs afterwards - probably some thread hasn't terminated
+  # all tests pass, but Pytest hangs afterwards - probably some thread hasn't terminated
   doCheck = false;
 
-  pythonImportsCheck = [
-    "mne"
-  ];
+  pythonImportsCheck = [ "mne" ];
 
   meta = with lib; {
-    description = "Magnetoencephelography and electroencephalography in Python";
     homepage = "https://mne.tools";
+    description = "Magnetoencephelography and electroencephalography in Python";
     license = licenses.bsd3;
     maintainers = with maintainers; [ bcdarwin ];
   };

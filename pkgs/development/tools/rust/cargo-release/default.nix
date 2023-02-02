@@ -1,47 +1,27 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, openssl
-, stdenv
-, curl
-, darwin
-, git
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, libiconv, Security, openssl, pkg-config }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-release";
-  version = "0.24.4";
+  version = "0.21.4";
 
   src = fetchFromGitHub {
     owner = "crate-ci";
     repo = "cargo-release";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-6vl8aVZc1pLRXNWbwCWOg/W40TXe29CtXZy2uOLc5BQ=";
+    rev = "v${version}";
+    sha256 = "sha256-UzYVw0LFVxqiYi3kjjpZoMWvIrAtZzLKPvhSMSEf3X8=";
   };
 
-  cargoHash = "sha256-xz6xjYHBltMo2abQxVTA9mAI4htqqxUc5s5ksKbmrno=";
+  cargoSha256 = "sha256-M39pnbYv0lorLx+6q7so4OVL7viZmlTmCeAH28rR0Rw=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    curl
-    darwin.apple_sdk.frameworks.Security
-  ];
-
-  nativeCheckInputs = [
-    git
-  ];
+  buildInputs = [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv Security ];
 
   meta = with lib; {
     description = ''Cargo subcommand "release": everything about releasing a rust crate'';
-    homepage = "https://github.com/crate-ci/cargo-release";
-    changelog = "https://github.com/crate-ci/cargo-release/blob/v${version}/CHANGELOG.md";
+    homepage = "https://github.com/sunng87/cargo-release";
     license = with licenses; [ asl20 /* or */ mit ];
-    maintainers = with maintainers; [ figsoda gerschtli ];
+    maintainers = with maintainers; [ gerschtli ];
   };
 }

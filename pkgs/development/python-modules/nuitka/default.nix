@@ -10,18 +10,18 @@
 }:
 
 buildPythonPackage rec {
-  version = "1.1.5";
+  version = "0.6.14.5";
   pname = "Nuitka";
 
   # Latest version is not yet on PyPi
   src = fetchFromGitHub {
-    owner = "Nuitka";
+    owner = "kayhayen";
     repo = "Nuitka";
     rev = version;
-    sha256 = "0wgcl860acbxnq8q9hck147yhxz8pcbqhv9glracfnrsd2qkpgpp";
+    sha256 = "08kcp22zdgp25kk4bp56z196mn6bdi3z4x0q2y9vyz0ywfzp9zap";
   };
 
-  nativeCheckInputs = [ vmprof pyqt4 ];
+  checkInputs = [ vmprof pyqt4 ];
   nativeBuildInputs = [ scons ];
   propagatedBuildInputs = [ chrpath ];
 

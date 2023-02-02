@@ -100,7 +100,7 @@ in {
               default = {};
               description = lib.mdDoc ''
                 Sets PPD options for the printer.
-                {command}`lpoptions [-p printername] -l` shows supported PPD options for the given printer.
+                {command}`lpoptions [-p printername] -l` shows suported PPD options for the given printer.
               '';
             };
           };
@@ -110,26 +110,21 @@ in {
   };
 
   config = mkIf (cfg.ensurePrinters != [] && config.services.printing.enable) {
-    systemd.services.ensure-printers = {
+    systemd.services.ensure-printers = let
+      cupsUnit = if config.services.printing.startWhenNeeded then "cups.socket" else "cups.service";
+    in {
       description = "Ensure NixOS-configured CUPS printers";
       wantedBy = [ "multi-user.target" ];
-      wants = [ "cups.service" ];
-      after = [ "cups.service" ];
+      requires = [ cupsUnit ];
+      after = [ cupsUnit ];
 
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
       };
 
-      script = concatStringsSep "\n" [
-        (concatMapStrings ensurePrinter cfg.ensurePrinters)
-        (optionalString (cfg.ensureDefaultPrinter != null)
-          (ensureDefaultPrinter cfg.ensureDefaultPrinter))
-        # Note: if cupsd is "stateless" the service can't be stopped,
-        # otherwise the configuration will be wiped on the next start.
-        (optionalString (with config.services.printing; startWhenNeeded && !stateless)
-          "systemctl stop cups.service")
-      ];
+      script = concatMapStringsSep "\n" ensurePrinter cfg.ensurePrinters
+        + optionalString (cfg.ensureDefaultPrinter != null) (ensureDefaultPrinter cfg.ensureDefaultPrinter);
     };
   };
 }

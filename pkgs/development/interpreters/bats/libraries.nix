@@ -10,9 +10,8 @@
     };
     dontBuild = true;
     installPhase = ''
-      mkdir -p "$out/share/bats/bats-assert"
-      cp load.bash "$out/share/bats/bats-assert"
-      cp -r src "$out/share/bats/bats-assert"
+      mkdir -p "$out/share/bats"
+      cp -r . "$out/share/bats/bats-assert"
     '';
     meta = {
       description = "Common assertions for Bats";
@@ -34,9 +33,8 @@
     };
     dontBuild = true;
     installPhase = ''
-      mkdir -p "$out/share/bats/bats-file"
-      cp load.bash "$out/share/bats/bats-file"
-      cp -r src "$out/share/bats/bats-file"
+      mkdir -p "$out/share/bats"
+      cp -r . "$out/share/bats/bats-file"
     '';
     meta = {
       description = "Common filesystem assertions for Bats";
@@ -58,9 +56,8 @@
     };
     dontBuild = true;
     installPhase = ''
-      mkdir -p "$out/share/bats/bats-support"
-      cp load.bash "$out/share/bats/bats-support"
-      cp -r src "$out/share/bats/bats-support"
+      mkdir -p "$out/share/bats"
+      cp -r . "$out/share/bats/bats-support"
     '';
     meta = {
       description = "Supporting library for Bats test helpers";

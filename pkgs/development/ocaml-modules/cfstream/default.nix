@@ -21,7 +21,7 @@ buildDunePackage rec {
   strictDeps = false;
 
   nativeBuildInputs = [ m4 ];
-  nativeCheckInputs = [ ounit ];
+  checkInputs = [ ounit ];
   propagatedBuildInputs = [ core_kernel ];
 
   doCheck = true;

@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, automake
-, autoconf
-, libX11
-}:
+{lib, stdenv, fetchurl, automake, autoconf, xlibsWrapper}:
 
 stdenv.mkDerivation rec {
   pname = "libstroke";
@@ -16,7 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ automake autoconf ];
-  buildInputs = [ libX11 ];
+  buildInputs = [ xlibsWrapper ];
 
   # libstroke ships with an ancient config.sub that doesn't know about x86_64, so regenerate it.
   # Also, modern automake doesn't like things and returns error code 63.  But it generates the file.

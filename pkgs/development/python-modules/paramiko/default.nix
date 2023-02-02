@@ -51,7 +51,7 @@ buildPythonPackage rec {
     invoke = [ invoke ];
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     pytestCheckHook
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);

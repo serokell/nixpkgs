@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ python-ldap prettytable ];
 
-  nativeCheckInputs = [ fixtures testresources testtools ];
+  checkInputs = [ fixtures testresources testtools ];
 
   meta = with lib; {
     description = "A simple connector pool for python-ldap";

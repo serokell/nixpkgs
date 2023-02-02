@@ -9,7 +9,7 @@
 let
   common = import ./common.nix { inherit lib fetchFromGitHub; };
 in
-buildPythonPackage (common // {
+buildPythonPackage (common // rec {
   pname = "openrazer";
 
   sourceRoot = "source/pylib";
@@ -19,9 +19,6 @@ buildPythonPackage (common // {
     numpy
     openrazer-daemon
   ];
-
-  # no tests run
-  doCheck = false;
 
   meta = common.meta // {
     description = "An entirely open source Python library that allows you to manage your Razer peripherals on GNU/Linux";

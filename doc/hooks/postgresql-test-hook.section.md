@@ -9,7 +9,7 @@ stdenv.mkDerivation {
 
   # ...
 
-  nativeCheckInputs = [
+  checkInputs = [
     postgresql
     postgresqlTestHook
   ];

@@ -9,21 +9,8 @@ let
 
   # FIXME: automatically add nativeLibs based on conditions signalled
 
-  # Try to keep this list sorted
   extras = {
-    cffi-libffi = pkg: {
-      nativeBuildInputs = [ libffi ];
-      nativeLibs = [ libffi ];
-    };
     "cl+ssl" = pkg: {
-      nativeLibs = [ openssl_1_1 ];
-    };
-    "cl-ana.hdf-cffi" = pkg: {
-      nativeBuildInputs = [ pkgs.hdf5 ];
-      nativeLibs = [ pkgs.hdf5 ];
-      NIX_LDFLAGS = [ "-lhdf5" ];
-    };
-    cl-async-ssl = pkg: {
       nativeLibs = [ openssl_1_1 ];
     };
     cl-cffi-gtk-glib = pkg: {
@@ -41,65 +28,49 @@ let
     cl-cffi-gtk-pango = pkg: {
       nativeLibs = [ pango ];
     };
-    cl-cairo2 = pkg: {
-      nativeLibs = [ cairo ];
-    };
-    cl-cairo2-xlib = pkg: {
-      nativeLibs = [ gtk2-x11 ];
-    };
-    cl-devil = pkg: {
-      nativeBuildInputs = [ pkgs.libdevil ];
-      nativeLibs = [ pkgs.libdevil ];
-    };
-    cl-freetype2 = pkg: {
-      nativeLibs = [ freetype ];
-      nativeBuildInputs = [ freetype ];
-      patches = [ ./patches/cl-freetype2-fix-grovel-includes.patch ];
-    };
-    cl-glfw = pkg: {
-      nativeLibs = [ glfw ];
-    };
-    cl-glfw-opengl-core = pkg: {
-      nativeLibs = [ libGL ];
-    };
-    cl-glfw3 = pkg: {
-      nativeLibs = [ glfw ];
-    };
-    cl-glu = pkg: {
-      nativeLibs = [ libGLU ];
-    };
-    cl-glut = pkg: {
-      nativeLibs = [ freeglut ];
-    };
     cl-gobject-introspection = pkg: {
       nativeLibs = [ glib gobject-introspection ];
     };
-    cl-gtk2-gdk = pkg: {
-      nativeLibs = [ gtk2-x11 ];
+    cl-mysql = pkg: {
+      nativeLibs = [ mariadb.client ];
     };
-    cl-gtk2-glib = pkg: {
-      nativeLibs = [ glib ];
+    clsql-postgresql = pkg: {
+      nativeLibs = [ postgresql.lib ];
     };
-    cl-gtk2-pango = pkg: {
-      nativeLibs = [ pango ];
+    clsql-sqlite3 = pkg: {
+      nativeLibs = [ sqlite ];
     };
-    cl-liballegro = pkg: {
-      # build doesnt fail without this, but fails on runtime
-      # weird...
-      nativeLibs = [ allegro5 ];
+    cl-webkit2 = pkg: {
+      nativeLibs = [ webkitgtk ];
+    };
+    dbd-mysql = pkg: {
+      nativeLibs = [ mariadb.client ];
+    };
+    lla = pkg: {
+      nativeLibs = [ openblas ];
+    };
+    cffi-libffi = pkg: {
+      nativeBuildInputs = [ libffi ];
+      nativeLibs = [ libffi ];
+    };
+    cl-rabbit = pkg: {
+      nativeBuildInputs = [ rabbitmq-c ];
+      nativeLibs = [ rabbitmq-c ];
+    };
+    trivial-ssh-libssh2 = pkg: {
+      nativeLibs = [ libssh2 ];
+    };
+    sqlite = pkg: {
+      nativeLibs = [ sqlite ];
     };
     cl-libuv = pkg: {
       nativeBuildInputs = [ libuv ];
       nativeLibs = [ libuv ];
     };
-    cl-libxml2 = pkg: {
-      nativeLibs = [ pkgs.libxml2 ];
-    };
-    cl-libyaml = pkg: {
-      nativeLibs = [ pkgs.libyaml ];
-    };
-    cl-mysql = pkg: {
-      nativeLibs = [ mariadb.client ];
+    cl-liballegro = pkg: {
+      # build doesnt fail without this, but fails on runtime
+      # weird...
+      nativeLibs = [ allegro5 ];
     };
     cl-ode = pkg: {
       nativeLibs = let
@@ -111,108 +82,50 @@ let
         });
       in [ ode' ];
     };
+    classimp = pkg: {
+      nativeLibs = [ assimp ];
+    };
+    sdl2 = pkg: {
+      nativeLibs = [ SDL2 ];
+    };
+    lispbuilder-sdl-cffi = pkg: {
+      nativeLibs = [ SDL ];
+    };
     cl-opengl = pkg: {
       nativeLibs = [ libGL ];
     };
-    cl-pango = pkg: {
-      nativeLibs = [ pango ];
+    cl-glu = pkg: {
+      nativeLibs = [ libGLU ];
     };
-    cl-rabbit = pkg: {
-      nativeBuildInputs = [ rabbitmq-c ];
-      nativeLibs = [ rabbitmq-c ];
+    cl-glut = pkg: {
+      nativeLibs = [ freeglut ];
+    };
+    cl-glfw = pkg: {
+      nativeLibs = [ glfw ];
+    };
+    cl-glfw-opengl-core = pkg: {
+      nativeLibs = [ libGL ];
+    };
+    cl-glfw3 = pkg: {
+      nativeLibs = [ glfw ];
+    };
+    lev = pkg: {
+      nativeLibs = [ libev ];
     };
     cl-rdkafka = pkg: {
       nativeBuildInputs = [ rdkafka ];
       nativeLibs = [ rdkafka ];
     };
-    cl-readline = pkg: {
-      nativeLibs = [ pkgs.readline ];
+    cl-async-ssl = pkg: {
+      nativeLibs = [ openssl_1_1 ];
     };
-    cl-rsvg2 = pkg: {
-      nativeLibs = [ librsvg ];
-    };
-    "cl-sat.glucose" = pkg: {
-      propagatedBuildInputs = [ pkgs.glucose ];
-      patches = [ ./patches/cl-sat.glucose-binary-from-PATH-if-present.patch ];
-
-    };
-    "cl-sat.minisat" = pkg: {
-      propagatedBuildInputs = [ pkgs.minisat ];
-    };
-    cl-webkit2 = pkg: {
-      nativeLibs = [ webkitgtk ];
-    };
-    classimp = pkg: {
-      nativeLibs = [ assimp ];
-    };
-    clsql-postgresql = pkg: {
-      nativeLibs = [ postgresql.lib ];
-    };
-    clsql-sqlite3 = pkg: {
-      nativeLibs = [ sqlite ];
-    };
-    dbd-mysql = pkg: {
-      nativeLibs = [ mariadb.client ];
-    };
-    gsll = pkg: {
-      nativeBuildInputs = [ pkgs.gsl ];
-      nativeLibs = [ pkgs.gsl ];
+    osicat = pkg: {
+      LD_LIBRARY_PATH = "${pkg}/posix/";
     };
     iolib = pkg: {
       nativeBuildInputs = [ libfixposix ];
       nativeLibs = [ libfixposix ];
       systems = [ "iolib" "iolib/os" "iolib/pathnames" ];
-    };
-    lev = pkg: {
-      nativeLibs = [ libev ];
-    };
-    lispbuilder-sdl-cffi = pkg: {
-      nativeLibs = [ SDL ];
-    };
-    lla = pkg: {
-      nativeLibs = [ openblas ];
-    };
-    mssql = pkg: {
-      nativeLibs = [ freetds ];
-    };
-    osicat = pkg: {
-      LD_LIBRARY_PATH = "${pkg}/posix/";
-    };
-    png = pkg: {
-      nativeBuildInputs = [ pkgs.libpng ];
-      nativeLibs = [ pkgs.libpng ];
-    };
-    pzmq = pkg: {
-      nativeBuildInputs = [ pkgs.zeromq ];
-      nativeLibs = [ pkgs.zeromq ];
-    };
-    pzmq-compat = pkg: {
-      nativeBuildInputs = [ pkgs.zeromq ];
-      nativeLibs = [ pkgs.zeromq ];
-    };
-    pzmq-examples = pkg: {
-      nativeBuildInputs = [ pkgs.zeromq ];
-      nativeLibs = [ pkgs.zeromq ];
-    };
-    pzmq-test = pkg: {
-      nativeBuildInputs = [ pkgs.zeromq ];
-      nativeLibs = [ pkgs.zeromq ];
-    };
-    sdl2 = pkg: {
-      nativeLibs = [ SDL2 ];
-    };
-    sqlite = pkg: {
-      nativeLibs = [ sqlite ];
-    };
-    trivial-package-manager = pkg: {
-      propagatedBuildInputs = [ pkgs.which ];
-    };
-    trivial-ssh-libssh2 = pkg: {
-      nativeLibs = [ libssh2 ];
-    };
-    zmq = pkg: {
-      nativeBuildInputs = [ pkgs.zeromq ];
-      nativeLibs = [ pkgs.zeromq ];
     };
   };
 

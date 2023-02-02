@@ -23,7 +23,11 @@ in
 
     services.polipo = {
 
-      enable = mkEnableOption (lib.mdDoc "polipo caching web proxy");
+      enable = mkOption {
+        type = types.bool;
+        default = false;
+        description = lib.mdDoc "Whether to run the polipo caching web proxy.";
+      };
 
       proxyAddress = mkOption {
         type = types.str;
@@ -32,7 +36,7 @@ in
       };
 
       proxyPort = mkOption {
-        type = types.port;
+        type = types.int;
         default = 8123;
         description = lib.mdDoc "TCP port on which Polipo will listen.";
       };

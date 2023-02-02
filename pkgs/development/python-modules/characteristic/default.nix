@@ -11,7 +11,7 @@ buildPythonPackage rec {
     sha256 = "ded68d4e424115ed44e5c83c2a901a0b6157a959079d7591d92106ffd3ada380";
   };
 
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
 
   postPatch = ''
     substituteInPlace setup.cfg --replace "[pytest]" "[tool:pytest]"

@@ -66,7 +66,7 @@ buildPythonApplication rec {
     vt-py
   ];
 
-  nativeCheckInputs = with py.pkgs; [
+  checkInputs = with py.pkgs; [
     pytestCheckHook
   ];
 

@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "kubent";
-  version = "0.7.0";
+  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "doitintl";
     repo = "kube-no-trouble";
     rev = "${version}";
-    sha256 = "sha256-QIvMhKAo30gInqJBpHvhcyjgVkdRqgBKwLQ80ng/75U=";
+    sha256 = "sha256-aXuBYfXQfg6IQE9cFFTBCPNmDg7IZYPAAeuAxCiU0ro=";
   };
 
-  vendorSha256 = "sha256-XXf6CPPHVvCTZA4Ve5/wmlgXQ/gZZUW0W/jXA0bJgLA=";
+  vendorSha256 = "sha256-WQwWBcwhFZxXPFO6h+5Y8VDM4urJGfZ6AOvhRoaSbpk=";
 
   ldflags = [
     "-w" "-s"

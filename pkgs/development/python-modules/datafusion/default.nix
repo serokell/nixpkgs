@@ -68,7 +68,7 @@ buildPythonPackage rec {
     pyarrow
   ];
 
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
   pythonImportsCheck = [ "datafusion" ];
 
   checkPhase = ''

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     meson
     ninja
     python3
-  ] ++ lib.optionals stdenv.isDarwin [
+  ] ++ lib.optional stdenv.isDarwin [
     ApplicationServices
   ];
 

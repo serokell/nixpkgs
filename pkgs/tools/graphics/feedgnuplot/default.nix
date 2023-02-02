@@ -1,14 +1,6 @@
-{ lib
-, fetchFromGitHub
-, makeWrapper
-, makeFontsConf
-, freefont_ttf
-, gnuplot
-, perl
-, perlPackages
-, stdenv
-, shortenPerlShebang
-, installShellFiles
+{ lib, fetchFromGitHub, makeWrapper
+, makeFontsConf, freefont_ttf, gnuplot, perl, perlPackages
+, stdenv, shortenPerlShebang
 }:
 
 let
@@ -19,18 +11,18 @@ in
 
 perlPackages.buildPerlPackage rec {
   pname = "feedgnuplot";
-  version = "1.61";
+  version = "1.58";
 
   src = fetchFromGitHub {
     owner = "dkogan";
     repo = "feedgnuplot";
     rev = "v${version}";
-    sha256 = "sha256-r5rszxr65lSozkUNaqfBn4I4XjLtvQ6T/BG366JXLRM=";
+    sha256 = "1qix4lwwyhqibz0a6q2rrb497rmk00v1fvmdyinj0dqmgjw155zr";
   };
 
   outputs = [ "out" ];
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
+  nativeBuildInputs = [ makeWrapper ] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
 
   buildInputs = [ gnuplot perl ]
     ++ (with perlPackages; [ ListMoreUtils IPCRun StringShellQuote ]);
@@ -51,9 +43,10 @@ perlPackages.buildPerlPackage rec {
     wrapProgram $out/bin/feedgnuplot \
         --prefix "PATH" ":" "$PATH" \
         --prefix "PERL5LIB" ":" "$PERL5LIB"
-
-    installShellCompletion --bash --name feedgnuplot.bash completions/bash/feedgnuplot
-    installShellCompletion --zsh completions/zsh/_feedgnuplot
+    install -D -m 444 -t $out/share/bash-completion/completions \
+        completions/bash/feedgnuplot
+    install -D -m 444 -t $out/share/zsh/site-functions \
+        completions/zsh/_feedgnuplot
   '';
 
   meta = with lib; {

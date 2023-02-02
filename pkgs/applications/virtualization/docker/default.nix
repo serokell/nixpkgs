@@ -1,5 +1,7 @@
 { lib, callPackage, fetchFromGitHub }:
 
+with lib;
+
 rec {
   dockerGen = {
       version, rev, sha256
@@ -11,14 +13,11 @@ rec {
       , stdenv, fetchFromGitHub, fetchpatch, buildGoPackage
       , makeWrapper, installShellFiles, pkg-config, glibc
       , go-md2man, go, containerd, runc, docker-proxy, tini, libtool
-      , sqlite, iproute2, docker-buildx, docker-compose
-      , iptables, e2fsprogs, xz, util-linux, xfsprogs, git
-      , procps, rootlesskit, slirp4netns, fuse-overlayfs, nixosTests
+      , sqlite, iproute2, lvm2, systemd, docker-buildx, docker-compose
+      , btrfs-progs, iptables, e2fsprogs, xz, util-linux, xfsprogs, git
+      , procps, libseccomp, rootlesskit, slirp4netns, fuse-overlayfs
+      , nixosTests
       , clientOnly ? !stdenv.isLinux, symlinkJoin
-      , withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd
-      , withBtrfs ? stdenv.isLinux, btrfs-progs
-      , withLvm ? stdenv.isLinux, lvm2
-      , withSeccomp ? stdenv.isLinux, libseccomp
     }:
   let
     docker-runc = runc.overrideAttrs (oldAttrs: {
@@ -47,8 +46,7 @@ rec {
         sha256 = containerdSha256;
       };
 
-      buildInputs = oldAttrs.buildInputs
-        ++ lib.optionals withSeccomp [ libseccomp ];
+      buildInputs = oldAttrs.buildInputs ++ [ libseccomp ];
     });
 
     docker-tini = tini.overrideAttrs (oldAttrs: {
@@ -70,7 +68,7 @@ rec {
       NIX_CFLAGS_COMPILE = "-DMINIMAL=ON";
     });
 
-    moby = buildGoPackage (lib.optionalAttrs stdenv.isLinux rec {
+    moby = buildGoPackage (optionalAttrs stdenv.isLinux rec {
       pname = "moby";
       inherit version;
 
@@ -79,15 +77,11 @@ rec {
       goPackagePath = "github.com/docker/docker";
 
       nativeBuildInputs = [ makeWrapper pkg-config go-md2man go libtool installShellFiles ];
-      buildInputs = [ sqlite ]
-        ++ lib.optional withLvm lvm2
-        ++ lib.optional withBtrfs btrfs-progs
-        ++ lib.optional withSystemd systemd
-        ++ lib.optional withSeccomp libseccomp;
+      buildInputs = [ sqlite lvm2 btrfs-progs systemd libseccomp ];
 
-      extraPath = lib.optionals stdenv.isLinux (lib.makeBinPath [ iproute2 iptables e2fsprogs xz xfsprogs procps util-linux git ]);
+      extraPath = optionals stdenv.isLinux (makeBinPath [ iproute2 iptables e2fsprogs xz xfsprogs procps util-linux git ]);
 
-      extraUserPath = lib.optionals (stdenv.isLinux && !clientOnly) (lib.makeBinPath [ rootlesskit slirp4netns fuse-overlayfs ]);
+      extraUserPath = optionals (stdenv.isLinux && !clientOnly) (makeBinPath [ rootlesskit slirp4netns fuse-overlayfs ]);
 
       patches = [
         # This patch incorporates code from a PR fixing using buildkit with the ZFS graph driver.
@@ -138,21 +132,15 @@ rec {
           --prefix PATH : "$out/libexec/docker:$extraPath:$extraUserPath"
       '';
 
-      DOCKER_BUILDTAGS = lib.optional withSystemd "journald"
-        ++ lib.optional (!withBtrfs) "exclude_graphdriver_btrfs"
-        ++ lib.optional (!withLvm) "exclude_graphdriver_devicemapper"
-        ++ lib.optional withSeccomp "seccomp";
+      DOCKER_BUILDTAGS = [ "journald" "seccomp" ];
     });
 
-    plugins = lib.optional buildxSupport docker-buildx
-      ++ lib.optional composeSupport docker-compose;
+    plugins = optionals buildxSupport [ docker-buildx ]
+      ++ optionals composeSupport [ docker-compose ];
     pluginsRef = symlinkJoin { name = "docker-plugins"; paths = plugins; };
   in
-  buildGoPackage (lib.optionalAttrs (!clientOnly) {
-    # allow overrides of docker components
-    # TODO: move packages out of the let...in into top-level to allow proper overrides
-    inherit docker-runc docker-containerd docker-proxy docker-tini moby;
-  } // rec {
+    buildGoPackage (optionalAttrs (!clientOnly) {
+   } // rec {
     pname = "docker";
     inherit version;
 
@@ -168,17 +156,14 @@ rec {
     nativeBuildInputs = [
       makeWrapper pkg-config go-md2man go libtool installShellFiles
     ];
-    buildInputs = lib.optional (!clientOnly) sqlite
-      ++ lib.optional withLvm lvm2
-      ++ lib.optional withBtrfs btrfs-progs
-      ++ lib.optional withSystemd systemd
-      ++ lib.optional withSeccomp libseccomp
-      ++ plugins;
+    buildInputs = optionals (!clientOnly) [
+      sqlite lvm2 btrfs-progs systemd libseccomp
+    ] ++ plugins;
 
     postPatch = ''
       patchShebangs man scripts/build/
       substituteInPlace ./scripts/build/.variables --replace "set -eu" ""
-    '' + lib.optionalString (plugins != []) ''
+    '' + optionalString (plugins != []) ''
       substituteInPlace ./cli-plugins/manager/manager_unix.go --replace /usr/libexec/docker/cli-plugins \
           "${pluginsRef}/libexec/docker/cli-plugins"
     '';
@@ -209,7 +194,7 @@ rec {
 
       makeWrapper $out/libexec/docker/docker $out/bin/docker \
         --prefix PATH : "$out/libexec/docker:$extraPath"
-    '' + lib.optionalString (!clientOnly) ''
+    '' + optionalString (!clientOnly) ''
       # symlink docker daemon to docker cli derivation
       ln -s ${moby}/bin/dockerd $out/bin/dockerd
       ln -s ${moby}/bin/dockerd-rootless $out/bin/dockerd-rootless
@@ -237,36 +222,35 @@ rec {
       installManPage man/*/*.[1-9]
     '';
 
-    passthru = {
-      # Exposed for tarsum build on non-linux systems (build-support/docker/default.nix)
-      inherit moby-src;
-      tests = lib.optionals (!clientOnly) { inherit (nixosTests) docker; };
-    };
+    passthru.tests = lib.optionals (!clientOnly) { inherit (nixosTests) docker; };
 
-    meta = with lib; {
+    meta = {
       homepage = "https://www.docker.com/";
       description = "An open source project to pack, ship and run any application as a lightweight container";
       license = licenses.asl20;
       maintainers = with maintainers; [ offline tailhook vdemeester periklis mikroskeem maxeaubrey ];
     };
+
+    # Exposed for tarsum build on non-linux systems (build-support/docker/default.nix)
+    inherit moby-src;
   });
 
   # Get revisions from
   # https://github.com/moby/moby/tree/${version}/hack/dockerfile/install/*
   docker_20_10 = callPackage dockerGen rec {
-    version = "20.10.21";
+    version = "20.10.18";
     rev = "v${version}";
-    sha256 = "sha256-hPQ1t7L2fqoFWoinqIrDwFQ1bo9TzMb4l3HmAotIUS8=";
+    sha256 = "sha256-AyY6xfFEvUv7Kqo3M0gv9/4NoBUDqQyP4ZIcz+oGNys=";
     moby-src = fetchFromGitHub {
       owner = "moby";
       repo = "moby";
       rev = "v${version}";
-      sha256 = "sha256-BcYDh/UEmmURt7hWLWdPTKVu/Nzoeq/shE+HnUoh8b4=";
+      sha256 = "sha256-c0A66JVvRPFNT/xCTIsW8k3a/EMIl73d/UlCohjmGMk=";
     };
     runcRev = "v1.1.4";
     runcSha256 = "sha256-ougJHW1Z+qZ324P8WpZqawY1QofKnn8WezP7orzRTdA=";
-    containerdRev = "v1.6.9";
-    containerdSha256 = "sha256-KvQdYQLzgt/MKPsA/mO5un6nE3/xcvVYwIveNn/uDnU=";
+    containerdRev = "v1.6.8";
+    containerdSha256 = "sha256-0UiPhkTWV61DnAF5kWd1FctX8i0sXaJ1p/xCMznY/A8=";
     tiniRev = "v0.19.0";
     tiniSha256 = "sha256-ZDKu/8yE5G0RYFJdhgmCdN3obJNyRWv6K/Gd17zc1sI=";
   };

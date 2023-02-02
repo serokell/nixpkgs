@@ -1,29 +1,16 @@
-{ stdenv
-, lib
-, fetchzip
-, wxGTK32
-, zlib
-, zstd
-}:
+{ stdenv, lib, fetchzip, wxGTK30, zlib, zstd }:
 
 stdenv.mkDerivation rec {
   pname = "urbackup-client";
-  version = "2.5.20";
+  version = "2.4.11";
 
   src = fetchzip {
     url = "https://hndl.urbackup.org/Client/${version}/urbackup-client-${version}.tar.gz";
-    sha256 = "sha256-i1g3xUhspqQRfIUhy6STOWNuncK3tMFocJw652r1X9g=";
+    sha256 = "0cciy9v1pxj9qaklpbhp2d5rdbkmfm74vhpqx6b4phww0f10wvzh";
   };
 
-  buildInputs = [
-    wxGTK32
-    zlib
-    zstd
-  ];
-
-  configureFlags = [
-    "--enable-embedded-cryptopp"
-  ];
+  configureFlags = [ "--enable-embedded-cryptopp" ];
+  buildInputs = [ wxGTK30 zlib zstd ];
 
   meta = with lib; {
     description = "An easy to setup Open Source client/server backup system";

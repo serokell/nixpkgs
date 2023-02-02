@@ -28,7 +28,7 @@ buildPythonPackage {
     "rpi_bad_power"
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

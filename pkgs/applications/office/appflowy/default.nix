@@ -1,35 +1,33 @@
-{ stdenv
-, lib
-, fetchzip
-, autoPatchelfHook
-, makeWrapper
-, copyDesktopItems
-, makeDesktopItem
-, gtk3
-, openssl
-, xdg-user-dirs
-, keybinder3
+{ stdenv,
+  lib,
+  fetchzip,
+  autoPatchelfHook,
+  makeWrapper,
+  copyDesktopItems,
+  makeDesktopItem,
+  gtk3,
+  openssl,
+  xdg-user-dirs
 }:
 
 stdenv.mkDerivation rec {
   pname = "appflowy";
-  version = "0.0.9";
+  version = "0.0.4";
 
   src = fetchzip {
     url = "https://github.com/AppFlowy-IO/appflowy/releases/download/${version}/AppFlowy-linux-x86.tar.gz";
-    sha256 = "sha256-E75ZqenCs5zWBERYoIrWc2v5CyjGKLrfsae1RCi/qNQ=";
+    sha256 = "sha256-ke3cuRi+ZlBSWawg66cGrV928dOBp0EniNakitmgUso=";
   };
 
   nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-    copyDesktopItems
+      autoPatchelfHook
+      makeWrapper
+      copyDesktopItems
   ];
 
   buildInputs = [
-    gtk3
-    openssl
-    keybinder3
+      gtk3
+      openssl
   ];
 
   dontBuild = true;
@@ -47,11 +45,15 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  preFixup = ''
+  preFixup = let
+    binPath = lib.makeBinPath [
+      xdg-user-dirs
+    ];
+  in ''
     # Add missing libraries to appflowy using the ones it comes with
     makeWrapper $out/opt/app_flowy $out/bin/appflowy \
-      --set LD_LIBRARY_PATH "$out/opt/lib/" \
-      --prefix PATH : "${lib.makeBinPath [ xdg-user-dirs ]}"
+          --set LD_LIBRARY_PATH "$out/opt/lib/" \
+          --prefix PATH : "${binPath}"
   '';
 
   desktopItems = [

@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   # No tests in archive
   doCheck = false;
 
-  nativeCheckInputs = with python3Packages; [ pytest ];
+  checkInputs = with python3Packages; [ pytest ];
   propagatedBuildInputs = with python3Packages; [ click ];
 
   meta = with lib; {

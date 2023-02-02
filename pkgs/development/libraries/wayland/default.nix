@@ -48,9 +48,8 @@ stdenv.mkDerivation rec {
   separateDebugInfo = true;
 
   mesonFlags = [
-    "-Ddocumentation=${lib.boolToString withDocumentation}"
     "-Dlibraries=${lib.boolToString withLibraries}"
-    "-Dtests=${lib.boolToString withLibraries}"
+    "-Ddocumentation=${lib.boolToString withDocumentation}"
   ];
 
   depsBuildBuild = [
@@ -96,8 +95,6 @@ stdenv.mkDerivation rec {
     EOF
   '';
 
-  passthru = { inherit withLibraries; };
-
   meta = with lib; {
     description = "Core Wayland window system code and protocol";
     longDescription = ''
@@ -112,6 +109,8 @@ stdenv.mkDerivation rec {
     license = licenses.mit; # Expat version
     platforms = if withLibraries then platforms.linux else platforms.unix;
     maintainers = with maintainers; [ primeos codyopel qyliss ];
+    # big sur doesn't support gcc stdenv and wayland doesn't build with clang
+    broken = stdenv.isDarwin;
   };
 
   passthru.version = version;

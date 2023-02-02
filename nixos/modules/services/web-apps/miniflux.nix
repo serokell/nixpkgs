@@ -21,13 +21,6 @@ in
     services.miniflux = {
       enable = mkEnableOption (lib.mdDoc "miniflux and creates a local postgres database for it");
 
-      package = mkOption {
-        type = types.package;
-        default = pkgs.miniflux;
-        defaultText = literalExpression "pkgs.miniflux";
-        description = lib.mdDoc "Miniflux package to use.";
-      };
-
       config = mkOption {
         type = types.attrsOf types.str;
         example = literalExpression ''
@@ -96,7 +89,7 @@ in
       after = [ "network.target" "postgresql.service" "miniflux-dbsetup.service" ];
 
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/miniflux";
+        ExecStart = "${pkgs.miniflux}/bin/miniflux";
         User = dbUser;
         DynamicUser = true;
         RuntimeDirectory = "miniflux";
@@ -123,12 +116,12 @@ in
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" ];
+        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
         UMask = "0077";
       };
 
       environment = cfg.config;
     };
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [ pkgs.miniflux ];
   };
 }

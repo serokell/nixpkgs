@@ -5,21 +5,18 @@
 , pytestCheckHook
 , six
 , ssdeep
-, pythonOlder
 }:
 
 buildPythonPackage rec {
   pname = "ssdeep";
-  version = "3.4.1";
+  version = "3.4";
   format = "setuptools";
-
-  disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "DinoTools";
     repo = "python-ssdeep";
-    rev = "refs/tags/${version}";
-    hash = "sha256-I5ci5BS+B3OE0xdLSahu3HCh99jjhnRHJFz830SvFpg=";
+    rev = version;
+    hash = "sha256-eAB4/HmPGj/ngHrqkOlY/kTdY5iUEBHxrsRYjR/RNyw=";
   };
 
   buildInputs = [
@@ -31,7 +28,8 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
+
+  checkInputs = [
     pytestCheckHook
   ];
 
@@ -47,7 +45,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python wrapper for the ssdeep library";
     homepage = "https://github.com/DinoTools/python-ssdeep";
-    changelog = "https://github.com/DinoTools/python-ssdeep/blob/${version}/CHANGELOG.rst";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ fab ];
   };

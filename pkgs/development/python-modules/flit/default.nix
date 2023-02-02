@@ -7,6 +7,7 @@
 , testpath
 , responses
 , flit-core
+, tomli
 , tomli-w
 }:
 
@@ -17,14 +18,14 @@
 
 buildPythonPackage rec {
   pname = "flit";
-  version = "3.8.0";
+  version = "3.7.1";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "takluyver";
     repo = "flit";
     rev = version;
-    hash = "sha256-iXf9K/xI4u+dDV0Zf6S08nbws4NqycrTEW0B8/qCjQc=";
+    sha256 = "sha256-zKgaeK3fskz2TuHvIWlxBrdZIWfIJHhaqopZ3+V36wY=";
   };
 
   nativeBuildInputs = [
@@ -35,10 +36,11 @@ buildPythonPackage rec {
     docutils
     requests
     flit-core
+    tomli
     tomli-w
   ];
 
-  nativeCheckInputs = [ pytestCheckHook testpath responses ];
+  checkInputs = [ pytestCheckHook testpath responses ];
 
   disabledTests = [
     # needs some ini file.

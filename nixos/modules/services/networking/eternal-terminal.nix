@@ -20,7 +20,7 @@ in
 
       port = mkOption {
         default = 2022;
-        type = types.port;
+        type = types.int;
         description = lib.mdDoc ''
           The port the server should listen on. Will use the server's default (2022) if not specified.
 

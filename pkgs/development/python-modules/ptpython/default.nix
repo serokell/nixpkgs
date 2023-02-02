@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
+{ lib, buildPythonPackage, pythonOlder, fetchPypi
 , appdirs
 , black
 , importlib-metadata
@@ -13,14 +10,12 @@
 
 buildPythonPackage rec {
   pname = "ptpython";
-  version = "3.0.22";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "3.0.20";
+  disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-wJezJEBgFKAFxrCfSTu73eVx5BI2CvK6FVGHOhDDbPg=";
+    sha256 = "eafd4ced27ca5dc370881d4358d1ab5041b32d88d31af8e3c24167fe4af64ed6";
   };
 
   propagatedBuildInputs = [
@@ -29,21 +24,14 @@ buildPythonPackage rec {
     jedi
     prompt-toolkit
     pygments
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   # no tests to run
   doCheck = false;
 
-  pythonImportsCheck = [
-    "ptpython"
-  ];
-
   meta = with lib; {
     description = "An advanced Python REPL";
     homepage = "https://github.com/prompt-toolkit/ptpython";
-    changelog = "https://github.com/prompt-toolkit/ptpython/blob/${version}/CHANGELOG";
     license = licenses.bsd3;
     maintainers = with maintainers; [ mlieberman85 ];
   };

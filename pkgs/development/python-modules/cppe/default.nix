@@ -40,7 +40,7 @@ buildPythonPackage rec {
 
   hardeningDisable = lib.optional stdenv.cc.isClang "strictoverflow";
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest
     h5py
     numba

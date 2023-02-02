@@ -2,24 +2,15 @@
 , buildPythonPackage
 , fetchFromGitHub
 , poetry-core
-, importlib-metadata
-, nanoid
 , rich
 , typing-extensions
-, aiohttp
-, click
-, jinja2
-, msgpack
-, pytest-aiohttp
 , pytestCheckHook
 , pythonOlder
-, syrupy
-, time-machine
 }:
 
 buildPythonPackage rec {
   pname = "textual";
-  version = "0.10.0";
+  version = "0.1.18";
   format = "pyproject";
 
   disabled = pythonOlder "3.7";
@@ -27,37 +18,28 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Textualize";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-T71Jmgj/hgLOcSHu5QyqdZ7dYpLjhTQqDBdQgiaGXA8=";
+    rev = "v${version}";
+    sha256 = "sha256-XVmbt8r5HL8r64ISdJozmM+9HuyvqbpdejWICzFnfiw=";
   };
 
   nativeBuildInputs = [
     poetry-core
   ];
 
-  postPatch = ''
-    substituteInPlace pyproject.toml \
-      --replace 'importlib-metadata = "^4.11.3"' 'importlib-metadata = "*"'
-  '';
-
   propagatedBuildInputs = [
-    importlib-metadata
-    nanoid
     rich
-  ] ++ lib.optionals (pythonOlder "3.10") [
+  ] ++ lib.optionals (pythonOlder "3.9") [
     typing-extensions
   ];
 
-  nativeCheckInputs = [
-    aiohttp
-    click
-    jinja2
-    msgpack
-    pytest-aiohttp
+  checkInputs = [
     pytestCheckHook
-    syrupy
-    time-machine
   ];
+
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace 'rich = "^12.3.0"' 'rich = "*"'
+  '';
 
   pythonImportsCheck = [
     "textual"
@@ -67,6 +49,6 @@ buildPythonPackage rec {
     description = "TUI framework for Python inspired by modern web development";
     homepage = "https://github.com/Textualize/textual";
     license = licenses.mit;
-    maintainers = with maintainers; [ joelkoen ];
+    maintainers = with maintainers; [ jyooru ];
   };
 }

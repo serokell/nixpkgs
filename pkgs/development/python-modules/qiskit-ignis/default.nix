@@ -50,7 +50,7 @@ buildPythonPackage rec {
   preCheck = ''
     export HOME=$TMPDIR
   '';
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     ddt
     pyfakefs

@@ -1,9 +1,6 @@
 { lib, stdenv, fetchFromGitHub, cmake, ninja, pkg-config
 , zlib, xz, bzip2, zchunk, zstd
-, expat
-, withRpm ? !stdenv.isDarwin, rpm
-, db
-}:
+, expat, rpm, db }:
 
 stdenv.mkDerivation rec {
   version  = "0.7.22";
@@ -18,21 +15,19 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DENABLE_COMPLEX_DEPS=true"
+    "-DENABLE_RPMMD=true"
+    "-DENABLE_RPMDB=true"
+    "-DENABLE_PUBKEY=true"
+    "-DENABLE_RPMDB_BYRPMHEADER=true"
     "-DENABLE_LZMA_COMPRESSION=true"
     "-DENABLE_BZIP2_COMPRESSION=true"
     "-DENABLE_ZSTD_COMPRESSION=true"
     "-DENABLE_ZCHUNK_COMPRESSION=true"
     "-DWITH_SYSTEM_ZCHUNK=true"
-  ] ++ lib.optionals withRpm [
-    "-DENABLE_PUBKEY=true"
-    "-DENABLE_RPMDB=true"
-    "-DENABLE_RPMDB_BYRPMHEADER=true"
-    "-DENABLE_RPMMD=true"
   ];
 
   nativeBuildInputs = [ cmake ninja pkg-config ];
-  buildInputs = [ zlib xz bzip2 zchunk zstd expat db ]
-    ++ lib.optional withRpm rpm;
+  buildInputs = [ zlib xz bzip2 zchunk zstd expat rpm db ];
 
   meta = with lib; {
     description = "A free package dependency solver";

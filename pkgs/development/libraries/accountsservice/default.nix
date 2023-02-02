@@ -16,7 +16,6 @@
 , python3
 , vala
 , gettext
-, libxcrypt
 }:
 
 stdenv.mkDerivation rec {
@@ -67,7 +66,6 @@ stdenv.mkDerivation rec {
     glib
     polkit
     systemd
-    libxcrypt
   ];
 
   mesonFlags = [

@@ -30,7 +30,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ networkx jinja2 ipython jsonpickle ];
 
-  nativeCheckInputs = [ numpy ];
+  checkInputs = [ numpy ];
 
   pythonImportsCheck = [ "pyvis" ];
 

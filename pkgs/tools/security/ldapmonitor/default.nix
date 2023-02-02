@@ -5,14 +5,14 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "ldapmonitor";
-  version = "1.4";
+  version = "1.3";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "p0dalirius";
     repo = pname;
-    rev = "refs/tags/${version}";
-    hash = "sha256-BmTj/6dOUYfia6wO4nvkEW01MIC9TuBk4kYAsVHMsWY=";
+    rev = version;
+    hash = "sha256-lwTXvrnOVodCUQtR8FmCXiPuZ1Wx1ySfDKghpLXNuI4=";
   };
 
   sourceRoot = "${src.name}/python";
@@ -34,7 +34,6 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Tool to monitor creation, deletion and changes to LDAP objects";
     homepage = "https://github.com/p0dalirius/LDAPmonitor";
-    changelog = "https://github.com/p0dalirius/LDAPmonitor/releases/tag/${version}";
     license = with licenses; [ gpl3Only ];
     maintainers = with maintainers; [ fab ];
   };

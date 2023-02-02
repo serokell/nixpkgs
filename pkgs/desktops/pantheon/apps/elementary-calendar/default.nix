@@ -24,13 +24,13 @@
 
 stdenv.mkDerivation rec {
   pname = "elementary-calendar";
-  version = "6.1.2";
+  version = "6.1.1";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "calendar";
     rev = version;
-    sha256 = "sha256-psUVgl/7pmmf+8dP8ghBx5C1u4UT9ncXuVYvDJOYeOI=";
+    sha256 = "sha256-c2c8QNifBDzb0CelB72AIL4G694l6KCSXBjWIHrzZJo=";
   };
 
   patches = [
@@ -39,6 +39,13 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       url = "https://github.com/elementary/calendar/commit/62c20e5786accd68b96c423b04e32c043e726cac.patch";
       sha256 = "sha256-xatxoSwAIHiUA03vvBdM8HSW27vhPLvAxEuGK0gLiio=";
+    })
+
+    # GridDay: Fix day in month in grid with GLib 2.73.1+
+    # https://github.com/elementary/calendar/pull/763
+    (fetchpatch {
+      url = "https://github.com/elementary/calendar/commit/20b0983c85935bedef065b786ec8bbca55ba7d9e.patch";
+      sha256 = "sha256-Tw9uNqqRAC+vOp7EWzZVeDmZxt3hTGl9UIP21FcunqA=";
     })
   ];
 
@@ -71,7 +78,9 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      attrPath = "pantheon.${pname}";
+    };
   };
 
   meta = with lib; {

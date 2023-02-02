@@ -38,7 +38,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     asynctest
     pytest-asyncio
     pytest-raises

@@ -1,17 +1,17 @@
-{ lib, fetchFromGitHub, rustPlatform, pkg-config, openssl, stdenv, Security }:
+{ stdenv, lib, fetchFromGitHub, rustPlatform, pkg-config, openssl, Security }:
 
 rustPlatform.buildRustPackage rec {
-  version = "0.3.3";
+  version = "0.3.0";
   pname = "sccache";
 
   src = fetchFromGitHub {
     owner = "mozilla";
     repo = "sccache";
     rev = "v${version}";
-    sha256 = "sha256-XzAU8Rs0/Q1KvE2tF0zzv9d2/a07BzZQbVzOdrPlbSk=";
+    sha256 = "sha256-z4pLtSx1mg53AHPhT8P7BOEMCWHsieoS3rI0kEyJBcY=";
   };
 
-  cargoSha256 = "sha256-r5rIuulcPB5Y4AkbUPswf3W4DZ9Pc8auzmDDvSOOZEA=";
+  cargoSha256 = "sha256-4YF1fqthnWY6eu6J4SMwFG655KXdFCXmA9wxLyOOAw4=";
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
@@ -26,8 +26,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Ccache with Cloud Storage";
     homepage = "https://github.com/mozilla/sccache";
-    changelog = "https://github.com/mozilla/sccache/releases/tag/v${version}";
-    maintainers = with maintainers; [ doronbehar figsoda ];
+    maintainers = with maintainers; [ doronbehar ];
     license = licenses.asl20;
   };
 }

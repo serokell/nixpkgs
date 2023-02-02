@@ -36,7 +36,7 @@ buildPythonPackage rec {
     commoncode
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

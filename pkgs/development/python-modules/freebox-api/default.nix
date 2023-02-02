@@ -10,7 +10,7 @@
 
 buildPythonPackage rec {
   pname = "freebox-api";
-  version = "1.0.1";
+  version = "1.0.0";
   format = "pyproject";
 
   disabled = pythonOlder "3.8";
@@ -18,8 +18,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "hacf-fr";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-60hIv35nNxXPFZy/JvG1O/ZkSMk65XDojUYP1QyfwXY=";
+    rev = "v${version}";
+    hash = "sha256-y78PzSivB+IJ9hrN3ZRhDBo7kI7M6uleTPkF6slO6So=";
   };
 
   nativeBuildInputs = [
@@ -31,7 +31,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

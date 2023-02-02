@@ -12,6 +12,7 @@
 , pixman
 , libpng
 , wayland
+, wlroots
 , dbus
 , fcft
 }:
@@ -42,6 +43,7 @@ stdenv.mkDerivation rec {
     pixman
     libpng
     wayland
+    wlroots
     dbus
     fcft
   ];

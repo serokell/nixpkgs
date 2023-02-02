@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation rec {
   pname = "icinga2${nameSuffix}";
-  version = "2.13.6";
+  version = "2.13.5";
 
   src = fetchFromGitHub {
     owner = "icinga";
     repo = "icinga2";
     rev = "v${version}";
-    sha256 = "sha256-Zrq+pw1dZyKVxpbsXeEPU3hLqcaYj/0wqB9HmYXnd0Y=";
+    sha256 = "sha256-XVA3VIGmj3mXfx2eIJ5X4hfjRrnZaAHYMPRyy9+9QGc=";
   };
 
   patches = [
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake flex bison patchelf ];
 
   doCheck = true;
-  nativeCheckInputs = [ tzdata ]; # legacytimeperiod/dst needs this
+  checkInputs = [ tzdata ]; # legacytimeperiod/dst needs this
 
   postFixup = ''
     rm -r $out/etc/logrotate.d $out/etc/sysconfig $out/lib/icinga2/prepare-dirs

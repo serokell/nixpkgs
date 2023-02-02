@@ -36,7 +36,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     keras
     pytestCheckHook
     tensorflow

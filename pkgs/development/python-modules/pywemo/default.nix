@@ -36,7 +36,7 @@ buildPythonPackage rec {
     lxml
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-vcr
     pytestCheckHook
   ];

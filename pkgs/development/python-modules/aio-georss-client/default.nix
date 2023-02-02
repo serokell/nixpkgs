@@ -35,7 +35,7 @@ buildPythonPackage rec {
     dateparser
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     aresponses
     asynctest
     pytest-asyncio

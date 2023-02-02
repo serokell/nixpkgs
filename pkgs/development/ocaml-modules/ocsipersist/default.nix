@@ -5,8 +5,7 @@
 
 buildDunePackage {
   pname = "ocsipersist";
-  inherit (ocsipersist-lib) src version;
-  duneVersion = "3";
+  inherit (ocsipersist-lib) src version useDune2;
 
   buildInputs = [
     ocsipersist-pgsql

@@ -17,7 +17,7 @@
 
 assert faacSupport -> enableUnfree;
 
-let inherit (lib) optional optionals hasPrefix enableFeature; in
+let inherit (lib) optional hasPrefix enableFeature; in
 
 /* ToDo:
     - more deps, inspiration: https://packages.ubuntu.com/raring/libav-tools
@@ -77,7 +77,7 @@ let
       (enableFeature vaapiSupport "vaapi")
       (enableFeature vdpauSupport "vdpau")
       (enableFeature freetypeSupport "libfreetype")
-    ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    ] ++ optional (stdenv.hostPlatform != stdenv.buildPlatform) [
       "--cross-prefix=${stdenv.cc.targetPrefix}"
       "--enable-cross-compile"
     ];

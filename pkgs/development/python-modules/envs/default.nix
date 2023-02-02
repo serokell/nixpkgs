@@ -32,7 +32,7 @@ buildPythonPackage rec {
     terminaltables
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     nose
   ];

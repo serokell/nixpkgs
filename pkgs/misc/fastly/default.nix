@@ -1,20 +1,14 @@
-{ lib
-, fetchurl
-, fetchFromGitHub
-, installShellFiles
-, buildGoModule
-, go
-}:
+{ lib, fetchFromGitHub, installShellFiles, buildGoModule, go }:
 
 buildGoModule rec {
   pname = "fastly";
-  version = "5.0.0";
+  version = "3.2.4";
 
   src = fetchFromGitHub {
     owner = "fastly";
     repo = "cli";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-rbb+OtzOZbTYJt4IH1QXKdQ9JevGLEvhcC+F7rW337k=";
+    rev = "v${version}";
+    sha256 = "sha256-eIqdDBU4NWNMyRs+h30ufg4QwEEGid+wCjATZYXDGm8=";
     # The git commit is part of the `fastly version` original output;
     # leave that output the same in nixpkgs. Use the `.git` directory
     # to retrieve the commit SHA, and remove the directory afterwards,
@@ -27,15 +21,11 @@ buildGoModule rec {
     '';
   };
 
-  subPackages = [
-    "cmd/fastly"
-  ];
+  subPackages = [ "cmd/fastly" ];
 
-  vendorHash = "sha256-TxF0H1kZSn9VFrR8z5JJwWXCG6Gl8QH88qwQidGY7oc=";
+  vendorSha256 = "sha256-glztVmAAdkEccJEFIHGWjNzz/+MjExSX18GDX66sdxA=";
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   # Flags as provided by the build automation of the project:
   #   https://github.com/fastly/cli/blob/7844f9f54d56f8326962112b5534e5c40e91bf09/.goreleaser.yml#L14-L18
@@ -47,13 +37,7 @@ buildGoModule rec {
     "-X github.com/fastly/cli/pkg/revision.GoHostOS=${go.GOHOSTOS}"
     "-X github.com/fastly/cli/pkg/revision.GoHostArch=${go.GOHOSTARCH}"
   ];
-  preBuild = let
-    cliConfigToml = fetchurl {
-      url = "https://web.archive.org/web/20221224152051/https://developer.fastly.com/api/internal/cli-config";
-      hash = "sha256-IjakfeqjHshlGoamRJTnhUC8cTVMIY63F3vO6I/ZHO4=";
-    };
-  in ''
-    cp ${cliConfigToml} ./pkg/config/config.toml
+  preBuild = ''
     ldflags+=" -X github.com/fastly/cli/pkg/revision.GitCommit=$(cat COMMIT)"
   '';
 
@@ -66,9 +50,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description = "Command line tool for interacting with the Fastly API";
-    homepage = "https://github.com/fastly/cli";
-    changelog = "https://github.com/fastly/cli/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
+    homepage = "https://github.com/fastly/cli";
     maintainers = with maintainers; [ ereslibre shyim ];
   };
 }

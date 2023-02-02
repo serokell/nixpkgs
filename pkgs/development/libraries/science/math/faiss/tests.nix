@@ -21,7 +21,7 @@ buildPythonPackage {
     "test_contrib.py"
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     faiss
     pytestCheckHook
     scipy

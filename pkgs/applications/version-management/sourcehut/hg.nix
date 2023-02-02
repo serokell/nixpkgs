@@ -41,6 +41,8 @@ buildPythonPackage rec {
     vendorSha256 = "sha256-7ti8xCjSrxsslF7/1X/GY4FDl+69hPL4UwCDfjxmJLU=";
   };
 
+  nativeBuildInputs = srht.nativeBuildInputs;
+
   propagatedBuildInputs = [
     srht
     hglib

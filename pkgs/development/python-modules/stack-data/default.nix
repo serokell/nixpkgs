@@ -39,7 +39,7 @@ buildPythonPackage rec {
     pure-eval
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     cython
     littleutils
     pygments

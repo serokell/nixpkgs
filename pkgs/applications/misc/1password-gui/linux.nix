@@ -127,7 +127,6 @@ in stdenv.mkDerivation {
     makeWrapper $out/share/1password/1password $out/bin/1password \
       ''${gappsWrapperArgs[@]} \
       --suffix PATH : ${lib.makeBinPath [ xdg-utils ]} \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ udev ]} \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ udev ]}
   '';
 }

@@ -1,16 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, jre
-, jdk
-, gradle_6
-, makeDesktopItem
-, copyDesktopItems
-, perl
-, writeText
-, runtimeShell
-}:
+{ lib, stdenv, fetchFromGitHub, jre, jdk, gradle_5, makeDesktopItem, copyDesktopItems, perl, writeText, runtimeShell }:
 
 let
   pname = "jd-gui";
@@ -20,23 +8,14 @@ let
     owner = "java-decompiler";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-QHiZPYFwDQzbXVSuhwzQqBRXlkG9QVU+Jl6SKvBoCwQ=";
+    sha256 = "010bd3q2m4jy4qz5ahdx86b5f558s068gbjlbpdhq3bhh4yrjy20";
   };
-
-  patches = [
-    # https://github.com/java-decompiler/jd-gui/pull/362
-    (fetchpatch {
-      name = "nebula-plugin-gradle-6-compatibility.patch";
-      url = "https://github.com/java-decompiler/jd-gui/commit/91f805f9dc8ce0097460e63c8095ccea870687e6.patch";
-      hash = "sha256-9eaM9Mx2FaKIhGSOHjATKN/CrtvJeXyrH8Mdx8LNtpE=";
-    })
-  ];
 
   deps = stdenv.mkDerivation {
     name = "${pname}-deps";
-    inherit src patches;
+    inherit src;
 
-    nativeBuildInputs = [ jdk perl gradle_6 ];
+    nativeBuildInputs = [ jdk perl gradle_5 ];
 
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d);
@@ -53,7 +32,7 @@ let
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "sha256-gqUyZE+MoZRYCcJx95Qc4dZIC3DZvxee6UQhpfveDI4=";
+    outputHash = "1qil12s0daxpxj5xj5dj6s2k89is0kiir2vcafkm3lasc41acmk3";
   };
 
   # Point to our local deps repo
@@ -89,10 +68,10 @@ let
   };
 
 in stdenv.mkDerivation rec {
-  inherit pname version src patches;
+  inherit pname version src;
   name = "${pname}-${version}";
 
-  nativeBuildInputs = [ jdk gradle_6 copyDesktopItems ];
+  nativeBuildInputs = [ jdk gradle_5 copyDesktopItems ];
 
   buildPhase = ''
     export GRADLE_USER_HOME=$(mktemp -d)

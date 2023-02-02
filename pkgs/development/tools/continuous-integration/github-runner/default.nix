@@ -1,5 +1,4 @@
 { autoPatchelfHook
-, autoSignDarwinBinariesHook
 , coreutils
 , curl
 , dotnetCorePackages
@@ -28,6 +27,10 @@ let
     inherit sha256;
   };
 
+  sdkSource = linkFarmFromDrvs "nuget-sdk-packages" (
+    dotnetSdk.passthru.packages { inherit fetchNuGet; }
+  );
+
   nugetSource = linkFarmFromDrvs "nuget-packages" (
     import ./deps.nix { inherit fetchNuGet; }
   );
@@ -37,41 +40,37 @@ let
   runtimeIds = {
     "x86_64-linux" = "linux-x64";
     "aarch64-linux" = "linux-arm64";
-    "x86_64-darwin" = "osx-x64";
-    "aarch64-darwin" = "osx-arm64";
   };
   runtimeId = runtimeIds.${stdenv.system};
   fakeSha1 = "0000000000000000000000000000000000000000";
 in
 stdenv.mkDerivation rec {
   pname = "github-runner";
-  version = "2.301.1";
+  version = "2.298.2";
+
+  inherit sdkSource;
 
   src = fetchFromGitHub {
     owner = "actions";
     repo = "runner";
     rev = "v${version}";
-    hash = "sha256-GIWuN3/CnA0uZfpo1Gty+5tL2eDXmFyzYFHrRozHwk0=";
+    hash = "sha256-ejYNuaijUOG3czW+7i4UmR+ysDnZwXXmS3V8INqeeTg=";
   };
 
   nativeBuildInputs = [
     dotnetSdk
     dotnetPackages.Nuget
     makeWrapper
-  ] ++ lib.optionals stdenv.isLinux [
     autoPatchelfHook
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-    autoSignDarwinBinariesHook
   ];
 
   buildInputs = [
     curl # libcurl.so.4
     libkrb5 # libgssapi_krb5.so.2
+    lttng-ust # liblttng-ust.so.0
     stdenv.cc.cc.lib # libstdc++.so.6
     zlib # libz.so.1
     icu
-  ] ++ lib.optionals stdenv.isLinux [
-    lttng-ust # liblttng-ust.so.0
   ];
 
   patches = [
@@ -105,8 +104,6 @@ stdenv.mkDerivation rec {
       --replace '/bin/ln' '${coreutils}/bin/ln'
   '';
 
-  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT = stdenv.isDarwin;
-
   configurePhase = ''
     runHook preConfigure
 
@@ -118,7 +115,7 @@ stdenv.mkDerivation rec {
     # Restore the dependencies
     dotnet restore src/ActionsRunner.sln \
       --runtime "${runtimeId}" \
-      --source "${dotnetSdk.packages}" \
+      --source "${sdkSource}" \
       --source "${nugetSource}"
 
     runHook postConfigure
@@ -139,8 +136,6 @@ stdenv.mkDerivation rec {
   '';
 
   doCheck = true;
-
-  __darwinAllowLocalNetworking = true;
 
   # Fully qualified name of disabled tests
   disabledTests =
@@ -200,15 +195,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.hostPlatform.system == "aarch64-linux") [
       # "JavaScript Actions in Alpine containers are only supported on x64 Linux runners. Detected Linux Arm64"
       "GitHub.Runner.Common.Tests.Worker.StepHostL0.DetermineNodeRuntimeVersionInAlpineContainerAsync"
-    ]
-    ++ lib.optionals DOTNET_SYSTEM_GLOBALIZATION_INVARIANT [
-      "GitHub.Runner.Common.Tests.ProcessExtensionL0.SuccessReadProcessEnv"
-      "GitHub.Runner.Common.Tests.Util.StringUtilL0.FormatUsesInvariantCulture"
-      "GitHub.Runner.Common.Tests.Worker.VariablesL0.Constructor_SetsOrdinalIgnoreCaseComparer"
-      "GitHub.Runner.Common.Tests.Worker.WorkerL0.DispatchCancellation"
-      "GitHub.Runner.Common.Tests.Worker.WorkerL0.DispatchRunNewJob"
     ];
-  nativeCheckInputs = [ git ];
+  checkInputs = [ git ];
 
   checkPhase = ''
     runHook preCheck
@@ -254,12 +242,7 @@ stdenv.mkDerivation rec {
     substituteInPlace $out/lib/run.sh    --replace '"$DIR"/bin' '"$DIR"/lib'
     substituteInPlace $out/lib/config.sh --replace './bin' $out'/lib' \
       --replace 'source ./env.sh' $out/bin/env.sh
-  '' + lib.optionalString stdenv.isLinux ''
-    # Make binary paths absolute
-    substituteInPlace $out/lib/config.sh \
-      --replace 'ldd' '${glibc.bin}/bin/ldd' \
-      --replace '/sbin/ldconfig' '${glibc.bin}/bin/ldconfig'
-  '' + ''
+
     # Remove uneeded copy for run-helper template
     substituteInPlace $out/lib/run.sh --replace 'cp -f "$DIR"/run-helper.sh.template "$DIR"/run-helper.sh' ' '
     substituteInPlace $out/lib/run-helper.sh --replace '"$DIR"/bin/' '"$DIR"/'
@@ -286,7 +269,7 @@ stdenv.mkDerivation rec {
   # Stripping breaks the binaries
   dontStrip = true;
 
-  preFixup = lib.optionalString stdenv.isLinux ''
+  preFixup = ''
     patchelf --replace-needed liblttng-ust.so.0 liblttng-ust.so $out/lib/libcoreclrtraceptprovider.so
   '';
 
@@ -294,16 +277,17 @@ stdenv.mkDerivation rec {
     fix_rpath() {
       patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/lib/$1
     }
+
     wrap() {
       makeWrapper $out/lib/$1 $out/bin/$1 \
         --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath (buildInputs ++ [ openssl ])} \
         "''${@:2}"
     }
-  '' + lib.optionalString stdenv.isLinux ''
+
     fix_rpath Runner.Listener
     fix_rpath Runner.PluginHost
     fix_rpath Runner.Worker
-  '' + ''
+
     wrap Runner.Listener
     wrap Runner.PluginHost
     wrap Runner.Worker
@@ -312,19 +296,19 @@ stdenv.mkDerivation rec {
 
     wrap config.sh --run 'export RUNNER_ROOT=''${RUNNER_ROOT:-$HOME/.github-runner}' \
       --run 'mkdir -p $RUNNER_ROOT' \
-      --prefix PATH : ${lib.makeBinPath [ stdenv.cc ]} \
+      --prefix PATH : ${lib.makeBinPath [ glibc.bin ]} \
       --chdir $out
   '';
 
   # Script to create deps.nix file for dotnet dependencies. Run it with
   # $(nix-build -A github-runner.passthru.createDepsFile)/bin/create-deps-file
   #
-  # Default output path is /tmp/${pname}-deps.nix, but can be overridden with cli argument.
+  # Default output path is /tmp/${pname}-deps.nix, but can be overriden with cli argument.
   #
   # Inspired by passthru.fetch-deps in pkgs/build-support/build-dotnet-module/default.nix
   passthru.createDepsFile = writeShellApplication {
     name = "create-deps-file";
-    runtimeInputs = [ coreutils dotnetSdk (nuget-to-nix.override { dotnet-sdk = dotnetSdk; }) ];
+    runtimeInputs = [ dotnetSdk (nuget-to-nix.override { dotnet-sdk = dotnetSdk; }) ];
     text = ''
       # Disable telemetry data
       export DOTNET_CLI_TELEMETRY_OPTOUT=1
@@ -333,7 +317,6 @@ stdenv.mkDerivation rec {
 
       printf "\n* Setup workdir\n"
       workdir="$(mktemp -d /tmp/${pname}.XXX)"
-      HOME="$workdir"/.fake-home
       cp -rT "${src}" "$workdir"
       chmod -R +w "$workdir"
       trap 'rm -rf "$workdir"' EXIT
@@ -348,7 +331,7 @@ stdenv.mkDerivation rec {
       '') (lib.attrValues runtimeIds)}
 
       printf "\n* Make %s file\n" "$(basename "$deps_file")"
-      nuget-to-nix "$workdir/nuget_pkgs" "${dotnetSdk.packages}" > "$deps_file"
+      nuget-to-nix "$workdir/nuget_pkgs" "${sdkSource}" > "$deps_file"
       printf "\n* Dependency file writen to %s" "$deps_file"
     '';
   };

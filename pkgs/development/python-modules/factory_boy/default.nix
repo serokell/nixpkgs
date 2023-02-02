@@ -25,7 +25,7 @@ buildPythonPackage rec {
     faker
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     django
     flask
     flask-sqlalchemy
@@ -37,11 +37,6 @@ buildPythonPackage rec {
   # Checks for MongoDB requires an a running DB
   disabledTests = [
     "MongoEngineTestCase"
-  ];
-
-  disabledTestPaths = [
-    # incompatible with latest flask-sqlalchemy
-    "examples/flask_alchemy/test_demoapp.py"
   ];
 
   pythonImportsCheck = [

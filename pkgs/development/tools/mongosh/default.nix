@@ -1,7 +1,7 @@
 { pkgs, stdenv, lib, testers, mongosh }:
 
 let
-  nodePackages = import ./composition.nix {
+  nodePackages = import ./gen/composition.nix {
     inherit pkgs;
     inherit (stdenv.hostPlatform) system;
   };

@@ -22,7 +22,6 @@
 , python3
 , sasl
 , system-sendmail
-, libxcrypt
 }:
 
 stdenv.mkDerivation rec {
@@ -64,7 +63,6 @@ stdenv.mkDerivation rec {
     python3
     readline
     sasl
-    libxcrypt
   ] ++ lib.optionals stdenv.isLinux [ nettools ];
 
   patches = [
@@ -99,7 +97,7 @@ stdenv.mkDerivation rec {
     (fetchurl { url = "${p}/weed.at"; sha256 = "1101xakhc99f5gb9cs3mmydn43ayli7b270pzbvh7f9rbvh0d0nh"; })
   ];
 
-  nativeCheckInputs = [ dejagnu ];
+  checkInputs = [ dejagnu ];
   doCheck = false; # fails 1 out of a bunch of tests, looks like a bug
   doInstallCheck = false; # fails
 

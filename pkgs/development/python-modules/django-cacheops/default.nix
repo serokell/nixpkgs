@@ -25,7 +25,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-django
   ];

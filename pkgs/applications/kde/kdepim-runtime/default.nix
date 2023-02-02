@@ -12,7 +12,7 @@
 mkDerivation {
   pname = "kdepim-runtime";
   meta = {
-    license = with lib.licenses; [ gpl2Plus lgpl21Plus fdl12Plus ];
+    license = with lib.licenses; [ gpl2 lgpl21 fdl12 ];
     maintainers = kdepimTeam;
   };
   nativeBuildInputs = [ extra-cmake-modules kdoctools shared-mime-info ];

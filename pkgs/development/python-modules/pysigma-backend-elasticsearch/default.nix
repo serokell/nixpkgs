@@ -10,7 +10,7 @@
 
 buildPythonPackage rec {
   pname = "pysigma-backend-elasticsearch";
-  version = "0.1.2";
+  version = "0.1.1";
   format = "pyproject";
 
   disabled = pythonOlder "3.8";
@@ -19,7 +19,7 @@ buildPythonPackage rec {
     owner = "SigmaHQ";
     repo = "pySigma-backend-elasticsearch";
     rev = "refs/tags/v${version}";
-    hash = "sha256-HzvL6b2zeUrAAJ4mmKPOacZzHVVxfs3gjzP+fZIhApI=";
+    hash = "sha256-Niix0j4xaoQBMxvTOhy7hgmZ5btjs+0ovTEJcXAzjNY=";
   };
 
   nativeBuildInputs = [
@@ -30,7 +30,7 @@ buildPythonPackage rec {
     pysigma
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     requests
   ];
@@ -47,7 +47,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library to support Elasticsearch for pySigma";
     homepage = "https://github.com/SigmaHQ/pySigma-backend-elasticsearch";
-    changelog = "https://github.com/SigmaHQ/pySigma-backend-elasticsearch/releases/tag/v${version}";
     license = with licenses; [ lgpl21Only ];
     maintainers = with maintainers; [ fab ];
   };

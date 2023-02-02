@@ -20,7 +20,7 @@ rec {
   # necessary.
   #
   # `parsed` is inferred from args, both because there are two options with one
-  # clearly preferred, and to prevent cycles. A simpler fixed point where the RHS
+  # clearly prefered, and to prevent cycles. A simpler fixed point where the RHS
   # always just used `final.*` would fail on both counts.
   elaborate = args': let
     args = if lib.isString args' then { system = args'; }
@@ -47,10 +47,9 @@ rec {
         else if final.isUClibc              then "uclibc"
         else if final.isAndroid             then "bionic"
         else if final.isLinux /* default */ then "glibc"
-        else if final.isFreeBSD             then "fblibc"
-        else if final.isNetBSD              then "nblibc"
         else if final.isAvr                 then "avrlibc"
         else if final.isNone                then "newlib"
+        else if final.isNetBSD              then "nblibc"
         # TODO(@Ericson2314) think more about other operating systems
         else                                     "native/impure";
       # Choose what linker we wish to use by default. Someday we might also
@@ -62,7 +61,7 @@ rec {
       linker =
         /**/ if final.useLLVM or false      then "lld"
         else if final.isDarwin              then "cctools"
-        # "bfd" and "gold" both come from GNU binutils. The existence of Gold
+        # "bfd" and "gold" both come from GNU binutils. The existance of Gold
         # is why we use the more obscure "bfd" and not "binutils" for this
         # choice.
         else                                     "bfd";
@@ -101,14 +100,7 @@ rec {
         }.${final.parsed.kernel.name} or null;
 
          # uname -m
-         processor =
-           if final.isPower64
-           then "ppc64${lib.optionalString final.isLittleEndian "le"}"
-           else if final.isPower
-           then "ppc${lib.optionalString final.isLittleEndian "le"}"
-           else if final.isMips64
-           then "mips64"  # endianness is *not* included on mips64
-           else final.parsed.cpu.name;
+         processor = final.parsed.cpu.name;
 
          # uname -r
          release = null;
@@ -142,7 +134,12 @@ rec {
         if final.isAarch32 then "arm"
         else if final.isx86_64 then "x86_64"
         else if final.isx86 then "i386"
-        else final.uname.processor;
+        else {
+          powerpc = "ppc";
+          powerpcle = "ppc";
+          powerpc64 = "ppc64";
+          powerpc64le = "ppc64le";
+        }.${final.parsed.cpu.name} or final.parsed.cpu.name;
 
       # Name used by UEFI for architectures.
       efiArch =
@@ -186,13 +183,14 @@ rec {
               seccompSupport = false;
               hostCpuTargets = [ "${final.qemuArch}-linux-user" ];
             };
-            wine = (pkgs.winePackagesFor "wine${toString final.parsed.cpu.bits}").minimal;
+            wine-name = "wine${toString final.parsed.cpu.bits}";
+            wine = (pkgs.winePackagesFor wine-name).minimal;
           in
           if final.parsed.kernel.name == pkgs.stdenv.hostPlatform.parsed.kernel.name &&
             pkgs.stdenv.hostPlatform.canExecute final
           then "${pkgs.runtimeShell} -c '\"$@\"' --"
           else if final.isWindows
-          then "${wine}/bin/wine${lib.optionalString (final.parsed.cpu.bits == 64) "64"}"
+          then "${wine}/bin/${wine-name}"
           else if final.isLinux && pkgs.stdenv.hostPlatform.isLinux
           then "${qemu-user}/bin/qemu-${final.qemuArch}"
           else if final.isWasi

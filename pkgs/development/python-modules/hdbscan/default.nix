@@ -40,7 +40,7 @@ buildPythonPackage rec {
     cd hdbscan/tests
     rm __init__.py
   '';
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
   disabledTests = [
     # known flaky tests: https://github.com/scikit-learn-contrib/hdbscan/issues/420
     "test_mem_vec_diff_clusters"

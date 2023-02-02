@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "mutagen";
-  version = "0.16.0";
+  version = "0.14.0";
 
   src = fetchFromGitHub {
     owner = "mutagen-io";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-nKt/A1LIr+cPWASWFYiOebxsuWcbzd23CQ32GgnWvLA=";
+    sha256 = "sha256-OoRXf0QboRQkZE4zcwlGFyoToGOy1bbgGSo17BQLqCE=";
   };
 
-  vendorSha256 = "sha256-feQOrZmJ656yD3HsxnN8JFXoP/XM2Gobyzj5MHyH/Xw=";
+  vendorSha256 = "sha256-dkPpz0SZEAMPR7mq11kDHGCgeIpnXj2lRnJo1Ws32Cc=";
 
   agents = fetchzip {
     name = "mutagen-agents-${version}";
@@ -21,7 +21,7 @@ buildGoModule rec {
     postFetch = ''
       rm $out/mutagen # Keep only mutagen-agents.tar.gz.
     '';
-    sha256 = "sha256-QkleSf/Npbqrx2049tKxxwJk+996gM5AU/BIoyplDYo=";
+    sha256 = "sha256-AlAo55/ewTE04WfS0beVonGA97AmpR1pAw/QxKAYjv8=";
   };
 
   doCheck = false;

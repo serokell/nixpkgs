@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = [ beets ];
 
-  nativeCheckInputs = with python3Packages; [
+  checkInputs = with python3Packages; [
     pytestCheckHook
     mock
   ];

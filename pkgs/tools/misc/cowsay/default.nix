@@ -1,47 +1,47 @@
-{ lib, stdenv, perl, fetchFromGitHub, fetchpatch, nix-update-script, testers, cowsay }:
+{ lib, stdenv, perl, installShellFiles, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "cowsay";
-  version = "3.7.0";
-
-  outputs = [ "out" "man" ];
+  version = "3.04";
 
   src = fetchFromGitHub {
-    owner = "cowsay-org";
-    repo = "cowsay";
-    rev = "v${version}";
-    hash = "sha256-t1grmCPQhRgwS64RjEwkK61F2qxxMBKuv0/DzBTnL3s=";
+    owner = "tnalpgge";
+    repo = "rank-amateur-cowsay";
+    rev = "cowsay-${version}";
+    sha256 = "sha256-9jCaQ6Um6Nl9j0/urrMCRcsGeubRN3VWD3jDM/AshRg=";
   };
-
-  patches = [
-    # Install cowthink as a symlink, not a copy
-    # See https://github.com/cowsay-org/cowsay/pull/18
-    (fetchpatch {
-      url = "https://github.com/cowsay-org/cowsay/commit/9e129fa0933cf1837672c97f5ae5ad4a1a10ec11.patch";
-      hash = "sha256-zAYEUAM5MkyMONAl5BXj8hBHRalQVAOdpxgiM+Ewmlw=";
-    })
-  ];
 
   buildInputs = [ perl ];
 
-  makeFlags = [
-    "prefix=${placeholder "out"}"
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-    tests.version = testers.testVersion {
-      package = cowsay;
-      command = "cowsay --version";
-    };
-  };
+  # overriding buildPhase because we don't want to use the install.sh script
+  buildPhase = ''
+    runHook preBuild;
+    substituteInPlace cowsay --replace "%BANGPERL%" "!${perl}/bin/perl" \
+      --replace "%PREFIX%" "$out"
+    runHook postBuild;
+  '';
+
+  installPhase = ''
+    runHook preInstall
+    install -Dm755 cowsay $out/bin/cowsay
+    ln -s $out/bin/cowsay $out/bin/cowthink
+
+    installManPage cowsay.1
+    ln -s $man/share/man/man1/cowsay.1.gz $man/share/man/man1/cowthink.1.gz
+
+    install -Dm644 cows/* -t $out/share/cows/
+    runHook postInstall
+  '';
+
+  outputs = [ "out" "man" ];
 
   meta = with lib; {
     description = "A program which generates ASCII pictures of a cow with a message";
-    homepage = "https://cowsay.diamonds";
-    changelog = "https://github.com/cowsay-org/cowsay/releases/tag/v${version}";
+    homepage = "https://github.com/tnalpgge/rank-amateur-cowsay";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ rob anthonyroussel ];
+    maintainers = [ maintainers.rob ];
   };
 }

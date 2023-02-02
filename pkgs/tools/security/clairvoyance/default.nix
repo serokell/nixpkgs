@@ -5,14 +5,14 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "clairvoyance";
-  version = "2.0.6";
+  version = "2.0.4";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "nikitastupin";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-Jsb/UjqAppAUz9AGgON6AyVgUdOY6aswjQ9EL939Kro=";
+    rev = "v${version}";
+    hash = "sha256-b69a3UTRt5axTSjLcEYkqGe7bFlQKCiMzoNtw91HCyI=";
   };
 
   nativeBuildInputs = with python3.pkgs; [
@@ -23,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
     aiohttp
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = with python3.pkgs; [
     aiounittest
     pytestCheckHook
   ];

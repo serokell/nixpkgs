@@ -22,7 +22,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "license=license" "license='MIT'"
   '';
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  checkInputs = [ unittestCheckHook ];
 
   pythonImportsCheck = [
     "maxcube"

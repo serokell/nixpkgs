@@ -24,7 +24,7 @@ buildPythonPackage rec {
     wcwidth
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

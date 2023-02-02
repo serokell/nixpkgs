@@ -19,11 +19,15 @@ def get_tmp_dir() -> Path:
     tmp_dir.mkdir(mode=0o700, exist_ok=True)
     if not tmp_dir.is_dir():
         raise NotADirectoryError(
-            f"The directory defined by TMPDIR, TEMP, TMP or CWD: {tmp_dir} is not a directory"
+            "The directory defined by TMPDIR, TEMP, TMP or CWD: {0} is not a directory".format(
+                tmp_dir
+            )
         )
     if not os.access(tmp_dir, os.W_OK):
         raise PermissionError(
-            f"The directory defined by TMPDIR, TEMP, TMP, or CWD: {tmp_dir} is not writeable"
+            "The directory defined by TMPDIR, TEMP, TMP, or CWD: {0} is not writeable".format(
+                tmp_dir
+            )
         )
     return tmp_dir
 
@@ -215,20 +219,6 @@ class Driver:
             def __exit__(self, a, b, c) -> None:  # type: ignore
                 res = driver.polling_conditions.pop()
                 assert res is self.condition
-
-            def wait(self, timeout: int = 900) -> None:
-                def condition(last: bool) -> bool:
-                    if last:
-                        rootlog.info(f"Last chance for {self.condition.description}")
-                    ret = self.condition.check(force=True)
-                    if not ret and not last:
-                        rootlog.info(
-                            f"({self.condition.description} failure not fatal yet)"
-                        )
-                    return ret
-
-                with rootlog.nested(f"waiting for {self.condition.description}"):
-                    retry(condition, timeout=timeout)
 
         if fun_ is None:
             return Poll

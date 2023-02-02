@@ -16,7 +16,6 @@
 , libappindicator-gtk3
 , libxshmfence
 , libglvnd
-, wayland
 }:
 
 version: hashes:
@@ -32,7 +31,7 @@ let
       ++ optionals (versionAtLeast version "11.0.0") [ "aarch64-darwin" ]
       ++ optionals (versionOlder version "19.0.0") [ "i686-linux" ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    knownVulnerabilities = optional (versionOlder version "18.0.0") "Electron version ${version} is EOL";
+    knownVulnerabilities = optional (versionOlder version "15.0.0") "Electron version ${version} is EOL";
   };
 
   fetcher = vers: tag: hash: fetchurl {
@@ -65,7 +64,7 @@ let
   };
 
   electronLibPath = with lib; makeLibraryPath (
-    [ libuuid at-spi2-atk at-spi2-core libappindicator-gtk3 wayland ]
+    [ libuuid at-spi2-atk at-spi2-core libappindicator-gtk3 ]
     ++ optionals (versionAtLeast version "9.0.0") [ libdrm mesa ]
     ++ optionals (versionOlder version "10.0.0") [ libXScrnSaver ]
     ++ optionals (versionAtLeast version "11.0.0") [ libxkbcommon ]

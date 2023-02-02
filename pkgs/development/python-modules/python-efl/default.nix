@@ -6,7 +6,6 @@
 , dbus-python
 , packaging
 , enlightenment
-, directoryListingUpdater
 }:
 
 # Should be bumped along with EFL!
@@ -39,8 +38,6 @@ buildPythonPackage rec {
   '';
 
   doCheck = false;
-
-  passthru.updateScript = directoryListingUpdater { };
 
   meta = with lib; {
     description = "Python bindings for Enlightenment Foundation Libraries";

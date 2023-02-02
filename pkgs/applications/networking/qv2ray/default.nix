@@ -11,6 +11,7 @@
 , openssl
 , pkg-config
 , c-ares
+, abseil-cpp
 , libGL
 , zlib
 , curl
@@ -50,6 +51,7 @@ mkDerivation rec {
     grpc
     protobuf
     openssl
+    abseil-cpp
     c-ares
   ];
 

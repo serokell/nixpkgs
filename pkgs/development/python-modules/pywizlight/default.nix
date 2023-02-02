@@ -1,4 +1,5 @@
 { lib
+, asyncio-dgram
 , buildPythonPackage
 , click
 , fetchFromGitHub
@@ -18,20 +19,21 @@ buildPythonPackage rec {
     owner = "sbidy";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-IkuAYEg5nuUT6zxmuJe6afp4MVWf0+HAnEoAdOrdTvQ=";
+    sha256 = "sha256-IkuAYEg5nuUT6zxmuJe6afp4MVWf0+HAnEoAdOrdTvQ=";
   };
 
   propagatedBuildInputs = [
+    asyncio-dgram
     click
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytestCheckHook
   ];
 
   pytestFlagsArray = [
-    "--asyncio-mode=auto"
+    "--asyncio-mode=legacy"
   ];
 
   disabledTests = [

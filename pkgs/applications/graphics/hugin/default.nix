@@ -13,7 +13,7 @@
 , fftw
 , flann
 , gettext
-, glew-egl
+, glew
 , ilmbase
 , lcms2
 , lensfun
@@ -36,11 +36,11 @@
 
 stdenv.mkDerivation rec {
   pname = "hugin";
-  version = "2022.0.0";
+  version = "2021.0.0";
 
   src = fetchurl {
     url = "mirror://sourceforge/hugin/hugin-${version}.tar.bz2";
-    sha256 = "sha256-l8hWKgupp0PguVWkPf3gSLHGDNnl8u4rad4agWRuBac=";
+    sha256 = "sha256-BHrqin+keESzTvJ8GdO2l+hJOdyx/bvrLCBGIbZu6tk=";
   };
 
   buildInputs = [
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     fftw
     flann
     gettext
-    glew-egl
+    glew
     ilmbase
     lcms2
     lensfun

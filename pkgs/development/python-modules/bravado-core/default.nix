@@ -65,7 +65,7 @@ buildPythonPackage rec {
     webcolors
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mypy-extensions
     pytestCheckHook
     mock

@@ -48,7 +48,7 @@ buildPythonPackage rec {
     shapely
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

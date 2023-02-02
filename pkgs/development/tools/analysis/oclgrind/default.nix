@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  nativeCheckInputs = [ python3 ];
+  checkInputs = [ python3 ];
   buildInputs = [ llvmPackages.llvm llvmPackages.clang-unwrapped readline ];
 
   cmakeFlags = [

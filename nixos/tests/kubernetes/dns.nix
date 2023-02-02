@@ -69,7 +69,7 @@ let
   extraConfiguration = { config, pkgs, lib, ... }: {
     environment.systemPackages = [ pkgs.bind.host ];
     services.dnsmasq.enable = true;
-    services.dnsmasq.settings.server = [
+    services.dnsmasq.servers = [
       "/cluster.local/${config.services.kubernetes.addons.dns.clusterIp}#53"
     ];
   };

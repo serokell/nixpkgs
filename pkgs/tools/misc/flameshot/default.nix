@@ -20,7 +20,9 @@ mkDerivation rec {
   };
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      attrPath = pname;
+    };
   };
 
   nativeBuildInputs = [ cmake qttools qtsvg ];
@@ -31,6 +33,6 @@ mkDerivation rec {
     homepage = "https://github.com/flameshot-org/flameshot";
     maintainers = with maintainers; [ scode oxalica ];
     license = licenses.gpl3Plus;
-    platforms = platforms.linux ++ platforms.darwin;
+    platforms = platforms.linux;
   };
 }

@@ -1,82 +1,41 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pdm-pep517
-, appdirs
-, loguru
-, requests
-, setuptools
-, toml
-, websocket-client
-, asciimatics
-, pyperclip
-, aria2
-, fastapi
-, pytest-xdist
-, pytestCheckHook
-, responses
-, uvicorn
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
+, aria2, poetry, pytest, pytest-cov, pytest-xdist, responses
+, asciimatics, loguru, requests, setuptools, websocket-client
 }:
 
 buildPythonPackage rec {
   pname = "aria2p";
-  version = "0.11.2";
+  version = "0.9.1";
   format = "pyproject";
   disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "pawamoy";
     repo = pname;
-    rev = version;
-    hash = "sha256-z74ej6J6Yh1aVsXR5fE+XhoCzCS+zfDxQL8gKFd7tBA=";
+    rev = "v${version}";
+    sha256 = "1s4kad6jnfz9p64gkqclkfq2x2bn8dbc0hyr86d1545bgn7pz672";
   };
 
-  nativeBuildInputs = [
-    pdm-pep517
-  ];
+  nativeBuildInputs = [ poetry ];
 
-  propagatedBuildInputs = [
-    appdirs
-    loguru
-    requests
-    setuptools # for pkg_resources
-    toml
-    websocket-client
-  ];
-
-  passthru.optional-dependencies = {
-    tui = [ asciimatics pyperclip ];
-  };
-
-  preCheck = ''
+  preBuild = ''
     export HOME=$TMPDIR
   '';
 
-  nativeCheckInputs = [
-    aria2
-    fastapi
-    pytest-xdist
-    pytestCheckHook
-    responses
-    uvicorn
-  ] ++ passthru.optional-dependencies.tui;
+  checkInputs = [ aria2 responses pytest pytest-cov pytest-xdist ];
 
-  disabledTests = [
-    # require a running display server
-    "test_add_downloads_torrents_and_metalinks"
-    "test_add_downloads_uris"
-    # require a running aria2 server
-    "test_get_files_method"
-    "test_pause_subcommand"
-    "test_resume_method"
-  ];
+  # Tests are not all stable/deterministic,
+  # they rely on actually running an aria2c daemon and communicating with it,
+  # race conditions and deadlocks were observed,
+  # thus the corresponding tests are disabled
+  checkPhase = ''
+    pytest -nauto -k "not test_api and not test_cli and not test_interface"
+  '';
 
-  pythonImportsCheck = [ "aria2p" ];
+  propagatedBuildInputs = [ asciimatics loguru requests setuptools websocket-client ];
 
   meta = with lib; {
     homepage = "https://github.com/pawamoy/aria2p";
-    changelog = "https://github.com/pawamoy/aria2p/blob/${src.rev}/CHANGELOG.md";
     description = "Command-line tool and library to interact with an aria2c daemon process with JSON-RPC";
     license = licenses.isc;
     maintainers = with maintainers; [ koral ];

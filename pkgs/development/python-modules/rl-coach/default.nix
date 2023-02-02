@@ -49,7 +49,7 @@ buildPythonPackage rec {
     psutil
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest
   ];
 

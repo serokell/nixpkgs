@@ -1,9 +1,9 @@
 { stdenv, lib, stdenvNoCC
-, makeScopeWithSplicing, generateSplicesForMkScope
-, buildPackages
+, pkgsBuildBuild, pkgsBuildHost, pkgsBuildTarget, pkgsHostHost, pkgsTargetTarget
+, buildPackages, splicePackages, newScope
 , bsdSetupHook, makeSetupHook, fetchcvs, groff, mandoc, byacc, flex
 , zlib
-, writeShellScript, writeText, runtimeShell, symlinkJoin
+, writeText, symlinkJoin
 }:
 
 let
@@ -20,14 +20,24 @@ let
     name = "netbsd-setup-hook";
   } ./setup-hook.sh;
 
+  otherSplices = {
+    selfBuildBuild = pkgsBuildBuild.netbsd;
+    selfBuildHost = pkgsBuildHost.netbsd;
+    selfBuildTarget = pkgsBuildTarget.netbsd;
+    selfHostHost = pkgsHostHost.netbsd;
+    selfTargetTarget = pkgsTargetTarget.netbsd or {}; # might be missing
+  };
+
   defaultMakeFlags = [
     "MKSOFTFLOAT=${if stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft"
       then "yes"
       else "no"}"
   ];
 
-in makeScopeWithSplicing
-  (generateSplicesForMkScope "netbsd")
+in lib.makeScopeWithSplicing
+  splicePackages
+  newScope
+  otherSplices
   (_: {})
   (_: {})
   (self: let
@@ -36,7 +46,7 @@ in makeScopeWithSplicing
 
   # Why do we have splicing and yet do `nativeBuildInputs = with self; ...`?
   #
-  # We use `makeScopeWithSplicing` because this should be used for all
+  # We use `lib.makeScopeWithSplicing` because this should be used for all
   # nested package sets which support cross, so the inner `callPackage` works
   # correctly. But for the inline packages we don't bother to use
   # `callPackage`.
@@ -54,8 +64,7 @@ in makeScopeWithSplicing
   mkDerivation = lib.makeOverridable (attrs: let
     stdenv' = if attrs.noCC or false then stdenvNoCC else stdenv;
   in stdenv'.mkDerivation ({
-    pname = "${attrs.pname or (baseNameOf attrs.path)}-netbsd";
-    inherit (attrs) version;
+    name = "${attrs.pname or (baseNameOf attrs.path)}-netbsd-${attrs.version}";
     src = fetchNetBSD attrs.path attrs.version attrs.sha256;
 
     extraPaths = [ ];
@@ -85,7 +94,7 @@ in makeScopeWithSplicing
     }.${stdenv'.hostPlatform.parsed.cpu.name}
       or stdenv'.hostPlatform.parsed.cpu.name;
 
-    COMPONENT_PATH = attrs.path;
+    BSD_PATH = attrs.path;
 
     makeFlags = defaultMakeFlags;
 
@@ -112,12 +121,12 @@ in makeScopeWithSplicing
     installPhase = "includesPhase";
     dontBuild = true;
   } // attrs // {
-    # Files that use NetBSD-specific macros need to have nbtool_config.h
-    # included ahead of them on non-NetBSD platforms.
     postPatch = lib.optionalString (!stdenv'.hostPlatform.isNetBSD) ''
+      # Files that use NetBSD-specific macros need to have nbtool_config.h
+      # included ahead of them on non-NetBSD platforms.
       set +e
       grep -Zlr "^__RCSID
-      ^__BEGIN_DECLS" $COMPONENT_PATH | xargs -0r grep -FLZ nbtool_config.h |
+      ^__BEGIN_DECLS" | xargs -0r grep -FLZ nbtool_config.h |
           xargs -0tr sed -i '0,/^#/s//#include <nbtool_config.h>\n\0/'
       set -e
     '' + attrs.postPatch or "";
@@ -137,7 +146,7 @@ in makeScopeWithSplicing
     skipIncludesPhase = true;
 
     postPatch = ''
-      patchShebangs $COMPONENT_PATH/configure
+      patchShebangs configure
       ${self.make.postPatch}
     '';
 
@@ -272,11 +281,11 @@ in makeScopeWithSplicing
 
   # HACK: to ensure parent directories exist. This emulates GNU
   # install’s -D option. No alternative seems to exist in BSD install.
-  install = let binstall = writeShellScript "binstall" ''
-    set -eu
-    for last in "$@"; do true; done
+  install = let binstall = writeText "binstall" ''
+    #!${stdenv.shell}
+    for last in $@; do true; done
     mkdir -p $(dirname $last)
-    @out@/bin/xinstall "$@"
+    xinstall "$@"
   ''; in mkDerivation {
     path = "usr.bin/xinstall";
     version = "9.2";
@@ -288,18 +297,13 @@ in makeScopeWithSplicing
       mandoc groff rsync
     ];
     skipIncludesPhase = true;
-    buildInputs = with self; compatIfNeeded
-      # fts header is needed. glibc already has this header, but musl doesn't,
-      # so make sure pkgsMusl.netbsd.install still builds in case you want to
-      # remove it!
-      ++ [ fts ];
+    buildInputs = with self; compatIfNeeded ++ [ fts ];
     installPhase = ''
       runHook preInstall
 
       install -D install.1 $out/share/man/man1/install.1
       install -D xinstall $out/bin/xinstall
       install -D -m 0550 ${binstall} $out/bin/binstall
-      substituteInPlace $out/bin/binstall --subst-var out
       ln -s $out/bin/binstall $out/bin/install
 
       runHook postInstall
@@ -387,7 +391,6 @@ in makeScopeWithSplicing
       install mandoc groff rsync
     ];
   };
-
   ##
   ## END BOOTSTRAPPING
   ##
@@ -703,10 +706,10 @@ in makeScopeWithSplicing
     SHLIBINSTALLDIR = "$(out)/lib";
     makeFlags = defaultMakeFlags ++ [ "LIBDO.terminfo=${self.libterminfo}/lib" ];
     postPatch = ''
-      sed -i '1i #undef bool_t' $COMPONENT_PATH/el.h
-      substituteInPlace $COMPONENT_PATH/config.h \
+      sed -i '1i #undef bool_t' el.h
+      substituteInPlace config.h \
         --replace "#define HAVE_STRUCT_DIRENT_D_NAMLEN 1" ""
-      substituteInPlace $COMPONENT_PATH/readline/Makefile --replace /usr/include "$out/include"
+      substituteInPlace readline/Makefile --replace /usr/include "$out/include"
     '';
     NIX_CFLAGS_COMPILE = [
       "-D__noinline="
@@ -726,8 +729,8 @@ in makeScopeWithSplicing
     buildInputs = with self; compatIfNeeded;
     SHLIBINSTALLDIR = "$(out)/lib";
     postPatch = ''
-      substituteInPlace $COMPONENT_PATH/term.c --replace /usr/share $out/share
-      substituteInPlace $COMPONENT_PATH/setupterm.c \
+      substituteInPlace term.c --replace /usr/share $out/share
+      substituteInPlace setupterm.c \
         --replace '#include <curses.h>' 'void use_env(bool);'
     '';
     postBuild = ''
@@ -755,10 +758,10 @@ in makeScopeWithSplicing
     MKDOC = "no"; # missing vfontedpr
     makeFlags = defaultMakeFlags ++ [ "LIBDO.terminfo=${self.libterminfo}/lib" ];
     postPatch = lib.optionalString (!stdenv.isDarwin) ''
-      substituteInPlace $COMPONENT_PATH/printw.c \
+      substituteInPlace printw.c \
         --replace "funopen(win, NULL, __winwrite, NULL, NULL)" NULL \
         --replace "__strong_alias(vwprintw, vw_printw)" 'extern int vwprintw(WINDOW*, const char*, va_list) __attribute__ ((alias ("vw_printw")));'
-      substituteInPlace $COMPONENT_PATH/scanw.c \
+      substituteInPlace scanw.c \
         --replace "__strong_alias(vwscanw, vw_scanw)" 'extern int vwscanw(WINDOW*, const char*, va_list) __attribute__ ((alias ("vw_scanw")));'
     '';
   };
@@ -983,7 +986,7 @@ in makeScopeWithSplicing
     # man0 generates a man.pdf using ps2pdf, but doesn't install it later,
     # so we can avoid the dependency on ghostscript
     postPatch = ''
-      substituteInPlace $COMPONENT_PATH/man0/Makefile --replace "ps2pdf" "echo noop "
+      substituteInPlace man0/Makefile --replace "ps2pdf" "echo noop "
     '';
     makeFlags = defaultMakeFlags ++ [
       "FILESDIR=$(out)/share"

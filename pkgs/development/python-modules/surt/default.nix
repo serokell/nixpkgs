@@ -22,7 +22,7 @@ buildPythonPackage rec {
     tldextract
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

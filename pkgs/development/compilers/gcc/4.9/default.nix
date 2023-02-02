@@ -12,7 +12,7 @@
 , enableLTO ? !stdenv.hostPlatform.isStatic
 , texinfo ? null
 , perl ? null # optional, for texi2pod (then pod2man); required for Java
-, gmp, mpfr, libmpc, gettext, which, patchelf, binutils
+, gmp, mpfr, libmpc, gettext, which, patchelf
 , cloog ? null, isl ? null # optional, for the Graphite optimization framework.
 , zlib ? null, boehmgc ? null
 , zip ? null, unzip ? null, pkg-config ? null
@@ -45,7 +45,7 @@ assert stdenv.buildPlatform.isDarwin -> gnused != null;
 assert langGo -> langCC;
 
 # threadsCross is just for MinGW
-assert threadsCross != {} -> stdenv.targetPlatform.isWindows;
+assert threadsCross != null -> stdenv.targetPlatform.isWindows;
 
 # profiledCompiler builds inject non-determinism in one of the compilation stages.
 # If turned on, we can't provide reproducible builds anymore
@@ -147,7 +147,7 @@ stdenv.mkDerivation ({
 
   hardeningDisable = [ "format" "pie" ];
 
-  # When targeting darwin, libgcc_ext.10.{4,5}.dylib are created as
+  # When targetting darwin, libgcc_ext.10.{4,5}.dylib are created as
   # MH_DYLIB_STUB files, which install_name_tool can't change, so we
   # get a cycle between $out and $lib.
   outputs = if langJava || langGo || targetPlatform.isDarwin then ["out" "man" "info"]
@@ -208,11 +208,11 @@ stdenv.mkDerivation ({
     ++ (optionals javaAwtGtk ([ gtk2 libart_lgpl ] ++ xlibs))
     ;
 
-  depsTargetTarget = optional (!crossStageStatic && threadsCross != {}) threadsCross;
+  depsTargetTarget = optional (!crossStageStatic && threadsCross != null) threadsCross;
 
   preConfigure = import ../common/pre-configure.nix {
     inherit lib;
-    inherit version targetPlatform hostPlatform buildPlatform langJava langGo crossStageStatic enableMultilib;
+    inherit version targetPlatform hostPlatform langJava langGo crossStageStatic enableMultilib;
   };
 
   dontDisableStatic = true;
@@ -224,10 +224,10 @@ stdenv.mkDerivation ({
       lib
       stdenv
       targetPackages
-      crossStageStatic libcCross threadsCross
+      crossStageStatic libcCross
       version
 
-      binutils gmp mpfr libmpc isl
+      gmp mpfr libmpc isl
       cloog
 
       enableLTO

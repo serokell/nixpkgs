@@ -3,11 +3,9 @@
 , desktop-file-utils
 , fetchFromGitHub
 , calf
-, fftw
 , fftwFloat
-, fmt_9
+, fmt_8
 , glib
-, gsl
 , gtk4
 , itstool
 , libadwaita
@@ -27,7 +25,6 @@
 , pkg-config
 , rnnoise
 , rubberband
-, speex
 , speexdsp
 , tbb
 , wrapGAppsHook4
@@ -37,13 +34,13 @@
 
 stdenv.mkDerivation rec {
   pname = "easyeffects";
-  version = "7.0.0";
+  version = "6.3.0";
 
   src = fetchFromGitHub {
     owner = "wwmm";
     repo = "easyeffects";
     rev = "v${version}";
-    sha256 = "sha256-SjhJj5kClPd8DT1vzbSdqJ9AJw0XiX9Q8/R8SDnxGPQ=";
+    sha256 = "sha256-OLxuE1jiALuKlC9U9esVlhaMBEaoZyNae8OO8upE4ZM=";
   };
 
   nativeBuildInputs = [
@@ -56,11 +53,9 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    fftw
     fftwFloat
-    fmt_9
+    fmt_8
     glib
-    gsl
     gtk4
     libadwaita
     libbs2b
@@ -74,7 +69,6 @@ stdenv.mkDerivation rec {
     pipewire
     rnnoise
     rubberband
-    speex
     speexdsp
     tbb
     zita-convolver

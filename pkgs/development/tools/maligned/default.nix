@@ -20,7 +20,7 @@ buildGoModule rec {
 
   allowGoReference = true;
 
-  nativeCheckInputs = [ go ];
+  checkInputs = [ go ];
 
   meta = with lib; {
     description = "Tool to detect Go structs that would take less memory if their fields were sorted";

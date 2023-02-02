@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication rec {
 
   LC_ALL = "en_US.UTF-8";
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  checkInputs = with python3Packages; [ pytestCheckHook ];
   propagatedBuildInputs = [
     less
     file

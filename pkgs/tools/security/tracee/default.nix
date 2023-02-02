@@ -19,26 +19,23 @@ let
 in
 buildGoModule rec {
   pname = "tracee";
-  version = "0.9.2";
+  version = "0.8.3";
 
   src = fetchFromGitHub {
     owner = "aquasecurity";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-w/x7KhopkADKvpDc5TE5Kf34pRY6HP3kX1Lqujnl0b8=";
+    sha256 = "sha256-VxTJcl7gHRZEXpFbxU4iMwqxuR1r0BNSseWQ5ijWHU4=";
   };
-  vendorSha256 = "sha256-5RXNRNoMydFcemNGgyfqcUPtfMVgMYdiyWo/sZi8GQw=";
-
-  patches = [
-    ./use-our-libbpf.patch
-  ];
+  vendorSha256 = "sha256-szPoJUtzya3+8dOnkDxHEs3+a1LTVoMMLjUSrUlfiGg=";
 
   enableParallelBuilding = true;
   # needed to build bpf libs
   hardeningDisable = [ "stackprotector" ];
 
   nativeBuildInputs = [ pkg-config clang ];
-  buildInputs = [ elfutils libbpf zlib ];
+  # ensure libbpf version exactly matches the version added as a submodule
+  buildInputs = [ libbpf zlib elfutils ];
 
   makeFlags = [
     "VERSION=v${version}"
@@ -47,9 +44,16 @@ buildGoModule rec {
     "CMD_GIT=echo"
   ];
 
+  # TODO: patch tracee to take libbpf.a and headers via include path
+  preBuild = ''
+    mkdir -p 3rdparty/libbpf/src
+    mkdir -p ./dist
+    cp -r ${libbpf}/lib ./dist/libbpf
+    chmod +w ./dist/libbpf
+    cp -r ${libbpf}/include/bpf ./dist/libbpf/
+  '';
   buildPhase = ''
     runHook preBuild
-    mkdir -p ./dist
     make $makeFlags ''${enableParallelBuilding:+-j$NIX_BUILD_CORES} bpf-core all
     runHook postBuild
   '';

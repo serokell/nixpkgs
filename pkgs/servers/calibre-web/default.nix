@@ -18,9 +18,10 @@ python3.pkgs.buildPythonApplication rec {
   propagatedBuildInputs = with python3.pkgs; [
     APScheduler
     advocate
+    backports_abc
     chardet
     flask-babel
-    flask-login
+    flask_login
     flask_principal
     flask-wtf
     iso-639
@@ -30,7 +31,7 @@ python3.pkgs.buildPythonApplication rec {
     sqlalchemy
     tornado
     unidecode
-    wand
+    Wand
     werkzeug
   ];
 
@@ -52,8 +53,6 @@ python3.pkgs.buildPythonApplication rec {
     mkdir -p src/calibreweb
     mv cps.py src/calibreweb/__init__.py
     mv cps src/calibreweb
-
-    sed -i "/backports_abc/d" setup.cfg
 
     substituteInPlace setup.cfg \
       --replace "cps = calibreweb:main" "calibre-web = calibreweb:main" \

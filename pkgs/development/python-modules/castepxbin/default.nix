@@ -24,7 +24,7 @@ buildPythonPackage rec {
     pymatgen
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

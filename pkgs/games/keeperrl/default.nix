@@ -1,27 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, requireFile
-, openal
-, curl
-, libogg
-, libvorbis
-, SDL2
-, SDL2_image
-, zlib
-, clang
-, libtheora
+{ lib, stdenv, fetchFromGitHub, requireFile
+, openal, curl, libogg, libvorbis
+, SDL2, SDL2_image, zlib
 , unfree_assets ? false }:
 
 stdenv.mkDerivation rec {
   pname = "keeperrl";
-  version = "alpha34";
+  version = "alpha28";
 
   free-src = fetchFromGitHub {
     owner = "miki151";
     repo = "keeperrl";
     rev = version;
-    sha256 = "sha256-0sww+ppctXvxMouclG3OdXpcNgrrOZJw9z8s2GhJ+IE=";
+    sha256 = "0isj8ijn5a89m2r5cxk4lcsq0cydx7c0h87vgr8v5cndm3rd27cy";
   };
 
   assets = if unfree_assets then requireFile rec {
@@ -38,7 +28,7 @@ stdenv.mkDerivation rec {
 
       "nix-prefetch-url file://\$PWD/${name}".
     '';
-    sha256 = "0115pxdzdyma2vicxgr0j21pp82gxdyrlj090s8ihp0b50f0nlll";
+    sha256 = "0115pxdzdyma2vicxgr0j21pp82gxdyrlj090s8ihp0b50f0nk53";
   } else null;
 
   sourceRoot = "source";
@@ -50,7 +40,7 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs = [
-    openal curl libogg libvorbis libtheora SDL2 SDL2_image zlib clang
+    openal curl libogg libvorbis SDL2 SDL2_image zlib
   ];
 
   NIX_CFLAGS_COMPILE = [
@@ -59,13 +49,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  makeFlags = [
-    "OPT=true"
-    "RELEASE=true"
-    "DATA_DIR=$(out)/share"
-    "ENABLE_LOCAL_USER_DIR=true"
-    "NO_STEAMWORKS=true"
-  ];
+  makeFlags = [ "OPT=true"
+                "RELEASE=true"
+                "DATA_DIR=$(out)/share"
+                "ENABLE_LOCAL_USER_DIR=true"
+              ];
 
   installPhase = ''
     install -Dm755 keeper $out/bin/keeper
@@ -80,7 +68,7 @@ stdenv.mkDerivation rec {
     description = "A dungeon management rogue-like";
     homepage = "https://keeperrl.com/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [ ];
     # TODO: Add OS X
     platforms = [ "i686-linux" "x86_64-linux" ];
   };

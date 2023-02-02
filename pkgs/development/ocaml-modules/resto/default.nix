@@ -2,13 +2,12 @@
 
 buildDunePackage rec {
   pname = "resto";
-  version = "1.0";
-  duneVersion = "3";
+  version = "0.7";
   src = fetchFromGitLab {
     owner = "nomadic-labs";
     repo = "resto";
     rev = "v${version}";
-    sha256 = "sha256-DIm7fmISsCgRDi4p3NsUk7Cvs/dHpIKMdAOVdYLX2mc=";
+    sha256 = "sha256-aX7w/rsoOmbni8BOXa0WnoQ47Y5zl91vWvMobuNFT3Y=";
   };
 
   propagatedBuildInputs = [

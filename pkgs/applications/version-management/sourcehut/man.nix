@@ -17,6 +17,8 @@ buildPythonPackage rec {
     sha256 = "sha256-5xZH6DrTXMdWd26OGICp7lZ/QDjACIa7zNUJHB7jzGo=";
   };
 
+  nativeBuildInputs = srht.nativeBuildInputs;
+
   propagatedBuildInputs = [
     srht
     pygit2

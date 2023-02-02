@@ -19,7 +19,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ pamqp ];
-  nativeCheckInputs = [ mock nose ];
+  checkInputs = [ mock nose ];
 
   checkPhase = ''
     runHook preCheck

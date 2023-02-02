@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-8HO7X2PQEbQIQsCa2cMHQI3rlofVT22GYrWNXY34MLk=";
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 
@@ -33,9 +33,6 @@ buildPythonPackage rec {
       sha256 = "sha256-pZLfr6SRCw2aLwZeYaX7bzfJeZC4cFUILEmnVsKR6zc=";
     })
   ];
-
-  # Tests bind to localhost
-  __darwinAllowLocalNetworking = true;
 
   pythonImportsCheck = [
     "boltons"

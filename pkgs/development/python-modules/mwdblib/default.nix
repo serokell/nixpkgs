@@ -36,7 +36,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  checkInputs = [ unittestCheckHook ];
 
   pythonImportsCheck = [
     "mwdblib"

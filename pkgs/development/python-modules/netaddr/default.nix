@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = lib.optionals (pythonOlder "3.7") [ importlib-resources ];
 
-  nativeCheckInputs = [ glibcLocales pytestCheckHook ];
+  checkInputs = [ glibcLocales pytestCheckHook ];
 
   meta = with lib; {
     homepage = "https://netaddr.readthedocs.io/en/latest/";

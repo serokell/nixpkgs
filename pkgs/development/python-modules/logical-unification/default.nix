@@ -3,7 +3,6 @@
 , fetchFromGitHub
 , toolz
 , multipledispatch
-, py
 , pytestCheckHook
 , pytest-html
 , pytest-benchmark
@@ -25,8 +24,7 @@ buildPythonPackage rec {
     multipledispatch
   ];
 
-  nativeCheckInputs = [
-    py
+  checkInputs = [
     pytestCheckHook
     pytest-html
     pytest-benchmark  # Needed for the `--benchmark-skip` flag

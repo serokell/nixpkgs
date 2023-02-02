@@ -18,7 +18,4 @@ stdenv.mkDerivation {
     mkdir -p $out/Applications
     cp -r *.app $out/Applications
   '';
-
-  # 1Password is notarized.
-  dontFixup = true;
 }

@@ -25,7 +25,7 @@ buildPythonPackage rec {
     prefixed
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 
@@ -36,10 +36,7 @@ buildPythonPackage rec {
   disabledTests = [
     # AssertionError: <_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'> is not...
     "test_init"
-    # AssertionError: Invalid format specifier (deprecated since prefixed 0.4.0)
-    "test_floats_prefixed"
-    "test_subcounter_prefixed"
-  ] ++ lib.optionals stdenv.isDarwin [
+  ] ++ lib.optional stdenv.isDarwin [
     # https://github.com/Rockhopper-Technologies/enlighten/issues/44
     "test_autorefresh"
   ];

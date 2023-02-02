@@ -2,11 +2,11 @@
 
 buildPythonPackage rec {
   pname = "mpi4py";
-  version = "3.1.4";
+  version = "3.1.3";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-F4WPLrxiMiDQEg0fqNQo0DPd50nEvDWzPYGmatf5NIA=";
+    sha256 = "sha256-8en64QefQ+r92fgXzbP9MNcJ7cCTtdXa2lekYbLbMAg=";
   };
 
   passthru = {
@@ -41,13 +41,11 @@ buildPythonPackage rec {
 
   setupPyBuildFlags = ["--mpicc=${mpi}/bin/mpicc"];
 
-  nativeBuildInputs = [ mpi ];
-
-  nativeCheckInputs = [ openssh ];
+  nativeBuildInputs = [ mpi openssh ];
 
   meta = with lib; {
     description = "Python bindings for the Message Passing Interface standard";
-    homepage = "https://github.com/mpi4py/mpi4py";
-    license = licenses.bsd2;
+    homepage = "https://bitbucket.org/mpi4py/mpi4py/";
+    license = licenses.bsd3;
   };
 }

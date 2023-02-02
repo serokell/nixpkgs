@@ -84,7 +84,6 @@ let
       fi
       mv $out/share/clang/*.py $python/share/clang
       rm $out/bin/c-index-test
-      patchShebangs $python/bin
 
       mkdir -p $dev/bin
       cp bin/clang-tblgen $dev/bin
@@ -109,7 +108,6 @@ let
         of tools that can be built using the Clang frontend as a library to
         parse C/C++ code.
       '';
-      mainProgram = "clang";
     };
   } // lib.optionalAttrs enableManpages {
     pname = "clang-manpages";

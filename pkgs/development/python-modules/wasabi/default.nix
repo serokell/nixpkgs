@@ -1,31 +1,23 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, pythonOlder
-
-# tests
-, ipykernel
-, nbconvert
 , pytestCheckHook
-, typing-extensions
+, pythonOlder
 }:
 
 buildPythonPackage rec {
   pname = "wasabi";
-  version = "1.1.0";
+  version = "0.10.1";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-RaYTplXhFKsnL1rxRMNR+VT92S2ym3z6buIQuCwZeeU=";
+    sha256 = "sha256-yONyeBvhknKUI4KxTZkxTRdVGNeCIFfLepcBDEJZ0kk=";
   };
 
-  nativeCheckInputs = [
-    ipykernel
-    nbconvert
-    typing-extensions
+  checkInputs = [
     pytestCheckHook
   ];
 

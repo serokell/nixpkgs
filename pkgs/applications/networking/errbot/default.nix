@@ -44,7 +44,7 @@ in python3.pkgs.buildPythonApplication rec {
     webtest
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = with python3.pkgs; [
     mock
     pytestCheckHook
   ];

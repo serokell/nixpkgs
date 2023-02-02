@@ -30,7 +30,7 @@ buildPythonPackage rec {
     future
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     nose
   ];

@@ -2,14 +2,13 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "ytcc";
-  version = "2.6.1";
-  format = "pyproject";
+  version = "2.6.0";
 
   src = fetchFromGitHub {
     owner = "woefe";
     repo = "ytcc";
     rev = "v${version}";
-    sha256 = "sha256-pC2uoog+nev/Xa6UbXX4vX00VQQLHtZzbVkxrxO/Pg8=";
+    sha256 = "sha256-NTG7CtmlJzrhgr/JRSQ1jjSpJEm+PlF67PlEbPNihFE=";
   };
 
   nativeBuildInputs = [ gettext installShellFiles ];
@@ -20,7 +19,7 @@ python3Packages.buildPythonApplication rec {
     wcwidth
   ];
 
-  nativeCheckInputs = with python3Packages; [ nose pytestCheckHook ];
+  checkInputs = with python3Packages; [ nose pytestCheckHook ];
 
   # Disable tests that touch network or shell out to commands
   disabledTests = [

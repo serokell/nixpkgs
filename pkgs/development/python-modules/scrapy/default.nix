@@ -12,7 +12,6 @@
 , itemloaders
 , jmespath
 , lxml
-, packaging
 , parsel
 , protego
 , pydispatcher
@@ -31,7 +30,7 @@
 
 buildPythonPackage rec {
   pname = "scrapy";
-  version = "2.7.1";
+  version = "2.6.3";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -39,7 +38,7 @@ buildPythonPackage rec {
   src = fetchPypi {
     inherit version;
     pname = "Scrapy";
-    hash = "sha256-MPpAg1PSSx35ed8upK+9GbSuAvsiB/IY0kYzLx4c8U4=";
+    hash = "sha256-vf8arzVHwuVAQ206uGgLIQOTJ71dOi74nDQWWZLT5fM=";
   };
 
   nativeBuildInputs = [
@@ -52,7 +51,6 @@ buildPythonPackage rec {
     itemadapter
     itemloaders
     lxml
-    packaging
     parsel
     protego
     pydispatcher
@@ -65,7 +63,7 @@ buildPythonPackage rec {
     zope_interface
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     botocore
     glibcLocales
     jmespath
@@ -95,7 +93,6 @@ buildPythonPackage rec {
     "test_nested_css"
     "test_nested_xpath"
     "test_flavor_detection"
-    "test_follow_whitespace"
     # Requires network access
     "AnonymousFTPTestCase"
     "FTPFeedStorageTest"
@@ -106,9 +103,6 @@ buildPythonPackage rec {
     "FileFeedStoragePreFeedOptionsTest"  # https://github.com/scrapy/scrapy/issues/5157
     "test_timeout_download_from_spider_nodata_rcvd"
     "test_timeout_download_from_spider_server_hangs"
-    # Depends on uvloop
-    "test_asyncio_enabled_reactor_different_loop"
-    "test_asyncio_enabled_reactor_same_loop"
     # Fails with AssertionError
     "test_peek_fifo"
     "test_peek_one_element"

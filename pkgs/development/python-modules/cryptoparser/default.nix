@@ -9,11 +9,11 @@
 
 buildPythonPackage rec {
   pname = "cryptoparser";
-  version = "0.8.2";
+  version = "0.8.0";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-eLQNqeCUnjcxWbazhWHtqJJgvPUMH42fboU5y2ZMy44=";
+    sha256 = "sha256-kJg8d1PoGIC0feefbJM8oyXcRyMGdg1wWkQUl/nSNCo=";
   };
 
   propagatedBuildInputs = [
@@ -23,14 +23,11 @@ buildPythonPackage rec {
     python-dateutil
   ];
 
-  pythonImportsCheck = [
-    "cryptoparser"
-  ];
+  pythonImportsCheck = [ "cryptoparser" ];
 
   meta = with lib; {
-    description = "Security protocol parser and generator";
+    description = "Fast and flexible security protocol parser and generator";
     homepage = "https://gitlab.com/coroner/cryptoparser";
-    changelog = "https://gitlab.com/coroner/cryptoparser/-/blob/v${version}/CHANGELOG.md";
     license = licenses.mpl20;
     maintainers = with maintainers; [ kranzes ];
   };

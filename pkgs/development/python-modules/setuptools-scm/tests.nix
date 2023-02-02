@@ -10,14 +10,13 @@
 buildPythonPackage rec {
   pname = "setuptools-scm-tests";
   inherit (setuptools-scm) version;
-  format = "other";
 
   src = setuptools-scm.src;
 
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     setuptools-scm
     pip

@@ -22,7 +22,6 @@
 , libopus
 , gst_all_1
 , orc
-, gdk-pixbuf
 }:
 
 let
@@ -44,9 +43,6 @@ stdenv.mkDerivation rec {
     sha256 = "1xd0xffw0g5vvwbq4ksmm3jjfq45f9dw20xpmi82g1fj9f7wy85k";
   };
 
-  patches = [
-    ./remove-rt-on-darwin.patch
-  ];
   postPatch = ''
     install ${doxygen_sh} doxygen.sh
     patchShebangs build-aux
@@ -69,6 +65,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
+    alsa-lib
     cyrus_sasl
     glib
     gst_all_1.gst-plugins-base
@@ -87,10 +84,6 @@ stdenv.mkDerivation rec {
     python3.pkgs.pyparsing
     spice-protocol
     zlib
-  ] ++ lib.optionals stdenv.isLinux [
-    alsa-lib
-  ] ++ lib.optionals stdenv.isDarwin [
-    gdk-pixbuf
   ];
 
   NIX_CFLAGS_COMPILE = "-fno-stack-protector";
@@ -115,7 +108,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.spice-space.org/";
     license = licenses.lgpl21;
 
-    maintainers = with maintainers; [ bluescreen303 atemu ];
-    platforms = with platforms; linux ++ darwin;
+    maintainers = [ maintainers.bluescreen303 ];
+    platforms = platforms.linux;
   };
 }

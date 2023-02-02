@@ -28,13 +28,13 @@
 
 buildPythonPackage rec {
   pname = "drf-spectacular";
-  version = "0.24.2";
+  version = "0.22.1";
 
   src = fetchFromGitHub {
     owner = "tfranzel";
     repo = "drf-spectacular";
     rev = version;
-    sha256 = "sha256-WE+iOD3OjDByisHI9GgvjUUSpvOz+IYi/3Y8AmR7Eps=";
+    sha256 = "sha256-SgzyIzgFBXsNHfY2OfCq0LhJyi/ZCOSA8QveKNduIBc=";
   };
 
   propagatedBuildInputs = [
@@ -46,7 +46,7 @@ buildPythonPackage rec {
     uritemplate
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     dj-rest-auth
     django-allauth
     django-filter
@@ -64,11 +64,6 @@ buildPythonPackage rec {
     psycopg2
     pytest-django
     pytestCheckHook
-  ];
-
-  disabledTests = [
-    # requires django with gdal
-    "test_rest_framework_gis"
   ];
 
   pythonImportsCheck = [ "drf_spectacular" ];

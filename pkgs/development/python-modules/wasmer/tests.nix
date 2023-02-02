@@ -15,7 +15,7 @@ buildPythonPackage rec {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     wasmer
     wasmer-compiler-cranelift

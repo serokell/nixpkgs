@@ -20,7 +20,7 @@ buildPythonPackage rec {
     sed 's/=.*//' -i requirements/*.txt
   '';
 
-  nativeCheckInputs = [ pytest pytest-runner pytest-cov coverage ];
+  checkInputs = [ pytest pytest-runner pytest-cov coverage ];
 
   meta = with lib; {
     description = "An extension to the Python Markdown package enabling superscript text";

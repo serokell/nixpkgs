@@ -49,12 +49,12 @@ in
 
 buildPythonPackage rec {
   pname = "nipype";
-  version = "1.8.5";
+  version = "1.8.4";
   disabled = isPy27;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-44QnQ/tmBGTdKd5z3Pye9m0nO+ELzGQFn/Ic1e8ellU=";
+    sha256 = "sha256-yoG6iLfF7ugBL4eNC9OLINIzBj1YgF4TVngFKb77qak=";
   };
 
   postPatch = ''
@@ -86,7 +86,7 @@ buildPythonPackage rec {
     xvfbwrapper
   ] ++ [ (if useNeurdflib then neurdflib else rdflib) ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pybids
     codecov
     glibcLocales

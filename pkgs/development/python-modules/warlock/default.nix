@@ -36,7 +36,7 @@ buildPythonPackage rec {
     jsonschema
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

@@ -14,7 +14,7 @@ buildPythonPackage rec {
   # in 4.9, test was renamed to tests
   checkPhase = ''
     cd test*
-    ${python.interpreter} run.py
+    ${python.interpreter} ctest.py
   '';
 
   meta = with lib; {

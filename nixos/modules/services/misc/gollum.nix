@@ -8,7 +8,11 @@ in
 
 {
   options.services.gollum = {
-    enable = mkEnableOption (lib.mdDoc "Gollum service");
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = lib.mdDoc "Enable the Gollum service.";
+    };
 
     address = mkOption {
       type = types.str;
@@ -17,7 +21,7 @@ in
     };
 
     port = mkOption {
-      type = types.port;
+      type = types.int;
       default = 4567;
       description = lib.mdDoc "Port on which the web server will run.";
     };

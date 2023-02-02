@@ -1,71 +1,68 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, cmake
-, ninja
+, nix-update-script
+
+# for passthru.tests
+, bazel
 , chromium
 , grpc
 , haskellPackages
 , mercurial
-, python3Packages
+, ninja
+, python3
 }:
 
 stdenv.mkDerivation rec {
   pname = "re2";
-  version = "2022-12-01";
+  version = "2022-06-01";
 
   src = fetchFromGitHub {
     owner = "google";
     repo = "re2";
     rev = version;
-    hash = "sha256-RmPXfavSKVnnl/RJ5aTjc/GbkPz+EXiFg1n5e4s6wjw=";
+    sha256 = "sha256-UontAjOXpnPcOgoFHjf+1WSbCR7h58/U7nn4meT200Y=";
   };
 
-  outputs = [ "out" "dev" ];
-
-  nativeBuildInputs = [ cmake ninja ];
-
-  postPatch = ''
-    substituteInPlace re2Config.cmake.in \
-      --replace "\''${PACKAGE_PREFIX_DIR}/" ""
+  preConfigure = ''
+    substituteInPlace Makefile --replace "/usr/local" "$out"
+    # we're using gnu sed, even on darwin
+    substituteInPlace Makefile  --replace "SED_INPLACE=sed -i '''" "SED_INPLACE=sed -i"
   '';
 
-  # Needed for case-insensitive filesystems (i.e. MacOS) because a file named
-  # BUILD already exists.
-  cmakeBuildDir = "build_dir";
+  buildFlags = lib.optionals stdenv.hostPlatform.isStatic [ "static" ];
 
-  cmakeFlags = lib.optional (!stdenv.hostPlatform.isStatic) "-DBUILD_SHARED_LIBS:BOOL=ON";
+  enableParallelBuilding = true;
 
-  # This installs a pkg-config definition.
-  postInstall = ''
-    pushd "$src"
-    make common-install prefix="$dev" SED_INPLACE="sed -i"
-    popd
-  '';
-
+  preCheck = "patchShebangs runtests";
   doCheck = true;
+  checkTarget = if stdenv.hostPlatform.isStatic then "static-test" else "test";
 
-  passthru.tests = {
-    inherit
-      chromium
-      grpc
-      mercurial;
-    inherit (python3Packages)
-      fb-re2
-      google-re2;
-    haskell-re2 = haskellPackages.re2;
+  installTargets = lib.optionals stdenv.hostPlatform.isStatic [ "static-install" ];
+
+  doInstallCheck = true;
+  installCheckTarget = if stdenv.hostPlatform.isStatic then "static-testinstall" else "testinstall";
+
+  passthru = {
+    updateScript = nix-update-script {
+      attrPath = pname;
+    };
+    tests = {
+      inherit
+        chromium
+        grpc
+        mercurial;
+      inherit (python3.pkgs)
+        fb-re2
+        google-re2;
+      haskellPackages-re2 = haskellPackages.re2;
+    };
   };
 
-  meta = with lib; {
-    description = "A regular expression library";
-    longDescription = ''
-      RE2 is a fast, safe, thread-friendly alternative to backtracking regular
-      expression engines like those used in PCRE, Perl, and Python. It is a C++
-      library.
-    '';
-    license = licenses.bsd3;
+  meta = {
     homepage = "https://github.com/google/re2";
-    maintainers = with maintainers; [ azahi ];
-    platforms = platforms.all;
+    description = "An efficient, principled regular expression library";
+    license = lib.licenses.bsd3;
+    platforms = with lib.platforms; all;
   };
 }

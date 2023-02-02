@@ -28,7 +28,8 @@ in
     package = mkOption {
       type = types.package;
       default = pkgs.heisenbridge;
-      defaultText = lib.literalExpression "pkgs.heisenbridge";
+      defaultText = "pkgs.heisenbridge";
+      example = "pkgs.heisenbridge.override { … = …; }";
       description = lib.mdDoc ''
         Package of the application to run, exposed for overriding purposes.
       '';

@@ -22,7 +22,7 @@ buildPythonPackage rec {
     defusedxml
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

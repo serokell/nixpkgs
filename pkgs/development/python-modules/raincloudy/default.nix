@@ -31,7 +31,7 @@ buildPythonPackage rec {
     html5lib
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     requests-mock
   ];

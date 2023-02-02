@@ -58,7 +58,7 @@ buildPythonPackage rec {
     unset NIX_REDIRECTS LD_PRELOAD
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     eventlet
     mock

@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "sha256-GyNcDJIjQatsUwOQiS656S+QubdQRgY+BHys+w8FDEU=";
   };
 
-  nativeCheckInputs = [ nose testtools ];
+  checkInputs = [ nose testtools ];
   propagatedBuildInputs = [ docutils ];
 
   checkPhase = ''

@@ -102,14 +102,11 @@ let
     '';
 
   manualXsltprocOptions = toString [
-    "--param chapter.autolabel 0"
-    "--param part.autolabel 0"
-    "--param preface.autolabel 0"
-    "--param reference.autolabel 0"
-    "--param section.autolabel 0"
+    "--param section.autolabel 1"
+    "--param section.label.includes.component.label 1"
     "--stringparam html.stylesheet 'style.css overrides.css highlightjs/mono-blue.css'"
     "--stringparam html.script './highlightjs/highlight.pack.js ./highlightjs/loader.js'"
-    "--param xref.with.number.and.title 0"
+    "--param xref.with.number.and.title 1"
     "--param toc.section.depth 0"
     "--param generate.consistent.ids 1"
     "--stringparam admon.style ''"
@@ -209,7 +206,7 @@ let
 in rec {
   inherit generatedSources;
 
-  inherit (optionsDoc) optionsJSON optionsNix optionsDocBook optionsUsedDocbook;
+  inherit (optionsDoc) optionsJSON optionsNix optionsDocBook;
 
   # Generate the NixOS manual.
   manualHTML = runCommand "nixos-manual-html"

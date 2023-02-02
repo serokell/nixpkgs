@@ -91,7 +91,9 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      attrPath = "gnome.gnome-terminal";
+    };
 
     tests = {
       test = nixosTests.terminal-emulators.gnome-terminal;

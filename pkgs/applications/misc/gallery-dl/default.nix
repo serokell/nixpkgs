@@ -1,24 +1,17 @@
 { lib, buildPythonApplication, fetchPypi, requests, yt-dlp, pytestCheckHook }:
 
 buildPythonApplication rec {
-  pname = "gallery-dl";
-  version = "1.24.4";
-  format = "setuptools";
+  pname = "gallery_dl";
+  version = "1.23.3";
 
   src = fetchPypi {
-    inherit version;
-    pname = "gallery_dl";
-    sha256 = "sha256-g+nbHpbo6O4zoDJm6MRwCXY9pM73NV7RKR59s+8LM10=";
+    inherit pname version;
+    sha256 = "sha256-CoZN0cLXSujZRSGFX3dsNGuvgupa4t1VrEoW+Zu41yw=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    yt-dlp
-  ];
+  propagatedBuildInputs = [ requests yt-dlp ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ pytestCheckHook ];
 
   pytestFlagsArray = [
     # requires network access
@@ -29,9 +22,7 @@ buildPythonApplication rec {
     "--ignore=test/test_ytdl.py"
   ];
 
-  pythonImportsCheck = [
-    "gallery_dl"
-  ];
+  pythonImportsCheck = [ "gallery_dl" ];
 
   meta = with lib; {
     description = "Command-line program to download image-galleries and -collections from several image hosting sites";

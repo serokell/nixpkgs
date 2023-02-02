@@ -8,7 +8,6 @@
 , libdrm
 , libXfixes
 , wayland
-, wayland-scanner
 , libffi
 , libGL
 , mesa
@@ -18,7 +17,6 @@
 
 stdenv.mkDerivation rec {
   pname = "libva" + lib.optionalString minimal "-minimal";
-  # nixpkgs-update: no auto update
   version = "1.8.3";
 
   src = fetchFromGitHub {
@@ -30,7 +28,7 @@ stdenv.mkDerivation rec {
 
   outputs = [ "dev" "out" ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config wayland-scanner ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   buildInputs = [ libdrm ]
     ++ lib.optionals (!minimal) [ libva1-minimal libX11 libXext libXfixes wayland libffi libGL ];

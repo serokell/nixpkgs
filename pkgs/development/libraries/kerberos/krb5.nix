@@ -1,13 +1,6 @@
 { lib, stdenv, fetchurl, pkg-config, perl, bison, bootstrap_cmds
 , openssl, openldap, libedit, keyutils
-
-# for passthru.tests
-, bind
-, curl
 , nixosTests
-, openssh
-, postgresql
-, python3
 
 # Extra Arguments
 , type ? ""
@@ -26,11 +19,11 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "${type}krb5";
-  version = "1.20.1";
+  version = "1.20";
 
   src = fetchurl {
     url = "https://kerberos.org/dist/krb5/${lib.versions.majorMinor version}/krb5-${version}.tar.gz";
-    sha256 = "sha256-cErtSbGetacXizSyhzYg7CmdsIdS1qhXT5XUGHmriFE=";
+    sha256 = "sha256-fgIr3TyFGDAXP5+qoAaiMKDg/a1MlT6Fv/S/DaA24S8";
   };
 
   outputs = [ "out" "dev" ];
@@ -38,7 +31,7 @@ stdenv.mkDerivation rec {
   configureFlags = [ "--localstatedir=/var/lib" ]
     # krb5's ./configure does not allow passing --enable-shared and --enable-static at the same time.
     # See https://bbs.archlinux.org/viewtopic.php?pid=1576737#p1576737
-    ++ lib.optionals staticOnly [ "--enable-static" "--disable-shared" ]
+    ++ lib.optional staticOnly [ "--enable-static" "--disable-shared" ]
     ++ lib.optional stdenv.isFreeBSD ''WARN_CFLAGS=""''
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
        [ "krb5_cv_attr_constructor_destructor=yes,yes"
@@ -99,13 +92,6 @@ stdenv.mkDerivation rec {
 
   passthru = {
     implementation = "krb5";
-    tests = {
-      inherit (nixosTests) kerberos;
-      inherit (python3.pkgs) requests-credssp;
-      bind = bind.override { enableGSSAPI = true; };
-      curl = curl.override { gssSupport = true; };
-      openssh = openssh.override { withKerberos = true; };
-      postgresql = postgresql.override { gssSupport = true; };
-    };
+    tests = { inherit (nixosTests) kerberos; };
   };
 }

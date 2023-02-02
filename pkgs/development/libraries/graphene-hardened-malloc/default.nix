@@ -19,7 +19,7 @@ lib.fix (self: stdenv.mkDerivation rec {
   };
 
   doCheck = true;
-  nativeCheckInputs = [ python3 ];
+  checkInputs = [ python3 ];
   # these tests cover use as a build-time-linked library
   checkPhase = ''
     make test

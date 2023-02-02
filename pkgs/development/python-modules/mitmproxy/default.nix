@@ -1,5 +1,6 @@
 { lib
 , fetchFromGitHub
+, fetchpatch
 , buildPythonPackage
 , pythonOlder
   # Mitmproxy requirements
@@ -7,6 +8,7 @@
 , blinker
 , brotli
 , certifi
+, click
 , cryptography
 , flask
 , h11
@@ -14,7 +16,6 @@
 , hyperframe
 , kaitaistruct
 , ldap3
-, mitmproxy-wireguard
 , msgpack
 , passlib
 , protobuf
@@ -41,15 +42,23 @@
 
 buildPythonPackage rec {
   pname = "mitmproxy";
-  version = "9.0.1";
-  disabled = pythonOlder "3.9";
+  version = "8.1.1";
+  disabled = pythonOlder "3.8";
 
   src = fetchFromGitHub {
-    owner = "mitmproxy";
-    repo = "mitmproxy";
-    rev = "refs/tags/${version}";
-    sha256 = "sha256-CINKvRnBspciS+wefJB8gzBE13L8CjbYCkmLmTTeYlA=";
+    owner = pname;
+    repo = pname;
+    rev = "refs/tags/v${version}";
+    sha256 = "sha256-nW/WfiY6uF67qNa95tvNvSv/alP2WmzTk34LEBma/04=";
   };
+
+  patches = [
+    # Fix onboarding addon tests failing with Flask >= v2.2
+    (fetchpatch {
+      url = "https://github.com/mitmproxy/mitmproxy/commit/bc370276a19c1d1039e7a45ecdc23c362626c81a.patch";
+      hash = "sha256-Cp7RnYpZEuRhlWYOk8BOnAKBAUa7Vy296UmQi3/ufes=";
+    })
+  ];
 
   propagatedBuildInputs = [
     setuptools
@@ -58,6 +67,7 @@ buildPythonPackage rec {
     blinker
     brotli
     certifi
+    click
     cryptography
     flask
     h11
@@ -65,12 +75,11 @@ buildPythonPackage rec {
     hyperframe
     kaitaistruct
     ldap3
-    mitmproxy-wireguard
     msgpack
     passlib
     protobuf
-    pyopenssl
     publicsuffix2
+    pyopenssl
     pyparsing
     pyperclip
     ruamel-yaml
@@ -81,7 +90,7 @@ buildPythonPackage rec {
     zstandard
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     hypothesis
     parver
     pytest-asyncio
@@ -110,17 +119,7 @@ buildPythonPackage rec {
     "test_flowview"
     # ValueError: Exceeds the limit (4300) for integer string conversion
     "test_roundtrip_big_integer"
-
-    "test_wireguard"
-    "test_commands_exist"
-    "test_statusbar"
   ];
-
-  disabledTestPaths = [
-    # teardown of half the tests broken
-    "test/mitmproxy/addons/test_onboarding.py"
-  ];
-
   dontUsePytestXdist = true;
 
   pythonImportsCheck = [ "mitmproxy" ];

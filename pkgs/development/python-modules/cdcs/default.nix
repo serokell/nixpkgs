@@ -1,20 +1,16 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
-, ipython
 , numpy
 , pandas
 , pytestCheckHook
 , pythonOlder
 , requests
-, responses
-, setuptools
-, tqdm
 }:
 
 buildPythonPackage rec {
+  version = "0.1.8";
   pname = "cdcs";
-  version = "0.1.9";
   format = "setuptools";
 
   disabled = pythonOlder "3.6";
@@ -22,27 +18,18 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "usnistgov";
     repo = "pycdcs";
-    # https://github.com/usnistgov/pycdcs/issues/1
-    rev = "0a770b752301c27e227ca40a4752f305b55dee20";
-    sha256 = "sha256-AUrVEFea4VtBJXWWgECqdBFCqKuHWAlh07Dljp+HBa0=";
+    rev = "v${version}";
+    sha256 = "sha256-s+COE7hus1J5I8PTdagl7KEK5QFoidjQ3ee46kOWmkE=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
-
   propagatedBuildInputs = [
-    ipython
     numpy
     pandas
     requests
-    tqdm
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    responses
-  ];
+  # Project has no tests
+  doCheck = false;
 
   pythonImportsCheck = [
     "cdcs"

@@ -40,7 +40,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "skein" ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
   # These tests require connecting to a YARN cluster. They could be done through NixOS tests later.
   disabledTests = [
     "test_ui"

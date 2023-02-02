@@ -1,13 +1,11 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, fetchpatch
 , makeWrapper
 , meson
 , ninja
 , pkg-config
 , wayland-protocols
-, wayland-scanner
 , grim
 , inih
 , libdrm
@@ -30,17 +28,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UztkfvMIbslPd/d262NZFb6WfESc9nBsSSH96BA4Aqw=";
   };
 
-  # scdoc: mark as build-time dependency
-  # https://github.com/emersion/xdg-desktop-portal-wlr/pull/248
-  patches = [(fetchpatch {
-    url = "https://github.com/emersion/xdg-desktop-portal-wlr/commit/92ccd62428082ba855e359e83730c4370cd1aac7.patch";
-    hash = "sha256-mU1whfp7BoSylaS3y+YwfABImZFOeuItSXCon0C7u20=";
-  })];
-
-  strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [ meson ninja pkg-config scdoc wayland-scanner makeWrapper ];
-  buildInputs = [ inih libdrm mesa pipewire systemd wayland wayland-protocols ];
+  nativeBuildInputs = [ meson ninja pkg-config wayland-protocols makeWrapper ];
+  buildInputs = [ inih libdrm mesa pipewire scdoc systemd wayland ];
 
   mesonFlags = [
     "-Dsd-bus-provider=libsystemd"

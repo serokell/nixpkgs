@@ -17,7 +17,7 @@ stdenv.mkDerivation {
   buildInputs = [ libxkbcommon mesa pixman wayland xorg.libxcb ];
 
   doCheck = true;
-  nativeCheckInputs = [ gtest ];
+  checkInputs = [ gtest ];
 
   postInstall = ''
     rm $out/bin/sommelier_test # why does it install the test binary? o_O

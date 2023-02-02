@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "sha256-regIrMWbGmW574dfojxZFJoivpaqOpN1I6YsqLEp8BM=";
   };
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  checkInputs = [ unittestCheckHook ];
 
   meta = with lib; {
     description = "Set of basic tools that can help to create Markdown files";

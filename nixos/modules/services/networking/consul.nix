@@ -142,7 +142,7 @@ in
         };
 
         consulAddr = mkOption {
-          description = lib.mdDoc "Consul api listening address";
+          description = lib.mdDoc "Consul api listening adddress";
           default = "localhost:8500";
           type = types.str;
         };
@@ -201,7 +201,7 @@ in
         serviceConfig = {
           ExecStart = "@${cfg.package}/bin/consul consul agent -config-dir /etc/consul.d"
             + concatMapStrings (n: " -config-file ${n}") configFiles;
-          ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+          ExecReload = "${cfg.package}/bin/consul reload";
           PermissionsStartOnly = true;
           User = if cfg.dropPrivileges then "consul" else null;
           Restart = "on-failure";

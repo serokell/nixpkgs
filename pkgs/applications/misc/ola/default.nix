@@ -4,7 +4,6 @@
 , bison
 , flex
 , pkg-config
-, libftdi1
 , libuuid
 , cppunit
 , protobuf
@@ -27,17 +26,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook bison flex pkg-config perl ];
-  buildInputs = [
-    # required for ola-ftdidmx plugin (support for 'dumb' FTDI devices)
-    libftdi1
-    libuuid
-    cppunit
-    protobuf
-    zlib
-    avahi
-    libmicrohttpd
-    python3
-  ];
+  buildInputs = [ libuuid cppunit protobuf zlib avahi libmicrohttpd python3 ];
   propagatedBuildInputs = [
     python3.pkgs.protobuf
     python3.pkgs.numpy

@@ -26,7 +26,7 @@ buildPythonPackage rec {
     aiohttp
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     aresponses
     pytest-asyncio
     pytestCheckHook

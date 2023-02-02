@@ -6,11 +6,11 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "utm";
-  version = "4.1.5";
+  version = "3.2.4";
 
   src = fetchurl {
     url = "https://github.com/utmapp/UTM/releases/download/v${version}/UTM.dmg";
-    hash = "sha256-YOmTf50UUvvh4noWnmV6WsoWSua0tpWTgLTg+Cdr3bQ=";
+    sha256 = "sha256-ejUfL6UHqMusVfaglGlODKtFfKbNwzZ1LmRkcSzieso=";
   };
 
   nativeBuildInputs = [ undmg ];
@@ -41,14 +41,12 @@ stdenvNoCC.mkDerivation rec {
         - Hardware accelerated virtualization using Hypervisor.framework and
           QEMU
         - Boot macOS guests with Virtualization.framework on macOS 12+
-
-      See https://docs.getutm.app/ for more information.
     '';
     homepage = "https://mac.getutm.app/";
     changelog = "https://github.com/utmapp/${pname}/releases/tag/v${version}";
     mainProgram = "UTM";
     license = licenses.apsl20;
-    platforms = platforms.darwin; # 11.3 is the minimum supported version as of UTM 4.
+    platforms = platforms.darwin;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     maintainers = with maintainers; [ rrbutani ];
   };

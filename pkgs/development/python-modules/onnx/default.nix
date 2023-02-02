@@ -11,8 +11,6 @@
 , six
 , tabulate
 , typing-extensions
-, pythonRelaxDepsHook
-, pytest-runner
 }:
 
 buildPythonPackage rec {
@@ -29,10 +27,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [
     cmake
-    pythonRelaxDepsHook
   ];
-
-  pythonRelaxDeps = [ "protobuf" ];
 
   propagatedBuildInputs = [
     protobuf
@@ -41,10 +36,9 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nbval
     pytestCheckHook
-    pytest-runner
     tabulate
   ];
 
@@ -53,6 +47,8 @@ buildPythonPackage rec {
     patchShebangs tools/protoc-gen-mypy.py
     substituteInPlace tools/protoc-gen-mypy.sh.in \
       --replace "/bin/bash" "${bash}/bin/bash"
+
+    sed -i '/pytest-runner/d' setup.py
   '';
 
   preBuild = ''

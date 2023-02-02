@@ -10,21 +10,17 @@
 , kiwisolver
 , libGL
 , numpy
-, pythonOlder
 , setuptools-scm
 , setuptools-scm-git-archive
 }:
 
 buildPythonPackage rec {
   pname = "vispy";
-  version = "0.12.1";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "0.11.0";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-4AiBwdD5ssCOtuJuk2GtveijqW54eO5sHhmefFhyIk8=";
+    sha256 = "sha256-zi0lalMdQF8pWTPHSZaRL79D9lUhbbX8ao/zp4dHhBo=";
   };
 
   patches = [
@@ -69,9 +65,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Interactive scientific visualization in Python";
     homepage = "https://vispy.org/index.html";
-    changelog = "https://github.com/vispy/vispy/blob/v${version}/CHANGELOG.md";
+    description = "Interactive scientific visualization in Python";
     license = licenses.bsd3;
     maintainers = with maintainers; [ goertzenator ];
   };

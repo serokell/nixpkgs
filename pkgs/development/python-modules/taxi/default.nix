@@ -1,38 +1,32 @@
 { lib
 , buildPythonPackage
-, fetchFromGitHub
+, fetchPypi
 , appdirs
 , requests
 , click
 , setuptools
-, pytestCheckHook
-, freezegun
+, backends ? [ ]
 }:
 
 buildPythonPackage rec {
   pname = "taxi";
   version = "6.1.1";
 
-  src = fetchFromGitHub {
-    owner = "sephii";
-    repo = "taxi";
-    rev = version;
-    sha256 = "sha256-iIy3odDX3QzVG80AFp81m8AYKES4JjlDp49GGpuIHLI=";
+  src = fetchPypi {
+    inherit version;
+    pname = "taxi";
+    sha256 = "b2562ed58bd6eae7896f4f8e48dbee9845cd2d452b26dd15c26f839b4864cb02";
   };
+
+  # No tests in pypy package
+  doCheck = false;
 
   propagatedBuildInputs = [
     appdirs
     requests
     click
     setuptools
-  ];
-
-  nativeCheckInputs = [
-    freezegun
-    pytestCheckHook
-  ];
-
-  pythonImportsCheck = [ "taxi" ];
+  ] ++ backends;
 
   meta = with lib; {
     homepage = "https://github.com/sephii/taxi/";

@@ -17,7 +17,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ pygments ];
-  nativeCheckInputs = [ nose ];
+  checkInputs = [ nose ];
 
   meta = with lib; {
     description = "Bringing the power of python to stream editing";

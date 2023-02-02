@@ -35,7 +35,7 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-cov
     pytest-timeout
@@ -44,7 +44,7 @@ buildPythonPackage rec {
   pytestFlagsArray = [ "--no-cov" ];
 
   # these tests invoke git in a subprocess and
-  # for some reason git can't be found even if included in nativeCheckInputs
+  # for some reason git can't be found even if included in checkInputs
   disabledTests = [
     "test_shims_are_kept"
     "test_shims_are_removed"

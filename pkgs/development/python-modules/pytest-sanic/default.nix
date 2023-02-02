@@ -33,7 +33,7 @@ buildPythonPackage rec {
     websockets
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     sanic
     pytestCheckHook
   ];

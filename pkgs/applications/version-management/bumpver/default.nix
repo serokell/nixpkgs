@@ -18,7 +18,7 @@ python3.pkgs.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3.pkgs; [ pathlib2 click toml lexid colorama setuptools ];
 
-  nativeCheckInputs = [ python3.pkgs.pytestCheckHook git mercurial];
+  checkInputs = [ python3.pkgs.pytestCheckHook git mercurial];
 
   meta = with lib; {
     description = "Bump version numbers in project files";

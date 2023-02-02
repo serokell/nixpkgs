@@ -17,7 +17,7 @@ buildPythonPackage {
   # due to sandboxing
   doCheck = false;
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  checkInputs = [ unittestCheckHook ];
 
   unittestFlagsArray = [ "-s" "tests" ];
 

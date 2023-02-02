@@ -166,8 +166,6 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
 
       start_all()
 
-      etcd.wait_for_unit("etcd.service")
-
       with subtest("should bootstrap a new patroni cluster"):
           wait_for_all_nodes_ready()
 

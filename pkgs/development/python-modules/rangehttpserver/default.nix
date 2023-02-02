@@ -22,7 +22,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nose
     requests
   ];

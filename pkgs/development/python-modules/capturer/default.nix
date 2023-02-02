@@ -15,7 +15,7 @@ buildPythonPackage rec {
 
   # hangs on darwin
   doCheck = !stdenv.isDarwin;
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Easily capture stdout/stderr of the current process and subprocesses";

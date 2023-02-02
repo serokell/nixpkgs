@@ -1,14 +1,14 @@
-{ stdenv, lib, mkDerivation, fetchFromGitHub, qmake, pkg-config, alsa-lib, libjack2, portaudio, libogg, flac, libvorbis, rtmidi, qtsvg, qttools }:
+{ stdenv, lib, mkDerivation, fetchFromGitHub, qmake, pkg-config, alsa-lib, libjack2, portaudio, libogg, flac, libvorbis, rtmidi, qtsvg }:
 
 mkDerivation rec {
-  version = "2.3.0";
+  version = "2.2.0";
   pname = "polyphone";
 
   src = fetchFromGitHub {
     owner = "davy7125";
     repo = "polyphone";
     rev = version;
-    sha256 = "09habv51pw71wrb39shqi80i2w39dx5a39klzswsald5j9sia0ir";
+    sha256 = "0w5pidzhpwpggjn5la384fvjzkvprvrnidb06068whci11kgpbp7";
   };
 
   buildInputs = [
@@ -22,7 +22,7 @@ mkDerivation rec {
     qtsvg
   ];
 
-  nativeBuildInputs = [ qmake qttools pkg-config ];
+  nativeBuildInputs = [ qmake pkg-config ];
 
   preConfigure = ''
     cd ./sources/

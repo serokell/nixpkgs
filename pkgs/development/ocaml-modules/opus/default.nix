@@ -4,13 +4,13 @@ buildDunePackage rec {
   pname = "opus";
   version = "0.2.2";
 
-  duneVersion = "3";
+  useDune2 = true;
 
   src = fetchFromGitHub {
     owner = "savonet";
     repo = "ocaml-opus";
     rev = "v${version}";
-    hash = "sha256-Ghfqw/J1oLbTJpYJaiB5M79jaA6DACvyxBVE+NjnPkg=";
+    sha256 = "sha256-Ghfqw/J1oLbTJpYJaiB5M79jaA6DACvyxBVE+NjnPkg=";
   };
 
   nativeBuildInputs = [ pkg-config ];

@@ -19,14 +19,14 @@
 
 buildPythonPackage rec {
   pname = "boxx";
-  version = "0.10.8";
+  version = "0.10.7";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-uk4DYmbV/4zSyL2QzlAJLvgC6ieBjP/xkuyDktUEmIo=";
+    hash = "sha256-OPbqCsTZZskZOJMcK1OJsG3Qgx4K0X217g5pNWQZDAM=";
   };
 
   propagatedBuildInputs = [
@@ -41,7 +41,7 @@ buildPythonPackage rec {
     seaborn
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     xvfb-run
     torch
     torchvision

@@ -18,7 +18,7 @@ buildDunePackage rec {
 
   buildInputs = [ astring cmdliner cppo fpath result tyxml odoc-parser fmt ];
 
-  nativeCheckInputs = [ markup yojson sexplib0 jq ppx_expect bash ];
+  checkInputs = [ markup yojson sexplib0 jq ppx_expect bash ];
   doCheck = lib.versionAtLeast ocaml.version "4.08"
     && lib.versionOlder yojson.version "2.0";
 

@@ -34,7 +34,7 @@ buildPythonPackage rec {
     pyjwt
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-raises
     pytest-asyncio
     pytestCheckHook

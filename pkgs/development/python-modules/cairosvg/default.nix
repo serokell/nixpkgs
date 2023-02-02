@@ -12,19 +12,19 @@
 
 buildPythonPackage rec {
   pname = "CairoSVG";
-  version = "2.6.0";
+  version = "2.5.2";
   disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-1eyT6QEBs7boKqJF0FRu6bAWz9oLY0RnUVmDDYU9XQQ=";
+    sha256 = "sha256-sLmSnPXboAUXjXRqgDb88AJVUPSYylTbYYczIjhHg7w=";
   };
 
   propagatedBuildInputs = [ cairocffi cssselect2 defusedxml pillow tinycss2 ];
 
   propagatedNativeBuildInputs = [ cairocffi ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

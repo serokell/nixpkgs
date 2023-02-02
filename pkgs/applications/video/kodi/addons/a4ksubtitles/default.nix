@@ -3,13 +3,13 @@
 buildKodiAddon rec {
   pname = "a4ksubtitles";
   namespace = "service.subtitles.a4ksubtitles";
-  version = "3.3.0";
+  version = "2.8.0";
 
   src = fetchFromGitHub {
     owner = "a4k-openproject";
     repo = "a4kSubtitles";
     rev = "${namespace}/${namespace}-${version}";
-    sha256 = "sha256-t6oclFAOsUC+hFtw6wjRh1zl2vQfc7RKblVJpBPfE9w=";
+    sha256 = "0fg5mcvxdc3hqybp1spy7d1nnqirwhcvrblbwksikym9m3qgw2m5";
   };
 
   propagatedBuildInputs = [

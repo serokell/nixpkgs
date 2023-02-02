@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ jinja2 ];
 
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
   checkPhase = ''
     cd ./tests
     pytest

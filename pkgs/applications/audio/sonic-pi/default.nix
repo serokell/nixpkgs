@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
     fmt
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     parallel
     ruby
     supercollider-with-sc3-plugins

@@ -6,17 +6,17 @@
 
 buildPythonPackage rec {
   pname = "wrapt";
-  version = "1.14.1";
+  version = "1.13.3";
   format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "GrahamDumpleton";
     repo = pname;
     rev = version;
-    hash = "sha256-nXwDuNo4yZxgjnkus9bVwIZltPaSH93D+PcZMGT2nGM=";
+    hash = "sha256-kq3Ujkn4HzonzjuQfVnPNnQV+2Rnbr3ZfYmrnY3upxU=";
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

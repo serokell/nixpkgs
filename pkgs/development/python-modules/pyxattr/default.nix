@@ -6,11 +6,11 @@
 
 buildPythonPackage rec {
     pname = "pyxattr";
-    version = "0.8.0";
+    version = "0.7.2";
 
     src = fetchPypi {
       inherit pname version;
-      sha256 = "sha256-e/QM7FrpPdZWEocX29Joz8Ozso2VU214hndslPomeFU=";
+      sha256 = "68477027e6d3310669f98aaef15393bfcd9b2823d7a7f00a6f1d91a3c971ae64";
     };
 
     # IOError: [Errno 95] Operation not supported (expected)

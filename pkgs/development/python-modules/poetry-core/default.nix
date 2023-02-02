@@ -15,23 +15,22 @@
 
 buildPythonPackage rec {
   pname = "poetry-core";
-  version = "1.4.0";
+  version = "1.1.0";
   format = "pyproject";
-
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "python-poetry";
     repo = pname;
     rev = version;
-    hash = "sha256-SCzs2v0LIgx3vBYTavPqc7uwAQdWsdmkbDyHgIjOxrk=";
+    sha256 = "sha256-WUgBrO9h1E7N2SVFD47UPv39DMx1yQviV5tcNPmR+/g=";
   };
 
   propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [
     importlib-metadata
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     build
     git
     pep517
@@ -42,23 +41,15 @@ buildPythonPackage rec {
     virtualenv
   ];
 
-  # Requires git history to work correctly
-  disabledTests = [
-    "default_with_excluded_data"
-    "default_src_with_excluded_data"
-  ];
+  # requires git history to work correctly
+  disabledTests = [ "default_with_excluded_data" "default_src_with_excluded_data" ];
 
-  pythonImportsCheck = [
-    "poetry.core"
-  ];
+  pythonImportsCheck = [ "poetry.core" ];
 
-  # Allow for package to use pep420's native namespaces
-  pythonNamespaces = [
-    "poetry"
-  ];
+  # allow for package to use pep420's native namespaces
+  pythonNamespaces = [ "poetry" ];
 
   meta = with lib; {
-    changelog = "https://github.com/python-poetry/poetry-core/blob/${src.rev}/CHANGELOG.md";
     description = "Core utilities for Poetry";
     homepage = "https://github.com/python-poetry/poetry-core/";
     license = licenses.mit;

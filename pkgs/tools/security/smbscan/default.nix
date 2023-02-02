@@ -6,7 +6,7 @@
 python3.pkgs.buildPythonApplication rec {
   pname = "smbscan";
   version = "unstable-2022-05-26";
-  format = "other";
+  format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "jeffhacks";

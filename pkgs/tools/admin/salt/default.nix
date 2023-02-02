@@ -1,5 +1,4 @@
 { lib
-, stdenv
 , python3
 , openssl
 , fetchpatch
@@ -36,7 +35,7 @@ python3.pkgs.buildPythonApplication rec {
 
   postPatch = ''
     substituteInPlace "salt/utils/rsax931.py" \
-      --subst-var-by "libcrypto" "${lib.getLib openssl}/lib/libcrypto${stdenv.hostPlatform.extensions.sharedLibrary}"
+      --subst-var-by "libcrypto" "${lib.getLib openssl}/lib/libcrypto.so"
     substituteInPlace requirements/base.txt \
       --replace contextvars ""
 

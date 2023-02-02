@@ -15,7 +15,7 @@
 
 buildPythonPackage rec {
   pname = "peewee";
-  version = "3.15.4";
+  version = "3.15.3";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -24,7 +24,7 @@ buildPythonPackage rec {
     owner = "coleifer";
     repo = pname;
     rev = "refs/tags/${version}";
-    hash = "sha256-UbhJWooZuZOm1AUbM+66Qm76zar+sBOvuUnAc1vLvOU=";
+    hash = "sha256-6s+JTUYmuP6Y6D+mi8YTznHbPYUS7yk259MuPpm9H/s=";
   };
 
   buildInputs = [
@@ -34,13 +34,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     apsw
-  ] ++ lib.optionals withPostgres [
+  ] ++ lib.optional withPostgres [
     psycopg2
-  ] ++ lib.optionals withMysql [
+  ] ++ lib.optional withMysql [
     mysql-connector
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     flask
   ];
 

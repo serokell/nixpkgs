@@ -45,5 +45,8 @@
     haskell = super.haskell // {
       compiler = recurseIntoAttrs super.haskell.compiler;
     };
+
+    # This is an alias which we disallow by default; explicitly allow it
+    emacs28Packages = emacs28.pkgs;
   };
 }

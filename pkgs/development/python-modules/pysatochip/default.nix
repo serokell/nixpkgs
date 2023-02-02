@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cryptography ecdsa pyaes pyopenssl pyscard ];
 
-  nativeCheckInputs = [ certifi ];
+  checkInputs = [ certifi ];
 
   pythonImportsCheck = [ "pysatochip" ];
 

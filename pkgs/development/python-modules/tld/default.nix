@@ -3,7 +3,9 @@
 , factory_boy
 , faker
 , fetchPypi
+, pytest-cov
 , pytestCheckHook
+, tox
 }:
 
 buildPythonPackage rec {
@@ -15,10 +17,12 @@ buildPythonPackage rec {
     sha256 = "69fed19d26bb3f715366fb4af66fdeace896c55c052b00e8aaba3a7b63f3e7f0";
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     factory_boy
     faker
+    pytest-cov
     pytestCheckHook
+    tox
   ];
 
   # these tests require network access, but disabledTestPaths doesn't work.

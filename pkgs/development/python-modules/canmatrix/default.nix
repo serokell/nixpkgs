@@ -48,7 +48,7 @@ buildPythonPackage rec {
       --replace "version = versioneer.get_version()" "version = \"${version}\""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
   # long_envvar_name_imports requires stable key value pair ordering
   pytestFlagsArray = [ "-s src/canmatrix" ];
   disabledTests = [ "long_envvar_name_imports" ];

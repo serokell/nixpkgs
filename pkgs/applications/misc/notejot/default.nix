@@ -41,7 +41,9 @@ stdenv.mkDerivation rec {
     libgee
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    attrPath = pname;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/lainsce/notejot";

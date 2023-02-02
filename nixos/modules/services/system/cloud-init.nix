@@ -27,7 +27,7 @@ in
 
           This configuration is not completely compatible with the
           NixOS way of doing configuration, as configuration done by
-          cloud-init might be overridden by a subsequent nixos-rebuild
+          cloud-init might be overriden by a subsequent nixos-rebuild
           call. However, some parts of cloud-init fall outside of
           NixOS's responsibility, like filesystem resizing and ssh
           public key provisioning, and cloud-init is useful for that
@@ -81,8 +81,7 @@ in
            - write-files
            - growpart
            - resizefs
-           - update_hostname
-           - resolv_conf
+           - update_etc_hosts
            - ca-certs
            - rsyslog
            - users-groups

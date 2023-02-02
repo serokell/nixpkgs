@@ -1,5 +1,5 @@
-{ lib
-, stdenv
+{ stdenv
+, lib
 , aiohttp
 , buildPythonPackage
 , fetchFromGitHub
@@ -12,7 +12,7 @@
 
 buildPythonPackage rec {
   pname = "motioneye-client";
-  version = "0.3.14";
+  version = "0.3.12";
   format = "pyproject";
 
   disabled = pythonOlder "3.8";
@@ -21,14 +21,8 @@ buildPythonPackage rec {
     owner = "dermotduffy";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-kgFSd5RjO+OtnPeAOimPTDVEfJ47rXh2Ku5xEYStHv8=";
+    sha256 = "sha256-vEB9ztz0RTGoolFUVQcMV7DUthCEAx1kpwkAS2186OU=";
   };
-
-  postPatch = ''
-    substituteInPlace pyproject.toml \
-      --replace 'aiohttp = "^3.8.1,!=3.8.2,!=3.8.3"' 'aiohttp = "*"' \
-      --replace " --cov-report=html:htmlcov --cov-report=xml:coverage.xml --cov-report=term-missing --cov=motioneye_client --cov-fail-under=100" ""
-  '';
 
   nativeBuildInputs = [
     poetry-core
@@ -38,21 +32,26 @@ buildPythonPackage rec {
     aiohttp
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-aiohttp
     pytest-timeout
     pytestCheckHook
   ];
+
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace " --cov-report=html:htmlcov --cov-report=xml:coverage.xml --cov-report=term-missing --cov=motioneye_client --cov-fail-under=100" ""
+  '';
 
   pythonImportsCheck = [
     "motioneye_client"
   ];
 
   meta = with lib; {
+    broken = stdenv.isDarwin;
     description = "Python library for motionEye";
     homepage = "https://github.com/dermotduffy/motioneye-client";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
-    broken = stdenv.isDarwin;
   };
 }

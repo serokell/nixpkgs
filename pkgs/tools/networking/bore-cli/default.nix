@@ -7,18 +7,18 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "bore-cli";
-  version = "0.4.1";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "ekzhang";
     repo = "bore";
     rev = "v${version}";
-    hash = "sha256-h5Xwsr61h52zb5HNPySKVjfYW96Fff7nwZUAL6vK9ko=";
+    hash = "sha256-ywdJH39OYLaM4st/DIcvvtIUzExpbAucMMpqouJL1yI=";
   };
 
-  cargoSha256 = "sha256-QyaQM8z5v0LgskkmZ/8ekZwxNrt8sq91BbnjvIqa2nI=";
+  cargoSha256 = "sha256-ZnEVTFiPo3AFyo1BoV88X2nCqYzRK6PkcbawiR+QnV0=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
+  buildInputs = lib.optional stdenv.isDarwin [
     Security
   ];
 

@@ -42,6 +42,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     appstream-glib
+    clang
     desktop-file-utils
     meson
     ninja
@@ -51,7 +52,6 @@ stdenv.mkDerivation rec {
     cargoSetupHook
     rust.cargo
     rust.rustc
-    bindgenHook
   ]);
 
   buildInputs = [
@@ -69,16 +69,13 @@ stdenv.mkDerivation rec {
     zbar
   ];
 
-  # https://gitlab.gnome.org/World/Authenticator/-/issues/362
-  preBuild = ''
-    export BINDGEN_EXTRA_CLANG_ARGS="$BINDGEN_EXTRA_CLANG_ARGS -DPW_ENABLE_DEPRECATED"
-  '';
+  LIBCLANG_PATH = "${lib.getLib libclang}/lib";
 
   meta = {
     description = "Two-factor authentication code generator for GNOME";
     homepage = "https://gitlab.gnome.org/World/Authenticator";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ austinbutler ];
+    maintainers = with lib.maintainers; [ dotlambda ];
     platforms = lib.platforms.linux;
   };
 }

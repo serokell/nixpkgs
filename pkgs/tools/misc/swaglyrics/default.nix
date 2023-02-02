@@ -30,7 +30,7 @@ python3.pkgs.buildPythonApplication rec {
     unidecode
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = with python3.pkgs; [
     blinker
     flask
     flask-testing

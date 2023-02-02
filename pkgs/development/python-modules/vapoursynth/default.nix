@@ -13,7 +13,7 @@ buildPythonPackage {
     vapoursynth
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     unittestCheckHook
   ];
 

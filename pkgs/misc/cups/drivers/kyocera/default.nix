@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, cups
-, fetchzip
-, patchPpdFilesHook
-}:
+{ stdenv, lib, fetchzip, cups }:
 
 let
   platform =
@@ -22,15 +17,13 @@ stdenv.mkDerivation {
   dontStrip = true;
 
   src = fetchzip {
-    url = "https://web.archive.org/web/20220709011705/https://cdn.kyostatics.net/dlc/ru/driver/all/linuxdrv_1_1203_fs-1x2xmfp.-downloadcenteritem-Single-File.downloadcenteritem.tmp/LinuxDrv_1.1203_FS-1x2xMFP.zip";
+    # this site does not like curl -> override useragent
+    curlOpts = "-A ''";
+    url = "https://cdn.kyostatics.net/dlc/ru/driver/all/linuxdrv_1_1203_fs-1x2xmfp.-downloadcenteritem-Single-File.downloadcenteritem.tmp/LinuxDrv_1.1203_FS-1x2xMFP.zip";
     sha256 = "0z1pbgidkibv4j21z0ys8cq1lafc6687syqa07qij2qd8zp15wiz";
   };
 
-  nativeBuildInputs = [ patchPpdFilesHook ];
-
   installPhase = ''
-    runHook preInstall
-
     tar -xvf ${platform}/Global/English.tar.gz
     install -Dm755 English/rastertokpsl $out/lib/cups/filter/rastertokpsl
     patchelf \
@@ -40,12 +33,12 @@ stdenv.mkDerivation {
 
     mkdir -p $out/share/cups/model/Kyocera
     cd English
-    cp *.ppd $out/share/cups/model/Kyocera
-
-    runHook postInstall
+    for i in *.ppd; do
+      sed -i $i -e \
+        "s,/usr/lib/cups/filter/rastertokpsl,$out/lib/cups/filter/rastertokpsl,g"
+      cp $i $out/share/cups/model/Kyocera
+    done;
   '';
-
-  ppdFileCommands = [ "rastertokpsl" ];
 
   meta = with lib; {
     description = "CUPS drivers for several Kyocera FS-{1020,1025,1040,1060,1120,1125} printers";

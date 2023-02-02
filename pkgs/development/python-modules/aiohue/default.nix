@@ -28,7 +28,7 @@ buildPythonPackage rec {
     asyncio-throttle
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

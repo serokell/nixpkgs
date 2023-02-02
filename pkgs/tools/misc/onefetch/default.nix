@@ -1,64 +1,42 @@
-{ lib
+{ fetchFromGitHub
 , rustPlatform
-, fetchFromGitHub
-, cmake
-, installShellFiles
+, lib
+, stdenv
 , pkg-config
 , zstd
-, stdenv
 , CoreFoundation
+, libiconv
 , libresolv
 , Security
-, git
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "onefetch";
-  version = "2.15.1";
+  version = "2.12.0";
 
   src = fetchFromGitHub {
     owner = "o2sh";
     repo = pname;
-    rev = version;
-    sha256 = "sha256-3wXZBPYths3+Vhtq4W2BTR47V63o0bq++fWLIpWrm7Y=";
+    rev = "v${version}";
+    sha256 = "sha256-nSvqAXzA/4CSnOMCZri2ks58bW+9v+SoyIIzb+K5S88=";
   };
-
-  cargoSha256 = "sha256-xBw2OMJMale4MWRyy6v0E0ZE4A98QXLyRu0k7L+9q8k=";
 
   cargoPatches = [
     # enable pkg-config feature of zstd
     ./zstd-pkg-config.patch
   ];
 
-  nativeBuildInputs = [ cmake installShellFiles pkg-config ];
+  cargoSha256 = "sha256-uSef6x5QkXKwajglbwyoIsUFGbz0zntVM1ko0FZqnck=";
+
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [ zstd ]
-    ++ lib.optionals stdenv.isDarwin [ CoreFoundation libresolv Security ];
-
-  nativeCheckInputs = [
-    git
-  ];
-
-  preCheck = ''
-    git init
-    git config user.name nixbld
-    git config user.email nixbld@example.com
-    git add .
-    git commit -m test
-  '';
-
-  postInstall = ''
-    installShellCompletion --cmd onefetch \
-      --bash <($out/bin/onefetch --generate bash) \
-      --fish <($out/bin/onefetch --generate fish) \
-      --zsh <($out/bin/onefetch --generate zsh)
-  '';
+    ++ lib.optionals stdenv.isDarwin [ CoreFoundation libiconv libresolv Security ];
 
   meta = with lib; {
     description = "Git repository summary on your terminal";
     homepage = "https://github.com/o2sh/onefetch";
-    changelog = "https://github.com/o2sh/onefetch/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ Br1ght0ne figsoda kloenk SuperSandro2000 ];
+    maintainers = with maintainers; [ Br1ght0ne kloenk SuperSandro2000 ];
   };
 }

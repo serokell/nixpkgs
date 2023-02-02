@@ -2,21 +2,20 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "jfmt";
-  version = "1.2.1";
+  version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "scruffystuffs";
     repo = "${pname}.rs";
-    rev = "v${version}";
-    hash = "sha256-X3wk669G07BTPAT5xGbAfIu2Qk90aaJIi1CLmOnSG80=";
+    rev = version;
+    sha256 = "07qb0sjwww6d2n7fw8w4razq1mkn4psrs9wqi1ccndrya1y39d8b";
   };
 
-  cargoHash = "sha256-u/v3P7iPdBJU/0wlSNBq/cjnM3XOnoVfUjrrmo4sTAA=";
+  cargoSha256 = "19kg2n53y9nazwpp8gcvdprxry2llf2k7g4q4zalyxkhpf7k6irb";
 
   meta = with lib; {
     description = "CLI utility to format json files";
     homepage = "https://github.com/scruffystuffs/jfmt.rs";
-    changelog = "https://github.com/scruffystuffs/jfmt.rs/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = [ maintainers.psibi ];
   };

@@ -1,17 +1,16 @@
 { lib
 , stdenv
-, fetchfossil
+, fetchurl
 }:
 
 stdenv.mkDerivation {
   pname = "pikchr";
   # To update, use the last check-in in https://pikchr.org/home/timeline?r=trunk
-  version = "unstable-2022-12-07";
+  version = "unstable-2022-06-20";
 
-  src = fetchfossil {
-    url = "https://pikchr.org/home";
-    rev = "21ca6b843d65c404";
-    sha256 = "sha256-fp06GqpLa/szRCS54KJ+SkT602oWvK3KyDFFjTmpNfI=";
+  src = fetchurl {
+    url = "https://pikchr.org/home/tarball/d9ee756594b6eb64/pikchr.tar.gz";
+    sha256 = "sha256-ML+gymFrBay1kly7NYsxo0I1qNMoZPzNI3ClBTrWlHw=";
   };
 
   # can't open generated html files

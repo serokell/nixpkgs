@@ -24,7 +24,6 @@
 , lang ? "en"
 , libGL
 , libGLU
-, wrapQtAppsHook
 }:
 
 let
@@ -40,9 +39,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     autoPatchelfHook
     installShellFiles
-    wrapQtAppsHook
+    makeWrapper
   ];
-  dontWrapQtApps = true;
 
   buildInputs = [
     alsa-lib
@@ -122,14 +120,11 @@ stdenv.mkDerivation rec {
       makeWrapper $out/libexec/${dirName}/SystemFiles/Kernel/Binaries/Linux-x86-64/$path $out/bin/$path --set LD_LIBRARY_PATH "${zlib}/lib:${stdenv.cc.cc.lib}/lib:${libssh2}/lib:\''${LD_LIBRARY_PATH}"
     done
 
-    wrapQtApp "$out/libexec/${dirName}/SystemFiles/FrontEnd/Binaries/Linux-x86-64/WolframPlayer" \
-      --set LD_LIBRARY_PATH "${zlib}/lib:${stdenv.cc.cc.lib}/lib:${libssh2}/lib:\''${LD_LIBRARY_PATH}" \
-      --set QT_XKB_CONFIG_ROOT "${xkeyboard_config}/share/X11/xkb"
-    substituteInPlace $out/libexec/${dirName}/SystemFiles/FrontEnd/Binaries/Linux-x86-64/WolframPlayer \
-      --replace "TopDirectory=" "TopDirectory=$out/libexec/${dirName} #"
-
+    # ... and xkeyboard config path for Qt
     for path in WolframPlayer wolframplayer; do
-      makeWrapper $out/libexec/${dirName}/Executables/$path $out/bin/$path
+      makeWrapper $out/libexec/${dirName}/Executables/$path $out/bin/$path \
+        --set LD_LIBRARY_PATH "${zlib}/lib:${stdenv.cc.cc.lib}/lib:${libssh2}/lib:\''${LD_LIBRARY_PATH}" \
+        --set QT_XKB_CONFIG_ROOT "${xkeyboard_config}/share/X11/xkb"
     done
 
     # Install man pages

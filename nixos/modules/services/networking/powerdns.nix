@@ -5,7 +5,6 @@ with lib;
 let
   cfg = config.services.powerdns;
   configDir = pkgs.writeTextDir "pdns.conf" "${cfg.extraConfig}";
-  finalConfigDir = if cfg.secretFile == null then configDir else "/run/pdns";
 in {
   options = {
     services.powerdns = {
@@ -20,19 +19,6 @@ in {
           for details on supported values.
         '';
       };
-
-      secretFile = mkOption {
-        type = types.nullOr types.path;
-        default = null;
-        example = "/run/keys/powerdns.env";
-        description = lib.mdDoc ''
-          Environment variables from this file will be interpolated into the
-          final config file using envsubst with this syntax: `$ENVIRONMENT`
-          or `''${VARIABLE}`.
-          The file should contain lines formatted as `SECRET_VAR=SECRET_VALUE`.
-          This is useful to avoid putting secrets into the nix store.
-        '';
-      };
     };
   };
 
@@ -45,13 +31,7 @@ in {
       after = [ "network.target" "mysql.service" "postgresql.service" "openldap.service" ];
 
       serviceConfig = {
-        EnvironmentFile = lib.optional (cfg.secretFile != null) cfg.secretFile;
-        ExecStartPre = lib.optional (cfg.secretFile != null)
-          (pkgs.writeShellScript "pdns-pre-start" ''
-            umask 077
-            ${pkgs.envsubst}/bin/envsubst -i "${configDir}/pdns.conf" > ${finalConfigDir}/pdns.conf
-          '');
-        ExecStart = [ "" "${pkgs.pdns}/bin/pdns_server --config-dir=${finalConfigDir} --guardian=no --daemon=no --disable-syslog --log-timestamp=no --write-pid=no" ];
+        ExecStart = [ "" "${pkgs.pdns}/bin/pdns_server --config-dir=${configDir} --guardian=no --daemon=no --disable-syslog --log-timestamp=no --write-pid=no" ];
       };
     };
 

@@ -17,13 +17,13 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "Sharedown";
-  version = "5.1.0";
+  version = "5.0.2";
 
   src = fetchFromGitHub {
     owner = "kylon";
     repo = pname;
     rev = version;
-    sha256 = "sha256-cD+xq2LVaTZGjFj+SleQlNT3sAV6N4nG4RVbH015OOA=";
+    sha256 = "sha256-N5jnjiD3R+uTRgHHocVVxYQ7GzUTz0fZAQGIXzcVTtA=";
   };
 
   nativeBuildInputs = [
@@ -117,6 +117,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/kylon/Sharedown";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [
+      jtojnar
     ];
     platforms = platforms.unix;
   };

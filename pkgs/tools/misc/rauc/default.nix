@@ -13,17 +13,19 @@
 
 stdenv.mkDerivation rec {
   pname = "rauc";
-  version = "1.8";
+  version = "1.7";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-lSTC/WDwa6WVPd+Tj6XdKpwwENfAweUnE6lCyXQvAXU=";
+    sha256 = "sha256-Cst+hSMyuJw6b+ZA6XNVh0kVp7WUTiiXpO1TPeHA+sM=";
   };
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      attrPath = pname;
+    };
   };
 
   enableParallelBuilding = true;

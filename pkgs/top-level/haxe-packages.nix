@@ -4,7 +4,7 @@ let
   self = haxePackages;
   haxePackages = with self; {
 
-    withCommas = lib.replaceStrings ["."] [","];
+    withCommas = lib.replaceChars ["."] [","];
 
     # simulate "haxelib dev $libname ."
     simulateHaxelibDev = libname: ''

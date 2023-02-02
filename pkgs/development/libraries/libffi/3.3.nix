@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
 
   inherit doCheck;
 
-  nativeCheckInputs = [ dejagnu ];
+  checkInputs = [ dejagnu ];
 
   meta = with lib; {
     description = "A foreign function call interface library";
@@ -60,7 +60,5 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = with maintainers; [ armeenm ];
     platforms = platforms.all;
-    # never built on aarch64-darwin since first introduction in nixpkgs
-    broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

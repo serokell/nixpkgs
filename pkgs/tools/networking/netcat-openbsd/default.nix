@@ -2,19 +2,25 @@
 
 stdenv.mkDerivation rec {
   pname = "netcat-openbsd";
-  version = "1.219-1";
+  version = "1.218-5";
 
   src = fetchFromGitLab {
     domain = "salsa.debian.org";
     owner = "debian";
     repo = "netcat-openbsd";
     rev = "refs/tags/debian/${version}";
-    sha256 = "sha256-rN8pl3Qf0T8bXGtVH22tBpGY/EcnbgGm1G8Z2patGbo=";
+    sha256 = "sha256-jEJ8x49Z1UN2qOChGp173aQuPkgl2fWwUUJgUdOv60I=";
   };
 
   strictDeps = true;
   nativeBuildInputs = [ pkg-config installShellFiles ];
   buildInputs = [ libbsd ];
+
+  NIX_CFLAGS_COMPILE = [
+    "-I${lib.getDev libbsd}/include/libbsd"
+  ];
+
+  NIX_LDFLAGS = [ "-lbsd" ];
 
   postPatch = ''
     for file in $(cat debian/patches/series); do
@@ -44,7 +50,5 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     platforms = platforms.unix;
     mainProgram = "nc";
-    # never built on aarch64-darwin, x86_64-darwin since first introduction in nixpkgs
-    broken = stdenv.isDarwin;
   };
 }

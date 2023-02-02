@@ -1,21 +1,22 @@
 { fetchFromGitHub
 , lib
-, stdenvNoCC
+, stdenv
 , gnome
 , gnome-icon-theme
 , hicolor-icon-theme
 , gtk3
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "mint-y-icons";
-  version = "1.6.5";
+  version = "1.6.1";
 
   src = fetchFromGitHub {
     owner = "linuxmint";
     repo = pname;
-    rev = version;
-    hash = "sha256-XnQcVlN4xtZQDjijNV09m2m0ODYfFbrQaNd8ZQVToIw=";
+    # they don't exactly do tags, it's just a named commit
+    rev = "57d16eb85f2af40be17e2232d279bb65b689f5b7";
+    hash = "sha256-voFYz0MiuqyNSngi4QZUJKDIjggQWOAV5B30zMP8iTk=";
   };
 
   propagatedBuildInputs = [

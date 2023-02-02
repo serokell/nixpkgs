@@ -5,20 +5,20 @@
 }:
 
 buildDunePackage rec {
-  version = "3.10";
+  version = "3.9";
   pname = "containers";
 
   src = fetchFromGitHub {
     owner = "c-cube";
     repo = "ocaml-containers";
     rev = "v${version}";
-    hash = "sha256-eWmju4CD30+wX3sKI8rOUEbqbQygdOtc0U4sb9vYuNA=";
+    sha256 = "sha256-uQyKBSXgf3kGx5HvS2VQrrkh0WqNZfxr5j8tTRjeTX4=";
   };
 
   buildInputs = [ dune-configurator ];
   propagatedBuildInputs = [ either seq ];
 
-  nativeCheckInputs = [ gen iter qcheck-core uutf yojson ];
+  checkInputs = [ gen iter qcheck-core uutf yojson ];
 
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 

@@ -22,7 +22,7 @@ buildDunePackage rec {
    yojson
   ];
 
-  nativeCheckInputs = [ alcotest hex irmin-test fpath ];
+  checkInputs = [ alcotest hex irmin-test fpath ];
 
   doCheck = true;
 

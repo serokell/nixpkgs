@@ -52,7 +52,7 @@ tcl.mkTclDerivation {
 
   meta = with lib; {
     description = "A widget library for Tcl/Tk";
-    homepage    = "https://tix.sourceforge.net/";
+    homepage    = "http://tix.sourceforge.net/";
     platforms   = platforms.all;
     license     = with licenses; [
       bsd2 # tix

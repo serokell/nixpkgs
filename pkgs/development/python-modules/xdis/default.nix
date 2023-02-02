@@ -10,7 +10,7 @@
 
 buildPythonPackage rec {
   pname = "xdis";
-  version = "6.0.5";
+  version = "6.0.4";
   format = "setuptools";
 
   disabled = pythonOlder "3.6";
@@ -18,8 +18,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "rocky";
     repo = "python-xdis";
-    rev = "refs/tags/${version}";
-    hash = "sha256-3mL0EuPHF/dithovrYvMjweYGwGhrN75N9MRfLjNC34=";
+    rev = version;
+    hash = "sha256-CRZG898xCwukq+9YVkyXMP8HcuJ9GtvDhy96kxvRFks=";
   };
 
   postPatch = ''
@@ -33,7 +33,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

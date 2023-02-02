@@ -1,23 +1,16 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, packaging
-, pycryptodome
 }:
 
 buildPythonPackage rec {
   pname = "solc-select";
-  version = "1.0.2";
+  version = "0.2.1";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-zrpWHQdoCVDGaDGDf9fWhnRsTe1GVwqk1qls1PyvlLw=";
+    sha256 = "sha256-6VawTcffIgnR+zuC4rti+Ocwu1VMTX+VihT/L7LzchI=";
   };
-
-  propagatedBuildInputs = [
-    packaging
-    pycryptodome
-  ];
 
   # no tests
   doCheck = false;

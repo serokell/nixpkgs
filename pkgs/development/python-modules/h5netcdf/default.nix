@@ -11,14 +11,14 @@
 
 buildPythonPackage rec {
   pname = "h5netcdf";
-  version = "1.1.0";
+  version = "1.0.2";
   format = "setuptools";
 
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-kyw7Vzvtc3Dr/J6ALNYPGk2lI277EbNu7/iXMk12v1Y=";
+    hash = "sha256-iAih4JXwEitPtAjMmMYK3zmb1X/vSNHKfN9M2h0Ka0o=";
   };
 
  nativeBuildInputs = [
@@ -29,7 +29,7 @@ buildPythonPackage rec {
     h5py
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     netcdf4
   ];
@@ -43,7 +43,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "netCDF4 via h5py";
     homepage = "https://github.com/shoyer/h5netcdf";
-    changelog = "https://github.com/h5netcdf/h5netcdf/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

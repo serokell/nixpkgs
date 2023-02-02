@@ -1,17 +1,8 @@
-{ lib
-, stdenv
-, file
-, fetchFromGitLab
-, buildPerlPackage
-, ArchiveZip
-, ArchiveCpio
-, SubOverride
-, shortenPerlShebang
-}:
+{ lib, stdenv, file, fetchFromGitLab, buildPerlPackage, ArchiveZip, ArchiveCpio, shortenPerlShebang }:
 
 buildPerlPackage rec {
   pname = "strip-nondeterminism";
-  version = "1.13.0";
+  version = "1.0.0";
 
   outputs = [ "out" "dev" ]; # no "devdoc"
 
@@ -20,42 +11,30 @@ buildPerlPackage rec {
     repo = "strip-nondeterminism";
     domain = "salsa.debian.org";
     rev = version;
-    sha256 = "sha256-KZQeoJYBPJzUvz4wlUZbiGODbpCp7/52dsg5OemKDkI=";
+    sha256 = "1pwar1fyadqxmvb7x4zyw2iawbi5lsfjcg0ps9n9rdjb6an7vv64";
   };
 
-  strictDeps = true;
+  # stray test failure
+  doCheck = false;
+
   nativeBuildInputs = lib.optionals stdenv.isDarwin [ shortenPerlShebang ];
-  buildInputs = [
-    ArchiveZip
-    ArchiveCpio
-  ];
+  buildInputs = [ ArchiveZip ArchiveCpio ];
+  propagatedNativeBuildInputs = [ file ];
 
-  nativeCheckInputs = [ SubOverride ];
-
-  postPatch = ''
-    substituteInPlace lib/File/StripNondeterminism.pm \
-      --replace "exec('file'" "exec('${lib.getExe file}'"
-  '';
-
-
-  postBuild = ''
-    patchShebangs ./bin
-  '' + lib.optionalString stdenv.isDarwin ''
-    shortenPerlShebang bin/strip-nondeterminism
-  '';
-
-  postInstall = ''
+  perlPostHook = ''
     # we don’t need the debhelper script
     rm $out/bin/dh_strip_nondeterminism
-    rm $out/share/man/man1/dh_strip_nondeterminism.1
+    rm $out/share/man/man1/dh_strip_nondeterminism.1.gz
   '';
 
-  doCheck = true;
+  postInstall = lib.optionalString stdenv.isDarwin ''
+    shortenPerlShebang $out/bin/strip-nondeterminism
+  '';
 
   meta = with lib; {
     description = "A Perl module for stripping bits of non-deterministic information";
     homepage = "https://reproducible-builds.org/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ pSub artturin ];
+    maintainers = with maintainers; [ pSub ];
   };
 }

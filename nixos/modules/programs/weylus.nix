@@ -29,7 +29,7 @@ in
     package = mkOption {
       type = package;
       default = pkgs.weylus;
-      defaultText = lib.literalExpression "pkgs.weylus";
+      defaultText = "pkgs.weylus";
       description = lib.mdDoc "Weylus package to install.";
     };
   };

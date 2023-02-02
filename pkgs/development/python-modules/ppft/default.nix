@@ -9,14 +9,14 @@
 
 buildPythonPackage rec {
   pname = "ppft";
-  version = "1.7.6.6";
+  version = "1.7.6.5";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-+TPwQE8+gIvIYHRayzt5zU/jHqGaIIiaZF+QBBW+YPE=";
+    sha256 = "sha256-R+DauHpRbAuZks1bDJCDSOTH2WQwTRBrIn+tKK4DIZ4=";
   };
 
   propagatedBuildInputs = [
@@ -26,9 +26,8 @@ buildPythonPackage rec {
   # darwin seems to hang
   doCheck = !stdenv.isDarwin;
   checkPhase = ''
-    runHook preCheck
+    cd examples
     ${python.interpreter} -m ppft.tests
-    runHook postCheck
   '';
 
   pythonImportsCheck = [

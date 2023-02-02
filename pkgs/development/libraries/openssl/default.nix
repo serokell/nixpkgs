@@ -7,8 +7,6 @@
 # This will cause c_rehash to refer to perl via the environment, but otherwise
 # will produce a perfectly functional openssl binary and library.
 , withPerl ? stdenv.hostPlatform == stdenv.buildPlatform
-# path to openssl.cnf file. will be placed in $etc/etc/ssl/openssl.cnf to replace the default
-, conf ? null
 , removeReferencesTo
 }:
 
@@ -87,24 +85,27 @@ let
         x86_64-linux = "./Configure linux-x86_64";
         x86_64-solaris = "./Configure solaris64-x86_64-gcc";
         riscv64-linux = "./Configure linux64-riscv64";
+        mips64el-linux =
+          if stdenv.hostPlatform.isMips64n64
+          then "./Configure linux64-mips64"
+          else if stdenv.hostPlatform.isMips64n32
+          then "./Configure linux-mips64"
+          else throw "unsupported ABI for ${stdenv.hostPlatform.system}";
       }.${stdenv.hostPlatform.system} or (
         if stdenv.hostPlatform == stdenv.buildPlatform
           then "./config"
+        else if stdenv.hostPlatform.isBSD && stdenv.hostPlatform.isx86_64
+          then "./Configure BSD-x86_64"
+        else if stdenv.hostPlatform.isBSD && stdenv.hostPlatform.isx86_32
+          then "./Configure BSD-x86" + lib.optionalString (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") "-elf"
         else if stdenv.hostPlatform.isBSD
-          then if stdenv.hostPlatform.isx86_64 then "./Configure BSD-x86_64"
-          else if stdenv.hostPlatform.isx86_32
-            then "./Configure BSD-x86" + lib.optionalString (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") "-elf"
-          else "./Configure BSD-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
+          then "./Configure BSD-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
         else if stdenv.hostPlatform.isMinGW
           then "./Configure mingw${lib.optionalString
                                      (stdenv.hostPlatform.parsed.cpu.bits != 32)
                                      (toString stdenv.hostPlatform.parsed.cpu.bits)}"
         else if stdenv.hostPlatform.isLinux
-          then if stdenv.hostPlatform.isx86_64 then "./Configure linux-x86_64"
-          else if stdenv.hostPlatform.isMips32 then "./Configure linux-mips32"
-          else if stdenv.hostPlatform.isMips64n32 then "./Configure linux-mips64"
-          else if stdenv.hostPlatform.isMips64n64 then "./Configure linux64-mips64"
-          else "./Configure linux-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
+          then "./Configure linux-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
         else if stdenv.hostPlatform.isiOS
           then "./Configure ios${toString stdenv.hostPlatform.parsed.cpu.bits}-cross"
         else
@@ -191,8 +192,6 @@ let
       rm -r $etc/etc/ssl/misc
 
       rmdir $etc/etc/ssl/{certs,private}
-
-      ${lib.optionalString (conf != null) "cat ${conf} > $etc/etc/ssl/openssl.cnf"}
     '';
 
     postFixup = lib.optionalString (!stdenv.hostPlatform.isWindows) ''
@@ -215,15 +214,17 @@ let
 in {
 
 
-  openssl_1_1 = common {
-    version = "1.1.1s";
-    sha256 = "sha256-xawB52Dub/Dath1rK70wFGck0GPrMiGAxvGKb3Tktqo=";
+  openssl_1_1 = common rec {
+    version = "1.1.1q";
+    sha256 = "sha256-15Oc5hQCnN/wtsIPDi5XAxWKSJpyslB7i9Ub+Mj9EMo=";
     patches = [
       ./1.1/nix-ssl-cert-file.patch
 
       (if stdenv.hostPlatform.isDarwin
        then ./use-etc-ssl-certs-darwin.patch
        else ./use-etc-ssl-certs.patch)
+    ] ++ lib.optionals (stdenv.isDarwin && (builtins.substring 5 5 version) < "m") [
+      ./1.1/macos-yosemite-compat.patch
     ];
     withDocs = true;
   };
@@ -241,9 +242,6 @@ in {
       (if stdenv.hostPlatform.isDarwin
        then ./use-etc-ssl-certs-darwin.patch
        else ./use-etc-ssl-certs.patch)
-
-       # Remove with 3.0.8 release
-       ./3.0/CVE-2022-3996.patch
     ];
 
     withDocs = true;

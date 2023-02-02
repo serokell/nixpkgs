@@ -49,8 +49,11 @@ in
 {
   options = {
     services.smokeping = {
-      enable = mkEnableOption (lib.mdDoc "smokeping service");
-
+      enable = mkOption {
+        type = types.bool;
+        default = false;
+        description = lib.mdDoc "Enable the smokeping service";
+      };
       alertConfig = mkOption {
         type = types.lines;
         default = ''
@@ -183,7 +186,7 @@ in
         '';
       };
       port = mkOption {
-        type = types.port;
+        type = types.int;
         default = 8081;
         description = lib.mdDoc "TCP port to use for the web server.";
       };
@@ -315,17 +318,6 @@ in
       description = "smokeping daemon user";
       home = smokepingHome;
       createHome = true;
-      # When `cfg.webService` is enabled, `thttpd` makes SmokePing available
-      # under `${cfg.host}:${cfg.port}/smokeping.fcgi` as per the `ln -s` below.
-      # We also want that going to `${cfg.host}:${cfg.port}` without `smokeping.fcgi`
-      # makes it easy for the user to find SmokePing.
-      # However `thttpd` does not seem to support easy redirections from `/` to `smokeping.fcgi`
-      # and only allows directory listings or `/` -> `index.html` resolution if the directory
-      # has `chmod 755` (see https://acme.com/software/thttpd/thttpd_man.html#PERMISSIONS,
-      # " directories should be 755 if you want to allow indexing").
-      # Otherwise it shows `403 Forbidden` on `/`.
-      # Thus, we need to make `smokepingHome` (which is given to `thttpd -d` below) `755`.
-      homeMode = "755";
     };
     users.groups.${cfg.user} = {};
     systemd.services.smokeping = {

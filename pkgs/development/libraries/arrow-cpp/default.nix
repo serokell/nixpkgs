@@ -3,6 +3,7 @@
 , fetchurl
 , fetchFromGitHub
 , fixDarwinDylibNames
+, abseil-cpp
 , autoconf
 , aws-sdk-cpp
 , boost
@@ -63,17 +64,6 @@ let
     repo = "parquet-testing";
     rev = "aafd3fc9df431c2625a514fb46626e5614f1d199";
     hash = "sha256-cO5t/mgsbBhbSefx8EMGTyxmgTjhZ8mFujkFQ3p/JS0=";
-  };
-
-  aws-sdk-cpp-arrow = aws-sdk-cpp.override {
-    apis = [
-      "cognito-identity"
-      "config"
-      "identity-management"
-      "s3"
-      "sts"
-      "transfer"
-    ];
   };
 
 in
@@ -155,11 +145,12 @@ stdenv.mkDerivation rec {
     grpc
     openssl
     protobuf
-  ] ++ lib.optionals enableS3 [ aws-sdk-cpp-arrow openssl ]
+  ] ++ lib.optionals enableS3 [ aws-sdk-cpp openssl ]
   ++ lib.optionals enableGcs [
+    abseil-cpp
     crc32c
     curl
-    google-cloud-cpp grpc
+    google-cloud-cpp
     nlohmann_json
   ];
 
@@ -216,8 +207,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals stdenv.isDarwin [
     "-DCMAKE_INSTALL_RPATH=@loader_path/../lib" # needed for tools executables
   ] ++ lib.optional (!stdenv.isx86_64) "-DARROW_USE_SIMD=OFF"
-  ++ lib.optional enableS3 "-DAWSSDK_CORE_HEADER_FILE=${aws-sdk-cpp-arrow}/include/aws/core/Aws.h"
-  ++ lib.optionals enableGcs [ "-DCMAKE_CXX_STANDARD=${grpc.cxxStandard}" ];
+  ++ lib.optional enableS3 "-DAWSSDK_CORE_HEADER_FILE=${aws-sdk-cpp}/include/aws/core/Aws.h";
 
   doInstallCheck = true;
   ARROW_TEST_DATA = lib.optionalString doInstallCheck "${arrow-testing}/data";
@@ -241,7 +231,7 @@ stdenv.mkDerivation rec {
     in
     lib.optionalString doInstallCheck "-${builtins.concatStringsSep ":" filteredTests}";
   __darwinAllowLocalNetworking = true;
-  nativeInstallCheckInputs = [ perl which sqlite ] ++ lib.optional enableS3 minio;
+  installCheckInputs = [ perl which sqlite ] ++ lib.optional enableS3 minio;
   installCheckPhase =
     let
       excludedTests = lib.optionals stdenv.isDarwin [

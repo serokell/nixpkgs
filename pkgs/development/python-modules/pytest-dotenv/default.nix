@@ -12,7 +12,7 @@ buildPythonPackage rec {
   buildInputs = [ pytest ];
   propagatedBuildInputs = [ python-dotenv ];
 
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
 
   meta = with lib; {
     description = "A pytest plugin that parses environment files before running tests";

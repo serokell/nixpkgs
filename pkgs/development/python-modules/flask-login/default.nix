@@ -28,7 +28,7 @@ buildPythonPackage rec {
     werkzeug
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     blinker
     pytestCheckHook
     semantic-version

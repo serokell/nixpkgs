@@ -14,14 +14,14 @@
 
 buildPythonPackage rec {
   pname = "sqlite-utils";
-  version = "3.30";
+  version = "3.29";
   format = "setuptools";
 
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-MABcEtXxNEVln3kXZr62qZAMJfRCvqH5gPIdOLdfbjM=";
+    hash = "sha256-2eoQJqnAB6iVzdBKvcvjzSrANRXCouu62SM5OaoRH1s=";
   };
 
   postPatch = ''
@@ -37,7 +37,7 @@ buildPythonPackage rec {
     tabulate
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     hypothesis
   ];

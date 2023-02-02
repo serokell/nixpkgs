@@ -5,19 +5,16 @@
 
 buildGoModule rec {
   pname = "tlsx";
-  version = "1.0.4";
+  version = "0.0.8";
 
   src = fetchFromGitHub {
     owner = "projectdiscovery";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-5roEaWdvjMYoQJqfMxRKryb9frDnpoJOYTG5g2MSIy0=";
+    hash = "sha256-TqYBLNnh4wjinoduFrmyNe+FgnGSCckwMy5zX0XhnlM=";
   };
 
-  vendorHash = "sha256-g7v7n8xwYOuE4ojOEjgNmbyytPuwbxQx1R6fXHpVrYU=";
-
-  # Tests require network access
-  doCheck = false;
+  vendorSha256 = "sha256-BppRtzTjiMcuc7xIz37bDcjnQHhOlstncES1vILTKYM=";
 
   meta = with lib; {
     description = "TLS grabber focused on TLS based data collection";
@@ -26,7 +23,6 @@ buildGoModule rec {
       collection and analysis.
     '';
     homepage = "https://github.com/projectdiscovery/tlsx";
-    changelog = "https://github.com/projectdiscovery/tlsx/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

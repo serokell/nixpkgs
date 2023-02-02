@@ -3,15 +3,25 @@
 , version
 , sha256Hash
 , mkOverride
+, commonOverrides
 }:
 
 { lib
 , python3
 , fetchFromGitHub
 , wrapQtAppsHook
+, packageOverrides ? self: super: {}
 }:
 
-python3.pkgs.buildPythonPackage rec {
+let
+  defaultOverrides = commonOverrides ++ [
+  ];
+
+  python = python3.override {
+    packageOverrides = lib.foldr lib.composeExtensions (self: super: { }) ([ packageOverrides ] ++ defaultOverrides);
+  };
+
+in python.pkgs.buildPythonPackage rec {
   pname = "gns3-gui";
   inherit version;
 
@@ -26,7 +36,7 @@ python3.pkgs.buildPythonPackage rec {
     wrapQtAppsHook
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
+  propagatedBuildInputs = with python.pkgs; [
     distro
     jsonschema
     psutil
@@ -45,9 +55,10 @@ python3.pkgs.buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace requirements.txt \
+      --replace "sentry-sdk==" "sentry-sdk>=" \
       --replace "psutil==" "psutil>=" \
-      --replace "jsonschema>=4.17.0,<4.18" "jsonschema" \
-      --replace "sentry-sdk==1.10.1,<1.11" "sentry-sdk"
+      --replace "distro==" "distro>=" \
+      --replace "setuptools==" "setuptools>="
   '';
 
   meta = with lib; {

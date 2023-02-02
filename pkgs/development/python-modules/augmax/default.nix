@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   # augmax does not have any tests at the time of writing (2022-02-19), but
   # jaxlib is necessary for the pythonImportsCheckPhase.
-  nativeCheckInputs = [ jaxlib ];
+  checkInputs = [ jaxlib ];
 
   pythonImportsCheck = [ "augmax" ];
 

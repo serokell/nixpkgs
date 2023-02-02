@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Simple command line tool to check for new messages";
-    homepage    = "https://mailcheck.sourceforge.net/";
+    homepage    = "http://mailcheck.sourceforge.net/";
     license     = lib.licenses.gpl2;
     maintainers = with lib.maintainers; [ kovirobi ];
     platforms   = lib.platforms.linux;

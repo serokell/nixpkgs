@@ -92,8 +92,10 @@ in {
         Needed when running with Kubernetes as backend as this cannot be auto-detected";
       '';
       type = types.nullOr types.str;
-      default = config.networking.fqdnOrHostName;
-      defaultText = literalExpression "config.networking.fqdnOrHostName";
+      default = with config.networking; (hostName + optionalString (domain != null) ".${domain}");
+      defaultText = literalExpression ''
+        with config.networking; (hostName + optionalString (domain != null) ".''${domain}")
+      '';
       example = "node1.example.com";
     };
 

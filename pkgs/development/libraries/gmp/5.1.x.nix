@@ -80,8 +80,6 @@ let self = stdenv.mkDerivation rec {
 
     platforms = platforms.all;
     badPlatforms = [ "x86_64-darwin" ];
-    # never built on aarch64-darwin since first introduction in nixpkgs
-    broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 };
   in self

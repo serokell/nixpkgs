@@ -137,6 +137,5 @@ stdenv.mkDerivation rec {
     description = "High-speed version of VNC derived from TightVNC";
     maintainers = with lib.maintainers; [ nh2 ];
     platforms = with lib.platforms; linux;
-    changelog = "https://github.com/TurboVNC/turbovnc/blob/${version}/ChangeLog.md";
   };
 }

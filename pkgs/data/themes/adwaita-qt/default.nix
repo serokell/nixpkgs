@@ -1,17 +1,16 @@
-{ stdenv
+{ mkDerivation
+, stdenv
 , lib
 , fetchFromGitHub
 , nix-update-script
 , cmake
 , ninja
 , qtbase
-, qtwayland
 , qt5
 , xorg
-, useQt6 ? false
 }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   pname = "adwaita-qt";
   version = "1.4.1";
 
@@ -31,19 +30,9 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     qtbase
+    qt5.qtx11extras
   ] ++ lib.optionals stdenv.isLinux [
     xorg.libxcb
-  ] ++ lib.optionals (!useQt6) [
-    qt5.qtx11extras
-  ] ++ lib.optionals useQt6 [
-    qtwayland
-  ];
-
-  # Qt setup hook complains about missing `wrapQtAppsHook` otherwise.
-  dontWrapQtApps = true;
-
-  cmakeFlags = lib.optionals useQt6 [
-    "-DUSE_QT6=true"
   ];
 
   postPatch = ''
@@ -53,7 +42,9 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      attrPath = pname;
+    };
   };
 
   meta = with lib; {

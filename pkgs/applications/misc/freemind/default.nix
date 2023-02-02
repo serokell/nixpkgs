@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Mind-mapping software";
-    homepage = "https://freemind.sourceforge.net/wiki/index.php/Main_Page";
+    homepage = "http://freemind.sourceforge.net/wiki/index.php/Main_Page";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

@@ -21,7 +21,7 @@ buildPythonApplication rec {
     urwid
   ];
 
-  nativeCheckInputs = [ glibcLocales ];
+  checkInputs = [ glibcLocales ];
 
   makeWrapperArgs = [ "--suffix" "PATH" ":" "${taskwarrior}/bin" ];
 

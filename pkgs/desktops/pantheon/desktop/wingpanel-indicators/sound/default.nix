@@ -7,7 +7,6 @@
 , python3
 , ninja
 , vala
-, gnome-settings-daemon
 , gtk3
 , granite
 , wingpanel
@@ -20,13 +19,13 @@
 
 stdenv.mkDerivation rec {
   pname = "wingpanel-indicator-sound";
-  version = "6.0.2";
+  version = "6.0.1";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = pname;
     rev = version;
-    sha256 = "sha256-hifEd2uL1sBLF8H8KwYoxCyVpGkv9f4SqD6WmB7xJ7I=";
+    sha256 = "sha256-FHZ4YhGLqGTz5Po2XFJvnWuAi1eHKcT9zzgJFHic02E=";
   };
 
   nativeBuildInputs = [
@@ -39,7 +38,6 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    gnome-settings-daemon # media-keys
     granite
     gtk3
     libcanberra-gtk3
@@ -55,7 +53,9 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      attrPath = "pantheon.${pname}";
+    };
   };
 
   meta = with lib; {

@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, # this also disables building tests.
-  # on static windows cross-compile they fail to build
-  doCheck ? with stdenv.hostPlatform; !(isWindows && isStatic)
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "libconfig";
@@ -15,18 +9,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VFFm1srAN3RDgdHpzFpUBQlOe/rRakEWmbz/QLuzHuc=";
   };
 
-  inherit doCheck;
+  doCheck = true;
 
-  configureFlags = lib.optional (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isStatic) "--disable-examples"
-    ++ lib.optional (!doCheck) "--disable-tests";
-
-  cmakeFlags = lib.optionals (!doCheck) [ "-DBUILD_TESTS:BOOL=OFF" ];
+  configureFlags = lib.optional (stdenv.targetPlatform.isWindows || stdenv.hostPlatform.isStatic) "--disable-examples";
 
   meta = with lib; {
     homepage = "http://www.hyperrealm.com/libconfig";
     description = "A simple library for processing structured configuration files";
     license = licenses.lgpl3;
     maintainers = [ maintainers.goibhniu ];
-    platforms = platforms.all;
+    platforms = with platforms; linux ++ darwin ++ windows;
   };
 }

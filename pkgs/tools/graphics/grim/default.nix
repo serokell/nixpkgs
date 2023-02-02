@@ -1,18 +1,4 @@
-{ lib
-, stdenv
-, fetchFromSourcehut
-, fetchpatch
-, pixman
-, libpng
-, libjpeg
-, meson
-, ninja
-, pkg-config
-, scdoc
-, wayland
-, wayland-protocols
-, wayland-scanner
-}:
+{ lib, stdenv, fetchFromSourcehut, fetchpatch, pixman, libpng, libjpeg, meson, ninja, wayland, pkg-config, scdoc, wayland-protocols }:
 
 stdenv.mkDerivation rec {
   pname = "grim";
@@ -43,7 +29,6 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     scdoc
-    wayland-scanner
   ];
 
   buildInputs = [

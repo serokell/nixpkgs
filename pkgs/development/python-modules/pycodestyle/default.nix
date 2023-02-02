@@ -7,7 +7,7 @@
 
 buildPythonPackage rec {
   pname = "pycodestyle";
-  version = "2.10.0";
+  version = "2.9.1";
 
   disabled = pythonOlder "3.6";
 
@@ -15,10 +15,10 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-NHGHvbR2Mp2Y9pXCE9cpWoRtEVL/T+m6y4qVkLjucFM=";
+    sha256 = "2c9607871d58c76354b697b42f5d57e1ada7d261c261efac224b664affdc5785";
   };
 
-  # https://github.com/PyCQA/pycodestyle/blob/2.10.0/tox.ini#L13
+  # https://github.com/PyCQA/pycodestyle/blob/2.9.1/tox.ini#L13
   checkPhase = ''
     ${python.interpreter} -m pycodestyle --statistics pycodestyle.py
     ${python.interpreter} -m pycodestyle --max-doc-length=72 --testsuite testsuite
@@ -29,7 +29,6 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pycodestyle" ];
 
   meta = with lib; {
-    changelog = "https://github.com/PyCQA/pycodestyle/blob/${version}/CHANGES.txt";
     description = "Python style guide checker";
     homepage = "https://pycodestyle.pycqa.org/";
     license = licenses.mit;

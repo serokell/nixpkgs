@@ -29,7 +29,7 @@ buildPythonPackage rec {
     requests-oauthlib
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     freezegun
     mock
     pytestCheckHook

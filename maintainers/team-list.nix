@@ -121,7 +121,7 @@ with lib.maintainers; {
       bobby285271
       mkg20001
     ];
-    scope = "Maintain Cinnamon desktop environment and applications made by the Linux Mint team.";
+    scope = "Maintain Cinnamon desktop environment and applications made by the LinuxMint team.";
     shortName = "Cinnamon";
     enableFeatureFreezePing = true;
   };
@@ -182,8 +182,6 @@ with lib.maintainers; {
     members = [
       cole-h
       grahamc
-      hoverbear
-      lheckemann
     ];
     scope = "Group registration for packages maintained by Determinate Systems.";
     shortName = "Determinate Systems employees";
@@ -265,22 +263,12 @@ with lib.maintainers; {
     shortName = "GCC";
   };
 
-  geospatial = {
-    members = [
-      imincik
-      sikmir
-    ];
-    scope = "Maintain geospatial packages.";
-    shortName = "Geospatial";
-  };
-
   golang = {
     members = [
       c00w
       kalbasit
       mic92
       zowoq
-      qbit
     ];
     scope = "Maintain Golang compilers.";
     shortName = "Go";
@@ -398,19 +386,6 @@ with lib.maintainers; {
     shortName = "Linux Kernel";
   };
 
-  llvm = {
-    members = [
-      ericson2314
-      sternenseemann
-      lovek323
-      dtzWill
-      primeos
-    ];
-    scope = "Maintain LLVM package sets and related packages";
-    shortName = "LLVM";
-    enableFeatureFreezePing = true;
-  };
-
   lumiguide = {
     # Verify additions by approval of an already existing member of the team.
     members = [
@@ -517,18 +492,6 @@ with lib.maintainers; {
     ];
     scope = "Maintain nixpkgs module system internals.";
     shortName = "NixOS Modules / internals";
-    enableFeatureFreezePing = true;
-  };
-
-  node = {
-    members = [
-      lilyinstarlight
-      marsam
-      winter
-      yuka
-    ];
-    scope = "Maintain Node.js runtimes and build tooling.";
-    shortName = "Node.js";
     enableFeatureFreezePing = true;
   };
 
@@ -666,18 +629,6 @@ with lib.maintainers; {
     shortName = "Release";
   };
 
-  rocm = {
-    members = [
-      Madouura
-      Flakebi
-    ];
-    githubTeams = [
-      "rocm-maintainers"
-    ];
-    scope = "Maintain ROCm and related packages.";
-    shortName = "ROCm";
-  };
-
   ruby = {
     members = [
       marsam
@@ -757,7 +708,6 @@ with lib.maintainers; {
 
   vim = {
     members = [
-      figsoda
       jonringer
       softinio
       teto
@@ -769,7 +719,6 @@ with lib.maintainers; {
   xfce = {
     members = [
       romildo
-      muscaln
     ];
     scope = "Maintain Xfce desktop environment and related packages.";
     shortName = "Xfce";

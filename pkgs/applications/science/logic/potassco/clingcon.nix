@@ -7,14 +7,18 @@
 
 stdenv.mkDerivation rec {
   pname = "clingcon";
-  version = "5.2.0";
+  version = "5.0.0";
 
   src = fetchFromGitHub {
     owner = "potassco";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-wZfTneoQSqEnLAVE8WyPh9EABmOEhDgRm6yWAF1T7Nk=";
+    sha256 = "1g2xkz9nsgqnrw3fdf5jchl16f0skj5mm32va61scc2yrchll166";
    };
+
+  patches = [
+    ./clingcon_limits.patch
+  ];
 
   postPatch = ''
     cp ${catch2}/include/catch2/catch.hpp libclingcon/tests/catch.hpp

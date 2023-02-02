@@ -55,6 +55,8 @@ in
 
       substituteInPlace Makefile \
         --replace 'unknown' 'v${version}'
+
+      export CFLAGS="-march=native"
     '';
 
     makeFlags = optional (!enableGlfw) "DISABLE_GLFW=1";

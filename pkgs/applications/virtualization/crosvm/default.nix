@@ -1,55 +1,59 @@
-{ stdenv, lib, rust, rustPlatform, fetchgit, fetchpatch
-, clang, pkg-config, protobuf, python3, wayland-scanner
+{ stdenv, lib, rustPlatform, fetchgit
+, minijail-tools, pkg-config, protobuf, wayland-scanner
 , libcap, libdrm, libepoxy, minijail, virglrenderer, wayland, wayland-protocols
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "crosvm";
-  version = "107.1";
+  version = "104.0";
 
   src = fetchgit {
-    url = "https://chromium.googlesource.com/chromiumos/platform/crosvm";
-    rev = "5a49a836e63aa6e9ae38b80daa09a013a57bfb7f";
-    sha256 = "F+5i3R7Tbd9xF63Olnyavzg/hD+8HId1duWm8bvAmLA=";
+    url = "https://chromium.googlesource.com/crosvm/crosvm";
+    rev = "265aab613b1eb31598ea0826f04810d9f010a2c6";
+    sha256 = "OzbtPHs6BWK83RZ/6eCQHA61X6SY8FoBkaN70a37pvc=";
     fetchSubmodules = true;
   };
 
   separateDebugInfo = true;
 
   patches = [
-    # Backport seccomp sandbox update for recent Glibc.
-    # fetchpatch is not currently gerrit/gitiles-compatible, so we
-    # have to use the mirror.
-    # https://github.com/NixOS/nixpkgs/pull/133604
-    (fetchpatch {
-      url = "https://github.com/google/crosvm/commit/aae01416807e7c15270b3d44162610bcd73952ff.patch";
-      sha256 = "nQuOMOwBu8QvfwDSuTz64SQhr2dF9qXt2NarbIU55tU=";
-    })
+    ./default-seccomp-policy-dir.diff
   ];
 
-  cargoSha256 = "1jg9x5adz1lbqdwnzld4xg4igzmh90nd9xm287cgkvh5fbmsjfjv";
+  cargoLock.lockFile = ./Cargo.lock;
 
-  nativeBuildInputs = [ clang pkg-config protobuf python3 wayland-scanner ];
+  nativeBuildInputs = [ minijail-tools pkg-config protobuf wayland-scanner ];
 
   buildInputs = [
     libcap libdrm libepoxy minijail virglrenderer wayland wayland-protocols
   ];
 
-  preConfigure = ''
-    patchShebangs third_party/minijail/tools/*.py
-    substituteInPlace build.rs --replace '"clang"' '"${stdenv.cc.targetPrefix}clang"'
+  arch = stdenv.hostPlatform.parsed.cpu.name;
+
+  postPatch = ''
+    cp ${cargoLock.lockFile} Cargo.lock
+    sed -i "s|/usr/share/policy/crosvm/|$PWD/seccomp/$arch/|g" \
+        seccomp/$arch/*.policy
   '';
 
-  "CARGO_TARGET_${lib.toUpper (builtins.replaceStrings ["-"] ["_"] (rust.toRustTarget stdenv.hostPlatform))}_LINKER" =
-    "${stdenv.cc.targetPrefix}cc";
+  preBuild = ''
+    export DEFAULT_SECCOMP_POLICY_DIR=$out/share/policy
 
-  # crosvm mistakenly expects the stable protocols to be in the root
-  # of the pkgdatadir path, rather than under the "stable"
-  # subdirectory.
-  PKG_CONFIG_WAYLAND_PROTOCOLS_PKGDATADIR =
-    "${wayland-protocols}/share/wayland-protocols/stable";
+    for policy in seccomp/$arch/*.policy; do
+        compile_seccomp_policy \
+            --default-action trap $policy ''${policy%.policy}.bpf
+    done
+
+    substituteInPlace seccomp/$arch/*.policy \
+      --replace "@include $(pwd)/seccomp/$arch/" "@include $out/share/policy/"
+  '';
 
   buildFeatures = [ "default" "virgl_renderer" "virgl_renderer_next" ];
+
+  postInstall = ''
+    mkdir -p $out/share/policy/
+    cp -v seccomp/$arch/*.{policy,bpf} $out/share/policy/
+  '';
 
   passthru.updateScript = ./update.py;
 

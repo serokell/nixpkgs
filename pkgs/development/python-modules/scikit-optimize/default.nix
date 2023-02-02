@@ -30,7 +30,7 @@ buildPythonPackage rec {
     pyaml
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

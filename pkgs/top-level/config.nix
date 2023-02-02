@@ -47,10 +47,6 @@ let
       feature = "set `strictDeps` to true by default";
     };
 
-    structuredAttrsByDefault = mkMassRebuild {
-      feature = "set `__structuredAttrs` to true by default";
-    };
-
     enableParallelBuildingByDefault = mkMassRebuild {
       feature = "set `enableParallelBuilding` to true by default";
     };

@@ -73,6 +73,6 @@ stdenv.mkDerivation rec {
     homepage = "http://opalang.org/";
     license = lib.licenses.gpl3;
     maintainers = [ ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = with lib.platforms; unix;
   };
 }

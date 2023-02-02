@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ isodate jsonschema six strict-rfc3339 rfc3339-validator ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-cov ];
+  checkInputs = [ pytestCheckHook pytest-cov ];
   pythonImportsCheck = [ "openapi_schema_validator" ];
 
   meta = with lib; {

@@ -132,8 +132,6 @@ in
       options zram num_devices=${toString cfg.numDevices}
     '';
 
-    boot.kernelParams = ["zram.num_devices=${toString cfg.numDevices}"];
-
     services.udev.extraRules = ''
       KERNEL=="zram[0-9]*", ENV{SYSTEMD_WANTS}="zram-init-%k.service", TAG+="systemd"
     '';
@@ -180,9 +178,9 @@ in
           serviceConfig = {
             Type = "oneshot";
             RemainAfterExit = true;
-            ExecStartPre = "-${modprobe} -r zram";
-            ExecStart = "-${modprobe} zram";
-            ExecStop = "-${modprobe} -r zram";
+            ExecStartPre = "${modprobe} -r zram";
+            ExecStart = "${modprobe} zram";
+            ExecStop = "${modprobe} -r zram";
           };
           restartTriggers = [
             cfg.numDevices

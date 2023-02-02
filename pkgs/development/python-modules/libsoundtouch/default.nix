@@ -26,7 +26,7 @@ buildPythonPackage rec {
     zeroconf
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

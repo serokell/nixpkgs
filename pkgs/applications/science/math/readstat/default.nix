@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libiconv }:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config }:
 
 stdenv.mkDerivation rec {
   name = "readstat";
@@ -12,10 +12,6 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config autoreconfHook ];
-
-  buildInputs = [ libiconv ];
-
-  enableParallelBuilding = true;
 
   meta = {
     homepage = "https://github.com/WizardMac/ReadStat";

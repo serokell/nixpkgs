@@ -16,14 +16,14 @@
 
 buildPythonPackage rec {
   pname = "pip-tools";
-  version = "6.12.1";
+  version = "6.8.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-iO+3spqSP/6sBxPm8j74UpzGF1Un1CuT9zdWzJQ4cpM=";
+    hash = "sha256-Oeiu5GVEbgInjYDb69QyXR3YYzJI9DITxzol9Y59ilU=";
   };
 
   patches = [ ./fix-setup-py-bad-syntax-detection.patch ];
@@ -41,7 +41,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-xdist
     pytestCheckHook
   ];
@@ -66,7 +66,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Keeps your pinned dependencies fresh";
     homepage = "https://github.com/jazzband/pip-tools/";
-    changelog = "https://github.com/jazzband/pip-tools/releases/tag/${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ zimbatm ];
   };

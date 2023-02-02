@@ -3,40 +3,37 @@
 , fetchFromGitHub
 , SDL2
 , cmake
-, ffmpeg_4
+, copyDesktopItems
+, ffmpeg
 , imagemagick
 , libedit
 , libelf
 , libepoxy
 , libzip
-, lua5_4
+, lua
+, makeDesktopItem
 , minizip
 , pkg-config
-, libsForQt5
+, qtbase
+, qtmultimedia
+, qttools
+, wrapQtAppsHook
 }:
 
-let
-    ffmpeg = ffmpeg_4;
-    lua = lua5_4;
-    inherit (libsForQt5)
-      qtbase
-      qtmultimedia
-      qttools
-      wrapQtAppsHook;
-in
 stdenv.mkDerivation (finalAttrs: {
   pname = "mgba";
-  version = "0.10.1";
+  version = "0.10.0";
 
   src = fetchFromGitHub {
     owner = "mgba-emu";
     repo = "mgba";
     rev = finalAttrs.version;
-    hash = "sha256-oWrgYrN7s5tdGJ/GhA2ZaKDVqZq9411fHSoYnLKWDl8=";
+    hash = "sha256-2thc2v3aD8t1PrREZIjzRuYfP7b3BA7uFb6R95zxsZI=";
   };
 
   nativeBuildInputs = [
     cmake
+    copyDesktopItems
     pkg-config
     wrapQtAppsHook
   ];
@@ -54,6 +51,19 @@ stdenv.mkDerivation (finalAttrs: {
     qtbase
     qtmultimedia
     qttools
+  ];
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = "mgba";
+      exec = "mgba-qt";
+      icon = "mgba";
+      comment = "A Game Boy Advance Emulator";
+      desktopName = "mgba";
+      genericName = "Game Boy Advance Emulator";
+      categories = [ "Game" "Emulator" ];
+      startupNotify = false;
+    })
   ];
 
   meta = with lib; {

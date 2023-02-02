@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Minilanguage designed to represent the entire contents of a PNG file in an editable form";
-    homepage = "https://sng.sourceforge.net/";
+    homepage = "http://sng.sourceforge.net/";
     license = licenses.zlib;
     maintainers = [ maintainers.dezgeg ];
     platforms = platforms.unix;

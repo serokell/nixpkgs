@@ -9,8 +9,10 @@
 , fmt
 }:
 
+with lib;
+
 mkDerivation rec {
-  pname = "litecoin" + lib.optionalString (!withGui) "d";
+  pname = "litecoin" + optionalString (!withGui) "d";
   version = "0.21.2.1";
 
   src = fetchFromGitHub {
@@ -23,11 +25,11 @@ mkDerivation rec {
   nativeBuildInputs = [ pkg-config autoreconfHook ];
   buildInputs = [ openssl db48 boost zlib zeromq fmt
                   miniupnpc glib protobuf util-linux libevent ]
-                  ++ lib.optionals stdenv.isDarwin [ AppKit ]
-                  ++ lib.optionals withGui [ qtbase qttools qrencode ];
+                  ++ optionals stdenv.isDarwin [ AppKit ]
+                  ++ optionals withGui [ qtbase qttools qrencode ];
 
   configureFlags = [ "--with-boost-libdir=${boost.out}/lib" ]
-                   ++ lib.optionals withGui [
+                   ++ optionals withGui [
                       "--with-gui=qt5"
                       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin" ];
 
@@ -38,7 +40,7 @@ mkDerivation rec {
     ./src/test/test_litecoin
   '';
 
-  meta = with lib; {
+  meta = {
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;
     description = "A lite version of Bitcoin using scrypt as a proof-of-work algorithm";
     longDescription= ''

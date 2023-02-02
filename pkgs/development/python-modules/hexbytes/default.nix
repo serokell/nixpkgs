@@ -9,17 +9,17 @@
 
 buildPythonPackage rec {
   pname = "hexbytes";
-  version = "0.3.0";
+  version = "0.2.2";
   disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "ethereum";
     repo = "hexbytes";
     rev = "v${version}";
-    sha256 = "sha256-EDFE5MUc+XMwe8BaXkz/DRchAZbS86X+AcShi5rx83M=";
+    sha256 = "sha256-SZscM6ze9yY+iRDx/5F4XbrLXIbp6QkFnzxN7zvP9CQ=";
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     eth-utils
     hypothesis
     pytestCheckHook

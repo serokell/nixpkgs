@@ -24,7 +24,7 @@ buildPythonPackage rec {
     pybtex
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

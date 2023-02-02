@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ gettext pkg-config which ];
   buildInputs = [ glib gtk2 ];
 
-  patches = lib.optionals enableSoftening [
+  patches = lib.optional enableSoftening [
     ./encryption.patch
     ./dvdrom.patch
   ];

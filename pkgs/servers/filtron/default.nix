@@ -1,10 +1,8 @@
-{ lib, buildGoPackage, fetchFromGitHub }:
+{ lib, buildGoModule, fetchFromGitHub }:
 
-buildGoPackage rec {
+buildGoModule rec {
   pname = "filtron";
   version = "0.2.0";
-
-  goPackagePath = "github.com/asciimoo/filtron";
 
   src = fetchFromGitHub {
     owner = "asciimoo";
@@ -13,7 +11,7 @@ buildGoPackage rec {
     sha256 = "18d3h0i2sfqbc0bjx26jm2n9f37zwp8z9z4wd17sw7nvkfa72a26";
   };
 
-  goDeps = ./deps.nix;
+  vendorSha256 = "05q2g591xl08h387mm6njabvki19yih63dfsafgpc9hyk5ydf2n9";
 
   # The upstream test checks are obsolete/unmaintained.
   doCheck = false;

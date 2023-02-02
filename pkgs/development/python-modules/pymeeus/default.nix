@@ -2,14 +2,14 @@
 
 buildPythonPackage rec {
   pname = "PyMeeus";
-  version = "0.5.12";
+  version = "0.5.11";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-VI9xhr2LlsvAac9kmo6ON33OSax0SGcJhJ/mOpnK1oQ=";
+    sha256 = "bb9d670818d8b0594317b48a7dadea02a0594e5344263bf2054e1a011c8fed55";
   };
 
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
 
   checkPhase = ''
     pytest .

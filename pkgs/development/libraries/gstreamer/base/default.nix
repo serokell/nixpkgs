@@ -79,16 +79,17 @@ stdenv.mkDerivation rec {
     libjpeg
     tremor
     libGL
-    pango
-  ] ++ lib.optionals (!stdenv.isDarwin) [
+  ] ++ lib.optional (!stdenv.isDarwin) [
     libvisual
   ] ++ lib.optionals stdenv.isDarwin [
+    pango
     OpenGL
   ] ++ lib.optionals enableAlsa [
     alsa-lib
   ] ++ lib.optionals enableX11 [
     libXext
     libXv
+    pango
   ] ++ lib.optionals enableWayland [
     wayland
     wayland-protocols

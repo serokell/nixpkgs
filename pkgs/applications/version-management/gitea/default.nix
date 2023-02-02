@@ -1,5 +1,4 @@
 { lib
-, stdenv
 , buildGoPackage
 , fetchurl
 , makeWrapper
@@ -15,12 +14,12 @@
 
 buildGoPackage rec {
   pname = "gitea";
-  version = "1.18.3";
+  version = "1.17.3";
 
   # not fetching directly from the git repo, because that lacks several vendor files for the web UI
   src = fetchurl {
     url = "https://dl.gitea.io/gitea/${version}/gitea-src-${version}.tar.gz";
-    hash = "sha256-jqjpbDgcmwZoc/ovgburFeeta9mAJOmz7yrvmUKAwRU=";
+    sha256 = "sha256-NUkEgKt5OETo751UHcocPH7lEIgyBf6Rl/Nz0nbNH3g=";
   };
 
   patches = [
@@ -62,13 +61,12 @@ buildGoPackage rec {
 
   goPackagePath = "code.gitea.io/gitea";
 
-  passthru.tests = nixosTests.gitea;
+  passthru.tests.gitea = nixosTests.gitea;
 
   meta = with lib; {
     description = "Git with a cup of tea";
     homepage = "https://gitea.io";
     license = licenses.mit;
     maintainers = with maintainers; [ disassembler kolaente ma27 techknowlogick ];
-    broken = stdenv.isDarwin;
   };
 }

@@ -21,7 +21,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ cmake pkg-config llvm_13.dev ];
   buildInputs = [ libffi llvm_13 ];
 
-  nativeCheckInputs = [ perl ];
+  checkInputs = [ perl ];
 
   checkTarget = "tests";
 

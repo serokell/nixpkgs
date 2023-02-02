@@ -1,38 +1,22 @@
-{ lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  libX11,
-  libXfixes,
-  libXrandr,
-}:
-
-stdenv.mkDerivation (finalAttrs: {
+{ lib, stdenv, xorg, fetchgit }:
+stdenv.mkDerivation rec {
   pname = "xpointerbarrier";
-  version = "20.07";
-
-  src = fetchurl {
-    url = "https://www.uninformativ.de/git/xpointerbarrier/archives/xpointerbarrier-v${finalAttrs.version}.tar.gz";
-    hash = "sha256-V1sNAQjsPVSjJ2nhCSdZqZQA78pjUE0z3IU4+I85CpI=";
+  version = "18.06";
+  src = fetchgit {
+    url = "https://www.uninformativ.de/git/xpointerbarrier.git";
+    rev = "v${version}";
+    sha256 = "1k7i641x18qhjm0llsaqn2h2g9k31kgv6p8sildllmbvgxyrgvq7";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
-
-  buildInputs = [
-    libX11
-    libXfixes
-    libXrandr
-  ];
+  buildInputs = [ xorg.libX11 xorg.libXfixes xorg.libXrandr ];
 
   makeFlags = [ "prefix=$(out)" ];
 
-  meta = with lib; {
-    homepage = "https://www.uninformativ.de/git/xpointerbarrier/file/README.html";
+  meta = {
+    homepage = "https://uninformativ.de/git/xpointerbarrier";
     description = "Create X11 pointer barriers around your working area";
-    license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres xzfc ];
-    platforms = platforms.linux;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.xzfc ];
+    platforms = lib.platforms.linux;
   };
-})
+}

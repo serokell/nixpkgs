@@ -30,7 +30,7 @@ buildPythonPackage rec {
     pygments
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     coreutils
     pytestCheckHook
   ];

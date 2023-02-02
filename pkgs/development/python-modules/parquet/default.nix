@@ -22,7 +22,7 @@ buildPythonPackage rec {
     thriftpy2
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

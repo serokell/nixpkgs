@@ -7,19 +7,17 @@
 , ninja
 , pyproject-metadata
 , tomli
-, typing-extensions
-, pythonOlder
 }:
 
 buildPythonPackage rec {
   pname = "meson-python";
-  version = "0.12.0";
+  version = "0.8.1";
   format = "pyproject";
 
   src = fetchPypi {
     inherit version;
     pname = "meson_python";
-    hash = "sha256-jLFZqAk6LnPPqJf4CS7JO3TjhC+U3/f944HG/g4LBk0=";
+    hash = "sha256-RC8fpM9dtQ7qYRcKYFnBD6/XCXf12980QcEGzSOwXkw=";
   };
 
   nativeBuildInputs = [
@@ -27,8 +25,6 @@ buildPythonPackage rec {
     ninja
     pyproject-metadata
     tomli
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    typing-extensions
   ];
 
   propagatedBuildInputs = [
@@ -36,8 +32,6 @@ buildPythonPackage rec {
     ninja
     pyproject-metadata
     tomli
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    typing-extensions
   ];
 
   # Ugly work-around. Drop ninja dependency.
@@ -48,9 +42,8 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    changelog = "https://github.com/mesonbuild/meson-python/blob/${version}/CHANGELOG.rst";
     description = "Meson Python build backend (PEP 517)";
-    homepage = "https://github.com/mesonbuild/meson-python";
+    homepage = "https://github.com/FFY00/meson-python";
     license = [ lib.licenses.mit ];
     maintainers = [ lib.maintainers.fridh ];
   };

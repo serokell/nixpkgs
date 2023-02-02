@@ -33,7 +33,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      attrPath = "gnome-desktop-testing";
+    };
   };
 
   meta = with lib; {

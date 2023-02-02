@@ -12,18 +12,18 @@ let
   ft = freetype.overrideAttrs (oldArgs: { dontDisableStatic = true; });
 in buildPythonPackage rec {
   pname = "reportlab";
-  version = "3.6.12";
+  version = "3.6.11";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-sTzr9OOXu6FFQrzQIzOLb/LBUaOhKqvKie7L+XLLNho=";
+    sha256 = "sha256-BPxEIPBUiBXQYj4DHIah9/PzAD5pnZr3FIdC4tcrAko=";
   };
 
   patches = [
     ./darwin-m1-compat.patch
   ];
 
-  nativeCheckInputs = [ glibcLocales ];
+  checkInputs = [ glibcLocales ];
 
   buildInputs = [ ft pillow ];
 

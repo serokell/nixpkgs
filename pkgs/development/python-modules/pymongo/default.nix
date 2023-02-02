@@ -2,24 +2,17 @@
 , buildPythonPackage
 , fetchPypi
 , pythonOlder
-, dnspython
 }:
 
 buildPythonPackage rec {
   pname = "pymongo";
-  version = "4.3.3";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "4.2.0";
+  disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-NOlf+wpov/vDtDfy0fJfyRb+899c3u0JktpfQvrpuAc=";
+    sha256 = "sha256-cvM49qq9N9NDvZ0f3T3pIRBNOVdmvMXNxAOeTC3Zd2Y=";
   };
-
-  propagatedBuildInputs = [
-    dnspython
-  ];
 
   # Tests call a running mongodb instance
   doCheck = false;

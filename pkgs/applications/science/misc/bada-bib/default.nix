@@ -20,7 +20,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "bada-bib";
-  version = "0.8.0";
+  version = "0.7.2";
   format = "other";
   strictDeps = false; # https://github.com/NixOS/nixpkgs/issues/56943
 
@@ -28,7 +28,7 @@ python3Packages.buildPythonApplication rec {
     owner = "RogerCrocker";
     repo = "BadaBib";
     rev = "refs/tags/v${version}";
-    sha256 = "sha256-mdAoJh3qOwtPX8cMCYw7MDDNy10GdhynnS8gtszJROI=";
+    sha256 = "sha256-+b4Ko2srWZUs8zsH9jU+aiKQYZti3z2Bil8PogfpPlc=";
   };
 
   nativeBuildInputs = [
@@ -49,7 +49,7 @@ python3Packages.buildPythonApplication rec {
     libadwaita
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     appstream-glib
     desktop-file-utils
   ];

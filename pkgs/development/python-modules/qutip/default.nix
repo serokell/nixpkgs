@@ -6,7 +6,6 @@
 , cython
 , doCheck ? true
 , fetchFromGitHub
-, ipython
 , matplotlib
 , numpy
 , packaging
@@ -19,7 +18,7 @@
 
 buildPythonPackage rec {
   pname = "qutip";
-  version = "4.7.1";
+  version = "4.7.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -27,8 +26,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-W5iqRWAB6D1Dnxz0Iyl7ZmP3yrXvLyV7BdBdIgFCiQY=";
+    rev = "v${version}";
+    hash = "sha256-wGr6uTM6pFL2nvN4zdqPdEO8O3kjrRtKWx8luL1t9Sw=";
   };
 
   nativeBuildInputs = [
@@ -41,13 +40,13 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-rerunfailures
-  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  ] ++ passthru.optional-dependencies.graphics;
 
   # Disabling OpenMP support on Darwin.
-  setupPyGlobalFlags = lib.optionals (!stdenv.isDarwin) [
+  setupPyGlobalFlags = lib.optional (!stdenv.isDarwin) [
     "--with-openmp"
   ];
 
@@ -75,9 +74,6 @@ buildPythonPackage rec {
   passthru.optional-dependencies = {
     graphics = [
       matplotlib
-    ];
-    ipython = [
-      ipython
     ];
     semidefinite = [
       cvxpy

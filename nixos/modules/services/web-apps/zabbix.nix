@@ -51,7 +51,7 @@ in
 
       server = {
         port = mkOption {
-          type = types.port;
+          type = types.int;
           description = lib.mdDoc "The port of the Zabbix server to connect to.";
           default = 10051;
         };
@@ -78,7 +78,7 @@ in
         };
 
         port = mkOption {
-          type = types.port;
+          type = types.int;
           default =
             if cfg.database.type == "mysql" then config.services.mysql.port
             else if cfg.database.type == "pgsql" then config.services.postgresql.port

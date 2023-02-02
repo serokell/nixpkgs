@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-/At/57IazatHpYWrlAfKflxPlstoiFddtrDOuR8OEFo=";
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     EasyProcess
     path
     pytestCheckHook

@@ -1,26 +1,27 @@
 { lib
 , stdenv
-, Accelerate
-, blis
 , buildPythonPackage
+, python
+, fetchPypi
+, pytestCheckHook
+, blis
 , catalogue
-, confection
+, cymem
+, cython
+, contextvars
+, dataclasses
+, Accelerate
 , CoreFoundation
 , CoreGraphics
 , CoreVideo
-, cymem
-, cython
-, fetchPypi
 , hypothesis
 , mock
 , murmurhash
 , numpy
 , plac
+, pythonOlder
 , preshed
 , pydantic
-, pytestCheckHook
-, python
-, pythonOlder
 , srsly
 , tqdm
 , typing-extensions
@@ -29,15 +30,20 @@
 
 buildPythonPackage rec {
   pname = "thinc";
-  version = "8.1.6";
+  version = "8.1.1";
   format = "setuptools";
 
-  disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-kkHDd2HwBP5oTmN9K02Lea3eurxk40OqHLoUT60sm0c=";
+    sha256 = "sha256-m5AoKYTzy6rJjgNn3xsa+eSDYjG8Bj361yQqnQ3VK80=";
   };
+
+  postPatch = ''
+    substituteInPlace setup.cfg \
+      --replace "pydantic>=1.7.4,!=1.8,!=1.8.1,<1.9.0" "pydantic"
+  '';
 
   buildInputs = [
     cython
@@ -51,21 +57,23 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     blis
     catalogue
-    confection
     cymem
     murmurhash
     numpy
     plac
     preshed
-    pydantic
     srsly
     tqdm
+    pydantic
     wasabi
-  ] ++ lib.optionals (pythonOlder "3.8") [
+  ] ++ lib.optional (pythonOlder "3.8") [
     typing-extensions
+  ] ++ lib.optional (pythonOlder "3.7") [
+    contextvars
+    dataclasses
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     hypothesis
     mock
     pytestCheckHook
@@ -85,7 +93,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Library for NLP machine learning";
+    description = "Practical Machine Learning for NLP in Python";
     homepage = "https://github.com/explosion/thinc";
     license = licenses.mit;
     maintainers = with maintainers; [ aborsu ];

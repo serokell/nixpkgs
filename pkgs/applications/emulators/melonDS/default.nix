@@ -1,50 +1,40 @@
 { lib
 , fetchFromGitHub
-, stdenv
+, mkDerivation
 , cmake
-, extra-cmake-modules
+, libepoxy
 , libarchive
 , libpcap
 , libslirp
 , pkg-config
 , qtbase
-, qtmultimedia
 , SDL2
-, wayland
-, wrapQtAppsHook
 }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   pname = "melonDS";
-  version = "0.9.5";
+  version = "0.9.4";
 
   src = fetchFromGitHub {
     owner = "Arisotura";
     repo = pname;
     rev = version;
-    sha256 = "sha256-n4Vkxb/7fr214PgB6VFNgH1tMDgTBS/UHUQ6V4uGkDA=";
+    sha256 = "sha256-FSacau7DixU6R4eKNIYVRZiMb/GhijTzHbcGlZ6WG/I=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-    pkg-config
-    wrapQtAppsHook
-  ];
-
+  nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [
+    libepoxy
     libarchive
     libslirp
     qtbase
-    qtmultimedia
     SDL2
-    wayland
   ];
 
   qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libpcap ]}" ];
 
   meta = with lib; {
-    homepage = "https://melonds.kuribo64.net/";
+    homepage = "http://melonds.kuribo64.net/";
     description = "Work in progress Nintendo DS emulator";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ artemist benley shamilton xfix ];

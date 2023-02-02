@@ -10,7 +10,7 @@
 
 buildPythonPackage rec {
   pname = "pyclip";
-  version = "0.7.0";
+  version = "0.6.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -18,8 +18,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "spyoungtech";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-0nOkNgT8XCwtXI9JZntkhoMspKQU602rTKBFajVKBoM=";
+    rev = "v${version}";
+    hash = "sha256-NCWmCp4VGwwvubqN8FUUJ0kcZbXjOEyB6+BfGky1Kj4=";
   };
 
   postPatch = ''
@@ -27,7 +27,7 @@ buildPythonPackage rec {
       --replace docs/README.md README.md
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest
   ] ++ lib.optionals stdenv.isLinux [
     xclip

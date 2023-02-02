@@ -1,25 +1,23 @@
-{ lib
-, stdenv
+{ lib, stdenv
 , fetchFromGitHub
 , cmake
 , openssl
-, nix
 }:
 
 stdenv.mkDerivation rec {
   pname = "s2n-tls";
-  version = "1.3.33";
+  version = "1.3.20";
 
   src = fetchFromGitHub {
     owner = "aws";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-MfVRAv5Ss+QMjY3IhFJakUO05w6j5WaAM0cCdtLIgAk=";
+    sha256 = "sha256-U/mrtDlpBJm2nAjb8bgn36vzuN7civQ1mKguNogr0nE=";
   };
 
   nativeBuildInputs = [ cmake ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [ "out" "dev"];
 
   buildInputs = [ openssl ]; # s2n-config has find_dependency(LibCrypto).
 
@@ -40,10 +38,6 @@ stdenv.mkDerivation rec {
         --replace 'INTERFACE_INCLUDE_DIRECTORIES "''${_IMPORT_PREFIX}/include"' 'INTERFACE_INCLUDE_DIRECTORIES ""'
     done
   '';
-
-  passthru.tests = {
-    inherit nix;
-  };
 
   meta = with lib; {
     description = "C99 implementation of the TLS/SSL protocols";

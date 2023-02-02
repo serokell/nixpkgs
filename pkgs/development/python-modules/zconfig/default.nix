@@ -10,18 +10,18 @@
 
 buildPythonPackage rec {
   pname = "ZConfig";
-  version = "3.6.1";
+  version = "3.6.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-RCLH1mOvdizXeVd1NmvGpnq0QKGreW6w90JbDpA08HY=";
+    sha256 = "sha256-oo6VoK4zV5V0fsytNbLLcI831Ex/Ml4qyyAemDMLFuU=";
   };
 
   patches = lib.optional stdenv.hostPlatform.isMusl ./remove-setlocale-test.patch;
 
   buildInputs = [ manuel docutils ];
   propagatedBuildInputs = [ zope_testrunner ];
-  nativeCheckInputs = [ pygments ];
+  checkInputs = [ pygments ];
 
   meta = with lib; {
     description = "Structured Configuration Library";

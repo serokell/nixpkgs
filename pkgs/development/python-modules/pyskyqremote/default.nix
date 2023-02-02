@@ -9,7 +9,7 @@
 
 buildPythonPackage rec {
   pname = "pyskyqremote";
-  version = "0.3.24";
+  version = "0.3.16";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -18,7 +18,7 @@ buildPythonPackage rec {
     owner = "RogerSelwyn";
     repo = "skyq_remote";
     rev = "refs/tags/${version}";
-    hash = "sha256-XKfxjxSQUjSFQNt4LgOIXOE3M2oyVfsb68z35a1B3DY=";
+    sha256 = "sha256-zzVUXjpFCeyoYcerKJuK12nCf7tVJ7WdDvMDruGgAhc=";
   };
 
   propagatedBuildInputs = [
@@ -37,7 +37,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module for accessing SkyQ boxes";
     homepage = "https://github.com/RogerSelwyn/skyq_remote";
-    changelog = "https://github.com/RogerSelwyn/skyq_remote/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

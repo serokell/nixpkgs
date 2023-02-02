@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  nativeCheckInputs = [ cmocka ];
+  checkInputs = [ cmocka ];
 
   doCheck = false; # needs "-DWITH_TESTS=ON", but fails w/compilation error
 

@@ -26,7 +26,7 @@ buildPythonPackage rec {
     substituteInPlace setup.cfg --replace " --cov" ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook typing-extensions ];
+  checkInputs = [ pytestCheckHook typing-extensions ];
 
   disabledTestPaths = [
     # mypy tests aren't passing with latest mypy

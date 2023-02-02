@@ -33,7 +33,7 @@ buildPythonPackage rec {
     importlib-metadata zipp
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     setuptools
     testpath

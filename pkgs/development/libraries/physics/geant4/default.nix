@@ -29,7 +29,7 @@
 
 # For enableQt, enableXM, enableOpenGLX11, enableRaytracerX11.
 , libGLU, libGL
-, libXext
+, xlibsWrapper
 , libXmu
 
 # For enablePython
@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
   ];
   dontWrapQtApps = true; # no binaries
 
-  buildInputs = [ libGLU libXext libXmu ]
+  buildInputs = [ libGLU xlibsWrapper libXmu ]
     ++ lib.optionals enableInventor [ libXpm coin3d soxt motif ]
     ++ lib.optionals enablePython [ boost_python python3 ];
 

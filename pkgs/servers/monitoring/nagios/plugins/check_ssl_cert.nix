@@ -6,24 +6,17 @@
 , makeWrapper
 , which
 , curl
-, bc
-, coreutils # date and timeout binary
-, bind # host and dig binary
-, nmap
-, iproute2
-, netcat-gnu
-, python3
 }:
 
 stdenv.mkDerivation rec {
   pname = "check_ssl_cert";
-  version = "2.58.0";
+  version = "2.52.0";
 
   src = fetchFromGitHub {
     owner = "matteocorti";
     repo = "check_ssl_cert";
     rev = "v${version}";
-    hash = "sha256-nQE3UMZcIR063JuZkTN49imDYQGGnNzE1yaeR4k4mWY=";
+    hash = "sha256-rYOcbfKWFZN2kFY8H6jf5PXFH/VvXieL2ddvSdFCVPs=";
   };
 
   nativeBuildInputs = [
@@ -37,13 +30,12 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/check_ssl_cert \
-      --prefix PATH : "${lib.makeBinPath [ openssl file which curl bc coreutils bind nmap iproute2 netcat-gnu python3 ]}"
+      --prefix PATH : "${lib.makeBinPath [ openssl file which curl ]}"
   '';
 
   meta = with lib; {
     description = "Nagios plugin to check the CA and validity of an X.509 certificate";
     homepage = "https://github.com/matteocorti/check_ssl_cert";
-    changelog = "https://github.com/matteocorti/check_ssl_cert/releases/tag/v${version}";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ fab ];
     platforms = platforms.all;

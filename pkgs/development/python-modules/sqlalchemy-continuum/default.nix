@@ -1,30 +1,23 @@
 { lib
-, buildPythonPackage
 , fetchPypi
+, buildPythonPackage
 , flask
-, flask-login
+, flask_login
 , flask-sqlalchemy
 , flexmock
-, psycopg2
-, pymysql
 , pytestCheckHook
-, pythonOlder
 , sqlalchemy
-, sqlalchemy-i18n
 , sqlalchemy-utils
+, sqlalchemy-i18n
 }:
 
 buildPythonPackage rec {
-  pname = "sqlalchemy-continuum";
-  version = "1.3.14";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  pname = "SQLAlchemy-Continuum";
+  version = "1.3.13";
 
   src = fetchPypi {
-    pname = "SQLAlchemy-Continuum";
-    inherit version;
-    hash = "sha256-1+k/lx6R8tW9gM3M2kqaVEwpmx8cMhDXeqCjyd8O2hM=";
+    inherit pname version;
+    sha256 = "sha256-JTqlHQmaVH2qKz7CFyCqpous3ecOpoFrxVlzasbc21I=";
   };
 
   propagatedBuildInputs = [
@@ -32,46 +25,21 @@ buildPythonPackage rec {
     sqlalchemy-utils
   ];
 
-  passthru.optional-dependencies = {
-    flask = [
-      flask
-    ];
-    flask-login = [
-      flask-login
-    ];
-    flask-sqlalchemy = [
-      flask-sqlalchemy
-    ];
-    flexmock = [
-      flexmock
-    ];
-    i18n = [
-      sqlalchemy-i18n
-    ];
-  };
-
-  nativeCheckInputs = [
-    psycopg2
-    pymysql
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.flask
-  ++ passthru.optional-dependencies.flask-login
-  ++ passthru.optional-dependencies.flask-sqlalchemy
-  ++ passthru.optional-dependencies.flexmock
-  ++ passthru.optional-dependencies.i18n;
-
   # indicate tests that we don't have a database server at hand
   DB = "sqlite";
 
-  pythonImportsCheck = [
-    "sqlalchemy_continuum"
+  checkInputs = [
+    pytestCheckHook
+    sqlalchemy-i18n
+    flask
+    flask_login
+    flask-sqlalchemy
+    flexmock
   ];
 
   meta = with lib; {
-    description = "Versioning and auditing extension for SQLAlchemy";
     homepage = "https://github.com/kvesteri/sqlalchemy-continuum/";
-    changelog = "https://github.com/kvesteri/sqlalchemy-continuum/blob/${version}/CHANGES.rst";
+    description = "Versioning and auditing extension for SQLAlchemy";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
   };
 }

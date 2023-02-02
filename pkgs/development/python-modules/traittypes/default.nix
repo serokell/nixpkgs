@@ -34,7 +34,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ traitlets ];
 
-  nativeCheckInputs = [ numpy pandas xarray nose pytestCheckHook ];
+  checkInputs = [ numpy pandas xarray nose pytestCheckHook ];
   pythonImportsCheck = [ "traittypes" ];
 
   meta = with lib; {

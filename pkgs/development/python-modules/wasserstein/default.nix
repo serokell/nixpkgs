@@ -8,12 +8,12 @@
 }:
 
 buildPythonPackage rec {
-  pname = "wasserstein";
+  pname = "Wasserstein";
   version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "pkomiske";
-    repo = "Wasserstein";
+    repo = pname;
     rev = "89c2d6279a7e0aa3b56bcc8fb7b6009420f2563e"; # https://github.com/pkomiske/Wasserstein/issues/1
     hash = "sha256-s9en6XwvO/WPsF7/+SEmGePHZQgl7zLgu5sEn4nD9YE=";
   };
@@ -26,7 +26,7 @@ buildPythonPackage rec {
     wurlitzer
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
   pytestFlagsArray = [

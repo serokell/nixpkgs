@@ -1,6 +1,6 @@
 { lib, stdenv, fetchurl, fetchpatch
-, cmake, pkg-config, perl, go, python3
-, protobuf, zlib, gtest, brotli, lz4, zstd, libusb1, pcre2
+, cmake, perl, go, python3
+, protobuf, zlib, gtest, brotli, lz4, zstd, libusb1, pcre2, fmt_7
 }:
 
 let
@@ -9,23 +9,26 @@ in
 
 stdenv.mkDerivation rec {
   pname = "android-tools";
-  version = "33.0.3p1";
+  version = "31.0.3p1";
 
   src = fetchurl {
     url = "https://github.com/nmeum/android-tools/releases/download/${version}/android-tools-${version}.tar.xz";
-    hash = "sha256-viBHzyVgUWdK9a60u/7SdpiVEvgNEZHihkyRkGH5Ydg=";
+    sha256 = "1f2svy381r798hjinrc2xiwz13gkkqxfill343zvv8jqkn8rzxhf";
   };
 
   patches = [
+    # fmt 8 breaks the build but we can use fmt 7 from Nixpkgs:
     (fetchpatch {
-      name = "add-macos-platform.patch";
-      url = "https://github.com/nmeum/android-tools/commit/a1ab35b31525966e0f0770047cd82accb36d025b.patch";
-      hash = "sha256-6O3ekDf0qPdzcfINFF8Ae4XOYgnQWTBhvu9SCFSHkXY=";
+      # Vendor google's version of fmtlib
+      url = "https://github.com/nmeum/android-tools/commit/21061c1dfb006c22304053c1f6f9e48ae4cbe25a.patch";
+      sha256 = "17mcsgfc3i8xq4hck0ppnzafh15aljxy7j2q4djcmwnvrkv9kx3s";
+      revert = true;
+      excludes = [ "vendor/fmtlib" ];
     })
   ];
 
-  nativeBuildInputs = [ cmake pkg-config perl go ];
-  buildInputs = [ protobuf zlib gtest brotli lz4 zstd libusb1 pcre2 ];
+  nativeBuildInputs = [ cmake perl go ];
+  buildInputs = [ protobuf zlib gtest brotli lz4 zstd libusb1 pcre2 fmt_7 ];
   propagatedBuildInputs = [ pythonEnv ];
 
   # Don't try to fetch any Go modules via the network:
@@ -33,6 +36,10 @@ stdenv.mkDerivation rec {
 
   preConfigure = ''
     export GOCACHE=$TMPDIR/go-cache
+  '';
+
+  postInstall = ''
+    install -Dm755 ../vendor/avb/avbtool.py -t $out/bin
   '';
 
   meta = with lib; {
@@ -49,14 +56,13 @@ stdenv.mkDerivation rec {
       - mke2fs.android (required by fastboot)
       - simg2img, img2simg, append2simg
       - lpdump, lpmake, lpadd, lpflash, lpunpack
-      - mkbootimg, unpack_bootimg, repack_bootimg, avbtool
-      - mkdtboimg
+      - mkbootimg, unpack_bootimg, repack_bootimg
     '';
     # https://developer.android.com/studio/command-line#tools-platform
     # https://developer.android.com/studio/releases/platform-tools
     homepage = "https://github.com/nmeum/android-tools";
     license = with licenses; [ asl20 unicode-dfs-2015 ];
-    platforms = platforms.unix;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ primeos ];
   };
 }

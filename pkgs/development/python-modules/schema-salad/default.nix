@@ -14,14 +14,14 @@
 
 buildPythonPackage rec {
   pname = "schema-salad";
-  version = "8.3.20230109181936";
+  version = "8.3.20220913105718";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-4PuPvnk92kITPzdGQr6fGvFlG7+zyjfjQdiGbWld5Fo=";
+    hash = "sha256-18/xLIq1+yM8iQBIeXvRIO4A5GqZS/3qOKXmi439+sQ=";
   };
 
   nativeBuildInputs = [
@@ -36,7 +36,7 @@ buildPythonPackage rec {
     ruamel-yaml
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ] ++ passthru.optional-dependencies.pycodegen;
 
@@ -57,15 +57,13 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    pycodegen = [
-      black
-    ];
+    pycodegen = [ black ];
   };
 
   meta = with lib; {
+    broken = true; # disables on outdated version of mistune
     description = "Semantic Annotations for Linked Avro Data";
     homepage = "https://github.com/common-workflow-language/schema_salad";
-    changelog = "https://github.com/common-workflow-language/schema_salad/releases/tag/${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ veprbl ];
   };

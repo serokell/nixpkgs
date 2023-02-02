@@ -25,11 +25,11 @@ buildDunePackage rec {
 
   src = fetchurl {
     url = "https://github.com/mmaker/ocaml-letsencrypt/releases/download/v${version}/letsencrypt-v${version}.tbz";
-    hash = "sha256-+Qh19cm9yrTIvl7H6+nqdjAw+nCOAoVzAJlrsW58IHA=";
+    sha256 = "f90875f5c9bdcab4c8be5ec7ebe9ea763030fa708e02857300996bb16e7c2070";
   };
 
-  minimalOCamlVersion = "4.08";
-  duneVersion = "3";
+  minimumOCamlVersion = "4.08";
+  useDune2 = true;
 
   buildInputs = [
     fmt
@@ -52,7 +52,7 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [ ounit ];
+  checkInputs = [ ounit ];
 
   meta = {
     description = "ACME implementation in OCaml";

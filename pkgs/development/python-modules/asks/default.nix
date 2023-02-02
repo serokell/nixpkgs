@@ -32,7 +32,7 @@ buildPythonPackage rec {
     h11
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     curio
     overly
     pytestCheckHook

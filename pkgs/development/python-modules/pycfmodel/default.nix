@@ -25,7 +25,7 @@ buildPythonPackage rec {
     pydantic
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     httpx
     pytestCheckHook
   ];

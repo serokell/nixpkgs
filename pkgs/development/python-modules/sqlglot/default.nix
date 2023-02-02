@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ python-dateutil ];
 
-  nativeCheckInputs = [ pytestCheckHook duckdb ];
+  checkInputs = [ pytestCheckHook duckdb ];
 
   pythonImportsCheck = [ "sqlglot" ];
 

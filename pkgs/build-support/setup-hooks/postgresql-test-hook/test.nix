@@ -3,7 +3,7 @@
 stdenv.mkDerivation {
   name = "postgresql-test-hook-test";
   buildInputs = [ postgresqlTestHook ];
-  nativeCheckInputs = [ postgresql ];
+  checkInputs = [ postgresql ];
   dontUnpack = true;
   doCheck = true;
   passAsFile = ["sql"];

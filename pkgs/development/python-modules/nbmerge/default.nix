@@ -17,7 +17,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ nbformat ];
-  nativeCheckInputs = [ nose ];
+  checkInputs = [ nose ];
 
   checkPhase = ''
     patchShebangs .

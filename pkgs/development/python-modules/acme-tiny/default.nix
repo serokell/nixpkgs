@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   buildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [ fusepy fuse ];
+  checkInputs = [ fusepy fuse ];
 
   doCheck = false; # seems to hang, not sure
 

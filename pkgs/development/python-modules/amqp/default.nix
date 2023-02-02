@@ -23,7 +23,7 @@ buildPythonPackage rec {
     vine
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     case
     pytestCheckHook
   ];

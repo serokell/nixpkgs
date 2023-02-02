@@ -12,7 +12,7 @@ stdenv.mkDerivation {
   };
 
   buildInputs = [ libmrss ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
-  nativeCheckInputs = [ cppcheck ];
+  checkInputs = [ cppcheck ];
 
   postPatch = ''
     substituteInPlace Makefile --replace -liconv_hook ""

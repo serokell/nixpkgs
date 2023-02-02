@@ -1,8 +1,6 @@
 { lib
 , stdenv
 , fetchurl
-, tk
-, makeWrapper
 }:
 
 stdenv.mkDerivation rec {
@@ -20,17 +18,10 @@ stdenv.mkDerivation rec {
       --replace 'INSTALL_DIR =' "INSTALL_DIR = $out/bin#"
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
-
   dontConfigure = true;
 
   preInstall = ''
     mkdir -p "$out/bin"
-  '';
-
-  postInstall = ''
-    wrapProgram "$out/bin/DAWN_GUI" \
-      --prefix PATH : ${lib.makeBinPath [ tk ]}
   '';
 
   meta = with lib; {

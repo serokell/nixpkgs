@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, libxcrypt }:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "cde";
@@ -16,8 +16,6 @@ stdenv.mkDerivation rec {
   # older systems, where modern binaries might not be
   # useful.
   preferLocalBuild = true;
-
-  buildInputs = [ libxcrypt ];
 
   patchBuild = ''
     sed -i -e '/install/d' $src/Makefile

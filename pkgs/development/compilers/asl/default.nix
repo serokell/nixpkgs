@@ -1,38 +1,33 @@
 { lib
 , stdenv
 , fetchzip
-, tex
-, buildDocs ? false
+, buildDocs ? false, tex
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation rec {
   pname = "asl";
-  version = "142-bld232";
+  version = "142-bld211";
 
-  src = let inherit (finalAttrs) pname version; in fetchzip {
+  src = fetchzip {
     name = "${pname}-${version}";
     url = "http://john.ccac.rwth-aachen.de:8000/ftp/as/source/c_version/asl-current-${version}.tar.bz2";
-    hash = "sha256-Q50GzXBxFMhbt5s9OgHPNH4bdqz2hhEmTnMmKowVn2E=";
+    hash = "sha256-Sbm16JX7kC/7Ws7YgNBUXNqOCl6u+RXgfNjTODhCzSM=";
   };
-
-  outputs = [ "out" "doc" "man" ];
 
   nativeBuildInputs = lib.optionals buildDocs [ tex ];
 
   postPatch = lib.optionalString (!buildDocs) ''
     substituteInPlace Makefile --replace "all: binaries docs" "all: binaries"
-  '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
-    substituteInPlace sysdefs.h --replace "x86_64" "aarch64"
   '';
 
   dontConfigure = true;
 
   preBuild = ''
     bindir="${placeholder "out"}/bin" \
-    docdir="${placeholder "doc"}/share/doc/asl" \
+    docdir="${placeholder "out"}/doc/asl" \
     incdir="${placeholder "out"}/include/asl" \
     libdir="${placeholder "out"}/lib/asl" \
-    mandir="${placeholder "man"}/share/man" \
+    mandir="${placeholder "out"}/share/man" \
     substituteAll ${./Makefile-nixos.def} Makefile.def
     mkdir -p .objdir
   '';
@@ -50,7 +45,8 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = with maintainers; [ AndersonTorres ];
     platforms = platforms.unix;
   };
-})
+}
+# TODO: multiple outputs
 # TODO: cross-compilation support
 # TODO: customize TeX input
 # TODO: report upstream about `mkdir -p .objdir/`

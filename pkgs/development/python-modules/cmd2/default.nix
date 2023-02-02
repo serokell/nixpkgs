@@ -42,7 +42,7 @@ buildPythonPackage rec {
     importlib-metadata
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     glibcLocales
     pytest-mock

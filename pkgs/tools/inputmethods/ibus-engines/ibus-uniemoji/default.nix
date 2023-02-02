@@ -11,7 +11,7 @@ let
     pygobject3
     (toPythonModule ibus)
     pyxdg
-    levenshtein
+    python-Levenshtein
   ]);
 in stdenv.mkDerivation rec {
   pname = "ibus-uniemoji";

@@ -3,16 +3,13 @@
 , enableVmaf ? true, libvmaf
 }:
 
-let
-  isCross = stdenv.buildPlatform != stdenv.hostPlatform;
-in
 stdenv.mkDerivation rec {
   pname = "libaom";
-  version = "3.5.0";
+  version = "3.4.0";
 
   src = fetchzip {
     url = "https://aomedia.googlesource.com/aom/+archive/v${version}.tar.gz";
-    sha256 = "sha256-kEU8DVgB4JoyB6Lbh/XfC3LZcsVEM2STkZV8iZBCNis=";
+    sha256 = "sha256-NgzpVxQmsgOPzKkGpJIJrLiNQcruhpEoCi/CYJx5b3A=";
     stripRoot = false;
   };
 
@@ -48,7 +45,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
     # CPU detection isn't supported on Darwin and breaks the aarch64-darwin build:
     "-DCONFIG_RUNTIME_CPU_DETECT=0"
-  ] ++ lib.optionals (isCross && !stdenv.hostPlatform.isx86) [
+  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
     "-DAS_EXECUTABLE=${stdenv.cc.targetPrefix}as"
   ] ++ lib.optionals stdenv.isAarch32 [
     # armv7l-hf-multiplatform does not support NEON
@@ -58,8 +55,6 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     moveToOutput lib/libaom.a "$static"
-  '' + lib.optionalString stdenv.hostPlatform.isStatic ''
-    ln -s $static $out
   '';
 
   outputs = [ "out" "bin" "dev" "static" ];
@@ -75,7 +70,6 @@ stdenv.mkDerivation rec {
     changelog   = "https://aomedia.googlesource.com/aom/+/refs/tags/v${version}/CHANGELOG";
     maintainers = with maintainers; [ primeos kiloreux dandellion ];
     platforms   = platforms.all;
-    outputsToInstall = [ "bin" ];
     license = licenses.bsd2;
   };
 }

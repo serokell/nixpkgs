@@ -1,6 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
+{ lib, stdenv, fetchurl
 , fetchpatch
 , autoconf
 , automake
@@ -10,7 +8,6 @@
 , libjpeg
 , libwebp
 , libtiff
-, withXorg ? true
 , libXpm
 , libavif
 , fontconfig
@@ -36,22 +33,20 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  configureFlags = [
-    "--enable-gd-formats"
-  ]
+  configureFlags =
+    [
+      "--enable-gd-formats"
+    ]
     # -pthread gets passed to clang, causing warnings
     ++ lib.optional stdenv.isDarwin "--enable-werror=no";
 
   nativeBuildInputs = [ autoconf automake pkg-config ];
 
-  buildInputs = [ zlib fontconfig freetype libpng libjpeg libwebp libtiff libavif ]
-    ++ lib.optional withXorg libXpm;
+  buildInputs = [ zlib fontconfig freetype libpng libjpeg libwebp libtiff libXpm libavif ];
 
   outputs = [ "bin" "dev" "out" ];
 
-  postFixup = ''
-    moveToOutput "bin/gdlib-config" $dev
-  '';
+  postFixup = ''moveToOutput "bin/gdlib-config" $dev'';
 
   enableParallelBuilding = true;
 
@@ -62,6 +57,5 @@ stdenv.mkDerivation rec {
     description = "A dynamic image creation library";
     license = licenses.free; # some custom license
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
   };
 }

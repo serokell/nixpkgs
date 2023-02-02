@@ -9,9 +9,7 @@
 , dotnet-runtime
 , runtimeDeps
 , buildType
-, runtimeId
 }:
-assert (builtins.isString runtimeId);
 
 let
   libraryPath = lib.makeLibraryPath runtimeDeps;
@@ -23,7 +21,6 @@ in
       deps = [ dotnet-sdk nuget-source ];
       substitutions = {
         nugetSource = nuget-source;
-        inherit runtimeId;
       };
     } ./dotnet-configure-hook.sh) { };
 
@@ -32,7 +29,7 @@ in
       name = "dotnet-build-hook";
       deps = [ dotnet-sdk ];
       substitutions = {
-        inherit buildType runtimeId;
+        inherit buildType;
       };
     } ./dotnet-build-hook.sh) { };
 
@@ -43,11 +40,7 @@ in
       substitutions = {
         inherit buildType libraryPath;
         disabledTests = lib.optionalString (disabledTests != [])
-          (let
-            escapedNames = lib.lists.map (n: lib.replaceStrings [","] ["%2C"] n) disabledTests;
-            filters = lib.lists.map (n: "FullyQualifiedName!=${n}") escapedNames;
-          in
-          "${lib.concatStringsSep "&" filters}");
+          (lib.concatStringsSep "&FullyQualifiedName!=" disabledTests);
       };
     } ./dotnet-check-hook.sh) { };
 
@@ -56,7 +49,7 @@ in
       name = "dotnet-install-hook";
       deps = [ dotnet-sdk ];
       substitutions = {
-        inherit buildType runtimeId;
+        inherit buildType;
       };
     } ./dotnet-install-hook.sh) { };
 

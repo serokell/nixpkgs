@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp voluptuous ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytest-cov
     pytest-httpserver

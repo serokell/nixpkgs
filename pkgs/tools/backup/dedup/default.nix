@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeCheckInputs = [ coreutils gawk ];
+  checkInputs = [ coreutils gawk ];
   checkTarget = "test";
 
   meta = with lib; {

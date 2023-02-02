@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ black ];
 
-  nativeCheckInputs = [ pytestCheckHook black ];
+  checkInputs = [ pytestCheckHook black ];
 
   pythonImportsCheck = [ "black" ];
 

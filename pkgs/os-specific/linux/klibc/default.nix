@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, buildPackages, linuxHeaders, perl, nixosTests }:
+{ lib, stdenv, fetchurl, buildPackages, linuxHeaders, perl }:
 
 let
   commonMakeFlags = [
@@ -9,11 +9,11 @@ in
 
 stdenv.mkDerivation rec {
   pname = "klibc";
-  version = "2.0.11";
+  version = "2.0.10";
 
   src = fetchurl {
     url = "mirror://kernel/linux/libs/klibc/2.0/klibc-${version}.tar.xz";
-    hash = "sha256-XrMOXh7HPcTjhMYLuUOvicUxdMgvh3Ev3TTdMoZNX2A=";
+    sha256 = "sha256-ZidT2oiJ50TfwNtutAIcM3fufvjtZtfVd2X4yeJZOc0=";
   };
 
   patches = [ ./no-reinstall-kernel-headers.patch ];
@@ -42,11 +42,6 @@ stdenv.mkDerivation rec {
       ln -sv $file $out/lib/klibc/include
     done
   '';
-
-  passthru.tests = {
-    # uses klibc's ipconfig
-    inherit (nixosTests) initrd-network-ssh;
-  };
 
   meta = {
     description = "Minimalistic libc subset for initramfs usage";

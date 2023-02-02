@@ -8,11 +8,9 @@
 , pkg-config
 , pantheon
 , python3
-, curl
 , gettext
 , glib
 , gtk3
-, json-glib
 , libwnck
 , libgee
 , libgtop
@@ -27,13 +25,13 @@
 
 stdenv.mkDerivation rec {
   pname = "monitor";
-  version = "0.15.0";
+  version = "0.14.0";
 
   src = fetchFromGitHub {
     owner = "stsdc";
     repo = "monitor";
     rev = version;
-    sha256 = "sha256-w4c9rVO54mrjUX2iRxUQ7PHqE+8D+BqBgHMK2X9nI0g=";
+    sha256 = "sha256-dw1FR9nU8MY6LBL3sF942azeSgKmCntXCk4+nhMb4Wo=";
     fetchSubmodules = true;
   };
 
@@ -48,10 +46,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    curl
     glib
     gtk3
-    json-glib
     pantheon.granite
     pantheon.wingpanel
     libgee
@@ -76,11 +72,6 @@ stdenv.mkDerivation rec {
   postPatch = ''
     chmod +x meson/post_install.py
     patchShebangs meson/post_install.py
-
-    # Alternatively, using pkg-config here should just work.
-    substituteInPlace meson.build --replace \
-      "meson.get_compiler('c').find_library('libcurl', dirs: vapidir)" \
-      "meson.get_compiler('c').find_library('libcurl', dirs: '${curl.out}/lib')"
   '';
 
   passthru = {

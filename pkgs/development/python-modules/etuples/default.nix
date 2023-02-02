@@ -3,20 +3,19 @@
 , fetchFromGitHub
 , cons
 , multipledispatch
-, py
 , pytestCheckHook
 , pytest-html
 }:
 
 buildPythonPackage rec {
   pname = "etuples";
-  version = "0.3.8";
+  version = "0.3.5";
 
   src = fetchFromGitHub {
     owner = "pythological";
     repo = "etuples";
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-wEgam2IoI3z75bN45/R9o+0JmL3g0YmtsuJ4TnZjhi8=";
+    rev = "v${version}";
+    sha256 = "sha256-gJNxrO2d/eF4t3bBlz/BwF+9eT1nKrVrTP3F6/dEN00=";
   };
 
   propagatedBuildInputs = [
@@ -24,8 +23,7 @@ buildPythonPackage rec {
     multipledispatch
   ];
 
-  nativeCheckInputs = [
-    py
+  checkInputs = [
     pytestCheckHook
     pytest-html
   ];

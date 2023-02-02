@@ -3,25 +3,23 @@
 , fetchurl
 , postgresql
 , openssl
-, libxcrypt
 , withPam ? stdenv.isLinux
 , pam
 }:
 
 stdenv.mkDerivation rec {
   pname = "pgpool-II";
-  version = "4.4.1";
+  version = "4.3.3";
 
   src = fetchurl {
     url = "https://www.pgpool.net/mediawiki/download.php?f=pgpool-II-${version}.tar.gz";
     name = "pgpool-II-${version}.tar.gz";
-    sha256 = "sha256-Szebu6jheBKKHO5KW9GuEW3ts9phIbcowY8PVMiB8yg=";
+    sha256 = "sha256-bHNDS67lgThqlVX+WWKL9GeCD31b2+M0F2g5mgOCyXk=";
   };
 
   buildInputs = [
     postgresql
     openssl
-    libxcrypt
   ] ++ lib.optional withPam pam;
 
   configureFlags = [

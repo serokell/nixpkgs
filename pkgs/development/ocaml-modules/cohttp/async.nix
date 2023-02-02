@@ -28,8 +28,6 @@ buildDunePackage {
     src
     ;
 
-  duneVersion = "3";
-
   buildInputs = [ ppx_sexp_conv ];
 
   propagatedBuildInputs = [
@@ -51,7 +49,7 @@ buildDunePackage {
 
   # Examples don't compile with core 0.15.  See https://github.com/mirage/ocaml-cohttp/pull/864.
   doCheck = false;
-  nativeCheckInputs = [
+  checkInputs = [
     ounit
     mirage-crypto
     core

@@ -22,7 +22,7 @@ python3.pkgs.buildPythonApplication rec {
     datrie
     docutils
     filelock
-    gitpython
+    GitPython
     jinja2
     jsonschema
     nbformat
@@ -47,7 +47,7 @@ python3.pkgs.buildPythonApplication rec {
   # for the current basic test suite. Tibanna and Tes require extra
   # setup.
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = with python3.pkgs; [
     pandas
     pytestCheckHook
     requests-mock

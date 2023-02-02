@@ -23,7 +23,7 @@ buildPythonPackage rec {
     sha256 = "sha256-R9tcTqxUaqw63FLOGFRaO/Oz6kD7V6MPHdQ8A29NdXw=";
   };
 
-  nativeCheckInputs = [ xvfb-run scrot ];
+  checkInputs = [ xvfb-run scrot ];
   checkPhase = ''
     xvfb-run python -c 'import pyautogui'
     # The tests depend on some specific things that xvfb cant provide, like keyboard and mouse

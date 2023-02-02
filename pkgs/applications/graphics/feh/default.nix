@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
                                --add-flags '--theme=feh'
   '';
 
-  nativeCheckInputs = lib.singleton (perl.withPackages (p: [ p.TestCommand ]));
+  checkInputs = lib.singleton (perl.withPackages (p: [ p.TestCommand ]));
   doCheck = true;
 
   meta = with lib; {

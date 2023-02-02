@@ -1,10 +1,8 @@
-{ lib, stdenv, fetchFromGitLab, dpkg, gawk, perl, wget, binutils, bzip2, coreutils, util-linux
-, gnugrep, gnupg1, gnutar, gnused, gzip, xz, makeWrapper }:
+{ lib, stdenv, fetchFromGitLab, dpkg, gawk, perl, wget, coreutils, util-linux
+, gnugrep, gnupg1, gnutar, gnused, gzip, makeWrapper }:
 # USAGE like this: debootstrap sid /tmp/target-chroot-directory
 # There is also cdebootstrap now. Is that easier to maintain?
 let binPath = lib.makeBinPath [
-    binutils
-    bzip2
     coreutils
     dpkg
     gawk
@@ -15,18 +13,17 @@ let binPath = lib.makeBinPath [
     gzip
     perl
     wget
-    xz
   ];
 in stdenv.mkDerivation rec {
   pname = "debootstrap";
-  version = "1.0.128";
+  version = "1.0.127";
 
   src = fetchFromGitLab {
     domain = "salsa.debian.org";
     owner = "installer-team";
     repo = pname;
     rev = version;
-    sha256 = "sha256-WybWWyRPreokjUAdWfZ2MUjgZhF1GTncpbLajQ3rh0E=";
+    sha256 = "sha256-KKH9F0e4HEO2FFh1/V5UIY5C95ZOUm4nUhVUGqpZWaI=";
   };
 
   nativeBuildInputs = [ makeWrapper ];

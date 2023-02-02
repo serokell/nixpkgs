@@ -28,7 +28,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  nativeCheckInputs = [ nose ];
+  checkInputs = [ nose ];
   checkPhase = "nosetests";
 
   meta = with lib; {

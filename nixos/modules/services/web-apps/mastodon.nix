@@ -1,9 +1,7 @@
-{ lib, pkgs, config, options, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.services.mastodon;
-  opt = options.services.mastodon;
-
   # We only want to create a database if we're actually going to connect to it.
   databaseActuallyCreateLocally = cfg.database.createLocally && cfg.database.host == "/run/postgresql";
 
@@ -25,6 +23,7 @@ let
     REDIS_HOST = cfg.redis.host;
     REDIS_PORT = toString(cfg.redis.port);
     DB_HOST = cfg.database.host;
+    DB_PORT = toString(cfg.database.port);
     DB_NAME = cfg.database.name;
     LOCAL_DOMAIN = cfg.localDomain;
     SMTP_SERVER = cfg.smtp.host;
@@ -38,8 +37,7 @@ let
 
     TRUSTED_PROXY_IP = cfg.trustedProxy;
   }
-  // lib.optionalAttrs (cfg.database.host != "/run/postgresql" && cfg.database.port != null) { DB_PORT = toString cfg.database.port; }
-  // lib.optionalAttrs cfg.smtp.authenticate { SMTP_LOGIN  = cfg.smtp.user; }
+  // (if cfg.smtp.authenticate then { SMTP_LOGIN  = cfg.smtp.user; } else {})
   // cfg.extraConfig;
 
   systemCallsList = [ "@cpu-emulation" "@debug" "@keyring" "@ipc" "@mount" "@obsolete" "@privileged" "@setuid" ];
@@ -94,20 +92,12 @@ let
       ] else []
     ) env))));
 
-  mastodonTootctl = let
-    sourceExtraEnv = lib.concatMapStrings (p: "source ${p}\n") cfg.extraEnvFiles;
-  in pkgs.writeShellScriptBin "mastodon-tootctl" ''
+  mastodonEnv = pkgs.writeShellScriptBin "mastodon-env" ''
     set -a
     export RAILS_ROOT="${cfg.package}"
     source "${envFile}"
     source /var/lib/mastodon/.secrets_env
-    ${sourceExtraEnv}
-
-    sudo=exec
-    if [[ "$USER" != ${cfg.user} ]]; then
-      sudo='exec /run/wrappers/bin/sudo -u ${cfg.user} --preserve-env'
-    fi
-    $sudo ${cfg.package}/bin/tootctl "$@"
+    eval -- "\$@"
   '';
 
 in {
@@ -143,10 +133,15 @@ in {
         description = lib.mdDoc ''
           User under which mastodon runs. If it is set to "mastodon",
           that user will be created, otherwise it should be set to the
-          name of a user created elsewhere.
-          In both cases, the `mastodon` package will be added to the user's package set
-          and a tootctl wrapper to system packages that switches to the configured account
-          and load the right environment.
+          name of a user created elsewhere.  In both cases,
+          `mastodon` and a package containing only
+          the shell script `mastodon-env` will be added to
+          the user's package set. To run a command from
+          `mastodon` such as `tootctl`
+          with the environment configured by this module use
+          `mastodon-env`, as in:
+
+          `mastodon-env tootctl accounts create newuser --email newuser@example.com`
         '';
         type = lib.types.str;
         default = "mastodon";
@@ -318,13 +313,8 @@ in {
         };
 
         port = lib.mkOption {
-          type = lib.types.nullOr lib.types.port;
-          default = if cfg.database.createLocally then null else 5432;
-          defaultText = lib.literalExpression ''
-            if config.${opt.database.createLocally}
-            then null
-            else 5432
-          '';
+          type = lib.types.int;
+          default = 5432;
           description = lib.mdDoc "Database host port.";
         };
 
@@ -342,8 +332,8 @@ in {
 
         passwordFile = lib.mkOption {
           type = lib.types.nullOr lib.types.path;
-          default = null;
-          example = "/var/lib/mastodon/secrets/db-password";
+          default = "/var/lib/mastodon/secrets/db-password";
+          example = "/run/keys/mastodon-db-password";
           description = lib.mdDoc ''
             A file containing the password corresponding to
             {option}`database.user`.
@@ -382,19 +372,17 @@ in {
         };
 
         user = lib.mkOption {
-          type = lib.types.nullOr lib.types.str;
-          default = null;
-          example = "mastodon@example.com";
           description = lib.mdDoc "SMTP login name.";
+          type = lib.types.str;
         };
 
         passwordFile = lib.mkOption {
-          type = lib.types.nullOr lib.types.path;
-          default = null;
-          example = "/var/lib/mastodon/secrets/smtp-password";
           description = lib.mdDoc ''
             Path to file containing the SMTP password.
           '';
+          default = "/var/lib/mastodon/secrets/smtp-password";
+          example = "/run/keys/mastodon-smtp-password";
+          type = lib.types.str;
         };
       };
 
@@ -430,54 +418,12 @@ in {
         '';
       };
 
-      extraEnvFiles = lib.mkOption {
-        type = with lib.types; listOf path;
-        default = [];
-        description = lib.mdDoc ''
-          Extra environment files to pass to all mastodon services. Useful for passing down environemntal secrets.
-        '';
-        example = [ "/etc/mastodon/s3config.env" ];
-      };
-
       automaticMigrations = lib.mkOption {
         type = lib.types.bool;
         default = true;
         description = lib.mdDoc ''
           Do automatic database migrations.
         '';
-      };
-
-      mediaAutoRemove = {
-        enable = lib.mkOption {
-          type = lib.types.bool;
-          default = true;
-          example = false;
-          description = lib.mdDoc ''
-            Automatically remove remote media attachments and preview cards older than the configured amount of days.
-
-            Recommended in https://docs.joinmastodon.org/admin/setup/.
-          '';
-        };
-
-        startAt = lib.mkOption {
-          type = lib.types.str;
-          default = "daily";
-          example = "hourly";
-          description = lib.mdDoc ''
-            How often to remove remote media.
-
-            The format is described in {manpage}`systemd.time(7)`.
-          '';
-        };
-
-        olderThanDays = lib.mkOption {
-          type = lib.types.int;
-          default = 30;
-          example = 14;
-          description = lib.mdDoc ''
-            How old remote media needs to be in order to be removed.
-          '';
-        };
       };
     };
   };
@@ -486,36 +432,9 @@ in {
     assertions = [
       {
         assertion = databaseActuallyCreateLocally -> (cfg.user == cfg.database.user);
-        message = ''
-          For local automatic database provisioning (services.mastodon.database.createLocally == true) with peer
-            authentication (services.mastodon.database.host == "/run/postgresql") to work services.mastodon.user
-            and services.mastodon.database.user must be identical.
-        '';
-      }
-      {
-        assertion = !databaseActuallyCreateLocally -> (cfg.database.host != "/run/postgresql");
-        message = ''
-          <option>services.mastodon.database.host</option> needs to be set if
-            <option>services.mastodon.database.createLocally</option> is not enabled.
-        '';
-      }
-      {
-        assertion = cfg.smtp.authenticate -> (cfg.smtp.user != null);
-        message = ''
-          <option>services.mastodon.smtp.user</option> needs to be set if
-            <option>services.mastodon.smtp.authenticate</option> is enabled.
-        '';
-      }
-      {
-        assertion = cfg.smtp.authenticate -> (cfg.smtp.passwordFile != null);
-        message = ''
-          <option>services.mastodon.smtp.passwordFile</option> needs to be set if
-            <option>services.mastodon.smtp.authenticate</option> is enabled.
-        '';
+        message = ''For local automatic database provisioning (services.mastodon.database.createLocally == true) with peer authentication (services.mastodon.database.host == "/run/postgresql") to work services.mastodon.user and services.mastodon.database.user must be identical.'';
       }
     ];
-
-    environment.systemPackages = [ mastodonTootctl ];
 
     systemd.services.mastodon-init-dirs = {
       script = ''
@@ -541,11 +460,10 @@ in {
         OTP_SECRET="$(cat ${cfg.otpSecretFile})"
         VAPID_PRIVATE_KEY="$(cat ${cfg.vapidPrivateKeyFile})"
         VAPID_PUBLIC_KEY="$(cat ${cfg.vapidPublicKeyFile})"
-      '' + lib.optionalString (cfg.database.passwordFile != null) ''
         DB_PASS="$(cat ${cfg.database.passwordFile})"
-      '' + lib.optionalString cfg.smtp.authenticate ''
+      '' + (if cfg.smtp.authenticate then ''
         SMTP_PASSWORD="$(cat ${cfg.smtp.passwordFile})"
-      '' + ''
+      '' else "") + ''
         EOF
       '';
       environment = env;
@@ -557,19 +475,11 @@ in {
       } // cfgService;
 
       after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
     };
 
     systemd.services.mastodon-init-db = lib.mkIf cfg.automaticMigrations {
-      script = lib.optionalString (!databaseActuallyCreateLocally) ''
-        umask 077
-
-        export PGPASSFILE
-        PGPASSFILE=$(mktemp)
-        cat > $PGPASSFILE <<EOF
-        ${cfg.database.host}:${toString cfg.database.port}:${cfg.database.name}:${cfg.database.user}:$(cat ${cfg.database.passwordFile})
-        EOF
-
-      '' + ''
+      script = ''
         if [ `psql ${cfg.database.name} -c \
                 "select count(*) from pg_class c \
                 join pg_namespace s on s.oid = c.relnamespace \
@@ -580,37 +490,26 @@ in {
         else
           rails db:migrate
         fi
-      '' +  lib.optionalString (!databaseActuallyCreateLocally) ''
-        rm $PGPASSFILE
-        unset PGPASSFILE
       '';
       path = [ cfg.package pkgs.postgresql ];
-      environment = env // lib.optionalAttrs (!databaseActuallyCreateLocally) {
-        PGHOST = cfg.database.host;
-        PGUSER = cfg.database.user;
-      };
+      environment = env;
       serviceConfig = {
         Type = "oneshot";
-        EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
+        EnvironmentFile = "/var/lib/mastodon/.secrets_env";
         WorkingDirectory = cfg.package;
         # System Call Filtering
         SystemCallFilter = [ ("~" + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ])) "@chown" "pipe" "pipe2" ];
       } // cfgService;
-      after = [ "network.target" "mastodon-init-dirs.service" ]
-        ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
-      requires = [ "mastodon-init-dirs.service" ]
-        ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
+      after = [ "mastodon-init-dirs.service" "network.target" ] ++ (if databaseActuallyCreateLocally then [ "postgresql.service" ] else []);
+      wantedBy = [ "multi-user.target" ];
     };
 
     systemd.services.mastodon-streaming = {
-      after = [ "network.target" "mastodon-init-dirs.service" ]
-        ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-        ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-      requires = [ "mastodon-init-dirs.service" ]
-        ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-        ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ]
+        ++ (if databaseActuallyCreateLocally then [ "postgresql.service" ] else [])
+        ++ (if cfg.automaticMigrations then [ "mastodon-init-db.service" ] else [ "mastodon-init-dirs.service" ]);
       description = "Mastodon streaming";
+      wantedBy = [ "multi-user.target" ];
       environment = env // (if cfg.enableUnixSocket
         then { SOCKET = "/run/mastodon-streaming/streaming.socket"; }
         else { PORT = toString(cfg.streamingPort); }
@@ -619,7 +518,7 @@ in {
         ExecStart = "${cfg.package}/run-streaming.sh";
         Restart = "always";
         RestartSec = 20;
-        EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
+        EnvironmentFile = "/var/lib/mastodon/.secrets_env";
         WorkingDirectory = cfg.package;
         # Runtime directory and mode
         RuntimeDirectory = "mastodon-streaming";
@@ -630,14 +529,11 @@ in {
     };
 
     systemd.services.mastodon-web = {
-      after = [ "network.target" "mastodon-init-dirs.service" ]
-        ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-        ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-      requires = [ "mastodon-init-dirs.service" ]
-        ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-        ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ]
+        ++ (if databaseActuallyCreateLocally then [ "postgresql.service" ] else [])
+        ++ (if cfg.automaticMigrations then [ "mastodon-init-db.service" ] else [ "mastodon-init-dirs.service" ]);
       description = "Mastodon web";
+      wantedBy = [ "multi-user.target" ];
       environment = env // (if cfg.enableUnixSocket
         then { SOCKET = "/run/mastodon-web/web.socket"; }
         else { PORT = toString(cfg.webPort); }
@@ -646,7 +542,7 @@ in {
         ExecStart = "${cfg.package}/bin/puma -C config/puma.rb";
         Restart = "always";
         RestartSec = 20;
-        EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
+        EnvironmentFile = "/var/lib/mastodon/.secrets_env";
         WorkingDirectory = cfg.package;
         # Runtime directory and mode
         RuntimeDirectory = "mastodon-web";
@@ -658,14 +554,11 @@ in {
     };
 
     systemd.services.mastodon-sidekiq = {
-      after = [ "network.target" "mastodon-init-dirs.service" ]
-        ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-        ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-      requires = [ "mastodon-init-dirs.service" ]
-        ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-        ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ]
+        ++ (if databaseActuallyCreateLocally then [ "postgresql.service" ] else [])
+        ++ (if cfg.automaticMigrations then [ "mastodon-init-db.service" ] else [ "mastodon-init-dirs.service" ]);
       description = "Mastodon sidekiq";
+      wantedBy = [ "multi-user.target" ];
       environment = env // {
         PORT = toString(cfg.sidekiqPort);
         DB_POOL = toString cfg.sidekiqThreads;
@@ -674,7 +567,7 @@ in {
         ExecStart = "${cfg.package}/bin/sidekiq -c ${toString cfg.sidekiqThreads} -r ${cfg.package}";
         Restart = "always";
         RestartSec = 20;
-        EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
+        EnvironmentFile = "/var/lib/mastodon/.secrets_env";
         WorkingDirectory = cfg.package;
         # System Call Filtering
         SystemCallFilter = [ ("~" + lib.concatStringsSep " " systemCallsList) "@chown" "pipe" "pipe2" ];
@@ -682,30 +575,13 @@ in {
       path = with pkgs; [ file imagemagick ffmpeg ];
     };
 
-    systemd.services.mastodon-media-auto-remove = lib.mkIf cfg.mediaAutoRemove.enable {
-      description = "Mastodon media auto remove";
-      environment = env;
-      serviceConfig = {
-        Type = "oneshot";
-        EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
-      } // cfgService;
-      script = let
-        olderThanDays = toString cfg.mediaAutoRemove.olderThanDays;
-      in ''
-        ${cfg.package}/bin/tootctl media remove --days=${olderThanDays}
-        ${cfg.package}/bin/tootctl preview_cards remove --days=${olderThanDays}
-      '';
-      startAt = cfg.mediaAutoRemove.startAt;
-    };
-
     services.nginx = lib.mkIf cfg.configureNginx {
       enable = true;
       recommendedProxySettings = true; # required for redirections to work
       virtualHosts."${cfg.localDomain}" = {
         root = "${cfg.package}/public/";
-        # mastodon only supports https, but you can override this if you offload tls elsewhere.
-        forceSSL = lib.mkDefault true;
-        enableACME = lib.mkDefault true;
+        forceSSL = true; # mastodon only supports https
+        enableACME = true;
 
         locations."/system/".alias = "/var/lib/mastodon/public-system/";
 
@@ -753,7 +629,7 @@ in {
           inherit (cfg) group;
         };
       })
-      (lib.attrsets.setAttrByPath [ cfg.user "packages" ] [ cfg.package pkgs.imagemagick ])
+      (lib.attrsets.setAttrByPath [ cfg.user "packages" ] [ cfg.package mastodonEnv ])
     ];
 
     users.groups.${cfg.group}.members = lib.optional cfg.configureNginx config.services.nginx.user;

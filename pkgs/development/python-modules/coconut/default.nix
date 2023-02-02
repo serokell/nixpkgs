@@ -1,5 +1,5 @@
 { lib
-, buildPythonPackage
+, buildPythonApplication
 , fetchFromGitHub
 , cpyparsing
 , ipykernel
@@ -12,24 +12,24 @@
 , watchdog
 }:
 
-buildPythonPackage rec {
+buildPythonApplication rec {
   pname = "coconut";
-  version = "2.1.1";
+  version = "1.6.0";
 
   src = fetchFromGitHub {
     owner = "evhub";
     repo = "coconut";
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-zDMcQPAYlxid3fcMT8kRzE+LN1dxUVWjkg8pdVtmwZg=";
+    rev = "v${version}";
+    sha256 = "/397YGV6QWWmKfqr5hSvqRoPOu7Hx1Pak6rVPR3etzw=";
   };
 
   propagatedBuildInputs = [ cpyparsing ipykernel mypy pygments prompt-toolkit watchdog ];
 
-  nativeCheckInputs = [ pexpect pytestCheckHook tkinter ];
+  checkInputs = [ pexpect pytestCheckHook tkinter ];
 
   # Currently most tests have performance issues
   pytestFlagsArray = [
-    "coconut/tests/constants_test.py"
+    "tests/constants_test.py"
   ];
 
   pythonImportsCheck = [ "coconut" ];

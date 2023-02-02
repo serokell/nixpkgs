@@ -3,13 +3,13 @@
 let
   xorgxrdp = stdenv.mkDerivation rec {
     pname = "xorgxrdp";
-    version = "0.9.19";
+    version = "0.2.9";
 
     src = fetchFromGitHub {
       owner = "neutrinolabs";
       repo = "xorgxrdp";
       rev = "v${version}";
-      hash = "sha256-WI1KyJDQkmNHwweZMbNd2KUfawaieoGMDMQfeD12cZs=";
+      sha256 = "1bhp5x47hajhinvglmc4vxxnpjvfjm6369njb3ghqfr7c5xypvzr";
     };
 
     nativeBuildInputs = [ pkg-config autoconf automake which libtool nasm ];
@@ -34,22 +34,20 @@ let
   };
 
   xrdp = stdenv.mkDerivation rec {
-    version = "0.9.21.1";
+    version = "0.9.9";
     pname = "xrdp";
 
     src = fetchFromGitHub {
-      owner = "neutrinolabs";
+      owner = "volth";
       repo = "xrdp";
-      rev = "v${version}";
+      rev = "refs/tags/runtime-cfg-path-${version}";  # Fixes https://github.com/neutrinolabs/xrdp/issues/609; not a patch on top of the official repo because "xorgxrdp.configureFlags" above includes "xrdp.src" which must be patched already
       fetchSubmodules = true;
-      hash = "sha256-/o052ij+Tpcw5/k1UyP6OGOzrtBwh3jRkftStIEhUF0=";
+      sha256 = "0ynj6pml4f38y8571ryhifza57wfqg4frdrjcwzw3fmryiznfm1z";
     };
 
-    nativeBuildInputs = [ pkg-config autoconf automake which libtool nasm perl ];
+    nativeBuildInputs = [ pkg-config autoconf automake which libtool nasm ];
 
     buildInputs = [ openssl systemd pam fuse libjpeg libopus xorg.libX11 xorg.libXfixes xorg.libXrandr ];
-
-    patches = [ ./dynamic_config.patch ];
 
     postPatch = ''
       substituteInPlace sesman/xauth.c --replace "xauth -q" "${xorg.xauth}/bin/xauth -q"
@@ -60,23 +58,23 @@ let
       ./bootstrap
     '';
     dontDisableStatic = true;
-    configureFlags = [ "--with-systemdsystemunitdir=/var/empty" "--enable-ipv6" "--enable-jpeg" "--enable-fuse" "--enable-rfxcodec" "--enable-opus" "--enable-pam-config=unix" ];
+    configureFlags = [ "--with-systemdsystemunitdir=/var/empty" "--enable-ipv6" "--enable-jpeg" "--enable-fuse" "--enable-rfxcodec" "--enable-opus" ];
 
     installFlags = [ "DESTDIR=$(out)" "prefix=" ];
 
     postInstall = ''
-      # remove generated keys (as non-deterministic)
-      rm $out/etc/xrdp/{rsakeys.ini,key.pem,cert.pem}
+      # remove generated keys (as non-determenistic) and upstart script
+      rm $out/etc/xrdp/{rsakeys.ini,key.pem,cert.pem,xrdp.sh}
 
       cp $src/keygen/openssl.conf $out/share/xrdp/openssl.conf
 
       substituteInPlace $out/etc/xrdp/sesman.ini --replace /etc/xrdp/pulse $out/etc/xrdp/pulse
 
       # remove all session types except Xorg (they are not supported by this setup)
-      perl -i -ne 'print unless /\[(X11rdp|Xvnc|console|vnc-any|sesman-any|rdp-any|neutrinordp-any)\]/ .. /^$/' $out/etc/xrdp/xrdp.ini
+      ${perl}/bin/perl -i -ne 'print unless /\[(X11rdp|Xvnc|console|vnc-any|sesman-any|rdp-any|neutrinordp-any)\]/ .. /^$/' $out/etc/xrdp/xrdp.ini
 
       # remove all session types and then add Xorg
-      perl -i -ne 'print unless /\[(X11rdp|Xvnc|Xorg)\]/ .. /^$/' $out/etc/xrdp/sesman.ini
+      ${perl}/bin/perl -i -ne 'print unless /\[(X11rdp|Xvnc|Xorg)\]/ .. /^$/' $out/etc/xrdp/sesman.ini
 
       cat >> $out/etc/xrdp/sesman.ini <<EOF
 
@@ -100,7 +98,7 @@ let
       description = "An open source RDP server";
       homepage = "https://github.com/neutrinolabs/xrdp";
       license = licenses.asl20;
-      maintainers = with maintainers; [ chvp ];
+      maintainers = [ ];
       platforms = platforms.linux;
     };
   };

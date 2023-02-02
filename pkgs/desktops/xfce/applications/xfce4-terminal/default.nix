@@ -11,8 +11,6 @@ mkXfceDerivation {
 
   buildInputs = [ gtk3 libxfce4ui vte xfconf pcre2 ];
 
-  NIX_CFLAGS_COMPILE = "-I${libxfce4ui.dev}/include/xfce4";
-
   passthru.tests.test = nixosTests.terminal-emulators.xfce4-terminal;
 
   meta = with lib; {

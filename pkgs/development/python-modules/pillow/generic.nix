@@ -11,7 +11,7 @@
 with args;
 
 buildPythonPackage rec {
-  inherit pname version format src meta passthru patches;
+  inherit pname version src meta passthru patches;
 
   # Disable imagefont tests, because they don't work well with infinality:
   # https://github.com/python-pillow/Pillow/issues/1259
@@ -19,27 +19,26 @@ buildPythonPackage rec {
     rm Tests/test_imagefont.py
   '';
 
-  disabledTests = [
-    # Code quality mismathch 9 vs 10
-    "test_pyroma"
+  # Disable darwin tests which require executables: `iconutil` and `screencapture`
+  disabledTests = lib.optionals stdenv.isDarwin [
+    "test_grab"
+    "test_grabclipboard"
+    "test_save"
 
     # pillow-simd
     "test_roundtrip"
     "test_basic"
+  ] ++ lib.optionals (lib.versions.major version == "6") [
+    # RuntimeError: Error setting from dictionary
     "test_custom_metadata"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # Disable darwin tests which require executables: `iconutil` and `screencapture`
-    "test_grab"
-    "test_grabclipboard"
-    "test_save"
   ];
 
   propagatedBuildInputs = [ olefile ]
     ++ lib.optionals (lib.versionAtLeast version "8.2.0") [ defusedxml ];
 
-  nativeCheckInputs = [ pytestCheckHook pyroma numpy ];
+  checkInputs = [ pytestCheckHook pyroma numpy ];
 
-  buildInputs = [ freetype libjpeg openjpeg libimagequant zlib libtiff libwebp libxcrypt tcl lcms2 ]
+  buildInputs = [ freetype libjpeg openjpeg libimagequant zlib libtiff libwebp tcl lcms2 ]
     ++ lib.optionals (lib.versionAtLeast version "7.1.0") [ libxcb ]
     ++ lib.optionals (isPyPy) [ tk libX11 ];
 

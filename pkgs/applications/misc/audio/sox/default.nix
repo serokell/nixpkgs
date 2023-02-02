@@ -44,17 +44,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-9cpOwio69GvzVeDq79BSmJgds9WU5kA/KUlAkHcpN5c=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-    "lib"
-    "man"
-  ];
-
   nativeBuildInputs = [
     autoreconfHook
     autoconf-archive
-  ] ++ lib.optionals enableOpusfile [
+  ] ++ lib.optional enableOpusfile [
     # configure.ac uses pkg-config only to locate libopusfile
     pkg-config
   ];
@@ -78,7 +71,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Sample Rate Converter for audio";
-    homepage = "https://sox.sourceforge.net/";
+    homepage = "http://sox.sourceforge.net/";
     maintainers = with maintainers; [ marcweber ];
     license = if enableAMR then licenses.unfree else licenses.gpl2Plus;
     platforms = platforms.unix;

@@ -3,15 +3,12 @@
 , buildPythonPackage
 , click
 , fetchFromGitHub
-, incremental
-, pydantic
 , pythonOlder
-, typer
 }:
 
 buildPythonPackage rec {
   pname = "ovoenergy";
-  version = "1.3.0";
+  version = "1.2.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -19,24 +16,13 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "timmo001";
     repo = pname;
-    rev = "refs/tags/${version}";
-    hash = "sha256-ZbLs8w0qeaV2qWP08FKnlZ3fefj15Bw2A2bGpL6/d0I=";
+    rev = "v${version}";
+    hash = "sha256-OSK74uvpHuEtWgbLVFrz1NO7lvtHbt690smGQ+GlsOI=";
   };
-
-  nativeBuildInputs = [
-    incremental
-  ];
-
-  postPatch = ''
-    substituteInPlace requirements.txt \
-      --replace "typer==0.6.1" "typer"
-  '';
 
   propagatedBuildInputs = [
     aiohttp
     click
-    pydantic
-    typer
   ];
 
   # Project has no tests

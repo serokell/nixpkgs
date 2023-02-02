@@ -37,7 +37,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "STUNTMAN - an open source STUN server and client";
-    homepage = "https://www.stunprotocol.org/";
+    homepage = "http://www.stunprotocol.org/";
     license = licenses.asl20;
     maintainers = with maintainers; [ mattchrist ];
     platforms = platforms.unix;

@@ -37,15 +37,10 @@ let
       install -Dm644 shellcheck.1 $man/share/man/man1/shellcheck.1
       mkdir $out
     '';
-
-    passthru = ShellCheck.passthru or {} // {
-      # pandoc takes long to build and documentation isn't needed for in nixpkgs usage
-      unwrapped = ShellCheck;
-    };
   };
 
 in
   overrideMeta shellcheck (old: {
-    maintainers = with lib.maintainers; [ Profpatsch zowoq ];
+    maintainers = with lib.maintainers; [ Profpatsch ];
     outputsToInstall = [ "bin" "man" "doc" ];
   })

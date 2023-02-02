@@ -1,4 +1,4 @@
-{ mkDerivation, lib, stdenv, fetchFromGitHub, pkg-config
+{ mkDerivation, lib, fetchFromGitHub, pkg-config
 , boost, libtorrent-rasterbar, qtbase, qttools, qtsvg
 , debugSupport ? false
 , guiSupport ? true, dbus ? null # GUI (disable to run headless)
@@ -42,18 +42,12 @@ mkDerivation rec {
 
   qtWrapperArgs = optional trackerSearch "--prefix PATH : ${makeBinPath [ python3 ]}";
 
-  postInstall = lib.optionalString stdenv.isDarwin ''
-    mkdir -p $out/{Applications,bin}
-    cp -R src/qbittorrent.app $out/Applications
-    makeWrapper $out/{Applications/qbittorrent.app/Contents/MacOS,bin}/qbittorrent
-  '';
-
   meta = {
     description = "Featureful free software BitTorrent client";
     homepage    = "https://www.qbittorrent.org/";
     changelog   = "https://github.com/qbittorrent/qBittorrent/blob/release-${version}/Changelog";
     license     = licenses.gpl2Plus;
-    platforms   = platforms.unix;
+    platforms   = platforms.linux;
     maintainers = with maintainers; [ Anton-Latukha ];
   };
 }

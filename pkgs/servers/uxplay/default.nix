@@ -1,32 +1,26 @@
 { lib
 , stdenv
+, pkg-config
 , fetchFromGitHub
 , cmake
-, openssl
-, libplist
-, pkg-config
 , wrapGAppsHook
 , avahi
 , avahi-compat
+, openssl
 , gst_all_1
+, libplist
 }:
 
 stdenv.mkDerivation rec {
   pname = "uxplay";
-  version = "1.61.1";
+  version = "1.57";
 
   src = fetchFromGitHub {
     owner = "FDH2";
     repo = "UxPlay";
     rev = "v${version}";
-    sha256 = "sha256-eLTIpRmKewBghUYFot8I3iTeiI6wlU7WNs8/X3w+U80=";
+    sha256 = "sha256-KdKpZi5OiC5GNON4rKy5vs1dt+CCWic7SKwZYN6jY9E=";
   };
-
-  postPatch = ''
-    substituteInPlace lib/CMakeLists.txt \
-      --replace ".a" "${stdenv.hostPlatform.extensions.sharedLibrary}"
-    sed -i '/PKG_CONFIG_EXECUTABLE/d' renderers/CMakeLists.txt
-  '';
 
   nativeBuildInputs = [
     cmake
@@ -48,6 +42,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
+    broken = stdenv.isDarwin;
     homepage = "https://github.com/FDH2/UxPlay";
     description = "AirPlay Unix mirroring server";
     license = licenses.gpl3Plus;

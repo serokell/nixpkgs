@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
     export RUSTFLAGS="-Clinker=$CC"
   '';
 
-  nativeCheckInputs = [ python3 ];
+  checkInputs = [ python3 ];
 
   cargoSha256 = "sha256-DC+EfJ671/bvFoHHjpJlFCO/phdndNcldnP3DsIKqAg=";
 

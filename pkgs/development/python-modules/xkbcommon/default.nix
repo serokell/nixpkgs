@@ -10,18 +10,18 @@
 
 buildPythonPackage rec {
   pname = "xkbcommon";
-  version = "0.8";
+  version = "0.4";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-W+WXO/W3UlaHpN9shHibQhWQ1/fPkq5W8qqxd7eV1RY=";
+    sha256 = "V5LMaX5TPhk9x4ZA4MGFzDhUiC6NKPo4uTbW6Q7mdVw=";
   };
 
   nativeBuildInputs = [ pkg-config ];
   propagatedNativeBuildInputs = [ cffi ];
   buildInputs = [ libxkbcommon ];
   propagatedBuildInputs = [ cffi ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   postBuild = ''
     ${python.interpreter} xkbcommon/ffi_build.py

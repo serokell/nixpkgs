@@ -15,7 +15,7 @@ buildPythonPackage rec {
   };
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
 
   checkPhase = ''
     pytest tests

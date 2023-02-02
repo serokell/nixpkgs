@@ -17,9 +17,6 @@ end
 
 # Returns a system image URL for a given system image name.
 def image_url value, dir
-  if dir == "default"
-    dir = "android"
-  end
   if value && value.start_with?('http')
     value
   elsif value
@@ -157,7 +154,6 @@ def normalize_license license
   license = license.dup
   license.gsub!(/([^\n])\n([^\n])/m, '\1 \2')
   license.gsub!(/ +/, ' ')
-  license.strip!
   license
 end
 
@@ -285,18 +281,8 @@ def parse_addon_xml doc
   [licenses, addons, extras]
 end
 
-def merge_recursively a, b
-  a.merge!(b) {|key, a_item, b_item|
-    if a_item.is_a?(Hash) && b_item.is_a?(Hash)
-      merge_recursively(a_item, b_item)
-    else
-      a[key] = b_item
-    end
-  }
-end
-
 def merge dest, src
-  merge_recursively dest, src
+  dest.merge! src
 end
 
 opts = Slop.parse do |o|
@@ -314,19 +300,19 @@ result = {
 }
 
 opts[:packages].each do |filename|
-  licenses, packages = parse_package_xml(Nokogiri::XML(File.open(filename)) { |conf| conf.noblanks })
+  licenses, packages = parse_package_xml(Nokogiri::XML(File.open(filename)))
   merge result[:licenses], licenses
   merge result[:packages], packages
 end
 
 opts[:images].each do |filename|
-  licenses, images = parse_image_xml(Nokogiri::XML(File.open(filename)) { |conf| conf.noblanks })
+  licenses, images = parse_image_xml(Nokogiri::XML(File.open(filename)))
   merge result[:licenses], licenses
   merge result[:images], images
 end
 
 opts[:addons].each do |filename|
-  licenses, addons, extras = parse_addon_xml(Nokogiri::XML(File.open(filename)) { |conf| conf.noblanks })
+  licenses, addons, extras = parse_addon_xml(Nokogiri::XML(File.open(filename)))
   merge result[:licenses], licenses
   merge result[:addons], addons
   merge result[:extras], extras

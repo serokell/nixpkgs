@@ -41,7 +41,7 @@ pythonPackages.buildPythonApplication rec {
     ydiff
   ];
 
-  nativeCheckInputs = with pythonPackages; [
+  checkInputs = with pythonPackages; [
     flake8
     mock
     pytestCheckHook

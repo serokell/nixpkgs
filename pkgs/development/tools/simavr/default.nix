@@ -1,17 +1,9 @@
-{ lib, stdenv, makeSetupHook, fetchFromGitHub, libelf, which, pkg-config, freeglut
+{ lib, stdenv, fetchFromGitHub, libelf, which, pkg-config, freeglut
 , avrgcc, avrlibc
 , libGLU, libGL
 , GLUT }:
 
-let
-  setupHookDarwin = makeSetupHook {
-    name = "darwin-avr-gcc-hook";
-    substitutions = {
-      darwinSuffixSalt = stdenv.cc.suffixSalt;
-      avrSuffixSalt = avrgcc.suffixSalt;
-    };
-  } ./setup-hook-darwin.sh;
-in stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "simavr";
   version = "1.7";
 
@@ -30,8 +22,9 @@ in stdenv.mkDerivation rec {
     "AVR=avr-"
   ];
 
-  nativeBuildInputs = [ which pkg-config avrgcc ]
-    ++ lib.optional stdenv.isDarwin setupHookDarwin;
+  NIX_CFLAGS_COMPILE = [ "-Wno-error=stringop-truncation" ];
+
+  nativeBuildInputs = [ which pkg-config avrgcc ];
   buildInputs = [ libelf freeglut libGLU libGL ]
     ++ lib.optional stdenv.isDarwin GLUT;
 
@@ -42,6 +35,7 @@ in stdenv.mkDerivation rec {
   checkTarget = "-C tests run_tests";
 
   meta = with lib; {
+    broken = stdenv.isDarwin;
     description = "A lean and mean Atmel AVR simulator";
     homepage    = "https://github.com/buserror/simavr";
     license     = licenses.gpl3;

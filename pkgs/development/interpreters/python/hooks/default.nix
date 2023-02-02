@@ -1,15 +1,21 @@
-self: super: with self;
+# Hooks for building Python packages.
+{ python
+, lib
+, makeSetupHook
+, disabledIf
+, isPy3k
+}:
 
 let
-  pythonInterpreter = super.python.pythonForBuild.interpreter;
-  pythonSitePackages = super.python.sitePackages;
-  pythonCheckInterpreter = super.python.interpreter;
+  callPackage = python.pythonForBuild.pkgs.callPackage;
+  pythonInterpreter = python.pythonForBuild.interpreter;
+  pythonSitePackages = python.sitePackages;
+  pythonCheckInterpreter = python.interpreter;
   setuppy = ../run_setup.py;
-in {
-  makePythonHook = args: pkgs.makeSetupHook ({passthru.provides.setupHook = true; } // args);
+in rec {
 
-  condaInstallHook = callPackage ({ makePythonHook, gnutar, lbzip2 }:
-    makePythonHook {
+  condaInstallHook = callPackage ({ gnutar, lbzip2 }:
+    makeSetupHook {
       name = "conda-install-hook";
       deps = [ gnutar lbzip2 ];
       substitutions = {
@@ -17,20 +23,20 @@ in {
       };
     } ./conda-install-hook.sh) {};
 
-  condaUnpackHook = callPackage ({ makePythonHook }:
-    makePythonHook {
+  condaUnpackHook = callPackage ({}:
+    makeSetupHook {
       name = "conda-unpack-hook";
       deps = [];
     } ./conda-unpack-hook.sh) {};
 
-  eggBuildHook = callPackage ({ makePythonHook }:
-    makePythonHook {
+  eggBuildHook = callPackage ({ }:
+    makeSetupHook {
       name = "egg-build-hook.sh";
       deps = [ ];
     } ./egg-build-hook.sh) {};
 
-  eggInstallHook = callPackage ({ makePythonHook, setuptools }:
-    makePythonHook {
+  eggInstallHook = callPackage ({ setuptools }:
+    makeSetupHook {
       name = "egg-install-hook.sh";
       deps = [ setuptools ];
       substitutions = {
@@ -38,14 +44,14 @@ in {
       };
     } ./egg-install-hook.sh) {};
 
-  eggUnpackHook = callPackage ({ makePythonHook, }:
-    makePythonHook {
+  eggUnpackHook = callPackage ({ }:
+    makeSetupHook {
       name = "egg-unpack-hook.sh";
       deps = [ ];
     } ./egg-unpack-hook.sh) {};
 
-  flitBuildHook = callPackage ({ makePythonHook, flit }:
-    makePythonHook {
+  flitBuildHook = callPackage ({ flit }:
+    makeSetupHook {
       name = "flit-build-hook";
       deps = [ flit ];
       substitutions = {
@@ -53,8 +59,8 @@ in {
       };
     } ./flit-build-hook.sh) {};
 
-  pipBuildHook = callPackage ({ makePythonHook, pip, wheel }:
-    makePythonHook {
+  pipBuildHook = callPackage ({ pip, wheel }:
+    makeSetupHook {
       name = "pip-build-hook.sh";
       deps = [ pip wheel ];
       substitutions = {
@@ -62,8 +68,8 @@ in {
       };
     } ./pip-build-hook.sh) {};
 
-  pipInstallHook = callPackage ({ makePythonHook, pip }:
-    makePythonHook {
+  pipInstallHook = callPackage ({ pip }:
+    makeSetupHook {
       name = "pip-install-hook";
       deps = [ pip ];
       substitutions = {
@@ -71,8 +77,8 @@ in {
       };
     } ./pip-install-hook.sh) {};
 
-  pytestCheckHook = callPackage ({ makePythonHook, pytest }:
-    makePythonHook {
+  pytestCheckHook = callPackage ({ pytest }:
+    makeSetupHook {
       name = "pytest-check-hook";
       deps = [ pytest ];
       substitutions = {
@@ -80,8 +86,8 @@ in {
       };
     } ./pytest-check-hook.sh) {};
 
-  pythonCatchConflictsHook = callPackage ({ makePythonHook, setuptools }:
-    makePythonHook {
+  pythonCatchConflictsHook = callPackage ({ setuptools }:
+    makeSetupHook {
       name = "python-catch-conflicts-hook";
       substitutions = {
         inherit pythonInterpreter pythonSitePackages setuptools;
@@ -89,29 +95,29 @@ in {
       };
     } ./python-catch-conflicts-hook.sh) {};
 
-  pythonImportsCheckHook = callPackage ({ makePythonHook }:
-    makePythonHook {
+  pythonImportsCheckHook = callPackage ({}:
+    makeSetupHook {
       name = "python-imports-check-hook.sh";
       substitutions = {
-        inherit pythonCheckInterpreter pythonSitePackages;
+        inherit pythonCheckInterpreter;
       };
     } ./python-imports-check-hook.sh) {};
 
-  pythonNamespacesHook = callPackage ({ makePythonHook, findutils }:
-    makePythonHook {
+  pythonNamespacesHook = callPackage ({ findutils }:
+    makeSetupHook {
       name = "python-namespaces-hook.sh";
       substitutions = {
         inherit pythonSitePackages findutils;
       };
     } ./python-namespaces-hook.sh) {};
 
-  pythonOutputDistHook = callPackage ({ makePythonHook }:
-    makePythonHook {
+  pythonOutputDistHook = callPackage ({ }:
+    makeSetupHook {
       name = "python-output-dist-hook";
   } ./python-output-dist-hook.sh ) {};
 
-  pythonRecompileBytecodeHook = callPackage ({ makePythonHook }:
-    makePythonHook {
+  pythonRecompileBytecodeHook = callPackage ({ }:
+    makeSetupHook {
       name = "python-recompile-bytecode-hook";
       substitutions = {
         inherit pythonInterpreter pythonSitePackages;
@@ -120,8 +126,8 @@ in {
       };
     } ./python-recompile-bytecode-hook.sh ) {};
 
-  pythonRelaxDepsHook = callPackage ({ makePythonHook, wheel }:
-    makePythonHook {
+  pythonRelaxDepsHook = callPackage ({ wheel }:
+    makeSetupHook {
       name = "python-relax-deps-hook";
       deps = [ wheel ];
       substitutions = {
@@ -129,21 +135,21 @@ in {
       };
     } ./python-relax-deps-hook.sh) {};
 
-  pythonRemoveBinBytecodeHook = callPackage ({ makePythonHook }:
-    makePythonHook {
+  pythonRemoveBinBytecodeHook = callPackage ({ }:
+    makeSetupHook {
       name = "python-remove-bin-bytecode-hook";
     } ./python-remove-bin-bytecode-hook.sh) {};
 
-  pythonRemoveTestsDirHook = callPackage ({ makePythonHook }:
-    makePythonHook {
+  pythonRemoveTestsDirHook = callPackage ({ }:
+    makeSetupHook {
       name = "python-remove-tests-dir-hook";
       substitutions = {
         inherit pythonSitePackages;
       };
     } ./python-remove-tests-dir-hook.sh) {};
 
-  setuptoolsBuildHook = callPackage ({ makePythonHook, setuptools, wheel }:
-    makePythonHook {
+  setuptoolsBuildHook = callPackage ({ setuptools, wheel }:
+    makeSetupHook {
       name = "setuptools-setup-hook";
       deps = [ setuptools wheel ];
       substitutions = {
@@ -151,8 +157,8 @@ in {
       };
     } ./setuptools-build-hook.sh) {};
 
-  setuptoolsCheckHook = callPackage ({ makePythonHook, setuptools }:
-    makePythonHook {
+  setuptoolsCheckHook = callPackage ({ setuptools }:
+    makeSetupHook {
       name = "setuptools-check-hook";
       deps = [ setuptools ];
       substitutions = {
@@ -160,16 +166,16 @@ in {
       };
     } ./setuptools-check-hook.sh) {};
 
-  unittestCheckHook = callPackage ({ makePythonHook }:
-    makePythonHook {
+  unittestCheckHook = callPackage ({ }:
+    makeSetupHook {
       name = "unittest-check-hook";
       substitutions = {
         inherit pythonCheckInterpreter;
       };
     } ./unittest-check-hook.sh) {};
 
-  venvShellHook = disabledIf (!isPy3k) (callPackage ({ makePythonHook, ensureNewerSourcesForZipFilesHook }:
-    makePythonHook {
+  venvShellHook = disabledIf (!isPy3k) (callPackage ({ ensureNewerSourcesForZipFilesHook }:
+    makeSetupHook {
       name = "venv-shell-hook";
       deps = [ ensureNewerSourcesForZipFilesHook ];
       substitutions = {
@@ -177,18 +183,14 @@ in {
       };
     } ./venv-shell-hook.sh) {});
 
-  wheelUnpackHook = callPackage ({ makePythonHook, wheel }:
-    makePythonHook {
+  wheelUnpackHook = callPackage ({ wheel }:
+    makeSetupHook {
       name = "wheel-unpack-hook.sh";
       deps = [ wheel ];
     } ./wheel-unpack-hook.sh) {};
 
-  wrapPython = callPackage ../wrap-python.nix {
-    inherit (pkgs.buildPackages) makeWrapper;
-  };
-
-  sphinxHook = callPackage ({ makePythonHook, sphinx, installShellFiles }:
-    makePythonHook {
+  sphinxHook = callPackage ({ sphinx, installShellFiles }:
+    makeSetupHook {
       name = "python${python.pythonVersion}-sphinx-hook";
       deps = [ sphinx installShellFiles ];
     } ./sphinx-hook.sh) {};

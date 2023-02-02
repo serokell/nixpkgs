@@ -17,7 +17,9 @@
 
 buildDunePackage rec {
   pname = "torch";
-  version = "0.15";
+  version = "0.14";
+
+  useDune2 = true;
 
   minimalOCamlVersion = "4.08";
 
@@ -25,7 +27,7 @@ buildDunePackage rec {
     owner = "LaurentMazare";
     repo   = "ocaml-${pname}";
     rev    = version;
-    sha256 = "sha256-EXJqlAGa0LwQKY8IlmcoJs0l2eRTiUhuzMHfakrslXU=";
+    sha256 = "sha256:039anfvzsalbqi5cdp95bbixcwr2ngharihgd149hcr0wa47y700";
   };
 
   buildInputs = [ dune-configurator ];
@@ -54,5 +56,6 @@ buildDunePackage rec {
     description = "Ocaml bindings to Pytorch";
     maintainers = [ maintainers.bcdarwin ];
     license = licenses.asl20;
+    broken = lib.versionAtLeast torch.version "1.11";
   };
 }

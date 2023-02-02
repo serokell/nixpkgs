@@ -20,19 +20,19 @@
 
 stdenv.mkDerivation rec {
   pname = "kooha";
-  version = "2.2.3";
+  version = "2.2.2";
 
   src = fetchFromGitHub {
     owner = "SeaDve";
     repo = "Kooha";
     rev = "v${version}";
-    hash = "sha256-vLgBuP0DncBIb05R3484WozS+Nl+S7YBJUYek2CkJkQ=";
+    hash = "sha256-HgouIMbwpmR/K1hPU7QDzeEtyi5hC66huvInkJFLS2w=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-NPh603/5yZDUdTegAzFvjRn5tuzyrcNzbbKQr6NxXso=";
+    hash = "sha256-rdxD9pys11QcUtufcZ/zCrviytyc8hIXJfsXg2JoaKE=";
   };
 
   nativeBuildInputs = [
@@ -50,7 +50,6 @@ stdenv.mkDerivation rec {
   buildInputs = [
     glib
     gst_all_1.gstreamer
-    gst_all_1.gst-plugins-good
     gst_all_1.gst-plugins-base
     gst_all_1.gst-plugins-ugly
     gtk4
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Elegantly record your screen";
+    description = "Simple screen recorder";
     homepage = "https://github.com/SeaDve/Kooha";
     license = licenses.gpl3Only;
     platforms = platforms.linux;

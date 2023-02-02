@@ -7,6 +7,7 @@
 , glib
 , gtk3
 , libnotify
+, scandir ? null
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -36,6 +37,7 @@ python3Packages.buildPythonApplication rec {
     chardet
     pygobject3
     requests
+    scandir
   ];
 
   # Patch the many hardcoded uses of /usr/share/ and /usr/bin

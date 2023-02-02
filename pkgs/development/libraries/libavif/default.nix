@@ -7,18 +7,17 @@
 , libpng
 , libjpeg
 , dav1d
-, libyuv
 }:
 
 stdenv.mkDerivation rec {
   pname = "libavif";
-  version = "0.11.1";
+  version = "0.10.0";
 
   src = fetchFromGitHub {
     owner = "AOMediaCodec";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-mUi0DU99XV3FzUZ8/9uJZU+W3fc6Bk6+y6Z78IRZ9Qs=";
+    sha256 = "sha256-EGu2avkqQXHFX4gKWsVfVdQN99f4J7Hm86C0sAhuP1Y=";
   };
 
   # reco: encode libaom slowest but best, decode dav1d fastest
@@ -42,7 +41,6 @@ stdenv.mkDerivation rec {
     libpng
     libjpeg
     dav1d
-    libyuv
   ];
 
   meta = with lib; {

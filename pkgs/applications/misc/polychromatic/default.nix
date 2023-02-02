@@ -10,38 +10,37 @@
 , sassc
 , python3Packages
 , gobject-introspection
+, gtk3
 , wrapGAppsHook
-, libappindicator-gtk3
-, libxcb
-, qt5
-, ibus
-, usbutils
 }:
 
 python3Packages.buildPythonApplication rec {
   name = "polychromatic";
-  version = "0.8.0";
+  version = "0.7.3";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "polychromatic";
     repo = "polychromatic";
     rev = "v${version}";
-    sha256 = "sha256-ym2pcGUWM5zCUx/lYs+WECj+wbyBtWnx04W/NRXNKlw=";
+    sha256 = "sha256-H++kQ3Fxw56avEsSE1ctu5p0s50s0eQ+jL5zXS3AA94=";
   };
 
   postPatch = ''
     patchShebangs scripts
+
     substituteInPlace scripts/build-styles.sh \
       --replace '$(which sassc 2>/dev/null)' '${sassc}/bin/sassc' \
       --replace '$(which sass 2>/dev/null)' '${sassc}/bin/sass'
-    substituteInPlace polychromatic/paths.py \
+
+    substituteInPlace pylib/common.py \
       --replace "/usr/share/polychromatic" "$out/share/polychromatic"
   '';
 
   preConfigure = ''
     scripts/build-styles.sh
   '';
+
   nativeBuildInputs = with python3Packages; [
     gettext
     gobject-introspection
@@ -49,22 +48,18 @@ python3Packages.buildPythonApplication rec {
     ninja
     sassc
     wrapGAppsHook
-    qt5.wrapQtAppsHook
   ];
 
   propagatedBuildInputs = with python3Packages; [
     colorama
     colour
+    gtk3
     openrazer
+    pygobject3
     pyqt5
     pyqtwebengine
     requests
     setproctitle
-    libxcb
-    openrazer-daemon
-    libappindicator-gtk3
-    ibus
-    usbutils
   ];
 
   dontWrapGapps = true;
@@ -72,7 +67,6 @@ python3Packages.buildPythonApplication rec {
 
   makeWrapperArgs = [
     "\${gappsWrapperArgs[@]}"
-    "\${qtWrapperArgs[@]}"
   ];
 
   meta = with lib; {

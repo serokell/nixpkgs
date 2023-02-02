@@ -19,7 +19,7 @@ in {
       type = types.package;
       default = pkgs.vim;
       defaultText = literalExpression "pkgs.vim";
-      example = literalExpression "pkgs.vim-full";
+      example = literalExpression "pkgs.vimHugeX";
       description = lib.mdDoc ''
         vim package to use.
       '';

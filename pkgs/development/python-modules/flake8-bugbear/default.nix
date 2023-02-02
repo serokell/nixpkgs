@@ -11,16 +11,16 @@
 
 buildPythonPackage rec {
   pname = "flake8-bugbear";
-  version = "23.1.20";
+  version = "22.9.23";
   format = "setuptools";
 
-  disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "PyCQA";
     repo = pname;
     rev = "refs/tags/${version}";
-    hash = "sha256-JO6S9LjCEZKeUKxUpkqEw+RJ47HLbwQOOOKhHwnmWVI=";
+    hash = "sha256-LI8NnAB87Iel5aTVb2BIwHUB6KVtHzLvu+pJnFI3nw0=";
   };
 
   propagatedBuildInputs = [
@@ -28,7 +28,7 @@ buildPythonPackage rec {
     flake8
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     flake8
     pytestCheckHook
     hypothesis

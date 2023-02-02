@@ -2,13 +2,13 @@
 
 buildNimPackage rec {
   pname = "c2nim";
-  version = "0.9.19";
+  version = "0.9.18";
   nimBinOnly = true;
   src = fetchFromGitHub {
     owner = "nim-lang";
     repo = pname;
     rev = version;
-    hash = "sha256-E8sAhTFIWAnlfWyuvqK8h8g7Puf5ejLEqgLNb5N17os=";
+    hash = "sha256-127ux36mfC+PnS2HIQffw+z0TSvzdQXnKRxqYV3XahU=";
   };
   meta = with lib;
     src.meta // {

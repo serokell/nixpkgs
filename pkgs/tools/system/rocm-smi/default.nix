@@ -1,20 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, cmake
-, wrapPython
-}:
+{ lib, stdenv, fetchFromGitHub, writeScript, cmake, wrapPython }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation rec {
   pname = "rocm-smi";
-  version = "5.4.2";
+  version = "5.3.0";
 
   src = fetchFromGitHub {
     owner = "RadeonOpenCompute";
     repo = "rocm_smi_lib";
-    rev = "rocm-${finalAttrs.version}";
-    hash = "sha256-nkidiDNNU6MGhne9EbYClkODJZw/zZu3LWzlniJKyJE=";
+    rev = "rocm-${version}";
+    hash = "sha256-UbGbkH2vhQ9gv3sSoG+mXap+MdcrP61TN5DcP5F/5nQ=";
   };
 
   nativeBuildInputs = [ cmake wrapPython ];
@@ -25,18 +19,18 @@ stdenv.mkDerivation (finalAttrs: {
     wrapPythonProgramsIn $out
   '';
 
-  passthru.updateScript = rocmUpdateScript {
-    name = finalAttrs.pname;
-    owner = finalAttrs.src.owner;
-    repo = finalAttrs.src.repo;
-  };
+  passthru.updateScript = writeScript "update.sh" ''
+    #!/usr/bin/env nix-shell
+    #!nix-shell -i bash -p curl jq common-updater-scripts
+    version="$(curl -sL "https://api.github.com/repos/RadeonOpenCompute/rocm_smi_lib/releases?per_page=1" | jq '.[0].tag_name | split("-") | .[1]' --raw-output)"
+    update-source-version rocm-smi "$version"
+  '';
 
   meta = with lib; {
     description = "System management interface for AMD GPUs supported by ROCm";
     homepage = "https://github.com/RadeonOpenCompute/rocm_smi_lib";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
+    maintainers = with maintainers; [ lovesegfault Flakebi ];
     platforms = [ "x86_64-linux" ];
-    broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
   };
-})
+}

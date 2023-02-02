@@ -1,67 +1,35 @@
 { lib
 , buildPythonPackage
-, cachelib
-, cryptography
 , fetchFromGitHub
-, flask
-, flask-sqlalchemy
-, httpx
+, pytest
 , mock
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+, cryptography
 , requests
-, starlette
-, werkzeug
 }:
 
 buildPythonPackage rec {
+  version = "1.0.1";
   pname = "authlib";
-  version = "1.2.0";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "lepture";
     repo = "authlib";
     rev = "refs/tags/v${version}";
-    hash = "sha256-OYfvfPnpWE9g7L9cFXUD95B/9+OZy55ZVbmFhFgguUg=";
+    sha256 = "sha256-2uzb3rhEDMgH2QZ0yUdI1c4qLJT5XIDmOV/1mV/5lnc=";
   };
 
-  propagatedBuildInputs = [
-    cryptography
-    requests
-  ];
+  propagatedBuildInputs = [ cryptography requests ];
 
-  nativeCheckInputs = [
-    cachelib
-    flask
-    flask-sqlalchemy
-    httpx
-    mock
-    pytest-asyncio
-    pytestCheckHook
-    starlette
-    werkzeug
-  ];
+  checkInputs = [ mock pytest ];
 
-  pythonImportsCheck = [
-    "authlib"
-  ];
-  disabledTestPaths = [
-    # Django tests require a running instance
-    "tests/django/"
-    "tests/clients/test_django/"
-    # Unsupported encryption algorithm
-    "tests/jose/test_chacha20.py"
-  ];
+  checkPhase = ''
+    PYTHONPATH=$PWD:$PYTHONPATH pytest tests/{core,files}
+  '';
 
   meta = with lib; {
-    description = "Library for building OAuth and OpenID Connect servers";
     homepage = "https://github.com/lepture/authlib";
-    changelog = "https://github.com/lepture/authlib/releases/tag/v${version}";
-    license = licenses.bsd3;
+    description = "The ultimate Python library in building OAuth and OpenID Connect servers. JWS,JWE,JWK,JWA,JWT included.";
     maintainers = with maintainers; [ flokli ];
+    license = licenses.bsd3;
   };
 }

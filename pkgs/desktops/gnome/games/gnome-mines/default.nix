@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     description = "Clear hidden mines from a minefield";
     maintainers = teams.gnome.members;
     license = licenses.gpl3;
-    platforms = platforms.unix;
+    platforms = platforms.linux;
   };
 }

@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
     python3Packages.dbus-python
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     xvfb-run
   ];
 

@@ -4,10 +4,9 @@
 , isPy27
 , requests
 , six
-, pytestCheckHook
+, tox
+, pytest
 , pythonOlder
-, requests-toolbelt
-, responses
 }:
 
 buildPythonPackage rec {
@@ -26,13 +25,11 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    requests-toolbelt
-    responses
-  ];
+  checkInputs = [ pytest tox ];
 
-  pythonImportsCheck = [ "pushover_complete" ];
+  # Fails also on their travis right now:
+  # - https://travis-ci.org/scolby33/pushover_complete/builds?utm_medium=notification&utm_source=github_status
+  doCheck = pythonOlder "3.7";
 
   meta = with lib; {
     description = "A Python package for interacting with *all* aspects of the Pushover API";

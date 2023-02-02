@@ -1,26 +1,6 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, libGLU
-, libGL
-, libX11
-, libXext
-, libXfixes
-, libXdamage
-, libXcomposite
-, libXi
-, libxcb
-, cogl
-, pango
-, atk
-, json-glib
-, gobject-introspection
-, gtk3
-, gnome
-, libinput
-, libgudev
-, libxkbcommon
+{ lib, stdenv, fetchurl, pkg-config, libGLU, libGL, libX11, libXext, libXfixes
+, libXdamage, libXcomposite, libXi, libxcb, cogl, pango, atk, json-glib
+, gobject-introspection, gtk3, gnome, libinput, libgudev, libxkbcommon
 }:
 
 let
@@ -39,34 +19,12 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ gtk3 ];
   nativeBuildInputs = [ pkg-config gobject-introspection ];
-  propagatedBuildInputs = [
-    cogl
-    pango
-    atk
-    json-glib
-    gobject-introspection
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    libX11
-    libGL
-    libGLU
-    libXext
-    libXfixes
-    libXdamage
-    libXcomposite
-    libXi
-    libxcb
-    libinput
-    libgudev
-    libxkbcommon
-  ];
+  propagatedBuildInputs =
+    [ libX11 libGL libGLU libXext libXfixes libXdamage libXcomposite libXi cogl pango
+      atk json-glib gobject-introspection libxcb libinput libgudev libxkbcommon
+    ];
 
-  configureFlags = [
-    "--enable-introspection" # needed by muffin AFAIK
-  ] ++ lib.optionals stdenv.isDarwin [
-    "--without-x"
-    "--enable-x11-backend=no"
-    "--enable-quartz-backend=yes"
-  ];
+  configureFlags = [ "--enable-introspection" ]; # needed by muffin AFAIK
 
   #doCheck = true; # no tests possible without a display
 
@@ -99,6 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.clutter-project.org/";
 
     maintainers = with lib.maintainers; [ ];
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.mesaPlatforms;
   };
 }

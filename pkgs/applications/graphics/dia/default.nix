@@ -1,68 +1,37 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, appstream-glib
-, cmake
-, dblatex
-, desktop-file-utils
-, graphene
-, gtk2
-, gtk-mac-integration-gtk2
-, intltool
-, libxml2
-, libxslt
-, meson
-, ninja
-, pkg-config
-, poppler
-, python3
-  # Building with docs are failing in unstable-2022-12-14
-, withDocs ? false
-}:
+{ lib, stdenv, fetchgit, autoconf, automake, libtool, gtk2, pkg-config, perlPackages,
+libxml2, gettext, python2, libxml2Python, docbook5, docbook_xsl,
+libxslt, intltool, libart_lgpl, withGNOME ? false, libgnomeui,
+gtk-mac-integration-gtk2 }:
 
 stdenv.mkDerivation {
   pname = "dia";
-  version = "unstable-2022-12-14";
+  version = "0.97.3.20170622";
 
-  src = fetchFromGitLab {
-    owner = "GNOME";
-    repo = "dia";
-    domain = "gitlab.gnome.org";
-    rev = "4a619ec7cc93be5ddfbcc48d9e1572d04943bcad";
-    hash = "sha256-xi45Ak4rlDQjs/FNkdkm145mx76GNHjE6Nrs1dc94ww=";
+  src = fetchgit {
+    url = "https://gitlab.gnome.org/GNOME/dia.git";
+    rev = "b86085dfe2b048a2d37d587adf8ceba6fb8bc43c";
+    sha256 = "1fyxfrzdcs6blxhkw3bcgkksaf3byrsj4cbyrqgb4869k3ynap96";
   };
 
-  patches = [ ./poppler-22_09-build-fix.patch ];
+  patches = [
+    ./CVE-2019-19451.patch
+  ];
+
+  buildInputs =
+    [ gtk2 libxml2 gettext python2 libxml2Python docbook5
+      libxslt docbook_xsl libart_lgpl ]
+      ++ lib.optional withGNOME libgnomeui
+      ++ lib.optional stdenv.isDarwin gtk-mac-integration-gtk2;
+
+  nativeBuildInputs = [ autoconf automake libtool pkg-config intltool ]
+    ++ (with perlPackages; [ perl XMLParser ]);
 
   preConfigure = ''
-    patchShebangs .
+    NOCONFIGURE=1 ./autogen.sh # autoreconfHook is not enough
   '';
+  configureFlags = lib.optional withGNOME "--enable-gnome";
 
-  buildInputs = [
-    graphene
-    gtk2
-    libxml2
-    python3
-    poppler
-  ] ++
-  lib.optionals withDocs [
-    libxslt
-  ] ++
-  lib.optionals stdenv.isDarwin [
-    gtk-mac-integration-gtk2
-  ];
-
-  nativeBuildInputs = [
-    appstream-glib
-    desktop-file-utils
-    intltool
-    meson
-    ninja
-    pkg-config
-  ] ++
-  lib.optionals withDocs [
-    dblatex
-  ];
+  hardeningDisable = [ "format" ];
 
   meta = with lib; {
     description = "Gnome Diagram drawing software";

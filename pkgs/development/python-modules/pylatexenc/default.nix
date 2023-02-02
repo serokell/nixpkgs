@@ -16,7 +16,7 @@ buildPythonPackage rec {
   };
 
   pythonImportsCheck = [ "pylatexenc" ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Simple LaTeX parser providing latex-to-unicode and unicode-to-latex conversion";

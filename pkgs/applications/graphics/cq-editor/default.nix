@@ -37,7 +37,7 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     makeWrapperArgs+=("''${qtWrapperArgs[@]}")
   '';
 
-  nativeCheckInputs = with python3Packages; [
+  checkInputs = with python3Packages; [
     pytest
     pytest-xvfb
     pytest-mock

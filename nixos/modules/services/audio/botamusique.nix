@@ -103,8 +103,9 @@ in
         StateDirectory = "botamusique";
         SystemCallArchitectures = "native";
         SystemCallFilter = [
-          "@system-service @resources"
+          "@system-service"
           "~@privileged"
+          "~@resources"
         ];
         UMask = "0077";
         WorkingDirectory = "/var/lib/botamusique";

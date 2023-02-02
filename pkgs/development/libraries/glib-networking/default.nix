@@ -14,7 +14,6 @@
 , libproxy
 , gnome
 , gsettings-desktop-schemas
-, bash
 }:
 
 stdenv.mkDerivation rec {
@@ -37,15 +36,12 @@ stdenv.mkDerivation rec {
     ./installed-tests-path.patch
   ];
 
-  strictDeps = true;
-
   nativeBuildInputs = [
     meson
     ninja
     pkg-config
     gettext
     makeWrapper
-    glib # for gio-querymodules
   ];
 
   buildInputs = [
@@ -54,7 +50,6 @@ stdenv.mkDerivation rec {
     p11-kit
     libproxy
     gsettings-desktop-schemas
-    bash # installed-tests shebangs
   ];
 
   doCheck = false; # tests need to access the certificates (among other things)

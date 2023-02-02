@@ -35,7 +35,7 @@ buildPythonPackage rec {
     websockets
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     requests-mock
   ];

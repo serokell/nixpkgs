@@ -26,7 +26,7 @@ buildPythonPackage rec {
     brotli
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

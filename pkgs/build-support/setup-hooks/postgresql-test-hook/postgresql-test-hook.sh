@@ -50,7 +50,7 @@ EOF
   fi
 
   if ! type initdb >/dev/null; then
-    echo >&2 'initdb not found. Did you add postgresql to the nativeCheckInputs?'
+    echo >&2 'initdb not found. Did you add postgresql to the checkInputs?'
     false
   fi
   header 'initializing postgresql'

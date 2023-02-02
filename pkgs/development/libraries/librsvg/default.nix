@@ -15,7 +15,7 @@
 , rustPlatform
 , rustc
 , rust
-, cargo-auditable-cargo-wrapper
+, cargo
 , gi-docgen
 , python3Packages
 , gnome
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     gdk-pixbuf
     pkg-config
     rustc
-    cargo-auditable-cargo-wrapper
+    cargo
     python3Packages.docutils
     vala
     rustPlatform.cargoSetupHook
@@ -87,7 +87,10 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     (lib.enableFeature withIntrospection "introspection")
-    (lib.enableFeature withIntrospection "vala")
+
+    # Vapi does not build on MacOS.
+    # https://github.com/NixOS/nixpkgs/pull/117081#issuecomment-827782004
+    (lib.enableFeature (withIntrospection && !stdenv.isDarwin) "vala")
 
     "--enable-always-build-tests"
   ] ++ lib.optional stdenv.isDarwin "--disable-Bsymbolic"

@@ -39,7 +39,7 @@ python3.pkgs.buildPythonApplication rec {
           --add-flags "$out/share/ankisyncctl.py"
   '';
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = with python3.pkgs; [
     pytest
     webtest
   ];

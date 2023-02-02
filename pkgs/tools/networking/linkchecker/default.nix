@@ -1,65 +1,54 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, python3
-, gettext
-}:
+{ stdenv, lib, fetchFromGitHub, python3Packages, gettext }:
 
-python3.pkgs.buildPythonApplication rec {
+with python3Packages;
+
+buildPythonApplication rec {
   pname = "linkchecker";
-  version = "10.2.1";
-  format = "pyproject";
+  version = "10.0.1";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-z7Qp74cai8GfsxB4n9dSCWQepp0/4PimFiRJQBaVSoo=";
+    rev = "v" + version;
+    sha256 = "sha256-OOssHbX9nTCURpMKIy+95ZTvahuUAabLUhPnRp3xpN4=";
   };
 
-  SETUPTOOLS_SCM_PRETEND_VERSION = version;
+  nativeBuildInputs = [ gettext ];
 
-  nativeBuildInputs = [
-    gettext
-  ];
-
-  propagatedBuildInputs = with python3.pkgs; [
+  propagatedBuildInputs = [
+    configargparse
     argcomplete
     beautifulsoup4
-    configargparse
-    dnspython
-    hatch-vcs
-    hatchling
     pyopenssl
+    dnspython
+    pyxdg
     requests
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = [
     parameterized
-    pytestCheckHook
+    pytest
   ];
 
-  disabledTests = [
-    # test_timeit2 is flakey, and depends sleep being precise to the milisecond
-    "TestLoginUrl"
-    "test_timeit2"
-  ];
+  postPatch = ''
+    sed -i 's/^requests.*$/requests>=2.2/' requirements.txt
+    sed -i "s/'request.*'/'requests >= 2.2'/" setup.py
+  '';
 
-  disabledTestPaths = [
-    "tests/checker/telnetserver.py"
-    "tests/checker/test_telnet.py"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "tests/checker/test_content_allows_robots.py"
-    "tests/checker/test_http*.py"
-    "tests/checker/test_noproxy.py"
-    "tests/test_network.py"
-  ];
+  # test_timeit2 is flakey, and depends sleep being precise to the milisecond
+  checkPhase = ''
+    ${lib.optionalString stdenv.isDarwin ''
+      # network tests fails on darwin
+      rm tests/test_network.py tests/checker/test_http*.py tests/checker/test_content_allows_robots.py tests/checker/test_noproxy.py
+    ''}
+      pytest --ignore=tests/checker/{test_telnet,telnetserver}.py \
+        -k 'not TestLoginUrl and not test_timeit2'
+  '';
 
-  meta = with lib; {
+  meta = {
     description = "Check websites for broken links";
     homepage = "https://linkcheck.github.io/linkchecker/";
-    changelog = "https://github.com/linkchecker/linkchecker/releases/tag/v${version}";
-    license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ peterhoeg tweber ];
+    license = lib.licenses.gpl2;
+    maintainers = with lib.maintainers; [ peterhoeg tweber ];
   };
 }

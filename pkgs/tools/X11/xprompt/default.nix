@@ -38,7 +38,9 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "CC:=$(CC)" "PREFIX=$(out)" ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    attrPath = pname;
+  };
 
   meta = with lib; {
     description = "A dmenu rip-off with contextual completion";

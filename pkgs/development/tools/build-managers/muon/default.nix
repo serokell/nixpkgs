@@ -81,13 +81,14 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   buildPhase = let
-    muonBool = lib.mesonBool;
-    muonEnable = lib.mesonEnable;
-
+    muonFeatureFlag = feature: flag:
+      "-D${feature}=${if flag then "enabled" else "disabled"}";
+    muonConditionFlag = condition: flag:
+      "-D${condition}=${lib.boolToString flag}";
     cmdlineForMuon = lib.concatStringsSep " " [
-      (muonBool "static" stdenv.targetPlatform.isStatic)
-      (muonEnable "docs" buildDocs)
-      (muonEnable "samurai" embedSamurai)
+      (muonConditionFlag "static" stdenv.targetPlatform.isStatic)
+      (muonFeatureFlag "docs" buildDocs)
+      (muonFeatureFlag "samurai" embedSamurai)
     ];
     cmdlineForSamu = "-j$NIX_BUILD_CORES";
   in ''

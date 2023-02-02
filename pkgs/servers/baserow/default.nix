@@ -2,47 +2,39 @@
 , fetchFromGitLab
 , makeWrapper
 , python3
-, antlr4_9
 }:
 
 let
 
-  python = python3.override {
-    packageOverrides = self: super: {
-      antlr4-python3-runtime = super.antlr4-python3-runtime.override {
-        antlr4 = antlr4_9;
-      };
+  baserow_premium = with python3.pkgs; ( buildPythonPackage rec {
+    pname = "baserow_premium";
+    version = "1.10.2";
+    foramt = "setuptools";
 
-      baserow_premium = self.buildPythonPackage rec {
-        pname = "baserow_premium";
-        version = "1.12.1";
-        foramt = "setuptools";
-
-        src = fetchFromGitLab {
-          owner = "bramw";
-          repo = pname;
-          rev = "refs/tags/${version}";
-          hash = "sha256-zT2afl3QNE2dO3JXjsZXqSmm1lv3EorG3mYZLQQMQ2Q=";
-        };
-
-        sourceRoot = "source/premium/backend";
-
-        doCheck = false;
-      };
+    src = fetchFromGitLab {
+      owner = "bramw";
+      repo = pname;
+      rev = "refs/tags/${version}";
+      hash = "sha256-4BrhTwAxHboXz8sMZL0V68skgNw2D2/YJuiWVNe0p4w=";
     };
-  };
+
+    sourceRoot = "source/premium/backend";
+
+    doCheck = false;
+  });
+
 in
 
-with python.pkgs; buildPythonApplication rec {
+with python3.pkgs; buildPythonPackage rec {
   pname = "baserow";
-  version = "1.12.1";
+  version = "1.10.2";
   format = "setuptools";
 
   src = fetchFromGitLab {
     owner = "bramw";
     repo = pname;
     rev = "refs/tags/${version}";
-    hash = "sha256-zT2afl3QNE2dO3JXjsZXqSmm1lv3EorG3mYZLQQMQ2Q=";
+    hash = "sha256-4BrhTwAxHboXz8sMZL0V68skgNw2D2/YJuiWVNe0p4w=";
   };
 
   sourceRoot = "source/backend";
@@ -54,12 +46,9 @@ with python.pkgs; buildPythonApplication rec {
     sed 's/\[standard\]//' -i requirements/base.in requirements/base.txt
   '';
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   propagatedBuildInputs = [
-    autobahn
     advocate
     antlr4-python3-runtime
     boto3
@@ -67,7 +56,6 @@ with python.pkgs; buildPythonApplication rec {
     celery-redbeat
     channels
     channels-redis
-    daphne
     dj-database-url
     django-celery-beat
     django-celery-email
@@ -103,7 +91,7 @@ with python.pkgs; buildPythonApplication rec {
       --prefix DJANGO_SETTINGS_MODULE : "baserow.config.settings.base"
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     baserow_premium
     boto3
     freezegun
@@ -123,8 +111,8 @@ with python.pkgs; buildPythonApplication rec {
     cp -r src/baserow/core/management/backup $out/lib/${python.libPrefix}/site-packages/baserow/core/management/
   '';
 
+  # Disable linting checks
   disabledTests = [
-    # Disable linting checks
     "flake8_plugins"
   ];
 
@@ -142,8 +130,8 @@ with python.pkgs; buildPythonApplication rec {
   DJANGO_SETTINGS_MODULE = "baserow.config.settings.test";
 
   meta = with lib; {
-    description = "No-code database and Airtable alternative";
     homepage = "https://baserow.io";
+    description = "No-code database and Airtable alternative";
     license = licenses.mit;
     maintainers = with maintainers; [ onny ];
   };

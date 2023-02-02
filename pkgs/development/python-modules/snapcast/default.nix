@@ -9,7 +9,7 @@
 
 buildPythonPackage rec {
   pname = "snapcast";
-  version = "2.3.1";
+  version = "2.2.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -18,7 +18,7 @@ buildPythonPackage rec {
     owner = "happyleavesaoc";
     repo = "python-snapcast";
     rev = "refs/tags/${version}";
-    hash = "sha256-5SnjAkIrsgyEQ9nrBfe1jL+y4cxFzRVao2PM3VPIz8c=";
+    hash = "sha256-H41X5bfRRu+uE7eUsmUkONm6hugNs43+O7MvVPH0e+8=";
   };
 
   propagatedBuildInputs = [
@@ -26,18 +26,12 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 
   pythonImportsCheck = [
     "snapcast"
-  ];
-
-  disabledTests = [
-    # AssertionError and TypeError
-    "test_stream_setmeta"
-    "est_stream_setproperty"
   ];
 
   meta = with lib; {

@@ -40,7 +40,7 @@ buildPythonPackage rec {
     requests-oauthlib
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     httpretty
     pytest-aiohttp
     pytestCheckHook

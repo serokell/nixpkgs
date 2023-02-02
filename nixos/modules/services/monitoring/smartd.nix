@@ -4,7 +4,8 @@ with lib;
 
 let
 
-  host = config.networking.fqdnOrHostName;
+  host = config.networking.hostName or "unknown"
+       + optionalString (config.networking.domain != null) ".${config.networking.domain}";
 
   cfg = config.services.smartd;
   opt = options.services.smartd;

@@ -76,7 +76,7 @@ buildPythonPackage rec {
       --replace "weboob.tools.capabilities.bank.transactions," ""
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     nose
   ];
 

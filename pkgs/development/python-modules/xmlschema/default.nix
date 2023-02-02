@@ -9,7 +9,7 @@
 
 buildPythonPackage rec {
   pname = "xmlschema";
-  version = "2.1.1";
+  version = "1.11.3";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -18,14 +18,14 @@ buildPythonPackage rec {
     owner = "sissaschool";
     repo = "xmlschema";
     rev = "refs/tags/v${version}";
-    hash = "sha256-rt7QScg458ezDwktO1QRydmC3XqedX+kPpv6J+JvLzQ=";
+    hash = "sha256-z6VgLRDp5PHaYstdV30gt6xGVd4uifz4LkYQ2z3ayk4=";
   };
 
   propagatedBuildInputs = [
     elementpath
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     lxml
     pytestCheckHook
   ];

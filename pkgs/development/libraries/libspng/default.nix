@@ -11,13 +11,13 @@
 
 stdenv.mkDerivation rec {
   pname = "libspng";
-  version = "0.7.3";
+  version = "0.7.2";
 
   src = fetchFromGitHub {
     owner = "randy408";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-t5qVhRxepl1rOQk/F5GhcvU1nk9oGb+kWXmybP+iAfY=";
+    sha256 = "sha256-GgrTWC/cesDlEh2J6StCyKiLRk62xfy2+E4lnmJMLGs=";
   };
 
   doCheck = true;
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     cmake
     libpng
   ];

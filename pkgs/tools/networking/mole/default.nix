@@ -1,7 +1,6 @@
 { lib
 , buildGoModule
 , fetchFromGitHub
-, stdenv
 }:
 
 buildGoModule rec {
@@ -28,6 +27,5 @@ buildGoModule rec {
     homepage = "https://github.com/davrodpin/mole";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
-    broken = stdenv.isDarwin; # build fails with go > 1.17
   };
 }

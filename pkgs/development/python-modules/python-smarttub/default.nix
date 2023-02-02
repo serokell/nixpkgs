@@ -32,10 +32,14 @@ buildPythonPackage rec {
     python-dateutil
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     aresponses
     pytest-asyncio
     pytestCheckHook
+  ];
+
+  pytestFlagsArray = [
+    "--asyncio-mode=legacy"
   ];
 
   postPatch = ''

@@ -16,9 +16,9 @@
 , which
 , Security
 , withKeyring ? true
-, libsecret
-, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
-, systemd
+, libsecret ? null
+, withSystemd ? stdenv.isLinux
+, systemd ? null
 }:
 
 let
@@ -41,7 +41,7 @@ let
     platforms = platforms.unix;
   };
 
-  binaries = stdenv.mkDerivation {
+  binaries = stdenv.mkDerivation rec {
     pname = "msmtp-binaries";
     inherit version src meta;
 
@@ -62,7 +62,7 @@ let
     '';
   };
 
-  scripts = resholve.mkDerivation {
+  scripts = resholve.mkDerivation rec {
     pname = "msmtp-scripts";
     inherit version src meta;
 
@@ -128,5 +128,4 @@ symlinkJoin {
   name = "msmtp-${version}";
   inherit version meta;
   paths = [ binaries scripts ];
-  passthru = { inherit binaries scripts; };
 }

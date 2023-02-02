@@ -1,50 +1,39 @@
 { lib
 , buildPythonPackage
 , fetchPypi
+, glibcLocales
+, isPy3k
 , mock
 , nose
-, pytestCheckHook
-, pythonOlder
 }:
 
 buildPythonPackage rec {
   pname = "parameterized";
   version = "0.8.1";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  disable = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-Qbv/N9YYZDD3f5ANd35btqJJKKHEb7HeaS+LUriDO1w=";
+    sha256 = "sha256-Qbv/N9YYZDD3f5ANd35btqJJKKHEb7HeaS+LUriDO1w=";
   };
 
   checkInputs = [
-    mock
     nose
-    pytestCheckHook
+    mock
+    glibcLocales
   ];
 
-  pytestFlagsArray = [
-    "parameterized/test.py"
-  ];
+  checkPhase = ''
+    runHook preCheck
+    LC_ALL="en_US.UTF-8" nosetests -v
+    runHook postCheck
+  '';
 
-  disabledTests = [
-    # Tests seem outdated
-    "test_method"
-    "test_with_docstring_0_value1"
-    "test_with_docstring_1_v_l_"
-    "testCamelCaseMethodC"
-  ];
-
-  pythonImportsCheck = [
-    "parameterized"
-  ];
+  pythonImportsCheck = [ "parameterized" ];
 
   meta = with lib; {
     description = "Parameterized testing with any Python test framework";
     homepage = "https://github.com/wolever/parameterized";
-    changelog = "https://github.com/wolever/parameterized/blob/v${version}/CHANGELOG.txt";
     license = licenses.bsd2;
     maintainers = with maintainers; [ ];
   };

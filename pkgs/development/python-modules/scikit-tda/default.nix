@@ -44,7 +44,7 @@ buildPythonPackage rec {
     tadasets
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest
   ];
 

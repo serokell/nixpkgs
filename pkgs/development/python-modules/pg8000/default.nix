@@ -11,14 +11,14 @@
 
 buildPythonPackage rec {
   pname = "pg8000";
-  version = "1.29.4";
+  version = "1.29.2";
   format = "pyproject";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-dtKqF1ejC8ceAwfa4Yw3TjNqaRI+awRuIGqWYR+iozA=";
+    hash = "sha256-23XCGqCqLm95qVK3GoKaJ17KLi5WUnVpZtpZ192dbyQ=";
   };
 
   nativeBuildInputs = [
@@ -47,7 +47,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python driver for PostgreSQL";
     homepage = "https://github.com/tlocke/pg8000";
-    changelog = "https://github.com/tlocke/pg8000#release-notes";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ domenkozar ];
     platforms = platforms.unix;

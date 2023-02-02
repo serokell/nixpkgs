@@ -12,7 +12,7 @@ buildDunePackage rec {
   };
 
   propagatedBuildInputs = [ cstruct bigarray-compat ];
-  nativeCheckInputs = [ ounit ];
+  checkInputs = [ ounit ];
   doCheck = true;
 
   meta = {

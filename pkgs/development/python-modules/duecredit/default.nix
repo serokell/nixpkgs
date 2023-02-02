@@ -25,7 +25,7 @@ buildPythonPackage rec {
   # bin/duecredit requires setuptools at runtime
   propagatedBuildInputs = [ citeproc-py requests setuptools six ];
 
-  nativeCheckInputs = [ contextlib2 pytest pytestCheckHook vcrpy ];
+  checkInputs = [ contextlib2 pytest pytestCheckHook vcrpy ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

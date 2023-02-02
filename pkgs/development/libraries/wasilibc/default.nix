@@ -1,23 +1,14 @@
-{ stdenv
-, buildPackages
-, fetchFromGitHub
-, lib
-, firefox-unwrapped
-, firefox-esr-unwrapped
-}:
+{ stdenv, buildPackages, fetchFromGitHub, lib }:
 
-let
-  pname = "wasilibc";
-  version = "17";
-in
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "wasilibc";
+  version = "unstable-2022-04-12";
 
   src = buildPackages.fetchFromGitHub {
     owner = "WebAssembly";
     repo = "wasi-libc";
-    rev = "refs/tags/wasi-sdk-${version}";
-    hash = "sha256-h2X78icCmnn6Y6baOxp8Xm7F2+RZZgaV2fszzi2q/iA=";
+    rev = "a279514a6ef30cd8ee1469345b33172fcbc8d52d";
+    sha256 = "0a9ldas8p7jg7jlkhb9wdiw141z7vfz6p18mnmxnnnna7bp1y3fz";
     fetchSubmodules = true;
   };
 
@@ -38,10 +29,7 @@ stdenv.mkDerivation {
       "SYSROOT_LIB:=$SYSROOT_LIB"
       "SYSROOT_INC:=$SYSROOT_INC"
       "SYSROOT_SHARE:=$SYSROOT_SHARE"
-      # https://bugzilla.mozilla.org/show_bug.cgi?id=1773200
-      "BULK_MEMORY_SOURCES:="
     )
-
   '';
 
   enableParallelBuilding = true;
@@ -53,16 +41,11 @@ stdenv.mkDerivation {
     ln -s $share/share/undefined-symbols.txt $out/lib/wasi.imports
   '';
 
-  passthru.tests = {
-    inherit firefox-unwrapped firefox-esr-unwrapped;
-  };
-
   meta = with lib; {
-    changelog = "https://github.com/WebAssembly/wasi-sdk/releases/tag/wasi-sdk-${version}";
     description = "WASI libc implementation for WebAssembly";
     homepage = "https://wasi.dev";
     platforms = platforms.wasi;
-    maintainers = with maintainers; [ matthewbauer rvolosatovs ];
+    maintainers = with maintainers; [ matthewbauer ];
     license = with licenses; [ asl20 mit llvm-exception ];
   };
 }

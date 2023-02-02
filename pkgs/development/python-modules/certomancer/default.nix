@@ -48,7 +48,7 @@ buildPythonPackage rec {
       --replace "pyhanko-certvalidator==0.19.2" "pyhanko-certvalidator==0.19.5"
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     freezegun
     jinja2
     pyhanko-certvalidator

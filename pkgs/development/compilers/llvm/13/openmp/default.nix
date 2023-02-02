@@ -4,7 +4,6 @@
 , src
 , cmake
 , llvm
-, targetLlvm
 , perl
 , version
 }:
@@ -17,9 +16,7 @@ stdenv.mkDerivation rec {
   sourceRoot = "source/${pname}";
 
   nativeBuildInputs = [ cmake perl ];
-  buildInputs = [
-    (if stdenv.buildPlatform == stdenv.hostPlatform then llvm else targetLlvm)
-  ];
+  buildInputs = [ llvm ];
 
   cmakeFlags = [
     "-DLIBOMPTARGET_BUILD_AMDGCN_BCLIB=OFF" # Building the AMDGCN device RTL currently fails

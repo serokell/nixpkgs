@@ -31,7 +31,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     flask
     pytestCheckHook
     pyyaml

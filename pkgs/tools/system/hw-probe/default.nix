@@ -30,7 +30,7 @@
 , xz
 
 # Conditionally recommended
-, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd
+, systemdSupport ? stdenv.isLinux
 , systemd
 
 # Recommended
@@ -47,7 +47,7 @@
 , xinput
 , libva-utils
 , inxi
-, vulkan-tools
+, vulkan-utils
 , i2c-tools
 , opensc
 
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
         xinput
         libva-utils # (vainfo)
         inxi
-        vulkan-tools
+        vulkan-utils
         i2c-tools
         opensc
       ]

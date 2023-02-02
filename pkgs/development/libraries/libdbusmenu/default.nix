@@ -2,8 +2,9 @@
 , pkg-config, intltool
 , glib, dbus-glib, json-glib
 , gobject-introspection, vala
-, gtkVersion ? null, gtk2, gtk3
-}:
+, gtkVersion ? null, gtk2 ? null, gtk3 ? null }:
+
+with lib;
 
 stdenv.mkDerivation rec {
   pname = "libdbusmenu-${if gtkVersion == null then "glib" else "gtk${gtkVersion}"}";
@@ -18,7 +19,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     glib dbus-glib json-glib
-  ] ++ lib.optional (gtkVersion != null) (if gtkVersion == "2" then gtk2 else gtk3);
+  ] ++ optional (gtkVersion != null) (if gtkVersion == "2" then gtk2 else gtk3);
 
   postPatch = ''
     for f in {configure,ltmain.sh,m4/libtool.m4}; do
@@ -39,7 +40,7 @@ stdenv.mkDerivation rec {
     "--localstatedir=/var"
     (if gtkVersion == null then "--disable-gtk" else "--with-gtk=${gtkVersion}")
     "--disable-scrollkeeper"
-  ] ++ lib.optional (gtkVersion != "2") "--disable-dumper";
+  ] ++ optional (gtkVersion != "2") "--disable-dumper";
 
   doCheck = false; # generates shebangs in check phase, too lazy to fix
 
@@ -49,7 +50,7 @@ stdenv.mkDerivation rec {
     "typelibdir=${placeholder "out"}/lib/girepository-1.0"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Library for passing menu structures across DBus";
     homepage = "https://launchpad.net/dbusmenu";
     license = with licenses; [ gpl3 lgpl21 lgpl3 ];

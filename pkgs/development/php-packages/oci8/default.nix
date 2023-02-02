@@ -1,18 +1,12 @@
-{ buildPecl, lib, oracle-instantclient, php }:
-
+{ buildPecl, lib, oracle-instantclient }:
 let
-  versionData = if (lib.versionOlder php.version "8.1") then {
-    version = "3.0.1";
-    sha256 = "108ds92620dih5768z19hi0jxfa7wfg5hdvyyvpapir87c0ap914";
-  } else {
-    version = "3.2.1";
-    sha256 = "zyF703DzRZDBhlNFFt/dknmZ7layqhgjG1/ZDN+PEsg=";
-  };
+  version = "3.0.1";
+  sha256 = "108ds92620dih5768z19hi0jxfa7wfg5hdvyyvpapir87c0ap914";
 in
 buildPecl {
   pname = "oci8";
 
-  inherit (versionData) version sha256;
+  inherit version sha256;
 
   buildInputs = [ oracle-instantclient ];
   configureFlags = [ "--with-oci8=shared,instantclient,${oracle-instantclient.lib}/lib" ];

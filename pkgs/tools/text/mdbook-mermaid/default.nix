@@ -1,32 +1,24 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, CoreServices
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, CoreServices }:
 
 rustPlatform.buildRustPackage rec {
   pname = "mdbook-mermaid";
-  version = "0.12.6";
+  version = "0.12.0";
 
   src = fetchFromGitHub {
     owner = "badboy";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-1mSSnAfsg9AEnDAgINrSLIeu9O2vLqchZPSH12cjATk=";
+    rev = "v${version}";
+    hash = "sha256-1w132lpkn0m2ZoMyFKFGjwn9Gd3UDksEKr5vq8l4ANQ=";
   };
 
-  cargoHash = "sha256-9PMBHVpf8bDuSIYKrIFZjmBE2icejPTML+hhZ4DLq/Y=";
+  cargoHash = "sha256-OKE8RcCE4pIRtQDW7KNzUVrNpyZzWg6QHchJg0XWmYQ=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    CoreServices
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
 
   meta = with lib; {
     description = "A preprocessor for mdbook to add mermaid.js support";
     homepage = "https://github.com/badboy/mdbook-mermaid";
-    changelog = "https://github.com/badboy/mdbook-mermaid/blob/v${version}/CHANGELOG.md";
-    license = licenses.mpl20;
+    license = [ licenses.mpl20 ];
     maintainers = with maintainers; [ xrelkd ];
   };
 }

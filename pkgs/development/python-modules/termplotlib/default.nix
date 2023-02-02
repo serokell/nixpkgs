@@ -25,7 +25,7 @@ buildPythonPackage rec {
   ];
 
   format = "pyproject";
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     exdown
   ];

@@ -19,7 +19,7 @@ buildPythonPackage rec {
     normality
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mypy
     coverage
     nose

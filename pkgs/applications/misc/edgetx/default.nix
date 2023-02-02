@@ -6,14 +6,14 @@
 
 mkDerivation rec {
   pname = "edgetx";
-  version = "2.7.2";
+  version = "2.7.1";
 
   src = fetchFromGitHub {
     owner = "EdgeTX";
     repo = pname;
     rev = "v${version}";
     fetchSubmodules = true;
-    sha256 = "sha256-bKMAyONy1Udd+2nDVEMrtIsnfqrNuBVMWU7nCqvZ+3E=";
+    sha256 = "sha256-1l5EoDY17+2PDS3eRT3CHksVoZQgNLV9vRDu7nfzlrE=";
   };
 
   nativeBuildInputs = [ cmake gcc-arm-embedded python3Packages.pillow ];

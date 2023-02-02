@@ -24,8 +24,8 @@ in
 
     services.unifi.jrePackage = mkOption {
       type = types.package;
-      default = if (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3") then pkgs.jdk11 else pkgs.jre8;
-      defaultText = literalExpression ''if (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3" then pkgs.jdk11 else pkgs.jre8'';
+      default = pkgs.jre8;
+      defaultText = literalExpression "pkgs.jre8";
       description = lib.mdDoc ''
         The JRE package to use. Check the release notes to ensure it is supported.
       '';
@@ -33,8 +33,8 @@ in
 
     services.unifi.unifiPackage = mkOption {
       type = types.package;
-      default = pkgs.unifi5;
-      defaultText = literalExpression "pkgs.unifi5";
+      default = pkgs.unifiLTS;
+      defaultText = literalExpression "pkgs.unifiLTS";
       description = lib.mdDoc ''
         The unifi package to use.
       '';
@@ -42,10 +42,10 @@ in
 
     services.unifi.mongodbPackage = mkOption {
       type = types.package;
-      default = pkgs.mongodb-4_2;
+      default = pkgs.mongodb;
       defaultText = literalExpression "pkgs.mongodb";
       description = lib.mdDoc ''
-        The mongodb package to use. Please note: unifi7 officially only supports mongodb up until 3.6 but works with 4.2.
+        The mongodb package to use.
       '';
     };
 
@@ -76,7 +76,7 @@ in
       default = null;
       example = 4096;
       description = lib.mdDoc ''
-        Set the maximum heap size for the JVM in MB. If this option isn't set, the
+        Set the maximimum heap size for the JVM in MB. If this option isn't set, the
         JVM will decide this value at runtime.
       '';
     };

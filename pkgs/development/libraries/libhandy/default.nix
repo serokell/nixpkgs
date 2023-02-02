@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     glade
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     xvfb-run
     at-spi2-atk
     at-spi2-core

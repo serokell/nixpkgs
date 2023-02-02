@@ -20,7 +20,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   # requires internet access
   disabledTests = [ "test_real" ];

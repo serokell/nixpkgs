@@ -30,7 +30,7 @@ python3.pkgs.buildPythonApplication rec {
     nasm
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = with python3.pkgs; [
     distro
     pytestCheckHook
   ];
@@ -48,7 +48,7 @@ python3.pkgs.buildPythonApplication rec {
 
   setupPyBuildFlags = [
     "--build-lib=$CHIPSEC_BUILD_LIB"
-  ] ++ lib.optionals (!withDriver) [
+  ] ++ lib.optional (!withDriver) [
     "--skip-driver"
   ];
 

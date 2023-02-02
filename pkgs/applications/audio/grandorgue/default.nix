@@ -5,14 +5,14 @@
 
 stdenv.mkDerivation rec {
   pname = "grandorgue";
-  version = "3.9.4-1";
+  version = "3.8.0-1";
 
   src = fetchFromGitHub {
     owner = "GrandOrgue";
     repo = pname;
     rev = version;
     fetchSubmodules = true;
-    sha256 = "sha256-10gcVxMLhMXUblvJYLj0TTwGFl1YHI7HU3TfHXtJ+24=";
+    sha256 = "sha256-VXf2B5NK6lrcNXUiTTjYhfBVrTWusyadD+5ySkmelsI=";
   };
 
   postPatch = ''
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ++ lib.optional jackaudioSupport libjack2;
 
-  cmakeFlags = lib.optionals (!jackaudioSupport) [
+  cmakeFlags = lib.optional (!jackaudioSupport) [
     "-DRTAUDIO_USE_JACK=OFF"
     "-DRTMIDI_USE_JACK=OFF"
     "-DGO_USE_JACK=OFF"

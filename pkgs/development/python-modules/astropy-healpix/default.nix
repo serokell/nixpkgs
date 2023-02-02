@@ -30,7 +30,7 @@ buildPythonPackage rec {
     astropy
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-doctestplus
     hypothesis

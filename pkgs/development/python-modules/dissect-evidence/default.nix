@@ -11,7 +11,7 @@
 
 buildPythonPackage rec {
   pname = "dissect-evidence";
-  version = "3.2";
+  version = "3.1";
   format = "pyproject";
 
   disabled = pythonOlder "3.7";
@@ -20,7 +20,7 @@ buildPythonPackage rec {
     owner = "fox-it";
     repo = "dissect.evidence";
     rev = version;
-    hash = "sha256-rm9IjsXHz4GS8M/oPaDoaxjwqMMtD0qjRtQ3vFJQyQY=";
+    hash = "sha256-X0WMv96Wo3vDZ6HYGdWfn7OKhFuT5Qjzkyj4HzMqCiM=";
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
@@ -35,7 +35,7 @@ buildPythonPackage rec {
     dissect-util
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

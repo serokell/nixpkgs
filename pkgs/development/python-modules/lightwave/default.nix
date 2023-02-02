@@ -6,14 +6,14 @@
 
 buildPythonPackage rec {
   pname = "lightwave";
-  version = "0.21";
+  version = "0.20";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-h/ztEY473XjvUCWu6vr7FA3WSYPHaLKNMc2fpu/wRC0=";
+    hash = "sha256-jhffMDhgQ257ZQxvidiRgBSnZvzLJFKNU2NZ8AyGTGc=";
   };
 
   pythonImportsCheck = [

@@ -1,41 +1,22 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, requests
-, typing-extensions
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, six, httplib2, requests }:
 
 buildPythonPackage rec {
   pname = "mailmanclient";
-  version = "3.3.5";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "3.3.3";
+  disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-Y1gcYEyn6sAhSJwVqsygaklY63b2ZXTG+rBerGVN2Fc=";
+    sha256 = "92fe624675e41f41f59de1208e0125dfaa8d062bbe6138bd7cd79e4dd0b6f85e";
   };
 
-  propagatedBuildInputs = [
-    requests
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ];
-
-  # Tests require a running Mailman instance
-  doCheck = false;
-
-  pythonImportsCheck = [
-    "mailmanclient"
-  ];
+  propagatedBuildInputs = [ six httplib2 requests ];
 
   meta = with lib; {
-    description = "REST client for driving Mailman 3";
     homepage = "https://www.gnu.org/software/mailman/";
-    license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ globin qyliss ];
+    description = "REST client for driving Mailman 3";
+    license = licenses.lgpl3;
     platforms = platforms.linux;
+    maintainers = with maintainers; [ globin qyliss ];
   };
 }

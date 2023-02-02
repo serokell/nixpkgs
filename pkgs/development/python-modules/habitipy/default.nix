@@ -26,7 +26,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     hypothesis
     nose
     responses

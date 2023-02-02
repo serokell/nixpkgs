@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, libtool
-, pkg-config
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "libb2";
@@ -13,19 +7,18 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "BLAKE2";
     repo = "libb2";
-    rev = "refs/tags/v${version}";
+    rev = "v${version}";
     sha256 = "0qj8aaqvfcavj1vj5asm4pqm03ap7q8x4c2fy83cqggvky0frgya";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    libtool
-    pkg-config
-  ];
+  preConfigure = ''
+    patchShebangs autogen.sh
+    ./autogen.sh
+  '';
 
   configureFlags = lib.optional stdenv.hostPlatform.isx86 "--enable-fat=yes";
 
-  enableParallelBuilding = true;
+  nativeBuildInputs = [ autoconf automake libtool pkg-config ];
 
   doCheck = true;
 

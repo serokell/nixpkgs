@@ -15,13 +15,13 @@
 
 buildPythonPackage rec {
   pname = "dnachisel";
-  version = "3.2.10";
+  version = "3.2.9";
 
   src = fetchFromGitHub {
     owner = "Edinburgh-Genome-Foundry";
     repo = "DnaChisel";
     rev = "refs/tags/v${version}";
-    sha256 = "sha256-YlNOvK7ZXUHYdRX1NFEdZ646NGLtGXU1YgAjN6RY2QE=";
+    sha256 = "sha256-Fg0gkI+01xIt8LQmNmRzkzd4AObg/99x34y5NclMtDQ=";
   };
 
   propagatedBuildInputs = [
@@ -33,7 +33,7 @@ buildPythonPackage rec {
     python-codon-tables
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     primer3
     genome-collector
     matplotlib

@@ -3,8 +3,8 @@
 , fetchPypi
 , nose
 , six
+, unittest2
 , unidecode
-, unittestCheckHook
 }:
 
 buildPythonPackage rec {
@@ -18,10 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six unidecode ];
 
-  nativeCheckInputs = [
-    nose
-    unittestCheckHook
-  ];
+  checkInputs = [ nose unittest2 ];
 
   meta = with lib; {
     description = "Generates unicode slugs";

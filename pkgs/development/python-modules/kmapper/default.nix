@@ -31,7 +31,7 @@ buildPythonPackage rec {
     jinja2
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     networkx
     matplotlib

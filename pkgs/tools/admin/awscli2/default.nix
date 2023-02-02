@@ -3,20 +3,16 @@
 , groff
 , less
 , fetchFromGitHub
-, nix-update-script
-, testers
-, awscli2
 }:
-
 let
   py = python3.override {
     packageOverrides = self: super: {
-      prompt-toolkit = super.prompt-toolkit.overridePythonAttrs (oldAttrs: rec {
-        version = "3.0.28";
+      awscrt = super.awscrt.overridePythonAttrs (oldAttrs: rec {
+        version = "0.14.0";
         src = self.fetchPypi {
-          pname = "prompt_toolkit";
+          inherit (oldAttrs) pname;
           inherit version;
-          hash = "sha256-nxzRax6GwpaPJRnX+zHdnWaZFvUVYSwmnRTp7VK1FlA=";
+          sha256 = "sha256-MGLTFcsWVC/gTdgjny6LwyOO6QRc1QcLkVzy677Lqqw=";
         };
       });
     };
@@ -25,19 +21,14 @@ let
 in
 with py.pkgs; buildPythonApplication rec {
   pname = "awscli2";
-  version = "2.9.15"; # N.B: if you change this, check if overrides are still up-to-date
-  format = "pyproject";
+  version = "2.7.33"; # N.B: if you change this, check if overrides are still up-to-date
 
   src = fetchFromGitHub {
     owner = "aws";
     repo = "aws-cli";
     rev = version;
-    hash = "sha256-yOqxz6ZsBV7iNKjG3NlV8SUHaezlchiUx8RRShRU6xo=";
+    sha256 = "sha256-9X056Xc9DPp8BiuAeCvQrswcj7mnZKrkMOad5aP1TI8=";
   };
-
-  nativeBuildInputs = [
-    flit-core
-  ];
 
   propagatedBuildInputs = [
     awscrt
@@ -52,22 +43,35 @@ with py.pkgs; buildPythonApplication rec {
     pyyaml
     rsa
     ruamel-yaml
+    wcwidth
     python-dateutil
     jmespath
     urllib3
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     jsonschema
     mock
     pytestCheckHook
+    pytest-xdist
   ];
 
   postPatch = ''
-    sed -i pyproject.toml \
-      -e 's/colorama.*/colorama",/' \
-      -e 's/cryptography.*/cryptography",/' \
-      -e 's/distro.*/distro",/'
+    substituteInPlace setup.cfg \
+      --replace "colorama>=0.2.5,<0.4.4" "colorama" \
+      --replace "cryptography>=3.3.2,<37.0.0" "cryptography" \
+      --replace "docutils>=0.10,<0.16" "docutils" \
+      --replace "ruamel.yaml>=0.15.0,<=0.17.21" "ruamel.yaml" \
+      --replace "wcwidth<0.2.0" "wcwidth" \
+      --replace "prompt-toolkit>=3.0.24,<3.0.29" "prompt-toolkit~=3.0" \
+      --replace "distro>=1.5.0,<1.6.0" "distro"
+  '';
+
+  checkPhase = ''
+    export PATH=$PATH:$out/bin
+
+    # https://github.com/NixOS/nixpkgs/issues/16144#issuecomment-225422439
+    export HOME=$TMP
   '';
 
   postInstall = ''
@@ -83,49 +87,13 @@ with py.pkgs; buildPythonApplication rec {
     rm $out/bin/aws.cmd
   '';
 
-  doCheck = true;
-
-  preCheck = ''
-    export PATH=$PATH:$out/bin
-    export HOME=$(mktemp -d)
-  '';
-
-  pytestFlagsArray = [
-    "-Wignore::DeprecationWarning"
-  ];
-
-  disabledTestPaths = [
-    # Integration tests require networking
-    "tests/integration"
-
-    # Disable slow tests (only run unit tests)
-    "tests/backends"
-    "tests/functional"
-  ];
-
-  pythonImportsCheck = [
-    "awscli"
-  ];
-
-  passthru = {
-    python = py; # for aws_shell
-    updateScript = nix-update-script {
-      # Excludes 1.x versions from the Github tags list
-      extraArgs = [ "--version-regex" "^(2\.(.*))" ];
-    };
-    tests.version = testers.testVersion {
-      package = awscli2;
-      command = "aws --version";
-      version = version;
-    };
-  };
+  passthru.python = py; # for aws_shell
 
   meta = with lib; {
     homepage = "https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html";
     changelog = "https://github.com/aws/aws-cli/blob/${version}/CHANGELOG.rst";
     description = "Unified tool to manage your AWS services";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bhipple davegallant bryanasdev000 devusb anthonyroussel ];
-    mainProgram = "aws";
+    maintainers = with maintainers; [ bhipple davegallant bryanasdev000 devusb ];
   };
 }

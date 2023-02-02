@@ -1,13 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, writeText, openjdk11_headless, gradle_6
+{ stdenv, lib, fetchFromGitHub, writeText, openjdk11_headless, gradle_5
 , pkg-config, perl, cmake, gperf, gtk2, gtk3, libXtst, libXxf86vm, glib, alsa-lib
-, ffmpeg_4-headless, python3, ruby }:
+, ffmpeg_4, python3, ruby }:
 
 let
   major = "15";
   update = ".0.1";
   build = "+1";
   repover = "${major}${update}${build}";
-  gradle_ = (gradle_6.override {
+  gradle_ = (gradle_5.override {
     java = openjdk11_headless;
   });
 
@@ -21,7 +21,7 @@ let
       sha256 = "019glq8rhn6amy3n5jc17vi2wpf1pxpmmywvyz1ga8n09w7xscq1";
     };
 
-    buildInputs = [ gtk2 gtk3 libXtst libXxf86vm glib alsa-lib ffmpeg_4-headless ];
+    buildInputs = [ gtk2 gtk3 libXtst libXxf86vm glib alsa-lib ffmpeg_4 ];
     nativeBuildInputs = [ gradle_ perl pkg-config cmake gperf python3 ruby ];
 
     dontUseCmakeConfigure = true;
@@ -69,7 +69,11 @@ let
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "sha256-fGLTMM9s/Vn7eMzn6OQR3tL0cGbAYc7c4J4/aW3JvkI=";
+    # Downloaded AWT jars differ by platform.
+    outputHash = {
+      x86_64-linux = "0hmyr5nnjgwyw3fcwqf0crqg9lny27jfirycg3xmkzbcrwqd6qkw";
+      i686-linux = "0hx69p2z96p7jbyq4r20jykkb8gx6r8q2cj7m30pldlsw3650bqx";
+    }.${stdenv.system} or (throw "Unsupported platform");
   };
 
 in makePackage {
@@ -77,7 +81,7 @@ in makePackage {
 
   gradleProperties = ''
     COMPILE_MEDIA = true
-    COMPILE_WEBKIT = false
+    COMPILE_WEBKIT = true
   '';
 
   preBuild = ''
@@ -117,9 +121,6 @@ in makePackage {
     license = licenses.gpl2;
     description = "The next-generation Java client toolkit";
     maintainers = with maintainers; [ abbradar ];
-    knownVulnerabilities = [
-      "This OpenJFX version has reached its end of life."
-    ];
-    platforms = [ "x86_64-linux" ];
+    platforms = [ "i686-linux" "x86_64-linux" ];
   };
 }

@@ -30,7 +30,7 @@ buildPythonPackage rec {
     blspy
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

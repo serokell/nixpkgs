@@ -1,10 +1,8 @@
 { lib
-, stdenv
 , fetchFromGitHub
 , openssl
 , pkg-config
 , rustPlatform
-, Security
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -26,8 +24,6 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [
     openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    Security
   ];
 
   meta = with lib; {

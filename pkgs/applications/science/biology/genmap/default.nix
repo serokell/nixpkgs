@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
   patches = [ ./gtest.patch ];
-  nativeCheckInputs = [ gtest which ];
+  checkInputs = [ gtest which ];
   preCheck = "make genmap_algo_test";
 
   # disable benchmarks

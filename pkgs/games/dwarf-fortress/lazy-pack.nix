@@ -19,7 +19,7 @@
 , theme ? themes.phoebus
   # General config options:
 , enableIntro ? true
-, enableTruetype ? null # defaults to 24, see init.txt
+, enableTruetype ? true
 , enableFPS ? false
 , enableTextMode ? false
 , enableSound ? true

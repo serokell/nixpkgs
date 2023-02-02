@@ -1,30 +1,19 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, typing-extensions, setuptools }:
 
-python3.pkgs.buildPythonApplication rec {
-  pname = "hyfetch";
-  version = "1.4.6";
-  format = "setuptools";
+buildPythonPackage rec {
+  pname = "HyFetch";
+  version = "1.4.1";
 
   src = fetchFromGitHub {
-    owner = "hykilpikonna";
     repo = "hyfetch";
+    owner = "hykilpikonna";
     rev = "refs/tags/${version}";
-    hash = "sha256-bbAJV4G5FAY0mSfrbIEs0eNFARZD74dUvHEBQuPc0rI=";
+    sha256 = "sha256-aVALjuFXg3ielDfxEDMTOtaPghsBg9+vKRbR3aDTalQ=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
+  propagatedBuildInputs = [
     typing-extensions
     setuptools
-  ];
-
-  # No test available
-  doCheck = false;
-
-  pythonImportsCheck = [
-    "hyfetch"
   ];
 
   meta = with lib; {

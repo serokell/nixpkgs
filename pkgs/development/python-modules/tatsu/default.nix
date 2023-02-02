@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pytest-runner ];
   propagatedBuildInputs = [ colorama regex ];
-  nativeCheckInputs = [ pytestCheckHook pytest-mypy ];
+  checkInputs = [ pytestCheckHook pytest-mypy ];
 
   pythonImportsCheck = [ "tatsu" ];
 

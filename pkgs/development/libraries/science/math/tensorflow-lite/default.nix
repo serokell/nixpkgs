@@ -6,6 +6,7 @@
 , fetchpatch
 , fetchurl
 , flatbuffers
+, hostPlatform
 , lib
 , zlib
 }:
@@ -159,7 +160,7 @@ stdenv.mkDerivation rec {
     mkdir "$out"
 
     # copy the static lib and binaries into the output dir
-    cp -r ./tensorflow/lite/tools/make/gen/linux_${stdenv.hostPlatform.uname.processor}/{bin,lib} "$out"
+    cp -r ./tensorflow/lite/tools/make/gen/linux_${hostPlatform.uname.processor}/{bin,lib} "$out"
 
     find ./tensorflow/lite -type f -name '*.h' | while read f; do
       path="$out/include/''${f/.\//}"

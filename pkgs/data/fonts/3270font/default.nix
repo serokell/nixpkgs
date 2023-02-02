@@ -1,28 +1,19 @@
-{ lib, stdenvNoCC, fetchzip }:
+{ lib, fetchzip }:
+let
+  version = "2.3.1";
+in
+fetchzip {
+  name = "3270font-${version}";
 
-stdenvNoCC.mkDerivation rec {
-  pname = "3270font";
-  version = "3.0.1";
+  url = "https://github.com/rbanffy/3270font/releases/download/v${version}/3270_fonts_3b8f2fb.zip";
 
-  src = fetchzip {
-    url = "https://github.com/rbanffy/3270font/releases/download/v${version}/3270_fonts_d916271.zip";
-    sha256 = "sha256-Zi6Lp5+sqfjIaHmnaaemaw3i+hXq9mqIsK/81lTkwfM=";
-    stripRoot = false;
-  };
+  sha256 = "06n87ydn2ayfhpg8318chmnwmdk3d4mmy65fcgf8frbiv2kpqncs";
 
-  dontPatch = true;
-  dontConfigure = true;
-  dontBuild = true;
-  doCheck = false;
-  dontFixup = true;
-
-  installPhase = ''
-    runHook preInstall
-
-    install -Dm644 -t $out/share/fonts/opentype/ *.otf
-    install -Dm644 -t $out/share/fonts/truetype/ *.ttf
-
-    runHook postInstall
+  postFetch = ''
+    mkdir -p $out/share/fonts/
+    unzip -j $downloadedFile \*.otf -d $out/share/fonts/opentype
+    unzip -j $downloadedFile \*.ttf -d $out/share/fonts/truetype
+    unzip -j $downloadedFile \*.afm -d $out/share/fonts/type1
   '';
 
   meta = with lib; {

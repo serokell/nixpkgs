@@ -21,7 +21,7 @@ in
       };
 
       port = mkOption {
-        type = types.port;
+        type = types.int;
         default = 8983;
         description = lib.mdDoc "Port on which Solr is ran.";
       };

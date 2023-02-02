@@ -71,7 +71,7 @@ with lib;
       package = mkOption {
         type = package;
         default = pkgs.ddclient;
-        defaultText = lib.literalExpression "pkgs.ddclient";
+        defaultText = "pkgs.ddclient";
         description = lib.mdDoc ''
           The ddclient executable package run by the service.
         '';

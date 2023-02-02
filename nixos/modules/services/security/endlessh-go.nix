@@ -126,7 +126,7 @@ in
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
           SystemCallArchitectures = "native";
-          SystemCallFilter = [ "@system-service" "~@privileged" ];
+          SystemCallFilter = [ "@system-service" "~@resources" "~@privileged" ];
         };
     };
 

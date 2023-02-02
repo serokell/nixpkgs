@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "popt";
-  version = "1.19";
+  version = "1.18";
 
   src = fetchurl {
     url = "https://ftp.osuosl.org/pub/rpm/popt/releases/popt-1.x/popt-${version}.tar.gz";
-    sha256 = "sha256-wlpIOPyOTByKrLi9Yg7bMISj1jv4mH/a08onWMYyQPk=";
+    sha256 = "1lf5zlj5rbg6s4bww7hbhpca97prgprnarx978vcwa0bl81vqnai";
   };
 
   patches = lib.optionals stdenv.isCygwin [

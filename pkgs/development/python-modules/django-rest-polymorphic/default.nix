@@ -12,14 +12,13 @@
 
 buildPythonPackage rec {
   pname = "django-rest-polymorphic";
-  version = "0.1.10";
+  version = "0.1.9";
 
   src = fetchFromGitHub {
     owner = "apirobot";
     repo = "django-rest-polymorphic";
-     # https://github.com/denisorehovsky/django-rest-polymorphic/issues/42
-    rev = "9d920eb91ef13144094426f9ebc0ca80247c0fe3";
-    sha256 = "sha256-k7Cl2QYkaGOZaTo8v5Wg9Wqh8x0WC5i9Sggqj8eeECY=";
+    rev = "v${version}";
+    sha256 = "sha256-p3ew2NONSyiGzDzxGTy/cx3fcQhhvnzqopJzgqhXadY=";
   };
 
   propagatedBuildInputs = [
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-django
     pytest-mock
     pytestCheckHook

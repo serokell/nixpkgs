@@ -30,7 +30,7 @@ buildPythonPackage rec {
     pytest-metadata
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-xdist
     pytestCheckHook
   ];

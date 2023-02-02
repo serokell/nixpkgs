@@ -1,13 +1,22 @@
-{ stdenv, fetchurl, lib, openssl }:
+{ stdenv, fetchurl, fetchpatch, lib, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "ibm-sw-tpm2";
-  version = "1682";
+  version = "1661";
 
   src = fetchurl {
     url = "mirror://sourceforge/ibmswtpm2/ibmtpm${version}.tar.gz";
-    hash = "sha256-PLZC+HGheyPVCwRuX5X0ScIodBX8HnrrS9u4kg28s48=";
+    sha256 = "sha256-VRRZKK0rJPNL5qDqz5+0kuEODqkZuEKMch+pcOhdYUc=";
   };
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/kgoldman/ibmswtpm2/commit/e6684009aff9c1bad38875e3319c2e02ef791424.patch";
+      sha256 = "1flzlri807c88agmpb0w8xvh5f16mmqv86xw4ic4z272iynzd40j";
+    })
+  ];
+
+  patchFlags = [ "-p2" ];
 
   buildInputs = [ openssl ];
 

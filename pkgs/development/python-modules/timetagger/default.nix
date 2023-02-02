@@ -16,13 +16,13 @@
 
 buildPythonPackage rec {
   pname = "timetagger";
-  version = "22.12.1";
+  version = "22.9.3";
 
   src = fetchFromGitHub {
     owner = "almarklein";
     repo = pname;
     rev = "refs/tags/v${version}";
-    sha256 = "sha256-yoDILEE/mUWkGPWp2xTKlkpmw1gZctaQmBsed8U7bHc=";
+    sha256 = "sha256-9YmO0nD6QSFMSXsWlfbRxNWW1nwe7WXinC9pLe7rDEY=";
   };
 
   propagatedBuildInputs = [
@@ -40,7 +40,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     requests
   ];

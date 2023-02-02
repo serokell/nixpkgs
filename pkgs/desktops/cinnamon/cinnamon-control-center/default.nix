@@ -9,6 +9,7 @@
 , libnotify
 , libxml2
 , gnome-online-accounts
+, cinnamon-settings-daemon
 , colord
 , polkit
 , libxkbfile
@@ -35,13 +36,13 @@
 
 stdenv.mkDerivation rec {
   pname = "cinnamon-control-center";
-  version = "5.6.1";
+  version = "5.4.7";
 
   src = fetchFromGitHub {
     owner = "linuxmint";
     repo = pname;
     rev = version;
-    hash = "sha256-rp3K7SqGw8da2U61VjKiqUyT5vCUVk4XZdRYtLwRtfQ=";
+    hash = "sha256-38n1QCygkBq+wOLwui1oF6MtDWxAFWxp5U1omSVtbro=";
   };
 
   buildInputs = [
@@ -55,6 +56,7 @@ stdenv.mkDerivation rec {
     libgnomekbd
     libxklavier
     colord
+    cinnamon-settings-daemon
     libgudev
     libwacom
     gnome-online-accounts
@@ -80,10 +82,26 @@ stdenv.mkDerivation rec {
     patchShebangs meson_install_schemas.py
   '';
 
+  # it needs to have access to that file, otherwise we can't run tests after build
+
+  preBuild = ''
+    mkdir -p $out/share/cinnamon-control-center/
+    ln -s $PWD/panels/datetime $out/share/cinnamon-control-center/
+  '';
+
   mesonFlags = [
+    # TODO: https://github.com/NixOS/nixpkgs/issues/36468
+    "-Dc_args=-I${glib.dev}/include/gio-unix-2.0"
     # use locales from cinnamon-translations
     "--localedir=${cinnamon-translations}/share/locale"
   ];
+
+  preInstall = ''
+    rm -r $out
+  '';
+
+  # the only test is wacom-calibrator and it seems to need an xserver and prob more services aswell
+  doCheck = false;
 
   nativeBuildInputs = [
     pkg-config

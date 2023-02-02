@@ -1,5 +1,4 @@
-{ lib
-, stdenv
+{ lib, stdenv
 , openblas
 , blas
 , lapack
@@ -10,7 +9,6 @@
 , fetchFromGitHub
 , git
 , python3
-, Accelerate
 }:
 
 assert blas.implementation == "openblas" && lapack.implementation == "openblas";
@@ -25,20 +23,18 @@ let
 in
 stdenv.mkDerivation {
   pname = "kaldi";
-  version = "unstable-2022-09-26";
+  version = "2021-12-03";
 
   src = fetchFromGitHub {
     owner = "kaldi-asr";
     repo = "kaldi";
-    rev = "f6f4ccaf213f0fe8b26e633a7dc0c802150626a0";
-    sha256 = "sha256-ybW2J4lWf6YaQGZZvxEVDUMAg84DC17W+yX6ZsuBDac=";
+    rev = "2b016ab8cb018e031ab3bf01ec36cc2950c7e509";
+    sha256 = "sha256-R8CrY7cwU5XfeGEgeFuZ0ApsEcEmWN/lrZaCjz85tyk=";
   };
 
   cmakeFlags = [
     "-DKALDI_BUILD_TEST=off"
     "-DBUILD_SHARED_LIBS=on"
-    "-DBLAS_LIBRARIES=-lblas"
-    "-DLAPACK_LIBRARIES=-llapack"
   ];
 
   enableParallelBuilding = true;
@@ -70,14 +66,10 @@ stdenv.mkDerivation {
     export PATH=$(pwd)/bin:$PATH
   '';
 
-  outputs = [ "out" "dev" ];
-
   buildInputs = [
     openblas
     openfst
     icu
-  ] ++ lib.optionals stdenv.isDarwin [
-    Accelerate
   ];
 
   nativeBuildInputs = [
@@ -96,6 +88,6 @@ stdenv.mkDerivation {
     homepage = "https://kaldi-asr.org";
     license = licenses.mit;
     maintainers = with maintainers; [ mic92 ];
-    platforms = platforms.unix;
+    platforms = platforms.linux;
   };
 }

@@ -22,37 +22,38 @@
 , withWallet ? true
 }:
 
+with lib;
 stdenv.mkDerivation rec {
   pname = if withGui then "elements" else "elementsd";
-  version = "22.0.2";
+  version = "22.0";
 
   src = fetchFromGitHub {
     owner = "ElementsProject";
     repo = "elements";
     rev = "elements-${version}";
-    sha256 = "sha256-20Tem6CD7XAt1EDfkl46Nxhb+Vq3sCk/UqnLCAm85FU=";
+    sha256 = "sha256-n98bz1W9hoJ5JDH34LG7R6igEIY1j4mRbO2PKnV8R2U=";
   };
 
   nativeBuildInputs =
     [ autoreconfHook pkg-config ]
-    ++ lib.optionals stdenv.isLinux [ util-linux ]
-    ++ lib.optionals stdenv.isDarwin [ hexdump ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ]
-    ++ lib.optionals withGui [ wrapQtAppsHook ];
+    ++ optionals stdenv.isLinux [ util-linux ]
+    ++ optionals stdenv.isDarwin [ hexdump ]
+    ++ optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ]
+    ++ optionals withGui [ wrapQtAppsHook ];
 
   buildInputs = [ boost libevent miniupnpc zeromq zlib ]
-    ++ lib.optionals withWallet [ db48 sqlite ]
-    ++ lib.optionals withGui [ qrencode qtbase qttools ];
+    ++ optionals withWallet [ db48 sqlite ]
+    ++ optionals withGui [ qrencode qtbase qttools ];
 
   configureFlags = [
     "--with-boost-libdir=${boost.out}/lib"
     "--disable-bench"
-  ] ++ lib.optionals (!doCheck) [
+  ] ++ optionals (!doCheck) [
     "--disable-tests"
     "--disable-gui-tests"
-  ] ++ lib.optionals (!withWallet) [
+  ] ++ optionals (!withWallet) [
     "--disable-wallet"
-  ] ++ lib.optionals withGui [
+  ] ++ optionals withGui [
     "--with-gui=qt5"
     "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
   ];
@@ -61,7 +62,7 @@ stdenv.mkDerivation rec {
   # https://github.com/NixOS/nixpkgs/issues/179474
   hardeningDisable = lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [ "fortify" "stackprotector" ];
 
-  nativeCheckInputs = [ python3 ];
+  checkInputs = [ python3 ];
 
   doCheck = true;
 
@@ -69,11 +70,11 @@ stdenv.mkDerivation rec {
     [ "LC_ALL=en_US.UTF-8" ]
     # QT_PLUGIN_PATH needs to be set when executing QT, which is needed when testing Bitcoin's GUI.
     # See also https://github.com/NixOS/nixpkgs/issues/24256
-    ++ lib.optional withGui "QT_PLUGIN_PATH=${qtbase}/${qtbase.qtPluginPrefix}";
+    ++ optional withGui "QT_PLUGIN_PATH=${qtbase}/${qtbase.qtPluginPrefix}";
 
   enableParallelBuilding = true;
 
-  meta = with lib; {
+  meta = {
     description = "Open Source implementation of advanced blockchain features extending the Bitcoin protocol";
     longDescription= ''
       The Elements blockchain platform is a collection of feature experiments and extensions to the

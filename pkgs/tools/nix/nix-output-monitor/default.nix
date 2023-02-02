@@ -15,7 +15,6 @@
       chmod a+x $out/bin/nom-build
       installShellCompletion --zsh --name _nom-build completions/completion.zsh
     '';
-    mainProgram = "nom";
   };
 in
   justStaticExecutables

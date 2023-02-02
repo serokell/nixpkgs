@@ -9,7 +9,7 @@
 
 buildPythonPackage rec {
   pname = "tesla-powerwall";
-  version = "0.3.19";
+  version = "0.3.18";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -17,15 +17,15 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "jrester";
     repo = "tesla_powerwall";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-ClrMgPAMBtDMfD6hCJIN1u4mp75QW+c3re28v3FreQg=";
+    rev = "v${version}";
+    hash = "sha256-Z+axzTiKDgJqGhl2c6g7N1AbmXO46lbaHVOXhMstoCY=";
   };
 
   propagatedBuildInputs = [
     requests
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     responses
   ];
@@ -41,7 +41,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "API for Tesla Powerwall";
     homepage = "https://github.com/jrester/tesla_powerwall";
-    changelog = "https://github.com/jrester/tesla_powerwall/blob/v${version}/CHANGELOG";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

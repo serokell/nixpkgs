@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ invoke paramiko cryptography ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-relaxed mock ];
+  checkInputs = [ pytestCheckHook pytest-relaxed mock ];
 
   # ==================================== ERRORS ====================================
   # ________________________ ERROR collecting test session _________________________

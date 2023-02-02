@@ -8,7 +8,7 @@ buildPythonPackage {
 
   patches = [ ./build-cores.patch ];
 
-  nativeCheckInputs = [ pytest more-itertools ];
+  checkInputs = [ pytest more-itertools ];
 
   postPatch = ''
     substituteInPlace setup.py \

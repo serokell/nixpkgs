@@ -44,7 +44,7 @@ in
       };
 
       port = mkOption {
-        type = types.port;
+        type = types.int;
         default = 27701;
         description = lib.mdDoc "ankisyncd port";
       };

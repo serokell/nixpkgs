@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
   propagatedBuildInputs = [ pyflakes ];
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
 
   # no longer passes
   doCheck = false;

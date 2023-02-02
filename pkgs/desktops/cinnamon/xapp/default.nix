@@ -22,7 +22,7 @@
 
 stdenv.mkDerivation rec {
   pname = "xapp";
-  version = "2.4.2";
+  version = "2.2.15";
 
   outputs = [ "out" "dev" ];
 
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     owner = "linuxmint";
     repo = pname;
     rev = version;
-    hash = "sha256-etB+q7FIwbApTUk8RohAy3kHX8Vb4cSY/qkvhj94yTM=";
+    hash = "sha256-X/exXQY/v+TU8HnnquleP21tCYR9h7t43AIw4tTKVOY=";
   };
 
   nativeBuildInputs = [

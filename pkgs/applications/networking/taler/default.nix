@@ -49,7 +49,7 @@ in rec {
 
     enableParallelBuilding = true;
 
-    nativeCheckInputs = [ wget curl ];
+    checkInputs = [ wget curl ];
     doInstallCheck = true;
     checkTarget = "check";
 
@@ -100,7 +100,7 @@ in rec {
 
     enableParallelBuilding = true;
 
-    nativeCheckInputs = [ jq ];
+    checkInputs = [ jq ];
     doInstallCheck = true;
     checkTarget = "check";
 

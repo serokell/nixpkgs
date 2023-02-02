@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeCheckInputs = [ bc python3Packages.pytestCheckHook ];
+  checkInputs = [ bc python3Packages.pytestCheckHook ];
 
   pytestFlagsArray = [ "test.py" ];
 

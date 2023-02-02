@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
 
   doCheck = true;
 
-  nativeCheckInputs = [ shellcheck shellspec busybox-sandbox-shell ksh mksh yash zsh ];
+  checkInputs = [ shellcheck shellspec busybox-sandbox-shell ksh mksh yash zsh ];
 
   preCheck = ''
     sed -i '/shellspec -s posh/d' Makefile

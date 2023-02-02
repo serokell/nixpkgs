@@ -23,7 +23,7 @@ buildPythonPackage rec {
     contextlib2
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     pytestCheckHook
   ];

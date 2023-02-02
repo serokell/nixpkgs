@@ -2,7 +2,7 @@
 , sslSupport ? true, openssl
 , bdbSupport ? true, db
 , ldapSupport ? !stdenv.isCygwin, openldap
-, libiconv, libxcrypt
+, libiconv
 , cyrus_sasl, autoreconfHook
 }:
 
@@ -21,10 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "0nq3s1yn13vplgl6qfm09f7n0wm08malff9s59bqf9nid9xjzqfk";
   };
 
-  patches = [ ./fix-libxcrypt-build.patch ]
-    ++ optional stdenv.isFreeBSD ./include-static-dependencies.patch;
-
-  NIX_CFLAGS_LINK = [ "-lcrypt" ];
+  patches = optional stdenv.isFreeBSD ./include-static-dependencies.patch;
 
   outputs = [ "out" "dev" ];
   outputBin = "dev";
@@ -41,18 +38,15 @@ stdenv.mkDerivation rec {
         "--without-freetds" "--without-berkeley-db" "--without-crypto" ]
     ;
 
-  postConfigure = ''
-    echo '#define APR_HAVE_CRYPT_H 1' >> confdefs.h
-  '' +
-    # For some reason, db version 6.9 is selected when cross-compiling.
-    # It's unclear as to why, it requires someone with more autotools / configure knowledge to go deeper into that.
-    # Always replacing the link flag with a generic link flag seems to help though, so let's do that for now.
-    lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-      substituteInPlace Makefile \
-        --replace "-ldb-6.9" "-ldb"
+  # For some reason, db version 6.9 is selected when cross-compiling.
+  # It's unclear as to why, it requires someone with more autotools / configure knowledge to go deeper into that.
+  # Always replacing the link flag with a generic link flag seems to help though, so let's do that for now.
+  postConfigure = lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+    substituteInPlace Makefile \
+      --replace "-ldb-6.9" "-ldb"
   '';
 
-  propagatedBuildInputs = [ apr expat libiconv libxcrypt ]
+  propagatedBuildInputs = [ apr expat libiconv ]
     ++ optional sslSupport openssl
     ++ optional bdbSupport db
     ++ optional ldapSupport openldap

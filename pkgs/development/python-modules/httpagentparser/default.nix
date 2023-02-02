@@ -1,31 +1,26 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, pythonOlder
 }:
 
 buildPythonPackage rec {
   pname = "httpagentparser";
-  version = "1.9.5";
-  format = "setuptools";
+  version = "1.9.3";
 
-  disabled = pythonOlder "3.7";
-
+  # Github version does not have any release tags
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-U879nWWZD2/lnAN4ytjqG53493DS6L2dh2LtrgM76Ao=";
+    sha256 = "1x20j4gyx4vfsxs3bx8qcbdhq7n34gjr8gd01qlri96wpmn4c3rp";
   };
 
   # PyPi version does not include test directory
   doCheck = false;
 
-  pythonImportsCheck = [
-    "httpagentparser"
-  ];
+  pythonImportsCheck = [ "httpagentparser" ];
 
   meta = with lib; {
-    description = "Module to extract OS, Browser, etc. information from http user agent string";
     homepage = "https://github.com/shon/httpagentparser";
+    description = "Extracts OS Browser etc information from http user agent string";
     license = licenses.mit;
     maintainers = with maintainers; [ gador ];
   };

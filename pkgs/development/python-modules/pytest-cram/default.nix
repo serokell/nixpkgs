@@ -4,7 +4,7 @@ buildPythonPackage rec {
   version = "0.2.2";
   pname = "pytest-cram";
 
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
   propagatedBuildInputs = [ cram ];
 
   src = fetchPypi {

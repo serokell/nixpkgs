@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ fastdiff six termcolor ];
 
-  nativeCheckInputs = [ django pytestCheckHook pytest-cov ];
+  checkInputs = [ django pytestCheckHook pytest-cov ];
 
   pythonImportsCheck = [ "snapshottest" ];
 

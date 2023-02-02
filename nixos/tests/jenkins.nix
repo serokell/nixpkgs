@@ -18,6 +18,8 @@ import ./make-test-python.nix ({ pkgs, ...} : {
           enable = true;
           jobBuilder = {
             enable = true;
+            accessUser = "admin";
+            accessTokenFile = "/var/lib/jenkins/secrets/initialAdminPassword";
             nixJobs = [
               { job = {
                   name = "job-1";

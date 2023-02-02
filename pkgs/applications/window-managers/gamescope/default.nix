@@ -26,7 +26,7 @@
 }:
 let
   pname = "gamescope";
-  version = "3.11.49";
+  version = "3.11.47";
 in
 stdenv.mkDerivation {
   inherit pname version;
@@ -35,7 +35,7 @@ stdenv.mkDerivation {
     owner = "Plagman";
     repo = "gamescope";
     rev = "refs/tags/${version}";
-    hash = "sha256-GRq/b013wFRHzFz2YCulJRtcwzX/dhJKd8dkATSLug0=";
+    hash = "sha256-GkvujrYc7dBbsGqeG0THqtEAox+VZ3DoWQK4gkHo+ds=";
   };
 
   patches = [ ./use-pkgconfig.patch ];
@@ -85,7 +85,7 @@ stdenv.mkDerivation {
     description = "SteamOS session compositing window manager";
     homepage = "https://github.com/Plagman/gamescope";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ nrdxp zhaofengli ];
+    maintainers = with maintainers; [ nrdxp ];
     platforms = platforms.linux;
   };
 }

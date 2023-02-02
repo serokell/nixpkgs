@@ -7,7 +7,7 @@ in
   options = {
     testScript = mkOption {
       type = either str (functionTo str);
-      description = mdDoc ''
+      description = ''
         A series of python declarations and statements that you write to perform
         the test.
       '';

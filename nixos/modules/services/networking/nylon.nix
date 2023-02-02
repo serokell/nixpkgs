@@ -81,7 +81,7 @@ let
       };
 
       port = mkOption {
-        type = types.port;
+        type = types.int;
         default = 1080;
         description = lib.mdDoc ''
           What port to listen for client requests, default is 1080.

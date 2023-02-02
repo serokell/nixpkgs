@@ -19,9 +19,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "wrapio" ];
 
   meta = with lib; {
-    description = "Handling event-based streams";
     homepage = "https://github.com/Exahilosys/wrapio";
-    changelog = "https://github.com/Exahilosys/wrapio/releases/tag/v${version}";
+    description = "Handling event-based streams";
     license = licenses.mit;
     maintainers = with maintainers; [ sfrijters ];
   };

@@ -202,7 +202,7 @@ in
       internal    = true;
       description = lib.mdDoc ''
         This option defines the path to the wrapper programs. It
-        should not be overridden.
+        should not be overriden.
       '';
     };
   };

@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation rec {
   pname = "polaris-web";
-  version = "build-55";
+  version = "build-54";
 
   src = fetchFromGitHub {
     owner = "agersant";
     repo = "polaris-web";
     rev = "${version}";
-    sha256 = "2XqU4sExF7Or7RxpOK2XU9APtBujfPhM/VkOLKVDvF4=";
+    sha256 = "+Tpj4XgWL1U+Y33YbEruilfV/6WGl8Dtj9FdXm2JVNU=";
   };
 
   nativeBuildInputs = [

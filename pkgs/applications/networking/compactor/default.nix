@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   doCheck = !stdenv.isDarwin; # check-dnstap.sh failing on Darwin
-  nativeCheckInputs = [
+  checkInputs = [
     cbor-diag
     cddl
     diffutils

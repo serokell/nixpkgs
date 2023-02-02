@@ -38,7 +38,7 @@ buildPythonPackage rec {
     py-multihash
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     hypothesis
   ];

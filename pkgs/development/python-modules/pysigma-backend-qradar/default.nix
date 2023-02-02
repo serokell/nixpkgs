@@ -11,7 +11,7 @@
 
 buildPythonPackage rec {
   pname = "pysigma-backend-qradar";
-  version = "0.3.0";
+  version = "0.2.1";
   format = "pyproject";
 
   disabled = pythonOlder "3.8";
@@ -20,7 +20,7 @@ buildPythonPackage rec {
     owner = "nNipsx-Sec";
     repo = "pySigma-backend-qradar";
     rev = "refs/tags/v${version}";
-    hash = "sha256-4QiPBgzlZG3aeYwn9zodZCXY6mjOktgdPWR5ikg/Y30=";
+    hash = "sha256-kd/KWO3xxIHPgXqvcOrSvdozLG34+DwZedfSVoZ+dDA=";
   };
 
   nativeBuildInputs = [
@@ -31,7 +31,7 @@ buildPythonPackage rec {
     pysigma
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pysigma-pipeline-sysmon
     pytestCheckHook
   ];
@@ -48,7 +48,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library to support Qradar for pySigma";
     homepage = "https://github.com/nNipsx-Sec/pySigma-backend-qradar";
-    changelog = "https://github.com/nNipsx-Sec/pySigma-backend-qradar/releases/tag/v${version}";
     license = with licenses; [ lgpl21Only ];
     maintainers = with maintainers; [ fab ];
   };

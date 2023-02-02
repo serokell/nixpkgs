@@ -7,26 +7,21 @@
 
 buildPythonPackage rec {
   pname = "pyrisco";
-  version = "0.5.7";
+  version = "0.5.5";
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "OnFreund";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-ySFHB+PZmjsqKJQrfFoupylowsOiV5B2feHX7nF8dUA=";
+    sha256 = "sha256-yUWZfCrd2w2jg34FrVwfYyQPSLHOz9RiZQpri4YXV1k=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
   # Project has no tests
   doCheck = false;
-
-  pythonImportsCheck = [
-    "pyrisco"
-  ];
+  pythonImportsCheck = [ "pyrisco" ];
 
   meta = with lib; {
     description = "Python interface to Risco alarm systems through Risco Cloud";

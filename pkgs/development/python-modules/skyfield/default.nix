@@ -15,7 +15,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ certifi numpy sgp4 jplephem ];
 
-  nativeCheckInputs = [ pandas ipython matplotlib assay ];
+  checkInputs = [ pandas ipython matplotlib assay ];
 
   checkPhase = ''
     runHook preCheck

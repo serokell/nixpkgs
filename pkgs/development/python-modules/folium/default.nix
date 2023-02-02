@@ -17,15 +17,15 @@
 
 buildPythonPackage rec {
   pname = "folium";
-  version = "0.14.0";
+  version = "0.12.1.post1";
 
   disabled = pythonOlder "3.5";
 
   src = fetchFromGitHub {
     owner = "python-visualization";
     repo = "folium";
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-zxLFj5AeTVAxE0En7ZlbBdJEm3WrcPv23MgOhyfNi14=";
+    rev = "v${version}";
+    sha256 = "sha256-4UseN/3ojZdDUopwZLpHZEBon1qDDvCWfdzxodi/BeA=";
   };
 
   patches = [
@@ -49,7 +49,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nbconvert
     pytestCheckHook
     pandas

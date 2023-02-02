@@ -1,51 +1,24 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools
-, importlib-metadata
-, mypy-extensions
-, typing-extensions
-, pytestCheckHook
-, pytz
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, unittest2, six }:
 
 buildPythonPackage rec {
   pname = "logilab-common";
-  version = "1.9.7";
-  format = "pyproject";
-
-  disabled = pythonOlder "3.6";
+  version = "1.6.1";
+  disabled = isPy27;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-/JlN9RlIRLbi9TL9V6SgO6ddPeKqLzK402DqkLBRuxM=";
+    sha256 = "0h0b2vg2xpfbnynrkg2yki4zjpscm6wgm6nhaahb088v98zxqbrk";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  propagatedBuildInputs = [ unittest2 six ];
 
-  propagatedBuildInputs = [
-    mypy-extensions
-    typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
-
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytz
-  ];
-
-  preCheck = ''
-    export COLLECT_DEPRECATION_WARNINGS_PACKAGE_NAME=true
-  '';
+  # package supports 3.x but tests require egenix-mx-base which is python 2.x only
+  # and is not currently in nixos
+  doCheck = false;
 
   meta = with lib; {
     description = "Python packages and modules used by Logilab ";
-    homepage = "https://logilab-common.readthedocs.io/";
-    changelog = "https://forge.extranet.logilab.fr/open-source/logilab-common/-/blob/branch/default/CHANGELOG.md";
-    license = licenses.lgpl21Plus;
+    homepage = "https://www.logilab.org/project/logilab-common";
+    license = licenses.lgpl21;
   };
 }

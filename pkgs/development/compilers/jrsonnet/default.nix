@@ -1,4 +1,4 @@
-{ lib, rustPlatform, fetchFromGitHub, installShellFiles }:
+{ stdenv, lib, fetchFromGitHub, rustPlatform, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "jrsonnet";
@@ -11,14 +11,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-OX+iJJ3vdCsWWr8x31psV9Vne6xWDZnJc83NbJqMK1A=";
   };
 
-  cargoSha256 = "sha256-eFfAU9Q3nYAJK+kKP1Y6ONjOIfkuYTlelrFrEW9IJ8c=";
-
   nativeBuildInputs = [ installShellFiles ];
-
-  # skip flaky tests
-  checkFlags = [
-    "--skip=tests::native_ext"
-  ];
 
   postInstall = ''
     ln -s $out/bin/jrsonnet $out/bin/jsonnet
@@ -31,10 +24,13 @@ rustPlatform.buildRustPackage rec {
     done
   '';
 
-  meta = with lib; {
+  cargoSha256 = "sha256-eFfAU9Q3nYAJK+kKP1Y6ONjOIfkuYTlelrFrEW9IJ8c=";
+
+  meta = {
     description = "Purely-functional configuration language that helps you define JSON data";
+    maintainers = with lib.maintainers; [ lach ];
+    license = lib.licenses.mit;
     homepage = "https://github.com/CertainLach/jrsonnet";
-    license = licenses.mit;
-    maintainers = with maintainers; [ figsoda lach ];
+    broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/jrsonnet.x86_64-darwin
   };
 }

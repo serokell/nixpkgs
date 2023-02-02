@@ -5,14 +5,14 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "crackmapexec";
-  version = "5.4.0";
+  version = "5.3.0";
   format = "pyproject";
 
   src = fetchFromGitHub {
-    owner = "Porchetta-Industries";
+    owner = "byt3bl33d3r";
     repo = "CrackMapExec";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-V2n840QyLofTfQE4vtFYGfQwl65sklp+KfNS9RCLvI8=";
+    rev = "v${version}";
+    hash = "sha256-wPS1PCvR9Ffp0r9lZZkFATt+i+eR5ap16HzLWDZbJKI=";
   };
 
   nativeBuildInputs = with python3.pkgs; [
@@ -27,7 +27,6 @@ python3.pkgs.buildPythonApplication rec {
     dsinternals
     impacket
     lsassy
-    masky
     msgpack
     neo4j
     paramiko
@@ -57,8 +56,7 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     description = "Tool for pentesting networks";
-    homepage = "https://github.com/Porchetta-Industries/CrackMapExec";
-    changelog = "https://github.com/Porchetta-Industries/CrackMapExec/releases/tag/v${version}";
+    homepage = "https://github.com/byt3bl33d3r/CrackMapExec";
     license = with licenses; [ bsd2 ];
     maintainers = with maintainers; [ fab ];
     mainProgram = "cme";

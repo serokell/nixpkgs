@@ -8,8 +8,8 @@ let
     };
   };
 
-  lxd-image-metadata = lxd-image.lxdMeta.${pkgs.stdenv.hostPlatform.system};
-  lxd-image-rootfs = lxd-image.lxdImage.${pkgs.stdenv.hostPlatform.system};
+  lxd-image-metadata = lxd-image.lxdMeta.${pkgs.system};
+  lxd-image-rootfs = lxd-image.lxdImage.${pkgs.system};
 
 in {
   name = "lxd-image-server";

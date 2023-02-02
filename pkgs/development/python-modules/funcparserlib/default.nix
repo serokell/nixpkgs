@@ -26,7 +26,7 @@ buildPythonPackage rec {
     poetry-core
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     six
   ];

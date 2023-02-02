@@ -27,7 +27,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-aiohttp
     pytestCheckHook
   ];

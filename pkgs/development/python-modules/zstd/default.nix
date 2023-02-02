@@ -31,7 +31,7 @@ buildPythonPackage rec {
   VERSION = zstd.version;
   PKG_VERSION = version;
 
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
   checkPhase = ''
     pytest
   '';

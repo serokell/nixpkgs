@@ -1,10 +1,11 @@
 { pkgs ? import <nixpkgs> { }
 , lib ? pkgs.lib
+, poetry ? null
 , poetryLib ? import ./lib.nix { inherit lib pkgs; stdenv = pkgs.stdenv; }
 }:
 let
   # Poetry2nix version
-  version = "1.39.1";
+  version = "1.35.0";
 
   inherit (poetryLib) isCompatible readTOML normalizePackageName normalizePackageSet;
 
@@ -71,7 +72,7 @@ let
         )
       );
       nativeBuildInputs = mkInput "nativeBuildInputs" [ ];
-      nativeCheckInputs = mkInput "nativeCheckInputs" (
+      checkInputs = mkInput "checkInputs" (
         getDeps (pyProject.tool.poetry."dev-dependencies" or { })  # <poetry-1.2.0
         # >=poetry-1.2.0 dependency groups
         ++ lib.flatten (map (g: getDeps (pyProject.tool.poetry.group.${g}.dependencies or { })) checkGroups)
@@ -142,7 +143,7 @@ lib.makeScope pkgs.newScope (self: {
       };
       getFunctorFn = fn: if builtins.typeOf fn == "set" then fn.__functor else fn;
 
-      poetryPkg = pkgs.callPackage ./pkgs/poetry { inherit python; };
+      poetryPkg = poetry.override { inherit python; };
 
       scripts = pyProject.tool.poetry.scripts or { };
       hasScripts = scripts != { };
@@ -201,7 +202,7 @@ lib.makeScope pkgs.newScope (self: {
                       sourceSpec = (
                         (normalizePackageSet pyProject.tool.poetry.dependencies or { }).${normalizedName}
                           or (normalizePackageSet pyProject.tool.poetry.dev-dependencies or { }).${normalizedName}
-                          or (normalizePackageSet pyProject.tool.poetry.group.dev.dependencies or { }).${normalizedName} # Poetry 1.2.0+
+                          or (normalizePackageSet pyProject.tool.poetry.group.dev.dependencies { }).${normalizedName} # Poetry 1.2.0+
                           or { }
                       );
                     }
@@ -220,18 +221,11 @@ lib.makeScope pkgs.newScope (self: {
         getFunctorFn
         (
           [
-            # Remove Python packages aliases with non-normalized names to avoid issues with infinite recursion (issue #750).
-            (self: super: lib.attrsets.mapAttrs
-              (
-                name: value:
-                  if lib.isDerivation value && self.hasPythonModule value && (normalizePackageName name) != name
-                  then null
-                  else value
-              )
-              super)
-
             (
               self: super:
+                let
+                  hooks = self.callPackage ./hooks { };
+                in
                 {
                   mkPoetryDep = self.callPackage ./mk-poetry-dep.nix {
                     inherit lib python poetryLib evalPep508;
@@ -242,13 +236,15 @@ lib.makeScope pkgs.newScope (self: {
                   poetry = poetryPkg;
 
                   __toPluginAble = toPluginAble self;
+
+                  inherit (hooks) pipBuildHook removePathDependenciesHook removeGitDependenciesHook poetry2nixFixupHook wheelUnpackHook;
                 } // lib.optionalAttrs (! super ? setuptools-scm) {
                   # The canonical name is setuptools-scm
                   setuptools-scm = super.setuptools_scm;
                 }
             )
 
-            # Fix infinite recursion in a lot of packages because of nativeCheckInputs
+            # Fix infinite recursion in a lot of packages because of checkInputs
             (self: super: lib.mapAttrs
               (name: value: (
                 if lib.isDerivation value && lib.hasAttr "overridePythonAttrs" value
@@ -379,8 +375,6 @@ lib.makeScope pkgs.newScope (self: {
       };
       py = poetryPython.python;
 
-      hooks = py.pkgs.callPackage ./hooks { };
-
       inherit (poetryPython) pyProject;
       specialAttrs = [
         "overrides"
@@ -397,8 +391,8 @@ lib.makeScope pkgs.newScope (self: {
       app = py.pkgs.buildPythonPackage (
         passedAttrs // inputAttrs // {
           nativeBuildInputs = inputAttrs.nativeBuildInputs ++ [
-            hooks.removePathDependenciesHook
-            hooks.removeGitDependenciesHook
+            py.pkgs.removePathDependenciesHook
+            py.pkgs.removeGitDependenciesHook
           ];
         } // {
           pname = normalizePackageName pyProject.tool.poetry.name;
@@ -481,7 +475,7 @@ lib.makeScope pkgs.newScope (self: {
   /*
     The default list of poetry2nix override overlays
 
-    Can be overridden by calling defaultPoetryOverrides.overrideOverlay which takes an overlay function
+    Can be overriden by calling defaultPoetryOverrides.overrideOverlay which takes an overlay function
   */
   defaultPoetryOverrides = self.mkDefaultPoetryOverrides (import ./overrides { inherit pkgs lib poetryLib; });
 

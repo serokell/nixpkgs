@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchurl
+, fetchFromGitHub
 , fetchpatch
 , pkg-config
 , glib
@@ -30,14 +30,31 @@
 , qt5
 }:
 
-stdenv.mkDerivation rec {
-  pname = "harfbuzz${lib.optionalString withIcu "-icu"}";
-  version = "6.0.0";
+let
+  version = "5.1.0";
+  inherit (lib) optional optionals optionalString;
+  mesonFeatureFlag = opt: b:
+    "-D${opt}=${if b then "enabled" else "disabled"}";
+in
 
-  src = fetchurl {
-    url = "https://github.com/harfbuzz/harfbuzz/releases/download/${version}/harfbuzz-${version}.tar.xz";
-    sha256 = "HRAQoXUdB21SkeQzwThQKnlNZ5p0mNEmjuIeLUoUDrQ=";
+stdenv.mkDerivation {
+  pname = "harfbuzz${optionalString withIcu "-icu"}";
+  inherit version;
+
+  src = fetchFromGitHub {
+    owner = "harfbuzz";
+    repo = "harfbuzz";
+    rev = version;
+    sha256 = "sha256-K6iScmg1vNfwb1UYqtXsnijLVpcC+am2ZL+W5bLFzsI=";
   };
+
+  patches = [
+    (fetchpatch {
+      name = "aarch64-test-narrowing.diff";
+      url = "https://github.com/harfbuzz/harfbuzz/commit/04d28d94e576aab099891e6736fd0088dfac3366.diff";
+      sha256 = "sha256-099GP8t1G0kyYl79A6xJhfyrs3WXYitvn+He7sEz+Oo=";
+    })
+  ];
 
   postPatch = ''
     patchShebangs src/*.py test
@@ -55,12 +72,12 @@ stdenv.mkDerivation rec {
     # and is not part of the library.
     # Cairo causes transitive (build) dependencies on various X11 or other
     # GUI-related libraries, so it shouldn't be re-added lightly.
-    (lib.mesonEnable "cairo" false)
+    (mesonFeatureFlag "cairo" false)
     # chafa is only used in a development utility, not in the library
-    (lib.mesonEnable "chafa" false)
-    (lib.mesonEnable "coretext" withCoreText)
-    (lib.mesonEnable "graphite" withGraphite2)
-    (lib.mesonEnable "icu" withIcu)
+    (mesonFeatureFlag "chafa" false)
+    (mesonFeatureFlag "coretext" withCoreText)
+    (mesonFeatureFlag "graphite" withGraphite2)
+    (mesonFeatureFlag "icu" withIcu)
   ];
 
   depsBuildBuild = [
@@ -82,17 +99,17 @@ stdenv.mkDerivation rec {
   buildInputs = [ glib freetype gobject-introspection ]
     ++ lib.optionals withCoreText [ ApplicationServices CoreText ];
 
-  propagatedBuildInputs = lib.optional withGraphite2 graphite2
-    ++ lib.optionals withIcu [ icu harfbuzz ];
+  propagatedBuildInputs = optional withGraphite2 graphite2
+    ++ optionals withIcu [ icu harfbuzz ];
 
   doCheck = true;
 
   # Slightly hacky; some pkgs expect them in a single directory.
-  postFixup = lib.optionalString withIcu ''
+  postFixup = optionalString withIcu ''
     rm "$out"/lib/libharfbuzz.* "$dev/lib/pkgconfig/harfbuzz.pc"
     ln -s {'${harfbuzz.out}',"$out"}/lib/libharfbuzz.la
     ln -s {'${harfbuzz.dev}',"$dev"}/lib/pkgconfig/harfbuzz.pc
-    ${lib.optionalString stdenv.isDarwin ''
+    ${optionalString stdenv.isDarwin ''
       ln -s {'${harfbuzz.out}',"$out"}/lib/libharfbuzz.dylib
       ln -s {'${harfbuzz.out}',"$out"}/lib/libharfbuzz.0.dylib
     ''}

@@ -26,7 +26,7 @@ buildPythonPackage rec {
     arrow
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     hypothesis
     isodate
     pytestCheckHook

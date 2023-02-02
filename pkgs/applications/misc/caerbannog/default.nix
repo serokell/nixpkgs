@@ -7,7 +7,6 @@
 , ninja
 , pkg-config
 , wrapGAppsHook
-, gtk3
 , atk
 , libhandy
 , libnotify
@@ -36,7 +35,6 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   buildInputs = [
-    gtk3
     atk
     gobject-introspection
     libhandy

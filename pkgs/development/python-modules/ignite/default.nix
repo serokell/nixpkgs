@@ -24,10 +24,10 @@ buildPythonPackage rec {
     sha256 = "sha256-mMiEVenDBNmeXMrDSZamUpnSm+4BQEgfK89zxIaFMio=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook matplotlib mock pytest-xdist torchvision ];
+  checkInputs = [ pytestCheckHook matplotlib mock pytest-xdist torchvision ];
   propagatedBuildInputs = [ packaging torch scikit-learn tqdm ];
 
-  # runs successfully in 3.9, however, async isn't correctly closed so it will fail after test suite.
+  # runs succesfully in 3.9, however, async isn't correctly closed so it will fail after test suite.
   doCheck = pythonOlder "3.9";
 
   # Some packages are not in NixPkgs; other tests try to build distributed

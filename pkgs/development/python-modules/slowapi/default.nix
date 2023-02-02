@@ -15,16 +15,16 @@
 
 buildPythonPackage rec {
   pname = "slowapi";
-  version = "0.1.7";
+  version = "0.1.6";
   format = "pyproject";
 
-  disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "laurentS";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-IAB7JW8iVb5M610GVK0POXlSiya22KzNgr26BNvPC4Q=";
+    rev = "v${version}";
+    sha256 = "sha256-3ZkQnroHMCHuTPH/cvi/iWndvdyQ/ZJQ2Qtu1CZyeGg=";
   };
 
   nativeBuildInputs = [
@@ -36,7 +36,7 @@ buildPythonPackage rec {
     redis
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     fastapi
     hiro
     mock
@@ -65,7 +65,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library for API rate limiting";
     homepage = "https://github.com/laurentS/slowapi";
-    changelog = "https://github.com/laurentS/slowapi/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

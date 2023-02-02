@@ -19,21 +19,21 @@
 , unzip
 }:
 let
-  version = "0.61.3";
+  version = "0.58.18";
 
   src = fetchFromSourcehut {
     owner = "~sircmpwn";
     repo = "meta.sr.ht";
     rev = version;
-    hash = "sha256-wMcpdRSRvxYEV163mdTGOemk62gljua89SOtwe6qGXU=";
+    sha256 = "sha256-OjbQHAzG2nZwpJUIvhKaCJWZbhZDC2R6C+SkbKUpk8o=";
   };
 
   metasrht-api = buildGoModule ({
     inherit src version;
     pname = "metasrht-api";
     modRoot = "api";
-    vendorHash = "sha256-ZoDRGmGe9o5pn89gJ60wjSp5Cc0yxRfvdhNnbwAhmSI=";
-  } // import ./fix-gqlgen-trimpath.nix { inherit unzip; gqlgenVersion = "0.17.20"; });
+    vendorSha256 = "sha256-kiEuEYZFbwJ6SbKFtxH4SiRaZmqYriRHPoHdTX28+d0=";
+  } // import ./fix-gqlgen-trimpath.nix { inherit unzip; });
 
 in
 buildPythonPackage rec {
@@ -44,6 +44,8 @@ buildPythonPackage rec {
     substituteInPlace Makefile \
       --replace "all: api" ""
   '';
+
+  nativeBuildInputs = srht.nativeBuildInputs;
 
   propagatedBuildInputs = [
     pgpy

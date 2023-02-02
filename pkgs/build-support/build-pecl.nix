@@ -1,4 +1,4 @@
-{ stdenv, lib, php, autoreconfHook, fetchurl, re2c, nix-update-script }:
+{ stdenv, lib, php, autoreconfHook, fetchurl, re2c }:
 
 { pname
 , version
@@ -9,10 +9,9 @@
 , postPhpize ? ""
 , makeFlags ? [ ]
 , src ? fetchurl {
-    url = "https://pecl.php.net/get/${pname}-${version}.tgz";
+    url = "http://pecl.php.net/get/${pname}-${version}.tgz";
     inherit (args) sha256;
   }
-, passthru ? { }
 , ...
 }@args:
 
@@ -35,12 +34,4 @@ stdenv.mkDerivation (args // {
       internalDeps}
   '';
   checkPhase = "NO_INTERACTON=yes make test";
-
-  passthru = passthru // {
-    # Thes flags were introduced for `nix-update` so that it can update
-    # PHP extensions correctly.
-    # See the corresponding PR: https://github.com/Mic92/nix-update/pull/123
-    isPhpExtension = true;
-    updateScript = nix-update-script {};
-  };
 })

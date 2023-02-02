@@ -25,7 +25,7 @@ buildPythonPackage rec {
     zipp
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

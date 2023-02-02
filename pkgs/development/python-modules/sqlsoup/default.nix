@@ -10,7 +10,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ sqlalchemy ];
-  nativeCheckInputs = [ nose ];
+  checkInputs = [ nose ];
 
   meta = with lib; {
     description = "A one step database access tool, built on the SQLAlchemy ORM";

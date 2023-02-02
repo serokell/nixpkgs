@@ -6,7 +6,6 @@
 , bigarray-overlap
 , bigstringaf
 , buildDunePackage
-, cmdliner
 , emile
 , fetchzip
 , fmt
@@ -17,7 +16,6 @@
 , ke
 , lib
 , mirage-crypto-rng
-, ocaml
 , pecu
 , prettym
 , ptime
@@ -36,9 +34,7 @@ buildDunePackage rec {
     sha256 = "14k67v0b39b8jq3ny2ymi8g8sqx2gd81mlzsjphdzdqnlx6fk716";
   };
 
-  duneVersion = "3";
-
-  buildInputs = [ cmdliner hxd ];
+  useDune2 = true;
 
   propagatedBuildInputs = [
     angstrom
@@ -62,11 +58,12 @@ buildDunePackage rec {
     mirage-crypto-rng
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     alcotest
+    hxd
     jsonm
   ];
-  doCheck = lib.versionOlder ocaml.version "5.0";
+  doCheck = true;
 
   meta = {
     description = "Parser and generator of mail in OCaml";

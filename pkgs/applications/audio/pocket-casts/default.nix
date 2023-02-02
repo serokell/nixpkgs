@@ -3,11 +3,11 @@
 
 stdenv.mkDerivation rec {
   pname = "pocket-casts";
-  version = "0.6.0";
+  version = "0.5.0";
 
   src = fetchurl {
     url = "https://github.com/felicianotech/pocket-casts-desktop-app/releases/download/v${version}/${pname}_${version}_amd64.deb";
-    sha256 = "sha256-nHdF9RDOkM9HwwmK/axiIPM4nmKrWp/FHNC/EI1vTTc=";
+    sha256 = "sha256-frBtIxwRO/6k6j0itqN10t+9AyNadqXm8vC1YP960ts=";
   };
 
   nativeBuildInputs = [
@@ -18,32 +18,31 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ alsa-lib gtk3 libXScrnSaver libXtst mesa nss ];
 
-  unpackCmd = ''
-    # If unpacking using -x option, there is a permission error
-    dpkg-deb --fsys-tarfile $src | tar -x --no-same-permissions --no-same-owner;
+  dontBuild = true;
+  dontConfigure = true;
+
+  unpackPhase = ''
+    dpkg-deb -x ${src} ./
   '';
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out
-    mv bin $out
-    mv lib $out
-    mv share $out
-
-    cp $out/lib/pocket-casts/resources/app/icon.png $out/share/pixmaps/pocket-casts.png
+    mv usr $out
+    mv opt $out
+    mv "$out/opt/Pocket Casts" $out/opt/pocket-casts
+    mv $out/share/icons/hicolor/0x0 $out/share/icons/hicolor/256x256
 
     runHook postInstall
   '';
 
   postFixup = ''
     substituteInPlace $out/share/applications/pocket-casts.desktop \
-      --replace Name=pocket-casts "Name=Pocket Casts" \
-      --replace GenericName=pocket-casts "GenericName=Podcasts App" \
-      --replace Exec=pocket-casts Exec=$out/bin/pocket-casts
+      --replace '"/opt/Pocket Casts/pocket-casts"' $out/bin/pocket-casts \
+      --replace '/usr/share/icons/hicolor/0x0/apps/pocket-casts.png' "pocket-casts"
     makeWrapper ${electron}/bin/electron \
       $out/bin/pocket-casts \
-      --add-flags $out/lib/pocket-casts/resources/app/main.js
+      --add-flags $out/opt/pocket-casts/resources/app.asar
   '';
 
   meta = with lib; {

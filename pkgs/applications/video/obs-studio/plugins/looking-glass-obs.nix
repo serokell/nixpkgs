@@ -7,7 +7,7 @@ stdenv.mkDerivation {
 
   src = looking-glass-client.src;
 
-  sourceRoot = "${looking-glass-client.src.name}/obs";
+  sourceRoot = "source/obs";
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ obs-studio libbfd SDL2 ];

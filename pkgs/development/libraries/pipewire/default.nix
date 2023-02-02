@@ -2,6 +2,7 @@
 , lib
 , buildPackages
 , fetchFromGitLab
+, removeReferencesTo
 , python3
 , meson
 , ninja
@@ -18,18 +19,20 @@
 , libjack2
 , libusb1
 , udev
+, libva
 , libsndfile
 , vulkan-headers
 , vulkan-loader
 , webrtc-audio-processing
 , ncurses
-, readline # meson can't find <7 as those versions don't have a .pc file
+, readline81 # meson can't find <7 as those versions don't have a .pc file
 , lilv
 , makeFontsConf
 , callPackage
 , nixosTests
 , withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind
 , valgrind
+, withMediaSession ? true
 , libcameraSupport ? true
 , libcamera
 , libdrm
@@ -42,7 +45,6 @@
 , sbc
 , libfreeaptx
 , ldacbt
-, liblc3
 , fdk_aac
 , libopus
 , nativeHspSupport ? true
@@ -64,10 +66,11 @@
 
 let
   mesonEnableFeature = b: if b then "enabled" else "disabled";
+  mesonList = l: "[" + lib.concatStringsSep "," l + "]";
 
   self = stdenv.mkDerivation rec {
     pname = "pipewire";
-    version = "0.3.64";
+    version = "0.3.58";
 
     outputs = [
       "out"
@@ -85,7 +88,7 @@ let
       owner = "pipewire";
       repo = "pipewire";
       rev = version;
-      sha256 = "sha256-wIvdciLBWIQjENEipzbVID0eliOcEwqS567pLxVVOsc=";
+      sha256 = "sha256-r8sDXyXwtA2o2xqglOI8XflttSScrqJ57cj1//k2tZ8=";
     };
 
     patches = [
@@ -122,7 +125,7 @@ let
       libsndfile
       lilv
       ncurses
-      readline
+      readline81
       udev
       vulkan-headers
       vulkan-loader
@@ -131,7 +134,7 @@ let
     ++ lib.optionals gstreamerSupport [ gst_all_1.gst-plugins-base gst_all_1.gstreamer ]
     ++ lib.optionals libcameraSupport [ libcamera libdrm ]
     ++ lib.optional ffmpegSupport ffmpeg
-    ++ lib.optionals bluezSupport [ bluez libfreeaptx ldacbt liblc3 sbc fdk_aac libopus ]
+    ++ lib.optionals bluezSupport [ bluez libfreeaptx ldacbt sbc fdk_aac libopus ]
     ++ lib.optional pulseTunnelSupport libpulseaudio
     ++ lib.optional zeroconfSupport avahi
     ++ lib.optional raopSupport openssl
@@ -139,7 +142,7 @@ let
     ++ lib.optionals x11Support [ libcanberra xorg.libX11 xorg.libXfixes ];
 
     # Valgrind binary is required for running one optional test.
-    nativeCheckInputs = lib.optional withValgrind valgrind;
+    checkInputs = lib.optional withValgrind valgrind;
 
     mesonFlags = [
       "-Ddocs=enabled"
@@ -164,7 +167,6 @@ let
       "-Dbluez5-backend-ofono=${mesonEnableFeature ofonoSupport}"
       "-Dbluez5-backend-hsphfpd=${mesonEnableFeature hsphfpdSupport}"
       "-Dbluez5-codec-lc3plus=disabled"
-      "-Dbluez5-codec-lc3=${mesonEnableFeature bluezSupport}"
       "-Dsysconfdir=/etc"
       "-Dpipewire_confdata_dir=${placeholder "lib"}/share/pipewire"
       "-Draop=${mesonEnableFeature raopSupport}"

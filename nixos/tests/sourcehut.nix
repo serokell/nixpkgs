@@ -18,10 +18,8 @@ let
           # passwordless ssh server
           services.openssh = {
             enable = true;
-            settings = {
-              PermitRootLogin = "yes";
-              PermitEmptyPasswords = true;
-            };
+            permitRootLogin = "yes";
+            extraConfig = "PermitEmptyPasswords yes";
           };
 
           users = {
@@ -37,7 +35,7 @@ let
           };
 
           security.sudo.wheelNeedsPassword = false;
-          nix.settings.trusted-users = [ "root" "build" ];
+          nix.trustedUsers = [ "root" "build" ];
           documentation.nixos.enable = false;
 
           # builds.sr.ht-image-specific network settings

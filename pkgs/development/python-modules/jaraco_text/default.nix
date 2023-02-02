@@ -14,14 +14,14 @@
 
 buildPythonPackage rec {
   pname = "jaraco.text";
-  version = "3.11.0";
+  version = "3.9.1";
   format = "pyproject";
 
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-DdtYlZX+F26oF5yAHKTs4r4Kpx83e5HzymW010GUg1E=";
+    sha256 = "sha256-1XzURIpYgCAxhCXgQZTol/lvwjuSuC/5MIok1cvys/s=";
   };
 
   pythonNamespaces = [
@@ -37,13 +37,13 @@ buildPythonPackage rec {
     jaraco-context
     jaraco_functools
     inflect
-  ] ++ lib.optionals (pythonOlder "3.9") [
+  ] ++ lib.optional (pythonOlder "3.9") [
     importlib-resources
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
-  ] ++ lib.optionals (pythonOlder "3.10") [
+  ] ++ lib.optional (pythonOlder "3.10") [
     pathlib2
   ];
 

@@ -14,7 +14,7 @@
 
 buildPythonPackage rec {
   pname = "notifications-python-client";
-  version = "6.4.1";
+  version = "6.4.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.8";
@@ -23,7 +23,7 @@ buildPythonPackage rec {
     owner = "alphagov";
     repo = pname;
     rev = version;
-    sha256 = "sha256-HEHerdwplsPAld23Al8sUARu4T5IJLmY5kucAz2791c=";
+    sha256 = "sha256-9HK7N35XqTl9VsRmwxalfdOuaBWiB5j05R8CSMwSHH0=";
   };
 
   propagatedBuildInputs = [
@@ -32,7 +32,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     freezegun
     mock
     pytest-mock

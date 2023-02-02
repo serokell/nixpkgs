@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "New user interface for spim, a MIPS simulator";
-    homepage = "https://spimsimulator.sourceforge.net/";
+    homepage = "http://spimsimulator.sourceforge.net/";
     license = licenses.bsdOriginal;
     maintainers = with maintainers; [ emilytrau ];
     platforms = platforms.linux;

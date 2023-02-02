@@ -1,27 +1,7 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, pkg-config
-, libGL
-, glib
-, gdk-pixbuf
-, xorg
-, libintl
-, pangoSupport ? true
-, pango
-, cairo
-, gobject-introspection
-, wayland
-, gnome
-, mesa
-, automake
-, autoconf
-, gstreamerSupport ? true
-, gst_all_1
-, harfbuzz
-, OpenGL
-}:
+{ lib, stdenv, fetchurl, fetchpatch, pkg-config, libGL, glib, gdk-pixbuf, xorg, libintl
+, pangoSupport ? true, pango, cairo, gobject-introspection, wayland, gnome
+, mesa, automake, autoconf
+, gstreamerSupport ? true, gst_all_1 }:
 
 stdenv.mkDerivation rec {
   pname = "cogl";
@@ -55,46 +35,26 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--enable-introspection"
-  ] ++ lib.optionals (!stdenv.isDarwin) [
     "--enable-kms-egl-platform"
     "--enable-wayland-egl-platform"
     "--enable-wayland-egl-server"
-    "--enable-gles1"
-    "--enable-gles2"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "--disable-glx"
-    "--without-x"
-  ] ++ lib.optionals gstreamerSupport [
-    "--enable-cogl-gst"
-  ];
+  ] ++ lib.optional gstreamerSupport "--enable-cogl-gst"
+  ++ lib.optionals (!stdenv.isDarwin) [ "--enable-gles1" "--enable-gles2" ];
 
   # TODO: this shouldn't propagate so many things
   # especially not gobject-introspection
-  propagatedBuildInputs = [
-    glib
-    gdk-pixbuf
-    gobject-introspection
-  ] ++ lib.optionals stdenv.isLinux [
-    wayland
-    mesa
-    libGL
-    xorg.libXrandr
-    xorg.libXfixes
-    xorg.libXcomposite
-    xorg.libXdamage
-  ] ++ lib.optionals gstreamerSupport [
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-  ];
+  propagatedBuildInputs = with xorg; [
+      glib gdk-pixbuf gobject-introspection wayland mesa
+      libGL libXrandr libXfixes libXcomposite libXdamage
+    ]
+    ++ lib.optionals gstreamerSupport [ gst_all_1.gstreamer
+                                               gst_all_1.gst-plugins-base ];
 
-  buildInputs = lib.optionals pangoSupport [ pango cairo harfbuzz ]
-    ++ lib.optionals stdenv.isDarwin [ OpenGL ];
+  buildInputs = lib.optionals pangoSupport [ pango cairo ];
 
-  COGL_PANGO_DEP_CFLAGS = toString (lib.optionals (stdenv.isDarwin && pangoSupport) [
-    "-I${pango.dev}/include/pango-1.0"
-    "-I${cairo.dev}/include/cairo"
-    "-I${harfbuzz.dev}/include/harfbuzz"
-  ]);
+  COGL_PANGO_DEP_CFLAGS
+    = lib.optionalString (stdenv.isDarwin && pangoSupport)
+      "-I${pango.dev}/include/pango-1.0 -I${cairo.dev}/include/cairo";
 
   #doCheck = true; # all tests fail (no idea why)
 
@@ -116,7 +76,7 @@ stdenv.mkDerivation rec {
       render without stepping on each other's toes.
     '';
 
-    platforms = platforms.unix;
+    platforms = platforms.mesaPlatforms;
     license = with licenses; [ mit bsd3 publicDomain sgi-b-20 ];
   };
 }

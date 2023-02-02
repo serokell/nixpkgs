@@ -1,12 +1,10 @@
 { lib
-, stdenv
 , rustPlatform
 , fetchFromGitHub
-, libusb1
+, libusb
 , libftdi
 , cargo-readme
 , pkg-config
-, AppKit
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -14,9 +12,7 @@ rustPlatform.buildRustPackage rec {
   version = "unstable-2022-09-15";
 
   nativeBuildInputs = [ pkg-config cargo-readme ];
-  buildInputs = [ libusb1 libftdi ] ++ lib.optionals stdenv.isDarwin [
-    AppKit
-  ];
+  buildInputs = [ libusb libftdi ];
 
   src = fetchFromGitHub {
     owner = "oxidecomputer";
@@ -25,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-yW7QcxTWbL2YsV2bvfhbqQ2nawlPQbYxBfIGCWo28GY=";
   };
 
-  cargoSha256 = "sha256-IurLI0ZQNpmiYwfcMZuxi7FWtSX+Ts7GYWFwUfD+Ji8=";
+  cargoSha256 = "sha256-UhO8VO3OCfYc8Xq/P+l9f5ZrhOD/TBzSClAeAXLJLlc=";
 
   meta = with lib; {
     description = "Debugger for Hubris";

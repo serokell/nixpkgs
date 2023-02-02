@@ -35,7 +35,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pydeck" ];
 
-  nativeCheckInputs = [ pytestCheckHook pandas ];
+  checkInputs = [ pytestCheckHook pandas ];
 
   # tries to start a jupyter server
   disabledTests = [ "test_nbconvert" ];

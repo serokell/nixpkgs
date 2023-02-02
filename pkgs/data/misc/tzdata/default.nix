@@ -2,24 +2,20 @@
 
 stdenv.mkDerivation rec {
   pname = "tzdata";
-  version = "2022g";
+  version = "2022d";
 
   srcs = [
     (fetchurl {
       url = "https://data.iana.org/time-zones/releases/tzdata${version}.tar.gz";
-      hash = "sha256-RJHbgoGulKhNk55Ce92D3DifJnZNJ9mlxS14LBZ2RHg=";
+      hash = "sha256-bs2+4n+kPc+knz1P2Lsd/vVMkNoavNgsmrzy3E8yHeA=";
     })
     (fetchurl {
       url = "https://data.iana.org/time-zones/releases/tzcode${version}.tar.gz";
-      hash = "sha256-lhC7C5ZW/0BMNhpB8yhtpTBktUadhPAMnLIxTIYU2nQ=";
+      hash = "sha256-1kS6D5OImTdOqMtVTjX7SvoPe9e3FsYXd80AUAuHWeA=";
     })
   ];
 
   sourceRoot = ".";
-
-  patches = lib.optionals stdenv.hostPlatform.isWindows [
-    ./0001-Add-exe-extension-for-MS-Windows-binaries.patch
-  ];
 
   outputs = [ "out" "bin" "man" "dev" ];
   propagatedBuildOutputs = [];
@@ -38,17 +34,22 @@ stdenv.mkDerivation rec {
     "CFLAGS+=-DZIC_BLOAT_DEFAULT=\\\"fat\\\""
     "cc=${stdenv.cc.targetPrefix}cc"
     "AR=${stdenv.cc.targetPrefix}ar"
-  ] ++ lib.optionals stdenv.hostPlatform.isWindows [
-    "CFLAGS+=-DHAVE_DIRECT_H"
-    "CFLAGS+=-DHAVE_SYMLINK=0"
-    "CFLAGS+=-DRESERVE_STD_EXT_IDS"
   ];
+
+  depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   doCheck = false; # needs more tools
 
-  installFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-    "zic=${buildPackages.tzdata.bin}/bin/zic"
-  ];
+  installFlags = [ "ZIC=./zic-native" ];
+
+  preInstall = ''
+     mv zic.o zic.o.orig
+     mv zic zic.orig
+     make $makeFlags cc=${stdenv.cc.nativePrefix}cc AR=${stdenv.cc.nativePrefix}ar zic
+     mv zic zic-native
+     mv zic.o.orig zic.o
+     mv zic.orig zic
+  '';
 
   postInstall =
     ''

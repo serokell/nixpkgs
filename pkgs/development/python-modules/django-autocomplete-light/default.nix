@@ -36,7 +36,7 @@ buildPythonPackage rec {
   # Too many un-packaged dependencies
   doCheck = false;
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     django-debug-toolbar
     django-extensions

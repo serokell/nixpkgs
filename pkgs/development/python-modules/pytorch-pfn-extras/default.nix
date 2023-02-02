@@ -12,18 +12,18 @@
 
 buildPythonPackage rec {
   pname = "pytorch-pfn-extras";
-  version = "0.6.3";
+  version = "0.6.1";
 
   src = fetchFromGitHub {
     owner = "pfnet";
     repo = pname;
     rev = "refs/tags/v${version}";
-    sha256 = "sha256-B8B5zULIuqiojP7bmj3sABC9dqYLqOX5CfEN6slOFZ8=";
+    sha256 = "sha256-wxTs/hfgqJn4DCxZj87V/zDKZc+thx3o5bWAvZe7EJU=";
   };
 
   propagatedBuildInputs = [ numpy packaging torch typing-extensions ];
 
-  nativeCheckInputs = [ onnx pytestCheckHook torchvision ];
+  checkInputs = [ onnx pytestCheckHook torchvision ];
 
   # ignore all pytest warnings
   preCheck = ''

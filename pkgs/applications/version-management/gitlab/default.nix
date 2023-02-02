@@ -1,7 +1,7 @@
 { stdenv, lib, fetchurl, fetchpatch, fetchFromGitLab, bundlerEnv
 , ruby, tzdata, git, nettools, nixosTests, nodejs, openssl
 , gitlabEnterprise ? false, callPackage, yarn
-, fixup_yarn_lock, replace, file, cacert, fetchYarnDeps, makeWrapper, pkg-config
+, fixup_yarn_lock, replace, file, cacert, fetchYarnDeps, makeWrapper
 }:
 
 let
@@ -20,11 +20,8 @@ let
     inherit ruby;
     gemdir = ./rubyEnv;
     gemset =
-      let x = import (gemdir + "/gemset.nix") src;
+      let x = import (gemdir + "/gemset.nix");
       in x // {
-        gpgme = x.gpgme // {
-          nativeBuildInputs = [ pkg-config ];
-        };
         # the openssl needs the openssl include files
         openssl = x.openssl // {
           buildInputs = [ openssl ];
@@ -40,7 +37,7 @@ let
         railties = x.railties // {
           dontBuild = false;
           patches = [ ./railties-remove-yarn-install-enhancement.patch ];
-          patchFlags = [ "-p2" ];
+          patchFlags = "-p2";
         };
       };
     groups = [
@@ -50,7 +47,7 @@ let
     # `console` executable.
     ignoreCollisions = true;
 
-    extraConfigPaths = [ "${src}/vendor" ];
+    extraConfigPaths = lib.forEach data.vendored_gems (gem: "${src}/vendor/gems/${gem}");
   };
 
   assets = stdenv.mkDerivation {
@@ -102,7 +99,6 @@ let
       yarn install --offline --frozen-lockfile --ignore-scripts --no-progress --non-interactive
 
       patchShebangs node_modules/
-      patchShebangs scripts/frontend/
 
       runHook postConfigure
     '';
@@ -112,7 +108,7 @@ let
 
       bundle exec rake gettext:po_to_json RAILS_ENV=production NODE_ENV=production
       bundle exec rake rake:assets:precompile RAILS_ENV=production NODE_ENV=production
-      bundle exec rake gitlab:assets:compile RAILS_ENV=production NODE_ENV=production
+      bundle exec rake gitlab:assets:compile_webpack_if_needed RAILS_ENV=production NODE_ENV=production
       bundle exec rake gitlab:assets:fix_urls RAILS_ENV=production NODE_ENV=production
       bundle exec rake gitlab:assets:check_page_bundle_mixins_css_for_sideeffects RAILS_ENV=production NODE_ENV=production
 
@@ -141,6 +137,9 @@ stdenv.mkDerivation {
   patches = [
     # Change hardcoded paths to the NixOS equivalent
     ./remove-hardcoded-locations.patch
+
+    # Bump pg to 1.4.3 (see https://github.com/NixOS/nixpkgs/pull/187946)
+    ./update-pg.patch
   ];
 
   postPatch = ''

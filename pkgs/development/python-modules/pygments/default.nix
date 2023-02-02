@@ -24,7 +24,7 @@ let pygments = buildPythonPackage
 
     # circular dependencies if enabled by default
     doCheck = false;
-    nativeCheckInputs = [
+    checkInputs = [
       lxml
       pytestCheckHook
       wcag-contrast-ratio

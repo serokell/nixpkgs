@@ -66,7 +66,7 @@ in
     port = mkOption {
       description = lib.mdDoc "Elasticsearch port to listen for HTTP traffic.";
       default = 9200;
-      type = types.port;
+      type = types.int;
     };
 
     tcp_port = mkOption {

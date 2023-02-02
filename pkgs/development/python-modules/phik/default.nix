@@ -20,18 +20,18 @@
 
 buildPythonPackage rec {
   pname = "phik";
-  version = "0.12.3";
+  version = "0.12.2";
   disabled = !isPy3k;
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "KaveIO";
     repo = "PhiK";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-9o3EDhgmne2J1QfzjjNQc1mUcyCzoVrCnWXqjWkiZU0=";
+    rev = "v${version}";
+    hash = "sha256-nr3804MLIBPFw/PlJ9B8xKFFGI5LDp8m2gLtJB7YcEE=";
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     nbconvert
     jupyter

@@ -1,18 +1,15 @@
 { lib
 , buildPythonPackage
-, faker
 , fetchFromGitHub
 , mock
 , six
 , pytestCheckHook
 , pythonOlder
-, zstd
-, stdenv
 }:
 
 buildPythonPackage rec {
   pname = "pymemcache";
-  version = "4.0.0";
+  version = "3.5.2";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -21,18 +18,16 @@ buildPythonPackage rec {
     owner = "pinterest";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-WgtHhp7lE6StoOBfSy9+v3ODe/+zUC7lGrc2S4M68+M=";
+    hash = "sha256-bsiFWZHGJO/07w6mFXzf0JwftJWClE2mTv86h8zT1K0=";
   };
 
   propagatedBuildInputs = [
     six
   ];
 
-  nativeCheckInputs = [
-    faker
+  checkInputs = [
     mock
     pytestCheckHook
-    zstd
   ];
 
   postPatch = ''
@@ -53,6 +48,5 @@ buildPythonPackage rec {
     homepage = "https://pymemcache.readthedocs.io/";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
-    broken = stdenv.is32bit;
   };
 }

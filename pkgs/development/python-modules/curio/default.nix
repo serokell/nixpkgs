@@ -9,16 +9,15 @@
 
 buildPythonPackage rec {
   pname = "curio";
-  version = "1.6";
-  format = "setuptools";
+  version = "1.5";
   disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-VipYbbICFrp9K+gmPeuesHnlYEj5uJBtEdX0WqgcUkc=";
+    sha256 = "sha256-rwghLlkLt9qOTMOcQgEnEUlNwg1iLxYhVbopbMLjvBA=";
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     sphinx
   ];
@@ -38,9 +37,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "curio" ];
 
   meta = with lib; {
-    description = "Library for performing concurrent I/O with coroutines in Python";
     homepage = "https://github.com/dabeaz/curio";
-    changelog = "https://github.com/dabeaz/curio/raw/${version}/CHANGES";
+    description = "Library for performing concurrent I/O with coroutines in Python";
     license = licenses.bsd3;
     maintainers = [ maintainers.marsam ];
   };

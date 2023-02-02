@@ -14,7 +14,7 @@ buildPythonPackage rec {
 
   };
 
-  nativeCheckInputs = [ nose ];
+  checkInputs = [ nose ];
 
   propagatedBuildInputs = [ requests responses ];
 

@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, itk_5_2, Cocoa }:
+{ lib, stdenv, fetchFromGitHub, cmake, itk, Cocoa }:
 
 stdenv.mkDerivation rec {
   pname   = "c3d";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ itk_5_2 ]
+  buildInputs = [ itk ]
     ++ lib.optional stdenv.isDarwin Cocoa;
 
   cmakeFlags = [ "-DCONVERT3D_USE_ITK_REMOTE_MODULES=OFF" ];

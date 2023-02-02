@@ -21,7 +21,7 @@ python3Packages.buildPythonApplication rec {
   outputs = [ "out" "doc" "man" ];
   nativeBuildInputs = [ ronn ];
 
-  nativeCheckInputs = with python3Packages; [
+  checkInputs = with python3Packages; [
     freezegun
     pytest
     pytest-cov

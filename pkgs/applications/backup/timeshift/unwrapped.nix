@@ -15,13 +15,13 @@
 
 stdenv.mkDerivation rec {
   pname = "timeshift";
-  version = "22.11.2";
+  version = "22.06.5";
 
   src = fetchFromGitHub {
     owner = "linuxmint";
     repo = "timeshift";
     rev = version;
-    sha256 = "yZNERRoNZ1K7BRiAu7sqVQyhghsS/AeZSODMVSm46oY=";
+    sha256 = "IHX/F3tnl3ckX20mnPHmuK/W4pRTFHzBUfaJg2sMpqc=";
   };
 
   patches = [
@@ -72,6 +72,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxmint/timeshift";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ShamrockLee bobby285271 ];
+    maintainers = with maintainers; [ ShamrockLee ];
   };
 }

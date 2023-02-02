@@ -4,6 +4,7 @@
 , fetchurl
 , gnome2
 , gst_all_1
+, gtk2
 , gtk3
 , libGL
 , libGLU
@@ -17,6 +18,7 @@
 , compat30 ? true
 , unicode ? true
 , withEGL ? true
+, withGtk2 ? (!stdenv.isDarwin)
 , withMesa ? lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms
 , withWebKit ? stdenv.isDarwin
 , webkitgtk
@@ -31,6 +33,11 @@
 , WebKit
 }:
 
+assert withGtk2 -> (!withWebKit);
+
+let
+  gtk = if withGtk2 then gtk2 else gtk3;
+in
 stdenv.mkDerivation rec {
   pname = "wxwidgets";
   version = "3.1.5";
@@ -53,13 +60,17 @@ stdenv.mkDerivation rec {
   buildInputs = [
     gst_all_1.gst-plugins-base
     gst_all_1.gstreamer
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    gtk3
+  ]
+  ++ lib.optionals (!stdenv.isDarwin) [
+    gtk
     libSM
     libXinerama
     libXtst
     libXxf86vm
     xorgproto
+  ]
+  ++ lib.optionals withGtk2 [
+    gnome2.GConf
   ]
   ++ lib.optional withMesa libGLU
   ++ lib.optional (withWebKit && !stdenv.isDarwin) webkitgtk
@@ -91,7 +102,8 @@ stdenv.mkDerivation rec {
   ++ lib.optionals stdenv.isDarwin [
     "--with-osx_cocoa"
     "--with-libiconv"
-  ] ++ lib.optionals withWebKit [
+  ]
+  ++ lib.optionals withWebKit [
     "--enable-webview"
     "--enable-webviewwebkit"
   ];
@@ -121,10 +133,6 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru = {
-    inherit compat28 compat30 unicode;
-  };
-
   meta = with lib; {
     homepage = "https://www.wxwidgets.org/";
     description = "A Cross-Platform C++ GUI Library";
@@ -141,5 +149,10 @@ stdenv.mkDerivation rec {
     license = licenses.wxWindows;
     maintainers = with maintainers; [ tfmoraes ];
     platforms = platforms.unix;
+  };
+
+  passthru = {
+    inherit gtk;
+    inherit compat28 compat30 unicode;
   };
 }

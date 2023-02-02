@@ -33,7 +33,7 @@ buildPythonPackage rec {
     tensorflow-probability
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nose
     pytestCheckHook
   ];

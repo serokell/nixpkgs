@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ jinja2 ];
 
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
 
   # for some reason tests only work if the module is properly installed
   checkPhase = ''

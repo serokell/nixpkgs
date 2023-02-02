@@ -18,7 +18,7 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ pytest-runner ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
   propagatedBuildInputs = [ pymatgen ];
 
   pythonImportsCheck = [ "pmg_lammps" ];

@@ -1,15 +1,15 @@
-{ lib, stdenv, fetchFromGitLab, getopt, lua, boost, libxcrypt, pkg-config, swig, perl, gcc }:
+{ lib, stdenv, fetchFromGitLab, getopt, lua, boost, pkg-config, swig, perl, gcc }:
 
 let
   self = stdenv.mkDerivation rec {
     pname = "highlight";
-    version = "4.4";
+    version = "4.2";
 
     src = fetchFromGitLab {
       owner = "saalen";
       repo = "highlight";
       rev = "v${version}";
-      sha256 = "sha256-XID4kjRTSEXgNlAnDeJJRaCU0AaEbXCma3R78o9mshI=";
+      sha256 = "sha256-KkLN8b2sJhDbYVfNANEg1prPfIySoL9N48PSQyXqE8I=";
     };
 
     enableParallelBuilding = true;
@@ -17,7 +17,7 @@ let
     nativeBuildInputs = [ pkg-config swig perl ]
       ++ lib.optional stdenv.isDarwin gcc;
 
-    buildInputs = [ getopt lua boost libxcrypt ];
+    buildInputs = [ getopt lua boost ];
 
     postPatch = ''
       substituteInPlace src/makefile \

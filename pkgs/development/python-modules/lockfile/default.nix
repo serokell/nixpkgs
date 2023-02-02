@@ -15,7 +15,7 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ pbr ];
-  nativeCheckInputs = [ nose ];
+  checkInputs = [ nose ];
 
   checkPhase = ''
     nosetests

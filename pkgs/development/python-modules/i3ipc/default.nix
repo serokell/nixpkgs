@@ -19,7 +19,7 @@ buildPythonPackage rec {
     fontDirectories = [ ];
   };
   FONTCONFIG_FILE = fontsConf; # Fontconfig error: Cannot load default config file
-  nativeCheckInputs = [ pytest xdpyinfo pytest-xvfb xorgserver i3 ];
+  checkInputs = [ pytest xdpyinfo pytest-xvfb xorgserver i3 ];
 
   postPatch = ''
     substituteInPlace test/i3.config \

@@ -1,44 +1,49 @@
 { lib
 , stdenv
 , buildPythonPackage
-, pythonOlder
 , fetchPypi
-, cython
+, substituteAll
+, pythonOlder
 , geos
-, setuptools
-, numpy
 , pytestCheckHook
+, cython
+, numpy
 }:
 
 buildPythonPackage rec {
-  pname = "shapely";
-  version = "2.0.0";
-  format = "pyproject";
-
-  disabled = pythonOlder "3.7";
+  pname = "Shapely";
+  version = "1.8.4";
+  disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-EfGxIxpsBCE/sSJsaWjRsbOzaexC0ellUGavh2MYYOo=";
+    sha256 = "sha256-oZXlHKr6IYKR8suqP+9p/TNTyT7EtlsqRyLEz0DDGYw=";
   };
 
   nativeBuildInputs = [
-    cython
     geos # for geos-config
-    setuptools
-  ];
-
-  buildInputs = [
-    geos
+    cython
   ];
 
   propagatedBuildInputs = [
     numpy
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
+
+  # Environment variable used in shapely/_buildcfg.py
+  GEOS_LIBRARY_PATH = "${geos}/lib/libgeos_c${stdenv.hostPlatform.extensions.sharedLibrary}";
+
+  patches = [
+    # Patch to search form GOES .so/.dylib files in a Nix-aware way
+    (substituteAll {
+      src = ./library-paths.patch;
+      libgeos_c = GEOS_LIBRARY_PATH;
+      libc = lib.optionalString (!stdenv.isDarwin) "${stdenv.cc.libc}/lib/libc${stdenv.hostPlatform.extensions.sharedLibrary}.6";
+    })
+ ];
 
   preCheck = ''
     rm -r shapely # prevent import of local shapely
@@ -58,10 +63,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "shapely" ];
 
   meta = with lib; {
-    changelog = "https://github.com/shapely/shapely/blob/${version}/CHANGES.txt";
-    description = "Manipulation and analysis of geometric objects";
-    homepage = "https://github.com/shapely/shapely";
-    license = licenses.bsd3;
+    description = "Geometric objects, predicates, and operations";
+    homepage = "https://pypi.python.org/pypi/Shapely/";
+    license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ knedlsepp ];
   };
 }

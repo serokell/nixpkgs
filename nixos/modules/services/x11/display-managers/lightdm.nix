@@ -83,7 +83,6 @@ in
     ./lightdm-greeters/pantheon.nix
     ./lightdm-greeters/tiny.nix
     ./lightdm-greeters/slick.nix
-    ./lightdm-greeters/mobile.nix
     (mkRenamedOptionModule [ "services" "xserver" "displayManager" "lightdm" "autoLogin" "enable" ] [
       "services"
       "xserver"

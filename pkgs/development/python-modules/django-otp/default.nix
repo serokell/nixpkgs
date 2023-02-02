@@ -28,7 +28,7 @@ buildPythonPackage rec {
     qrcode
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     freezegun
   ];
 

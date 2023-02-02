@@ -30,7 +30,7 @@ buildPythonPackage rec {
     pims
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     scikitimage
   ];

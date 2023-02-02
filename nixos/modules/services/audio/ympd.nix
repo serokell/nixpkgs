@@ -29,7 +29,7 @@ in {
         };
 
         port = mkOption {
-          type = types.port;
+          type = types.int;
           default = config.services.mpd.network.port;
           defaultText = literalExpression "config.services.mpd.network.port";
           description = lib.mdDoc "The port where MPD is listening.";

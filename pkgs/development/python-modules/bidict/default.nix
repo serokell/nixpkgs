@@ -26,7 +26,7 @@ buildPythonPackage rec {
     sphinx
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     hypothesis
     py
     pytestCheckHook

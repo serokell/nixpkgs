@@ -25,7 +25,7 @@ buildPythonPackage rec {
     lxml
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-cov
     mock

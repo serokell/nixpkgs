@@ -15,7 +15,6 @@
 , miniupnpc
 , dht
 , libnatpmp
-, libiconv
   # Build options
 , enableGTK3 ? false
 , gtk3
@@ -24,7 +23,7 @@
 , enableQt ? false
 , qt5
 , nixosTests
-, enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
+, enableSystemd ? stdenv.isLinux
 , enableDaemon ? true
 , enableCli ? true
 , installLib ? false
@@ -85,7 +84,7 @@ in stdenv.mkDerivation {
   ++ lib.optionals enableGTK3 [ gtk3 xorg.libpthreadstubs ]
   ++ lib.optionals enableSystemd [ systemd ]
   ++ lib.optionals stdenv.isLinux [ inotify-tools ]
-  ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  ;
 
   postInstall = ''
     mkdir $apparmor

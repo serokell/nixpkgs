@@ -49,7 +49,7 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     intake-parquet
     pytestCheckHook
   ] ++ passthru.optional-dependencies.server;

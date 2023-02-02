@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ gtk3 ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      attrPath = "pantheon.${pname}";
+    };
   };
 
   meta = with lib; {

@@ -5,6 +5,7 @@
 , poetry-core
 , grpclib
 , python-dateutil
+, dataclasses
 , black
 , jinja2
 , isort
@@ -20,7 +21,7 @@ buildPythonPackage rec {
   pname = "betterproto";
   version = "2.0.0b5";
   format = "pyproject";
-  disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "danielgtaylor";
@@ -34,6 +35,8 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     grpclib
     python-dateutil
+  ] ++ lib.optional (pythonOlder "3.7") [
+    dataclasses
   ];
 
   passthru.optional-dependencies.compiler = [
@@ -44,7 +47,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "betterproto" ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-asyncio
     pytest-mock

@@ -38,53 +38,29 @@ let
     '';
   };
 
-  mergeConfig = cfg: {
-    # wordpress is installed onto a read-only file system
-    DISALLOW_FILE_EDIT = true;
-    AUTOMATIC_UPDATER_DISABLED = true;
-    DB_NAME = cfg.database.name;
-    DB_HOST = "${cfg.database.host}:${if cfg.database.socket != null then cfg.database.socket else toString cfg.database.port}";
-    DB_USER = cfg.database.user;
-    DB_CHARSET = "utf8";
-    # Always set DB_PASSWORD even when passwordFile is not set. This is the
-    # default Wordpress behaviour.
-    DB_PASSWORD =  if (cfg.database.passwordFile != null) then { _file = cfg.database.passwordFile; } else "";
-  } // cfg.settings;
+  wpConfig = hostName: cfg: pkgs.writeText "wp-config-${hostName}.php" ''
+    <?php
+      define('DB_NAME', '${cfg.database.name}');
+      define('DB_HOST', '${cfg.database.host}:${if cfg.database.socket != null then cfg.database.socket else toString cfg.database.port}');
+      define('DB_USER', '${cfg.database.user}');
+      ${optionalString (cfg.database.passwordFile != null) "define('DB_PASSWORD', file_get_contents('${cfg.database.passwordFile}'));"}
+      define('DB_CHARSET', 'utf8');
+      $table_prefix  = '${cfg.database.tablePrefix}';
 
-  wpConfig = hostName: cfg: let
-    conf_gen = c: mapAttrsToList (k: v: "define('${k}', ${mkPhpValue v});") cfg.mergedConfig;
-  in pkgs.writeTextFile {
-    name = "wp-config-${hostName}.php";
-    text = ''
-      <?php
-        $table_prefix  = '${cfg.database.tablePrefix}';
+      require_once('${stateDir hostName}/secret-keys.php');
 
-        require_once('${stateDir hostName}/secret-keys.php');
+      # wordpress is installed onto a read-only file system
+      define('DISALLOW_FILE_EDIT', true);
+      define('AUTOMATIC_UPDATER_DISABLED', true);
 
-        ${cfg.extraConfig}
-        ${concatStringsSep "\n" (conf_gen cfg.mergedConfig)}
+      ${cfg.extraConfig}
 
-        if ( !defined('ABSPATH') )
-          define('ABSPATH', dirname(__FILE__) . '/');
+      if ( !defined('ABSPATH') )
+        define('ABSPATH', dirname(__FILE__) . '/');
 
-        require_once(ABSPATH . 'wp-settings.php');
-      ?>
-    '';
-    checkPhase = "${pkgs.php81}/bin/php --syntax-check $target";
-  };
-
-  mkPhpValue = v: let
-    isHasAttr = s: isAttrs v && hasAttr s v;
-  in
-    if isString v then escapeShellArg v
-    # NOTE: If any value contains a , (comma) this will not get escaped
-    else if isList v && any lib.strings.isCoercibleToString v then escapeShellArg (concatMapStringsSep "," toString v)
-    else if isInt v then toString v
-    else if isBool v then boolToString v
-    else if isHasAttr "_file" then "trim(file_get_contents(${lib.escapeShellArg v._file}))"
-    else if isHasAttr "_raw" then v._raw
-    else abort "The Wordpress config value ${lib.generators.toPretty {} v} can not be encoded."
-  ;
+      require_once(ABSPATH . 'wp-settings.php');
+    ?>
+  '';
 
   secretsVars = [ "AUTH_KEY" "SECURE_AUTH_KEY" "LOGGED_IN_KEY" "NONCE_KEY" "AUTH_SALT" "SECURE_AUTH_SALT" "LOGGED_IN_SALT" "NONCE_SALT" ];
   secretsScript = hostStateDir: ''
@@ -101,7 +77,7 @@ let
     fi
   '';
 
-  siteOpts = { lib, name, config, ... }:
+  siteOpts = { lib, name, ... }:
     {
       options = {
         package = mkOption {
@@ -307,42 +283,6 @@ let
           '';
         };
 
-        settings = mkOption {
-          type = types.attrsOf types.anything;
-          default = {};
-          description = lib.mdDoc ''
-            Structural Wordpress configuration.
-            Refer to <https://developer.wordpress.org/apis/wp-config-php>
-            for details and supported values.
-          '';
-          example = literalExpression ''
-            {
-              WP_DEFAULT_THEME = "twentytwentytwo";
-              WP_SITEURL = "https://example.org";
-              WP_HOME = "https://example.org";
-              WP_DEBUG = true;
-              WP_DEBUG_DISPLAY = true;
-              WPLANG = "de_DE";
-              FORCE_SSL_ADMIN = true;
-              AUTOMATIC_UPDATER_DISABLED = true;
-            }
-          '';
-        };
-
-        mergedConfig = mkOption {
-          readOnly = true;
-          default = mergeConfig config;
-          defaultText = literalExpression ''
-            {
-              DISALLOW_FILE_EDIT = true;
-              AUTOMATIC_UPDATER_DISABLED = true;
-            }
-          '';
-          description = lib.mdDoc ''
-            Read only representation of the final configuration.
-          '';
-        };
-
         extraConfig = mkOption {
           type = types.lines;
           default = "";
@@ -350,16 +290,11 @@ let
             Any additional text to be appended to the wp-config.php
             configuration file. This is a PHP script. For configuration
             settings, see <https://codex.wordpress.org/Editing_wp-config.php>.
-
-            **Note**: Please pass structured settings via
-            `services.wordpress.sites.${name}.settings` instead.
           '';
           example = ''
-            @ini_set( 'log_errors', 'Off' );
-            @ini_set( 'display_errors', 'On' );
+            define( 'AUTOSAVE_INTERVAL', 60 ); // Seconds
           '';
         };
-
       };
 
       config.virtualHost.hostName = mkDefault name;
@@ -474,8 +409,6 @@ in
       "d '${stateDir hostName}' 0750 ${user} ${webserver.group} - -"
       "d '${cfg.uploadsDir}' 0750 ${user} ${webserver.group} - -"
       "Z '${cfg.uploadsDir}' 0750 ${user} ${webserver.group} - -"
-      "d '${cfg.fontsDir}' 0750 ${user} ${webserver.group} - -"
-      "Z '${cfg.fontsDir}' 0750 ${user} ${webserver.group} - -"
     ]) eachSite);
 
     systemd.services = mkMerge [

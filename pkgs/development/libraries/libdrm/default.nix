@@ -5,11 +5,11 @@
 
 stdenv.mkDerivation rec {
   pname = "libdrm";
-  version = "2.4.114";
+  version = "2.4.113";
 
   src = fetchurl {
     url = "https://dri.freedesktop.org/${pname}/${pname}-${version}.tar.xz";
-    sha256 = "sha256-MEnPhDpH0S5e7vvDvjSW14L6CfQjRr8Lfe/j0eWY0CY=";
+    sha256 = "sha256-f9frKWf2O+tGBvItUOJ32ZNIDQXvdd2Iqb2OZ3Mj5eE=";
   };
 
   outputs = [ "out" "dev" "bin" ];
@@ -22,7 +22,6 @@ stdenv.mkDerivation rec {
     "-Dinstall-test-programs=true"
     "-Domap=enabled"
     "-Dcairo-tests=disabled"
-    "-Dvalgrind=${if withValgrind then "enabled" else "disabled"}"
   ] ++ lib.optionals stdenv.hostPlatform.isAarch [
     "-Dtegra=enabled"
     "-Detnaviv=enabled"
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
       the Mesa drivers, the X drivers, libva and similar projects.
     '';
     license = licenses.mit;
-    platforms = lib.subtractLists platforms.darwin platforms.unix;
+    platforms = platforms.unix;
     maintainers = with maintainers; [ primeos ];
   };
 }

@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pytoml ];
 
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
 
   meta = {
     description = "Load a PEP 517 backend from inside the source tree";

@@ -1,46 +1,36 @@
-{ lib
-, stdenv
+{ stdenv
+, lib
 , fetchFromGitHub
-, rocmUpdateScript
-, pkg-config
+, writeScript
+, addOpenGLRunpath
 , cmake
+, pkg-config
 , xxd
-, rocm-device-libs
-, rocm-thunk
-, libelf
+, elfutils
 , libdrm
+, llvm
 , numactl
-, valgrind
-, libxml2
-}:
+, rocm-device-libs
+, rocm-thunk }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation rec {
   pname = "rocm-runtime";
-  version = "5.4.1";
+  version = "5.3.0";
 
   src = fetchFromGitHub {
     owner = "RadeonOpenCompute";
     repo = "ROCR-Runtime";
-    rev = "rocm-${finalAttrs.version}";
-    hash = "sha256-JkTXTQmdESHSFbA6HZdMK3pYEApz9aoAlMzdXayzdyY=";
+    rev = "rocm-${version}";
+    hash = "sha256-26E7vA2JlC50zmpaQfDrFMlgjAqmfTdp9/A8g5caDqI=";
   };
 
-  sourceRoot = "${finalAttrs.src.name}/src";
+  sourceRoot = "source/src";
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    xxd
-  ];
+  nativeBuildInputs = [ cmake pkg-config xxd ];
 
-  buildInputs = [
-    rocm-thunk
-    libelf
-    libdrm
-    numactl
-    valgrind
-    libxml2
-  ];
+  buildInputs = [ elfutils libdrm llvm numactl ];
+
+  cmakeFlags = [ "-DCMAKE_PREFIX_PATH=${rocm-thunk}" ];
 
   postPatch = ''
     patchShebangs image/blit_src/create_hsaco_ascii_file.sh
@@ -55,22 +45,20 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   fixupPhase = ''
-    rm -rf $out/hsa/*
-    ln -s $out/{include,lib} $out/hsa
+    rm -rf $out/hsa
   '';
 
-  passthru.updateScript = rocmUpdateScript {
-    name = finalAttrs.pname;
-    owner = finalAttrs.src.owner;
-    repo = finalAttrs.src.repo;
-  };
+  passthru.updateScript = writeScript "update.sh" ''
+    #!/usr/bin/env nix-shell
+    #!nix-shell -i bash -p curl jq common-updater-scripts
+    version="$(curl -sL "https://api.github.com/repos/RadeonOpenCompute/ROCR-Runtime/releases?per_page=1" | jq '.[0].tag_name | split("-") | .[1]' --raw-output)"
+    update-source-version rocm-runtime "$version"
+  '';
 
   meta = with lib; {
     description = "Platform runtime for ROCm";
     homepage = "https://github.com/RadeonOpenCompute/ROCR-Runtime";
     license = with licenses; [ ncsa ];
-    maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
-    platforms = platforms.linux;
-    broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
+    maintainers = with maintainers; [ lovesegfault Flakebi ];
   };
-})
+}

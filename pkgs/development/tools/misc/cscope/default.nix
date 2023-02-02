@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
 
     license = "BSD-style";
 
-    homepage = "https://cscope.sourceforge.net/";
+    homepage = "http://cscope.sourceforge.net/";
 
     maintainers = with lib.maintainers; [viric];
 

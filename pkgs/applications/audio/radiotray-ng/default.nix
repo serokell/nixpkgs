@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     "-DBUILD_TESTS=${if doCheck then "ON" else "OFF"}"
   ];
 
-  nativeCheckInputs = [ gtest ];
+  checkInputs = [ gtest ];
   doCheck = !stdenv.isAarch64; # single failure that I can't explain
 
   preFixup = ''
@@ -93,6 +93,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ebruck/radiotray-ng";
     license = licenses.gpl3;
     maintainers = with maintainers; [ dtzWill ];
-    platforms = platforms.linux;
+    platforms = platforms.all;
   };
 }

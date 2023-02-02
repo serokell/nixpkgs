@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     "-DNGRAPH_UNIT_TEST_ENABLE:BOOL=OFF"
     "-DENABLE_SAMPLES:BOOL=OFF"
     "-DENABLE_CPPLINT:BOOL=OFF"
-  ] ++ lib.optionals enablePython [
+  ] ++ lib.optional enablePython [
     "-DENABLE_PYTHON:BOOL=ON"
   ];
 
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
     python
     tbb
     shellcheck
-  ] ++ lib.optionals enablePython (with python.pkgs; [
+  ] ++ lib.optional enablePython (with python.pkgs; [
     cython
     pybind11
   ]);

@@ -18,7 +18,7 @@ buildPythonPackage rec {
   # fails with: SyntaxError: invalid syntax
   doCheck = false;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "autocommand" ];
 

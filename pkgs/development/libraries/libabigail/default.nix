@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     python3
   ];
 

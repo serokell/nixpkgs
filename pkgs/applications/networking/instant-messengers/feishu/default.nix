@@ -61,13 +61,13 @@
 }:
 
 stdenv.mkDerivation rec {
-  version = "5.18.11";
+  version = "5.14.14";
   pname = "feishu";
-  packageHash = "9d89b152d581"; # A hash value used in the download url
+  packageHash = "2844ab12b34f"; # A hash value used in the download url
 
   src = fetchurl {
     url = "https://sf3-cn.feishucdn.com/obj/ee-appcenter/${packageHash}/Feishu-linux_x64-${version}.deb";
-    hash = "sha256-93LEybYePIEbmE8mjRL95haMuBuY0xH6/8fhwF7/ctM=";
+    sha256 = "c0ca999edc10d8ada08c46b33b15d7db0ced264248abd3ebfdb895d8457e1bec";
   };
 
   nativeBuildInputs = [
@@ -84,7 +84,6 @@ stdenv.mkDerivation rec {
     cups
     libXdamage
     libdrm
-    libgcrypt
     libxshmfence
     mesa
     nspr

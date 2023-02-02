@@ -2,7 +2,7 @@
 , buildPythonPackage
 , fetchPypi
 , jupyter-packaging
-, jupyter-server
+, jupyter_server
 , pytest-tornasync
 , pytestCheckHook
 }:
@@ -22,10 +22,10 @@ buildPythonPackage rec {
   ];
 
   propagatedBuildInputs = [
-    jupyter-server
+    jupyter_server
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-tornasync
     pytestCheckHook
   ];

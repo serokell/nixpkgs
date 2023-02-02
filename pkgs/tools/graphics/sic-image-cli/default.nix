@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "sic-image-cli";
-  version = "0.21.1";
+  version = "0.20.0";
 
   src = fetchFromGitHub {
     owner = "foresterre";
     repo = "sic";
     rev = "v${version}";
-    sha256 = "sha256-JSBvHbqGTwjiKRPuomXtFLgu77ZB4bOlV/JgzIxaWC0=";
+    sha256 = "sha256-KoDX/d457dTHsmz8VTPhfF2MiB5vZzLFKG46/L351SQ=";
   };
 
-  cargoSha256 = "sha256-HWnYBLxiz7Kd5rmgTFeIG8XtiRzhRKuo/vunJRPLdWU=";
+  cargoSha256 = "sha256-sKEZhJivLbos0KLzPCEnGgTCgbyWSIOvHMhoC1IaJRo=";
 
   nativeBuildInputs = [ installShellFiles nasm ];
 
@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description = "Accessible image processing and conversion from the terminal";
-    homepage = "https://github.com/foresterre/sic";
+    homepage = "https://github.com/foresterre/sic-image-cli";
     changelog = "https://github.com/foresterre/sic/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ asl20 /* or */ mit ];
     maintainers = with maintainers; [ figsoda ];

@@ -1,9 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, parted
-, systemd
-, argp-standalone
+{ stdenv, lib, fetchFromGitHub
+, parted, systemd, argp-standalone
 }:
 
 stdenv.mkDerivation rec {
@@ -18,18 +14,20 @@ stdenv.mkDerivation rec {
   };
 
   postPatch = ''
-    sed -i 's/-oroot -groot//' Makefile
+     sed -i 's/-oroot -groot//' Makefile
 
-    for f in f3write.h2w log-f3wr; do
-     substituteInPlace $f \
-       --replace '$(dirname $0)' $out/bin
-    done
+     for f in f3write.h2w log-f3wr; do
+      substituteInPlace $f \
+        --replace '$(dirname $0)' $out/bin
+     done
   '';
 
-  buildInputs = lib.optionals stdenv.isLinux [ systemd parted ]
-    ++ lib.optionals stdenv.isDarwin [ argp-standalone ];
+  buildInputs = lib.optional stdenv.isLinux [ systemd parted ]
+  ++ lib.optional stdenv.isDarwin [ argp-standalone ];
 
-  buildFlags = [
+  enableParallelBuilding = true;
+
+  buildFlags   = [
     "all" # f3read, f3write
   ]
   ++ lib.optional stdenv.isLinux "extra"; # f3brew, f3fix, f3probe
@@ -50,8 +48,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Fight Flash Fraud";
-    homepage = "https://fight-flash-fraud.readthedocs.io/en/stable/";
+    homepage = "http://oss.digirati.com.br/f3/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ makefu evils ];
+    maintainers = with maintainers; [ makefu ];
   };
 }

@@ -7,14 +7,11 @@
 
 stdenv.mkDerivation rec {
   pname = "mint-artwork";
-  version = "1.7.3";
+  version = "1.6.0";
 
   src = fetchurl {
-    urls = [
-      "http://packages.linuxmint.com/pool/main/m/mint-artwork/mint-artwork_${version}.tar.xz"
-      "https://web.archive.org/web/20221206154838/http://packages.linuxmint.com/pool/main/m/mint-artwork/mint-artwork_${version}.tar.xz"
-    ];
-    hash = "sha256-lusYlmTL71VTGSJFssuIZVu7xJMuZQ7wj2rMtO1lhZ8=";
+    url = "http://packages.linuxmint.com/pool/main/m/mint-artwork/mint-artwork_${version}.tar.xz";
+    hash = "sha256-un5T56zzN2vRVp42RHczDEKwrweSeygASkFJU5LXCDo=";
   };
 
   nativeBuildInputs = [
@@ -28,7 +25,9 @@ stdenv.mkDerivation rec {
     find . -type f -exec sed -i \
       -e s,/usr/share/backgrounds/linuxmint/default_background.jpg,${nixos-artwork.wallpapers.simple-dark-gray}/share/artwork/gnome/nix-wallpaper-simple-dark-gray.png,g \
       -e s,/usr/share,$out/share,g \
-      -e s,linuxmint-logo-ring-symbolic,cinnamon-symbolic,g \
+      -e s,DMZ-White,Vanilla-DMZ,g \
+      -e s,DMZ-Black,Vanilla-DMZ-AA,g \
+      -e s,linuxmint-logo-5,cinnamon-symbolic,g \
       {} +
 
     # fixup broken symlink
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/linuxmint/mint-artwork";
     description = "Artwork for the cinnamon desktop";
-    license = with licenses; [ gpl3Plus cc-by-40 ]; # from debian/copyright
+    license = licenses.gpl3; # from debian/copyright
     platforms = platforms.linux;
     maintainers = teams.cinnamon.members;
   };

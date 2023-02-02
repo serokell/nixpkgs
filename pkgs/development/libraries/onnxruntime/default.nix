@@ -14,7 +14,6 @@
 , nlohmann_json
 , boost
 , oneDNN
-, abseil-cpp_202111
 , gtest
 , pythonSupport ? false
 , nsync
@@ -28,15 +27,23 @@
 
 assert pythonSupport -> lib.versionOlder protobuf.version "3.20";
 
+let
+  # prefetch abseil
+  # Note: keep URL in sync with `cmake/external/abseil-cpp.cmake`
+  abseil = fetchurl {
+    url = "https://github.com/abseil/abseil-cpp/archive/refs/tags/20211102.0.zip";
+    sha256 = "sha256-pFZ/8C+spnG5XjHTFbqxi0K2xvGmDpHG6oTlohQhEsI=";
+  };
+in
 stdenv.mkDerivation rec {
   pname = "onnxruntime";
-  version = "1.13.1";
+  version = "1.12.1";
 
   src = fetchFromGitHub {
     owner = "microsoft";
     repo = "onnxruntime";
     rev = "v${version}";
-    sha256 = "sha256-paaeq6QeiOzwiibbz0GkYZxEI/V80lvYNYTm6AuyAXQ=";
+    sha256 = "sha256-wwllEemiHTp9aJcCd1gsTS4WUVMp5wW+4i/+6DzmAeM=";
     fetchSubmodules = true;
   };
 
@@ -44,8 +51,8 @@ stdenv.mkDerivation rec {
     # Use dnnl from nixpkgs instead of submodules
     (fetchpatch {
       name = "system-dnnl.patch";
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/system-dnnl.diff?h=python-onnxruntime&id=9c392fb542979981fe0026e0fe3cc361a5f00a36";
-      sha256 = "sha256-+kedzJHLFU1vMbKO9cn8fr+9A5+IxIuiqzOfR2AfJ0k=";
+      url = "https://aur.archlinux.org/cgit/aur.git/plain/system-dnnl.diff?h=python-onnxruntime&id=0185531906bda3a9aba93bbb0f3dcfeb0ae671ad";
+      sha256 = "sha256-58RBrQnAWNtc/1pmFs+PkZ6qCsL1LfMY3P0exMKzotA=";
     })
   ];
 
@@ -73,7 +80,6 @@ stdenv.mkDerivation rec {
     nsync
     python3Packages.numpy
     python3Packages.pybind11
-    python3Packages.packaging
   ];
 
   # TODO: build server, and move .so's to lib output
@@ -92,7 +98,6 @@ stdenv.mkDerivation rec {
     "-Donnxruntime_USE_PREINSTALLED_EIGEN=ON"
     "-Donnxruntime_USE_MPI=ON"
     "-Deigen_SOURCE_PATH=${eigen.src}"
-    "-DFETCHCONTENT_SOURCE_DIR_ABSEIL_CPP=${abseil-cpp_202111.src}"
     "-Donnxruntime_USE_DNNL=YES"
   ] ++ lib.optionals pythonSupport [
     "-Donnxruntime_ENABLE_PYTHON=ON"
@@ -101,12 +106,15 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   postPatch = ''
+    substituteInPlace cmake/external/abseil-cpp.cmake \
+      --replace "${abseil.url}" "${abseil}"
+
     substituteInPlace cmake/libonnxruntime.pc.cmake.in \
       --replace '$'{prefix}/@CMAKE_INSTALL_ @CMAKE_INSTALL_
   '';
 
   postBuild = lib.optionalString pythonSupport ''
-    python ../setup.py bdist_wheel
+    ${python3Packages.python.interpreter} ../setup.py bdist_wheel
   '';
 
   postInstall = ''

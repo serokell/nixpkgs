@@ -1,7 +1,7 @@
 { lib
 , stdenv
 , substituteAll
-, buildPythonPackage
+, buildPythonApplication
 , fetchPypi
 , joblib
 , segments
@@ -13,18 +13,17 @@
 , pytest-cov
 }:
 
-buildPythonPackage rec {
+buildPythonApplication rec {
   pname = "phonemizer";
   version = "3.2.1";
-  format = "setuptools";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-Bo+F+FqKmtxjijeHrqyvcaU+R1eLEtdzwJdDNQDNiSs=";
+    sha256 = "sha256-Bo+F+FqKmtxjijeHrqyvcaU+R1eLEtdzwJdDNQDNiSs=";
   };
 
   postPatch = ''
-    sed -i '/pytest-runner/d setup.py
+    sed -i -e '/\'pytest-runner\'/d setup.py
   '';
 
   patches = [
@@ -48,7 +47,7 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

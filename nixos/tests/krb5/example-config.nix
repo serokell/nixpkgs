@@ -11,7 +11,7 @@ import ../make-test-python.nix ({ pkgs, ...} : {
     { pkgs, ... }: {
       krb5 = {
         enable = true;
-        kerberos = pkgs.krb5;
+        kerberos = pkgs.krb5Full;
         libdefaults = {
           default_realm = "ATHENA.MIT.EDU";
         };

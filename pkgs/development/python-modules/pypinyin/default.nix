@@ -20,7 +20,7 @@ buildPythonPackage rec {
       "--cov-report term-missing" ""
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

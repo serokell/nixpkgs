@@ -67,7 +67,7 @@ buildPythonApplication rec {
     pango
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

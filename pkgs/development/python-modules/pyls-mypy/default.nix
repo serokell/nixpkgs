@@ -34,11 +34,11 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeCheckInputs = [ mock pytest-cov coverage pytestCheckHook ];
+  checkInputs = [ mock pytest-cov coverage pytestCheckHook ];
 
   propagatedBuildInputs = [
     mypy python-language-server configparser
-  ] ++ lib.optionals (isPy27) [
+  ] ++ lib.optional (isPy27) [
     future
   ];
 

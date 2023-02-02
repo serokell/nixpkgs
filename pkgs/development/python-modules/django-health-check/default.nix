@@ -13,13 +13,13 @@
 
 buildPythonPackage rec {
   pname = "django-health-check";
-  version = "3.17.0";
+  version = "3.16.5";
 
   src = fetchFromGitHub {
     owner = "KristianOellegaard";
     repo = pname;
-    rev = "refs/tags/${version}";
-    hash = "sha256-f87dgB2pDc+A0h41FX13qTj6Zzw5I4QwsDoC6yPkvAE=";
+    rev = version;
+    hash = "sha256-Jfzi+o4ja2sNCSPfX9eRq3WGid1gcfehhayAD1L4f2U=";
     leaveDotGit = true;
   };
 
@@ -33,7 +33,7 @@ buildPythonPackage rec {
     gitMinimal
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-django
     pytestCheckHook
     mock

@@ -3,7 +3,7 @@
 , fetchpatch
 , cmake
 , pkg-config
-, mbedtls_2
+, mbedtls
 , fuse
 }:
 
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ fuse mbedtls_2 ];
+  buildInputs = [ fuse mbedtls ];
 
   meta = with lib; {
     description = "Read BitLocker encrypted partitions in Linux";

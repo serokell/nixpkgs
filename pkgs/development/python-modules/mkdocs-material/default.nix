@@ -1,10 +1,7 @@
 { lib
 , callPackage
-, buildPythonPackage
+, buildPythonApplication
 , fetchFromGitHub
-, hatch-requirements-txt
-, hatch-nodejs-version
-, hatchling
 , jinja2
 , markdown
 , mkdocs
@@ -12,13 +9,12 @@
 , pygments
 , pymdown-extensions
 , pythonOlder
-, requests
 }:
 
-buildPythonPackage rec {
+buildPythonApplication rec {
   pname = "mkdocs-material";
-  version = "8.5.11";
-  format = "pyproject";
+  version = "8.4.3";
+  format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
@@ -26,14 +22,8 @@ buildPythonPackage rec {
     owner = "squidfunk";
     repo = pname;
     rev = "refs/tags/${version}";
-    hash = "sha256-jF5lpRv2itkhkqH7RzUXEH5e0Bia3SnTApfoy61RfJA=";
+    hash = "sha256-ntArFD/wnoFC2vMS9WjiFP5/I1XklgSPGKGxFXxdNxs=";
   };
-
-  nativeBuildInputs = [
-    hatch-requirements-txt
-    hatch-nodejs-version
-    hatchling
-  ];
 
   propagatedBuildInputs = [
     jinja2
@@ -42,7 +32,6 @@ buildPythonPackage rec {
     mkdocs-material-extensions
     pygments
     pymdown-extensions
-    requests
   ];
 
   # No tests for python

@@ -1,29 +1,26 @@
 { lib
+, python
 , buildPythonPackage
 , fetchPypi
 , pythonOlder
-, python
 }:
 
 buildPythonPackage rec {
   pname = "demjson3";
-  version = "3.0.6";
-  format = "setuptools";
+  version = "3.0.5";
 
-  disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-N8g7DG6wjSXe/IjfCipIddWKeAmpZQvW7uev2AU826w=";
+    sha256 = "103dc4pzwg8791q3zll1vv4gcc17d9v3jvr9zj23cpv9hpfsp6mb";
   };
 
   checkPhase = ''
     ${python.interpreter} test/test_demjson3.py
   '';
 
-  pythonImportsCheck = [
-    "demjson3"
-  ];
+  pythonImportsCheck = [ "demjson3" ];
 
   meta = with lib; {
     description = "Encoder/decoder and lint/validator for JSON (JavaScript Object Notation)";

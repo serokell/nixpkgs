@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-qx4r/h0B2Wjht+jZAjvFHvNQm7ohe7cwzuOCfh7oKGk=";
   };
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  checkInputs = [ unittestCheckHook ];
 
   pythonImportsCheck = [
     "contextlib2"

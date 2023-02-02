@@ -17,7 +17,7 @@ buildDunePackage rec {
   strictDeps = false;
 
   nativeBuildInputs = [ pkg-config ];
-  nativeCheckInputs = [ alcotest ];
+  checkInputs = [ alcotest ];
   doCheck = true;
 
   meta = {

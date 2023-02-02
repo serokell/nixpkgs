@@ -24,7 +24,7 @@ buildPythonPackage rec {
     pyparsing
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

@@ -5,8 +5,6 @@ let
     src,
     # Same as "Unique Identifier" on the extension's web page.
     # For the moment, only serve as unique extension dir.
-    vscodeExtPublisher,
-    vscodeExtName,
     vscodeExtUniqueId,
     configurePhase ? ''
       runHook preConfigure
@@ -25,10 +23,7 @@ let
 
     name = "vscode-extension-${name}";
 
-    passthru = {
-      inherit vscodeExtPublisher vscodeExtName vscodeExtUniqueId;
-    };
-
+    inherit vscodeExtUniqueId;
     inherit configurePhase buildPhase dontPatchELF dontStrip;
 
     installPrefix = "share/vscode/extensions/${vscodeExtUniqueId}";
@@ -59,12 +54,9 @@ let
   }: assert "" == name; assert null == src;
   buildVscodeExtension ((removeAttrs a [ "mktplcRef" "vsix" ]) // {
     name = "${mktplcRef.publisher}-${mktplcRef.name}-${mktplcRef.version}";
-    version = mktplcRef.version;
     src = if (vsix != null)
       then vsix
       else fetchVsixFromVscodeMarketplace mktplcRef;
-    vscodeExtPublisher = mktplcRef.publisher;
-    vscodeExtName = mktplcRef.name;
     vscodeExtUniqueId = "${mktplcRef.publisher}.${mktplcRef.name}";
   });
 
@@ -90,6 +82,7 @@ let
    vscodeDefault = vscode;
   };
 
+
   vscodeExts2nix = import ./vscodeExts2nix.nix {
     inherit lib writeShellScriptBin;
     vscodeDefault = vscode;
@@ -99,41 +92,10 @@ let
     inherit lib buildEnv writeShellScriptBin extensionsFromVscodeMarketplace jq;
     vscodeDefault = vscode;
   };
-
-  toExtensionJsonEntry = ext: rec {
-    identifier = {
-      id = ext.vscodeExtUniqueId;
-      uuid = "";
-    };
-
-    version = ext.version;
-
-    location = {
-      "$mid" = 1;
-      fsPath = ext.outPath + "/share/vscode/extensions/${ext.vscodeExtUniqueId}";
-      path = location.fsPath;
-      scheme = "file";
-    };
-
-    metadata = {
-      id = "";
-      publisherId = "";
-      publisherDisplayName = ext.vscodeExtPublisher;
-      targetPlatform = "undefined";
-      isApplicationScoped = false;
-      updated = false;
-      isPreReleaseVersion = false;
-      installedTimestamp = 0;
-      preRelease = false;
-    };
-  };
-
-  toExtensionJson = extensions: builtins.toJSON (map toExtensionJsonEntry extensions);
 in
 {
   inherit fetchVsixFromVscodeMarketplace buildVscodeExtension
           buildVscodeMarketplaceExtension extensionFromVscodeMarketplace
           extensionsFromVscodeMarketplace
-          vscodeWithConfiguration vscodeExts2nix vscodeEnv
-          toExtensionJsonEntry toExtensionJson;
+          vscodeWithConfiguration vscodeExts2nix vscodeEnv;
 }

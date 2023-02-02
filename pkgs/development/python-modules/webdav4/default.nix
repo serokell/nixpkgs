@@ -4,19 +4,17 @@
 , colorama
 , fetchFromGitHub
 , fsspec
-, hatch-vcs
-, hatchling
 , httpx
-, pytest-xdist
 , pytestCheckHook
 , python-dateutil
 , pythonOlder
+, setuptools-scm
 , wsgidav
 }:
 
 buildPythonPackage rec {
   pname = "webdav4";
-  version = "0.9.8";
+  version = "0.9.7";
   format = "pyproject";
 
   disabled = pythonOlder "3.9";
@@ -25,14 +23,13 @@ buildPythonPackage rec {
     owner = "skshetry";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-Le/gABaUxMmSW2SjgucsBKqjxOq1h9UCAWl5YyUsCPk=";
+    hash = "sha256-7v4dcwbTCGiEMkAQHtH9+zQj745dI0QqoEqdxRYRuO4=";
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
   nativeBuildInputs = [
-    hatch-vcs
-    hatchling
+    setuptools-scm
   ];
 
   propagatedBuildInputs = [
@@ -40,10 +37,9 @@ buildPythonPackage rec {
     python-dateutil
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     cheroot
     colorama
-    pytest-xdist
     pytestCheckHook
     wsgidav
   ] ++ passthru.optional-dependencies.fsspec;

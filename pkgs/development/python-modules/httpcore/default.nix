@@ -17,7 +17,7 @@
 
 buildPythonPackage rec {
   pname = "httpcore";
-  version = "0.16.3";
+  version = "0.15.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -25,9 +25,14 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "encode";
     repo = pname;
-    rev = "refs/tags/${version}";
-    hash = "sha256-3bC97CTZi6An+owjoJF7Irtr7ONbP8RtNdTIGJRy0Ng=";
+    rev = version;
+    hash = "sha256-FF3Yzac9nkVcA5bHVOz2ymvOelSfJ0K6oU8UWpBDcmo=";
   };
+
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace "h11>=0.11,<0.13" "h11>=0.11,<0.14"
+  '';
 
   propagatedBuildInputs = [
     anyio
@@ -45,7 +50,7 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     pproxy
     pytest-asyncio
     pytest-httpbin
@@ -57,12 +62,6 @@ buildPythonPackage rec {
   pythonImportsCheck = [
     "httpcore"
   ];
-
-  preCheck = ''
-    # remove upstreams pytest flags which cause:
-    # httpcore.ConnectError: TLS/SSL connection has been closed (EOF) (_ssl.c:997)
-    rm setup.cfg
-  '';
 
   pytestFlagsArray = [
     "--asyncio-mode=strict"

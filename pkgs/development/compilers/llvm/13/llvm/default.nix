@@ -17,9 +17,10 @@
 , debugVersion ? false
 , enableManpages ? false
 , enableSharedLibraries ? !stdenv.hostPlatform.isStatic
-# broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
-# broken for the armv7l builder
-, enablePFM ? stdenv.isLinux && !stdenv.hostPlatform.isAarch
+, enablePFM ? !(stdenv.isDarwin
+  || stdenv.isAarch64 # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
+  || stdenv.isAarch32 # broken for the armv7l builder
+)
 , enablePolly ? false
 }:
 
@@ -48,7 +49,7 @@ in stdenv.mkDerivation (rec {
   propagatedBuildInputs = optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ ncurses ]
     ++ [ zlib ];
 
-  nativeCheckInputs = [ which ];
+  checkInputs = [ which ];
 
   patches = [
     # When cross-compiling we configure llvm-config-native with an approximation

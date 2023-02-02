@@ -3,7 +3,6 @@
 , aiocoap
 , bleak
 , bleak-retry-connector
-, chacha20poly1305
 , chacha20poly1305-reuseable
 , commentjson
 , cryptography
@@ -18,7 +17,7 @@
 
 buildPythonPackage rec {
   pname = "aiohomekit";
-  version = "2.4.4";
+  version = "2.0.2";
   format = "pyproject";
 
   disabled = pythonOlder "3.9";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     owner = "Jc2k";
     repo = pname;
     rev = "refs/tags/${version}";
-    hash = "sha256-a7i8xBlTM3DZDZBzLe/sbMR4CNx7XMxNQ6tiMI6MoTg=";
+    hash = "sha256-pZEZHhsU/1tEX1VOFQ8b+ERJ8tU1pzRJMRYD28nfTb0=";
   };
 
   nativeBuildInputs = [
@@ -38,7 +37,6 @@ buildPythonPackage rec {
     aiocoap
     bleak
     bleak-retry-connector
-    chacha20poly1305
     chacha20poly1305-reuseable
     commentjson
     cryptography
@@ -48,7 +46,7 @@ buildPythonPackage rec {
 
   doCheck = lib.versionAtLeast pytest-aiohttp.version "1.0.0";
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-aiohttp
     pytestCheckHook
   ];
@@ -69,7 +67,6 @@ buildPythonPackage rec {
       Homekit accessories.
     '';
     homepage = "https://github.com/Jc2k/aiohomekit";
-    changelog = "https://github.com/Jc2k/aiohomekit/releases/tag/${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

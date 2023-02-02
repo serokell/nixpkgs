@@ -26,7 +26,7 @@ buildPythonPackage rec {
     cryptography
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-aiohttp
     pytestCheckHook
   ];

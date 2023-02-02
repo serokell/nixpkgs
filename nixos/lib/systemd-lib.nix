@@ -8,9 +8,9 @@ let
   systemd = cfg.package;
 in rec {
 
-  shellEscape = s: (replaceStrings [ "\\" ] [ "\\\\" ] s);
+  shellEscape = s: (replaceChars [ "\\" ] [ "\\\\" ] s);
 
-  mkPathSafeName = lib.replaceStrings ["@" ":" "\\" "[" "]"] ["-" "-" "-" "" ""];
+  mkPathSafeName = lib.replaceChars ["@" ":" "\\" "[" "]"] ["-" "-" "-" "" ""];
 
   # a type for options that take a unit name
   unitNameType = types.strMatching "[a-zA-Z0-9@%:_.\\-]+[.](service|socket|device|mount|automount|swap|target|path|timer|scope|slice)";
@@ -187,14 +187,11 @@ in rec {
         done
       done
 
-      # Symlink units defined by systemd.units where override strategy
-      # shall be automatically detected. If these are also provided by
-      # systemd or systemd.packages, then add them as
+      # Symlink all units defined by systemd.units. If these are also
+      # provided by systemd or systemd.packages, then add them as
       # <unit-name>.d/overrides.conf, which makes them extend the
       # upstream unit.
-      for i in ${toString (mapAttrsToList
-          (n: v: v.unit)
-          (lib.filterAttrs (n: v: (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists") units))}; do
+      for i in ${toString (mapAttrsToList (n: v: v.unit) units)}; do
         fn=$(basename $i/*)
         if [ -e $out/$fn ]; then
           if [ "$(readlink -f $i/$fn)" = /dev/null ]; then
@@ -213,21 +210,11 @@ in rec {
         fi
       done
 
-      # Symlink units defined by systemd.units which shall be
-      # treated as drop-in file.
-      for i in ${toString (mapAttrsToList
-          (n: v: v.unit)
-          (lib.filterAttrs (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin") units))}; do
-        fn=$(basename $i/*)
-        mkdir -p $out/$fn.d
-        ln -s $i/$fn $out/$fn.d/overrides.conf
-      done
-
       # Create service aliases from aliases option.
       ${concatStrings (mapAttrsToList (name: unit:
           concatMapStrings (name2: ''
             ln -sfn '${name}' $out/'${name2}'
-          '') (unit.aliases or [])) units)}
+          '') unit.aliases) units)}
 
       # Create .wants and .requires symlinks from the wantedBy and
       # requiredBy options.
@@ -235,13 +222,13 @@ in rec {
           concatMapStrings (name2: ''
             mkdir -p $out/'${name2}.wants'
             ln -sfn '../${name}' $out/'${name2}.wants'/
-          '') (unit.wantedBy or [])) units)}
+          '') unit.wantedBy) units)}
 
       ${concatStrings (mapAttrsToList (name: unit:
           concatMapStrings (name2: ''
             mkdir -p $out/'${name2}.requires'
             ln -sfn '../${name}' $out/'${name2}.requires'/
-          '') (unit.requiredBy or [])) units)}
+          '') unit.requiredBy) units)}
 
       ${optionalString (type == "system") ''
         # Stupid misc. symlinks.
@@ -258,7 +245,7 @@ in rec {
 
   makeJobScript = name: text:
     let
-      scriptName = replaceStrings [ "\\" "@" ] [ "-" "_" ] (shellEscape name);
+      scriptName = replaceChars [ "\\" "@" ] [ "-" "_" ] (shellEscape name);
       out = (pkgs.writeShellScriptBin scriptName ''
         set -e
         ${text}
@@ -353,7 +340,7 @@ in rec {
     '';
 
   targetToUnit = name: def:
-    { inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+    { inherit (def) aliases wantedBy requiredBy enable;
       text =
         ''
           [Unit]
@@ -362,7 +349,7 @@ in rec {
     };
 
   serviceToUnit = name: def:
-    { inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+    { inherit (def) aliases wantedBy requiredBy enable;
       text = commonUnitText def +
         ''
           [Service]
@@ -384,7 +371,7 @@ in rec {
     };
 
   socketToUnit = name: def:
-    { inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+    { inherit (def) aliases wantedBy requiredBy enable;
       text = commonUnitText def +
         ''
           [Socket]
@@ -395,7 +382,7 @@ in rec {
     };
 
   timerToUnit = name: def:
-    { inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+    { inherit (def) aliases wantedBy requiredBy enable;
       text = commonUnitText def +
         ''
           [Timer]
@@ -404,7 +391,7 @@ in rec {
     };
 
   pathToUnit = name: def:
-    { inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+    { inherit (def) aliases wantedBy requiredBy enable;
       text = commonUnitText def +
         ''
           [Path]
@@ -413,7 +400,7 @@ in rec {
     };
 
   mountToUnit = name: def:
-    { inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+    { inherit (def) aliases wantedBy requiredBy enable;
       text = commonUnitText def +
         ''
           [Mount]
@@ -422,7 +409,7 @@ in rec {
     };
 
   automountToUnit = name: def:
-    { inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+    { inherit (def) aliases wantedBy requiredBy enable;
       text = commonUnitText def +
         ''
           [Automount]
@@ -431,7 +418,7 @@ in rec {
     };
 
   sliceToUnit = name: def:
-    { inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+    { inherit (def) aliases wantedBy requiredBy enable;
       text = commonUnitText def +
         ''
           [Slice]

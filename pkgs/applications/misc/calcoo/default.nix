@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = "https://calcoo.sourceforge.net/";
+    homepage = "http://calcoo.sourceforge.net/";
     description = "RPN and algebraic scientific calculator";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ AndersonTorres ];

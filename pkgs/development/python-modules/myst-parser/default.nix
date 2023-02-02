@@ -19,23 +19,23 @@
 
 buildPythonPackage rec {
   pname = "myst-parser";
-  version = "0.18.1";
-  format = "pyproject";
+  version = "0.18.0";
 
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "executablebooks";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-wgRZwafAF05LtwjH6SVKzsY7bKeZ6lUlM3dB5PdOn1E=";
+    rev = "v${version}";
+    sha256 = "sha256-GEtrC7o5YnkuvBfQQfhG5P74QMiHz63Fdh1cC/r5CF0=";
   };
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace "docutils>=0.15,<0.19" "docutils>=0.15" \
-      --replace "sphinx>=4,<6" "sphinx"
+      --replace "docutils>=0.15,<0.19" "docutils>=0.15"
   '';
+
+  format = "flit";
 
   nativeBuildInputs = [ flit-core ];
 
@@ -51,7 +51,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "myst_parser" ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     beautifulsoup4
     pytest-param-files
     pytest-regressions
@@ -67,8 +67,6 @@ buildPythonPackage rec {
     "test_fieldlist_extension"
     # docutils 0.19 expectation mismatches
     "test_docutils_roles"
-    # sphinx 6.0 expectation mismatches
-    "test_sphinx_directives"
   ];
 
   meta = with lib; {

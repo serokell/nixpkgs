@@ -17,7 +17,7 @@ in
     };
 
     torControlPort = mkOption {
-      type = types.port;
+      type = types.int;
       default = 9051;
       description = lib.mdDoc ''
         Tor control port.

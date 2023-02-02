@@ -9,7 +9,7 @@
 
 buildPythonPackage rec {
   pname = "pysqueezebox";
-  version = "0.6.1";
+  version = "0.6.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.6";
@@ -17,15 +17,15 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "rajlaud";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-NCADVSsnaOJfLJ7i18i7d7wlWcyt1DoRFGOVXEEYHPI=";
+    rev = "v${version}";
+    hash = "sha256-0ArKVRy4H0NWShlQMziKvbHp9OjpAkEKp4zrvpVlXOk=";
   };
 
   propagatedBuildInputs = [
     aiohttp
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytestCheckHook
   ];

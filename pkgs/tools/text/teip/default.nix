@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  nativeCheckInputs = [ perl ];
+  checkInputs = [ perl ];
 
   postInstall = ''
     installManPage man/teip.1

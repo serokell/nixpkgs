@@ -10,7 +10,6 @@
 , glib
 , babl
 , libpng
-, llvmPackages
 , cairo
 , libjpeg
 , librsvg
@@ -37,14 +36,14 @@
 
 stdenv.mkDerivation rec {
   pname = "gegl";
-  version = "0.4.40";
+  version = "0.4.38";
 
   outputs = [ "out" "dev" "devdoc" ];
   outputBin = "dev";
 
   src = fetchurl {
     url = "https://download.gimp.org/pub/gegl/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-    sha256 = "zd6A0VpJ2rmmFO+Y+ATIzm5M/hM5o8JAw08/tFQ2uF0=";
+    sha256 = "sha256-5KM8hDClBC+6hDm1lTSOcYcPDZX7+IX/VT+QIMG+11A=";
   };
 
   nativeBuildInputs = [
@@ -78,11 +77,7 @@ stdenv.mkDerivation rec {
     luajit
     openexr
     suitesparse
-  ] ++ lib.optionals stdenv.isDarwin [
-    OpenCL
-  ] ++ lib.optionals stdenv.cc.isClang [
-    llvmPackages.openmp
-  ];
+  ] ++ lib.optional stdenv.isDarwin OpenCL;
 
   # for gegl-4.0.pc
   propagatedBuildInputs = [

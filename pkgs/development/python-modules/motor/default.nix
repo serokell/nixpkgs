@@ -8,32 +8,24 @@
 
 buildPythonPackage rec {
   pname = "motor";
-  version = "3.1.1";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "3.1.0";
+  disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "mongodb";
     repo = pname;
     rev = "refs/tags/${version}";
-    hash = "sha256-PD41ZyUFY4fYaO4Fo7kiTWcn1a6LOd81K3PWAAagmr4=";
+    sha256 = "sha256-Wc0C4sO33v/frBtZVV2u9ESunHKyJI+eQ59l72h2eFk=";
   };
 
-  propagatedBuildInputs = [
-    pymongo
-  ];
+  propagatedBuildInputs = [ pymongo ];
 
-  nativeCheckInputs = [
-    mockupdb
-  ];
+  checkInputs = [ mockupdb ];
 
   # network connections
   doCheck = false;
 
-  pythonImportsCheck = [
-    "motor"
-  ];
+  pythonImportsCheck = [ "motor" ];
 
   meta = with lib; {
     description = "Non-blocking MongoDB driver for Tornado or asyncio";

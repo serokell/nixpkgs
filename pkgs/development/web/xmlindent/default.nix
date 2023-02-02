@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "XML stream reformatter";
-    homepage = "https://xmlindent.sourceforge.net/";
+    homepage = "http://xmlindent.sourceforge.net/";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
     maintainers = [ ];

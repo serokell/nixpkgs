@@ -8,24 +8,18 @@
 , requests
 , pytestCheckHook
 , responses
-, setuptools
 }:
 
 buildPythonPackage rec {
   pname = "recipe-scrapers";
-  version = "14.26.0";
-  format = "pyproject";
+  version = "14.14.0";
 
   src = fetchFromGitHub {
     owner = "hhursev";
     repo = "recipe-scrapers";
-    rev = "refs/tags/${version}";
-    hash = "sha256-U7A9HmkXPcuYEsY/uGUVh3LYHDYhV/uizELh1/vXG+U=";
+    rev = version;
+    sha256 = "sha256-3qrjNd1jX4JP3qG9YX8MQqwPh8cvfkZa1tEk0uCwego=";
   };
-
-  nativeBuildInputs = [
-    setuptools
-  ];
 
   propagatedBuildInputs = [
     beautifulsoup4
@@ -35,7 +29,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     responses
   ];

@@ -1,19 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake
-  # passthru.tests
-, tmux
-, fcft
-, arrow-cpp
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "utf8proc";
-  version = "2.8.0";
+  version = "2.7.0";
 
   src = fetchFromGitHub {
     owner = "JuliaStrings";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-/lSD78kj133rpcSAOh8T8XFW/Z0c3JKkGQM5Z6DcMtU=";
+    sha256 = "sha256-UjZFW+ECU1qbKoo2J2GE8gMEas7trz7YI4mqF5WtOvM=";
   };
 
   nativeBuildInputs = [ cmake ];
@@ -24,10 +19,6 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
-
-  passthru.tests = {
-    inherit fcft tmux arrow-cpp;
-  };
 
   meta = with lib; {
     description = "A clean C library for processing UTF-8 Unicode data";

@@ -33,7 +33,7 @@ in stdenv.mkDerivation rec {
 
   # Tests freeze on darwin with: pass-audit-1.1 (checkPhase): EOFError
   doCheck = !stdenv.isDarwin;
-  nativeCheckInputs = [ pythonPackages.green pass gnupg ];
+  checkInputs = [ pythonPackages.green pass gnupg ];
   checkPhase = ''
     ${pythonEnv}/bin/python3 setup.py green -q
   '';

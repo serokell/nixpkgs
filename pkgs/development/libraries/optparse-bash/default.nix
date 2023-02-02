@@ -29,7 +29,7 @@ stdenvNoCC.mkDerivation {
 
   doCheck = true;
 
-  nativeCheckInputs = [ bash ];
+  checkInputs = [ bash ];
 
   # `#!/usr/bin/env` isn't okay for OfBorg
   # Need external bash to run

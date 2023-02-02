@@ -9,11 +9,11 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "vis";
-  version  = "0.8";
+  version  = "0.7";
 
   src = fetchFromGitHub {
     rev = "v${version}";
-    sha256 = "sha256-XvWj6fZxzXeRA5oCAqIIwlfjrJcHnDrjeiPExEQKSkY=";
+    sha256 = "1g05ncsnk57kcqm9wsv6sz8b24kyzj8r5rfpa1wfwj8qkjzx3vji";
     repo = "vis";
     owner = "martanne";
   };

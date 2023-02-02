@@ -1,13 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, gitpython
-, click
-, ordered-set
-, pythonOlder
-, pillow
-, sortedcollections
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, GitPython, click, ordered-set, pillow, sortedcollections }:
 
 let
   aikku93-tilequant = fetchFromGitHub {
@@ -20,9 +11,6 @@ in
 buildPythonPackage rec {
   pname = "tilequant";
   version = "0.4.0.post0";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "SkyTemple";
@@ -35,26 +23,15 @@ buildPythonPackage rec {
     cp -R --no-preserve=mode ${aikku93-tilequant} __aikku93_tilequant
   '';
 
-  buildInputs = [
-    gitpython
-  ];
-
-  propagatedBuildInputs = [
-    click
-    ordered-set
-    pillow
-    sortedcollections
-  ];
+  buildInputs = [ GitPython ];
+  propagatedBuildInputs = [ click ordered-set pillow sortedcollections ];
 
   doCheck = false; # there are no tests
-
-  pythonImportsCheck = [
-    "skytemple_tilequant"
-  ];
+  pythonImportsCheck = [ "skytemple_tilequant" ];
 
   meta = with lib; {
-    description = "Tool for quantizing image colors using tile-based palette restrictions";
     homepage = "https://github.com/SkyTemple/tilequant";
+    description = "Tool for quantizing image colors using tile-based palette restrictions";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ xfix ];
   };

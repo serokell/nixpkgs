@@ -24,7 +24,6 @@
 , Cocoa
 , IOKit
 , libsamplerate
-, shaderc
 }:
 let
   assets = fetchsvn {
@@ -49,8 +48,6 @@ let
     "graphics_engine"
     # Internal library of STK, nothing to do about it
     "graphics_utils"
-    # Internal library.
-    "simd_wrapper"
     # This irrlicht is bundled with cmake
     # whereas upstream irrlicht still uses
     # archaic Makefiles, too complicated to switch to.
@@ -68,13 +65,13 @@ in
 stdenv.mkDerivation rec {
 
   pname = "supertuxkart";
-  version = "1.4";
+  version = "1.3";
 
   src = fetchFromGitHub {
     owner = "supertuxkart";
     repo = "stk-code";
     rev = version;
-    hash = "sha256-gqdaVvgNfCN40ZO/9y8+vTeIJPSq6udKxYZ/MAi4ZMM=";
+    sha256 = "1llyxkdc4m9gnjxqaxlpwvv3ayvpw2bfjzfkkrljaxhznq811g0l";
   };
 
   postPatch = ''
@@ -94,7 +91,6 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    shaderc
     SDL2
     glew
     libvorbis

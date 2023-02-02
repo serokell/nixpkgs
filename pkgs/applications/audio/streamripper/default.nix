@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ glib libogg libvorbis libmad ];
 
   meta = with lib; {
-    homepage = "https://streamripper.sourceforge.net/";
+    homepage = "http://streamripper.sourceforge.net/";
     description = "Application that lets you record streaming mp3 to your hard drive";
     license = licenses.gpl2;
   };

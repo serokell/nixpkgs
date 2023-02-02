@@ -21,7 +21,7 @@ buildPythonPackage rec  {
 
   propagatedBuildInputs = [ voluptuous ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     voluptuous
   ];

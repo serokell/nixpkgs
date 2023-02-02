@@ -46,6 +46,7 @@
 }:
 let
   testBackends = [
+    "dask"
     "datafusion"
     "duckdb"
     "pandas"
@@ -91,7 +92,7 @@ buildPythonPackage rec {
     toolz
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     click
     filelock

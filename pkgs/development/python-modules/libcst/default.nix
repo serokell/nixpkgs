@@ -17,7 +17,7 @@
 
 buildPythonPackage rec {
   pname = "libcst";
-  version = "0.4.9";
+  version = "0.4.7";
   format = "pyproject";
 
   disabled = pythonOlder "3.7";
@@ -26,14 +26,14 @@ buildPythonPackage rec {
     owner = "instagram";
     repo = pname;
     rev = "refs/tags/v${version}";
-    hash = "sha256-ikddvKsvXMNHMfA9jUhvyiDXII0tTs/rE97IGI/azgA=";
+    sha256 = "sha256-YrGajxs8t8PU4XRkFlhwtxoa9pzpKPXq8ZvN/uqftlE=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
     sourceRoot = "source/${cargoRoot}";
     name = "${pname}-${version}";
-    hash = "sha256-FWQGv3E5X+VEnTYD0uKN6W4USth8EQlEGbYgUAWZ5EQ=";
+    hash = "sha256-V/WHZVvh8HtD8IUNk3V4e8/E2A8DebqY5i/lS1X6x3o=";
   };
 
   cargoRoot = "native";
@@ -60,7 +60,7 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     hypothesis
     pytestCheckHook
   ];

@@ -1,28 +1,18 @@
-{ lib
-, stdenv
-, fetchurl
-, jdk
-, jre
-, swt
-, makeWrapper
-, xorg
-, dpkg
-}:
+{ lib, stdenv, fetchurl, jdk, jre, swt, makeWrapper, xorg, dpkg }:
 
 stdenv.mkDerivation rec {
   pname = "ipscan";
-  version = "3.9.0";
+  version = "3.8.2";
 
   src = fetchurl {
     url = "https://github.com/angryip/ipscan/releases/download/${version}/ipscan_${version}_all.deb";
-    sha256 = "sha256-HpsEp5XSz118cbV2wT81hzQT4cgDEBnpUbpl45ZVvlg=";
+    sha256 = "sha256-064V1KnMXBnjgM6mBrwkezdl+Tko3Xri0D4fCk9iPbk=";
   };
 
   sourceRoot = ".";
   unpackCmd = "${dpkg}/bin/dpkg-deb -x $src .";
 
   nativeBuildInputs = [ makeWrapper ];
-
   buildInputs = [ jdk ];
 
   installPhase = ''
@@ -44,9 +34,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Fast and friendly network scanner";
     homepage = "https://angryip.org";
-    changelog = "https://github.com/angryip/ipscan/blob/${version}/CHANGELOG";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.gpl2Only;
+    license = licenses.gpl2;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ kylesferrazza ];
   };

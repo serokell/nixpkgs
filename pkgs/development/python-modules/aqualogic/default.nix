@@ -23,7 +23,7 @@ buildPythonPackage rec {
     websockets
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     aiohttp
     pytestCheckHook
   ];

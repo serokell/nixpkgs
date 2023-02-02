@@ -25,7 +25,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     responses
   ];
 

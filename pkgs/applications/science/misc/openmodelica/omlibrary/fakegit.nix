@@ -13,7 +13,7 @@ let
 
   hashname = r:
     let
-      rpl = lib.replaceStrings [ ":" "/" ] [ "_" "_" ];
+      rpl = lib.replaceChars [ ":" "/" ] [ "_" "_" ];
     in
     (rpl r.url) + "-" + (rpl r.rev);
 

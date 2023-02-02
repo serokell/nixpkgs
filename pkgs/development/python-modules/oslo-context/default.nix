@@ -20,7 +20,7 @@ buildPythonPackage rec {
     pbr
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     oslotest
     stestr
   ];

@@ -62,7 +62,7 @@ buildPythonPackage rec {
     pyperclip
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     codecov
     coverage
     mock

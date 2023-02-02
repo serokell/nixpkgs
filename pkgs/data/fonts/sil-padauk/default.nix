@@ -1,26 +1,27 @@
 { fetchzip, lib }:
 
 let
-  version = "5.001";
+  version = "3.003";
 in
-fetchzip rec {
+fetchzip {
   name = "sil-padauk-${version}";
-  url = "https://software.sil.org/downloads/r/padauk/Padauk-${version}.zip";
-  sha256 = "sha256-6H9EDmXr1Ox2fgLw9sG5JrCAllK3tbjvMfLi8DTF1f0=";
+  url = "mirror://debian/pool/main/f/fonts-sil-padauk/fonts-sil-padauk_${version}.orig.tar.xz";
+  sha256 = "sha256-oK+EufbvsqXunTgcWj+DiNdfpRl+VPO60Wc9KYjZv5A=";
 
   postFetch = ''
-    mkdir -p $out/share/fonts/truetype
-    rm -rf $out/{manifest.json,web/}
-    mv $out/*.ttf $out/share/fonts/truetype/
-    mkdir -p $out/share/doc/${name}
-    mv $out/*.txt $out/documentation/ $out/share/doc/${name}/
+    unpackDir="$TMPDIR/unpack"
+    mkdir "$unpackDir"
+    cd "$unpackDir"
+    tar xf "$downloadedFile" --strip-components=1
+    mkdir -p $out/share/fonts
+    cp *.ttf $out/share/fonts
   '';
 
   meta = with lib; {
-    description = "A Unicode-based font family with broad support for writing systems that use the Myanmar script";
+    description = "Burmese Unicode 6 TrueType font";
     homepage = "https://software.sil.org/padauk";
     license = licenses.ofl;
-    maintainers = with maintainers; [ serge ];
+    maintainers = with lib.maintainers; [ serge ];
     platforms = platforms.all;
   };
 }

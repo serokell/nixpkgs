@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, premake5, doxygen, libsodium, mbedtls_2 }:
+{ lib, stdenv, fetchFromGitHub, premake5, doxygen, libsodium, mbedtls }:
 
 stdenv.mkDerivation {
   pname = "yojimbo";
@@ -13,7 +13,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ premake5 doxygen ];
-  propagatedBuildInputs = [ libsodium mbedtls_2 ];
+  propagatedBuildInputs = [ libsodium mbedtls ];
 
   postBuild = ''
     premake5 docs

@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     export LD_LIBRARY_PATH=${umockdev.out}/lib/
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     dbus
     gobject-introspection
     umockdev

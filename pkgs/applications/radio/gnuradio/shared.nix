@@ -7,7 +7,7 @@
 , features
 , versionAttr
 , sourceSha256
-# If overridden. No need to set default values, as they are given defaults in
+# If overriden. No need to set default values, as they are given defaults in
 # the main expressions
 , overrideSrc
 , fetchFromGitHub
@@ -84,11 +84,7 @@ rec {
   postInstall = ""
     # Gcc references
     + lib.optionalString (hasFeature "gnuradio-runtime") ''
-      ${removeReferencesTo}/bin/remove-references-to -t ${stdenv.cc} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})
-    ''
-    # Clang references in InstalledDir
-    + lib.optionalString (hasFeature "gnuradio-runtime" && stdenv.isDarwin) ''
-      ${removeReferencesTo}/bin/remove-references-to -t ${stdenv.cc.cc} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})
+      ${removeReferencesTo}/bin/remove-references-to -t ${stdenv.cc} $(readlink -f $out/lib/libgnuradio-runtime.so)
     ''
   ;
   # NOTE: Outputs are disabled due to upstream not using GNU InstallDIrs cmake
@@ -116,6 +112,7 @@ rec {
   doCheck = false;
 
   meta = with lib; {
+    broken = stdenv.isDarwin;
     description = "Software Defined Radio (SDR) software";
     longDescription = ''
       GNU Radio is a free & open-source software development toolkit that
@@ -129,6 +126,6 @@ rec {
     homepage = "https://www.gnuradio.org";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ doronbehar bjornfor fpletz jiegec ];
+    maintainers = with maintainers; [ doronbehar bjornfor fpletz ];
   };
 }

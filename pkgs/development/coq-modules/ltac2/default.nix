@@ -1,10 +1,10 @@
 { lib, mkCoqDerivation, which, coq, version ? null }:
 
-mkCoqDerivation {
+with lib; mkCoqDerivation {
   pname = "ltac2";
   owner = "coq";
   inherit version;
-  defaultVersion = with lib.versions; lib.switch coq.coq-version [
+  defaultVersion = with versions; switch coq.coq-version [
     { case = "8.10"; out = "0.3"; }
     { case = "8.9";  out = "0.2"; }
     { case = "8.8";  out = "0.1"; }
@@ -19,7 +19,7 @@ mkCoqDerivation {
 
   mlPlugin = true;
 
-  meta = with lib; {
+  meta = {
     description = "A robust and expressive tactic language for Coq";
     maintainers = [ maintainers.vbgl ];
     license = licenses.lgpl21;

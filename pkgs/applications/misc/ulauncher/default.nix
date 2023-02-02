@@ -16,16 +16,15 @@
 , wmctrl
 , xvfb-run
 , librsvg
-, libX11
 }:
 
 python3Packages.buildPythonApplication rec {
   pname = "ulauncher";
-  version = "5.15.0";
+  version = "5.12.1";
 
   src = fetchurl {
     url = "https://github.com/Ulauncher/Ulauncher/releases/download/${version}/ulauncher_${version}.tar.gz";
-    sha256 = "sha256-1Qo6ffMtVRtZDPCHvHEl7T0dPdDUxP4TP2hkSVSdQpo";
+    sha256 = "sha256-Fd3IOCEeXGV8zGd/8SzrWRsSsZRVePnsDaX8WrBrCOQ=";
   };
 
   nativeBuildInputs = with python3Packages; [
@@ -37,6 +36,7 @@ python3Packages.buildPythonApplication rec {
   ];
 
   buildInputs = [
+    gdk-pixbuf
     glib
     gnome.adwaita-icon-theme
     gtk3
@@ -55,14 +55,14 @@ python3Packages.buildPythonApplication rec {
     dbus-python
     pygobject3
     pyinotify
-    levenshtein
+    python-Levenshtein
     pyxdg
     pycairo
     requests
     websocket-client
   ];
 
-  nativeCheckInputs = with python3Packages; [
+  checkInputs = with python3Packages; [
     mock
     pytest
     pytest-mock
@@ -71,6 +71,7 @@ python3Packages.buildPythonApplication rec {
 
   patches = [
     ./fix-path.patch
+    ./0001-Adjust-get_data_path-for-NixOS.patch
     ./fix-extensions.patch
   ];
 
@@ -107,13 +108,13 @@ python3Packages.buildPythonApplication rec {
     makeWrapperArgs+=(
      "''${gappsWrapperArgs[@]}"
      --prefix PATH : "${lib.makeBinPath [ wmctrl ]}"
-     --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libX11 ]}"
-     --prefix WEBKIT_DISABLE_COMPOSITING_MODE : "1"
     )
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      attrPath = pname;
+    };
   };
 
 

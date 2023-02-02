@@ -1,45 +1,37 @@
-{ lib, buildNpmPackage, fetchFromGitHub, makeBinaryWrapper, makeDesktopItem, copyDesktopItems, electron, python3 }:
+{ pkgs, stdenv, lib, fetchFromGitHub, makeBinaryWrapper, makeDesktopItem, copyDesktopItems, nodejs, electron, python3, ... }:
 
-buildNpmPackage rec {
+let
+  nodeComposition = import ./node-composition.nix {
+    inherit pkgs nodejs;
+    inherit (stdenv.hostPlatform) system;
+  };
+in
+
+nodeComposition.package.override rec {
   pname = "open-stage-control";
-  version = "1.21.0";
+  inherit (nodeComposition.args) version;
 
   src = fetchFromGitHub {
     owner = "jean-emmanuel";
     repo = "open-stage-control";
     rev = "v${version}";
-    hash = "sha256-6tRd8boVwWc8qGlklYqA/Kp76VOMvtUJlu/G/InvHkA=";
+    hash = "sha256-q18pRtsHfme+OPmi3LhJDK1AdpfkwhoE9LA2rNenDtY=";
   };
-
-  # Remove some Electron stuff from package.json
-  postPatch = ''
-    sed -i -e '/"electron"\|"electron-installer-debian"/d' package.json
-  '';
-
-  npmDepsHash = "sha256-M+6+zrxy8VpJQS0dG/xORMbflKEq8wO2DEOjGrA6OUw=";
 
   nativeBuildInputs = [
     copyDesktopItems
     makeBinaryWrapper
-    python3
   ];
 
   buildInputs = [
     python3.pkgs.python-rtmidi
   ];
 
-  doInstallCheck = true;
+  dontNpmInstall = true;
 
-  makeCacheWritable = true;
-  npmFlags = [ "--legacy-peer-deps" ];
-
-  # Override installPhase so we can copy the only directory that matters (app)
-  installPhase = ''
-    runHook preInstall
-
-    # copy built app and node_modules directories
-    mkdir -p $out/lib/node_modules/open-stage-control
-    cp -r app $out/lib/node_modules/open-stage-control/
+  postInstall = ''
+    # build assets
+    npm run build
 
     # copy icon
     install -Dm644 resources/images/logo.png $out/share/icons/hicolor/256x256/apps/open-stage-control.png
@@ -51,13 +43,12 @@ buildNpmPackage rec {
       --add-flags $out/lib/node_modules/open-stage-control/app \
       --prefix PYTHONPATH : "$PYTHONPATH" \
       --prefix PATH : '${lib.makeBinPath [ python3 ]}'
-
-    runHook postInstall
   '';
 
   installCheckPhase = ''
     XDG_CONFIG_HOME="$(mktemp -d)" $out/bin/open-stage-control --help
   '';
+  doInstallCheck = true;
 
   desktopItems = [
     (makeDesktopItem {
@@ -70,8 +61,6 @@ buildNpmPackage rec {
       startupWMClass = "open-stage-control";
     })
   ];
-
-  passthru.updateScript = ./update.sh;
 
   meta = with lib; {
     description = "Libre and modular OSC / MIDI controller";

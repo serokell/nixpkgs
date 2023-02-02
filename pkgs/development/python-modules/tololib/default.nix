@@ -9,7 +9,7 @@
 
 buildPythonPackage rec {
   pname = "tololib";
-  version = "0.1.0b4";
+  version = "0.1.0b3";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -18,7 +18,7 @@ buildPythonPackage rec {
     owner = "MatthiasLohr";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-2OQaJR70bx8qWs1IPErF+B3X1iRvHW74axTqtdvum3U=";
+    sha256 = "qkdMy6/ZuBksbBTbDhPyCPWMjubQODjdMsqHTJ7QvQI=";
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
@@ -27,7 +27,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 
@@ -43,7 +43,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python Library for Controlling TOLO Sauna/Steam Bath Devices";
     homepage = "https://gitlab.com/MatthiasLohr/tololib";
-    changelog = "https://gitlab.com/MatthiasLohr/tololib/-/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

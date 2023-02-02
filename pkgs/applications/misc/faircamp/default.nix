@@ -2,10 +2,6 @@
 , rustPlatform
 , fetchgit
 , makeWrapper
-, pkg-config
-, glib
-, libopus
-, vips
 , ffmpeg
 , callPackage
 , unstableGitUpdater
@@ -13,27 +9,20 @@
 
 rustPlatform.buildRustPackage {
   pname = "faircamp";
-  version = "unstable-2022-10-08";
+  version = "unstable-2022-07-22";
 
   # TODO when switching to a stable release, use fetchFromGitea and add a
   # version test. Meanwhile, fetchgit is used to make unstableGitUpdater work.
   src = fetchgit {
     url = "https://codeberg.org/simonrepp/faircamp.git";
-    rev = "630415985127298bf82bfc210d2fc8b214758db1";
-    sha256 = "sha256-4pzDey0iV7LtHI0rbbcCjjuTaFt0CR88Vl0B1RU96v0=";
+    rev = "4803b6e0b59c1fc9922d1e498743a0171d7f324d";
+    sha256 = "sha256-VliBGYZPoX65JURlBaVMCMB5DuE/gqr27KcEzAVRFxc=";
   };
 
-  cargoHash = "sha256-GgWxxKHLGtsSGVbhli6HTfUu4TmbY4J9N7UA7AOzUkc=";
+  cargoHash = "sha256-fs7CXw6CS+TtMxLtDaQiYY6fiBFl4RCttymQJDAm6dg=";
 
   nativeBuildInputs = [
     makeWrapper
-    pkg-config
-  ];
-
-  buildInputs = [
-    glib
-    libopus
-    vips
   ];
 
   postInstall = ''

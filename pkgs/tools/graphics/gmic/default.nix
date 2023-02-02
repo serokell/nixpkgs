@@ -75,9 +75,6 @@ stdenv.mkDerivation rec {
 
     # CMake build files were moved to subdirectory.
     mv resources/CMakeLists.txt resources/cmake .
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace CMakeLists.txt \
-      --replace "LD_LIBRARY_PATH" "DYLD_LIBRARY_PATH"
   '';
 
   passthru = {

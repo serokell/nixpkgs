@@ -62,7 +62,7 @@ in {
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" ];
+        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
         RestrictRealtime = true;
         LockPersonality = true;
         MemoryDenyWriteExecute = true;

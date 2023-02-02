@@ -288,7 +288,7 @@ in {
       };
 
       port = mkOption {
-        type = types.port;
+        type = types.int;
         default = 49152;
         description = lib.mdDoc ''
           The network port to listen on.

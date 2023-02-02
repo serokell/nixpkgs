@@ -1,14 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cython, jq, pytestCheckHook }:
+{ buildPythonPackage, fetchPypi, lib, jq }:
 
 buildPythonPackage rec {
   pname = "jq";
-  version = "1.3.0";
+  version = "1.2.3";
 
-  src = fetchFromGitHub {
-    owner = "mwilliamson";
-    repo = "jq.py";
-    rev = version;
-    sha256 = "sha256-1EQm5ShjFHbO1IO5QD42fsGHFGDBrJulLrcl+WeU7wo=";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "sha256-15bXqaa6c6RMoHKqUAcOhPrhMBbqYHrDdnZAaFaHElc=";
   };
 
   patches = [
@@ -16,18 +14,10 @@ buildPythonPackage rec {
     ./jq-py-setup.patch
   ];
 
-  nativeBuildInputs = [ cython ];
-
   buildInputs = [ jq ];
 
-  preBuild = ''
-    cython jq.pyx
-  '';
-
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
-
+  # no tests executed
+  doCheck = false;
   pythonImportsCheck = [ "jq" ];
 
   meta = {

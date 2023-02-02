@@ -27,7 +27,7 @@ buildPythonPackage rec {
     "marshmallow_sqlalchemy"
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-lazy-fixture
     pytestCheckHook
   ];

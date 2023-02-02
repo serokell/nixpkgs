@@ -48,7 +48,7 @@ buildPythonPackage rec {
     websockets
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     hypothesis
     pytest-logdog
     pytest-asyncio
@@ -56,7 +56,7 @@ buildPythonPackage rec {
   ];
 
   pytestFlagsArray = [
-    "--asyncio-mode=auto"
+    "--asyncio-mode=legacy"
   ];
 
   disabledTestPaths = [

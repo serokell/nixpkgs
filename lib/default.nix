@@ -1,7 +1,7 @@
 /* Library of low-level helper functions for nix expressions.
  *
  * Please implement (mostly) exhaustive unit tests
- * for new functions in `./tests.nix`.
+ * for new functions in `./tests.nix'.
  */
 let
 
@@ -27,6 +27,7 @@ let
     maintainers = import ../maintainers/maintainer-list.nix;
     teams = callLibs ../maintainers/team-list.nix;
     meta = callLibs ./meta.nix;
+    sources = callLibs ./sources.nix;
     versions = callLibs ./versions.nix;
 
     # module system
@@ -52,9 +53,7 @@ let
     fetchers = callLibs ./fetchers.nix;
 
     # Eval-time filesystem handling
-    path = callLibs ./path;
     filesystem = callLibs ./filesystem.nix;
-    sources = callLibs ./sources.nix;
 
     # back-compat aliases
     platforms = self.systems.doubles;
@@ -64,7 +63,7 @@ let
 
     inherit (builtins) add addErrorContext attrNames concatLists
       deepSeq elem elemAt filter genericClosure genList getAttr
-      hasAttr head isAttrs isBool isInt isList isPath isString length
+      hasAttr head isAttrs isBool isInt isList isString length
       lessThan listToAttrs pathExists readFile replaceStrings seq
       stringLength sub substring tail trace;
     inherit (self.trivial) id const pipe concat or and bitAnd bitOr bitXor
@@ -79,7 +78,7 @@ let
     inherit (self.attrsets) attrByPath hasAttrByPath setAttrByPath
       getAttrFromPath attrVals attrValues getAttrs catAttrs filterAttrs
       filterAttrsRecursive foldAttrs collect nameValuePair mapAttrs
-      mapAttrs' mapAttrsToList concatMapAttrs mapAttrsRecursive mapAttrsRecursiveCond
+      mapAttrs' mapAttrsToList mapAttrsRecursive mapAttrsRecursiveCond
       genAttrs isDerivation toDerivation optionalAttrs
       zipAttrsWithNames zipAttrsWith zipAttrs recursiveUpdateUntil
       recursiveUpdate matchAttrs overrideExisting showAttrPath getOutput getBin
@@ -97,17 +96,14 @@ let
       concatImapStringsSep makeSearchPath makeSearchPathOutput
       makeLibraryPath makeBinPath optionalString
       hasInfix hasPrefix hasSuffix stringToCharacters stringAsChars escape
-      escapeShellArg escapeShellArgs
-      isStorePath isStringLike
-      isValidPosixName toShellVar toShellVars
+      escapeShellArg escapeShellArgs isValidPosixName toShellVar toShellVars
       escapeRegex escapeXML replaceChars lowerChars
       upperChars toLower toUpper addContextFrom splitString
       removePrefix removeSuffix versionOlder versionAtLeast
       getName getVersion
-      mesonOption mesonBool mesonEnable
       nameFromURL enableFeature enableFeatureAs withFeature
-      withFeatureAs fixedWidthString fixedWidthNumber
-      toInt toIntBase10 readPathsFromFile fileContents;
+      withFeatureAs fixedWidthString fixedWidthNumber isStorePath
+      toInt readPathsFromFile fileContents;
     inherit (self.stringsWithDeps) textClosureList textClosureMap
       noDepEntry fullDepEntry packEntry stringAfter;
     inherit (self.customisation) overrideDerivation makeOverridable
@@ -131,15 +127,14 @@ let
       mkAliasAndWrapDefinitions fixMergeModules mkRemovedOptionModule
       mkRenamedOptionModule mkRenamedOptionModuleWith
       mkMergedOptionModule mkChangedOptionModule
-      mkAliasOptionModule mkDerivedConfig doRename
-      mkAliasOptionModuleMD;
+      mkAliasOptionModule mkDerivedConfig doRename;
     inherit (self.options) isOption mkEnableOption mkSinkUndeclaredOptions
       mergeDefaultOption mergeOneOption mergeEqualOption mergeUniqueOption
       getValues getFiles
       optionAttrSetToDocList optionAttrSetToDocList'
       scrubOptionValue literalExpression literalExample literalDocBook
       showOption showOptionWithDefLocs showFiles
-      unknownModule mkOption mkPackageOption mkPackageOptionMD
+      unknownModule mkOption mkPackageOption
       mdDoc literalMD;
     inherit (self.types) isType setType defaultTypeMerge defaultFunctor
       isOptionType mkOptionType;

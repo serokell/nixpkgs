@@ -1,7 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, pythonOlder
+, isPy3k
 , hypothesis
 , setuptools-scm
 , six
@@ -19,7 +19,7 @@
 , pygments
 , tornado
 , requests
-, gitpython
+, GitPython
 , jupyter-server-mathjax
 , notebook
 , jinja2
@@ -28,18 +28,14 @@
 buildPythonPackage rec {
   pname = "nbdime";
   version = "3.1.1";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.6";
+  disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-Z3ZzIOlxN09wGhdapZq9OlVHIwOdOfrpCOctFjMNZIs=";
+    sha256 = "67767320e971374f701a175aa59abd3a554723039d39fae908e72d16330d648b";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     attrs
@@ -52,12 +48,12 @@ buildPythonPackage rec {
     pygments
     tornado
     requests
-    gitpython
+    GitPython
     notebook
     jinja2
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     hypothesis
     pytest-timeout
     pytest-tornado
@@ -81,10 +77,6 @@ buildPythonPackage rec {
   ];
 
   __darwinAllowLocalNetworking = true;
-
-  pythonImportsCheck = [
-    "nbdime"
-  ];
 
   meta = with lib; {
     homepage = "https://github.com/jupyter/nbdime";

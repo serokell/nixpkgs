@@ -2,7 +2,7 @@
 }:
 with nixpkgs;
 let
-  pyEnv = python3.withPackages(ps: [ ps.gitpython ]);
+  pyEnv = python3.withPackages(ps: [ ps.GitPython ]);
 in
 mkShell {
   packages = [

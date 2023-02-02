@@ -1,7 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
-, hatchling
+, poetry-core
 , pytestCheckHook
 , pythonOlder
 , pytz
@@ -10,7 +10,7 @@
 
 buildPythonPackage rec {
   pname = "dirty-equals";
-  version = "0.5.0";
+  version = "0.4";
   format = "pyproject";
 
   disabled = pythonOlder "3.7";
@@ -18,20 +18,21 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "samuelcolvin";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-yYptO6NPhQRlF0T2eXliw2WBms9uqTZVzdYzGj9pCug=";
+    rev = "v${version}";
+    hash = "sha256-rh7N/VRx4sv/MhhGPkaYCn2d19Sv5er2CkG6/fJuXX4=";
   };
 
   nativeBuildInputs = [
-    hatchling
+    poetry-core
   ];
 
   propagatedBuildInputs = [
     pytz
+  ] ++ lib.optionals (pythonOlder "3.8") [
     typing-extensions
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

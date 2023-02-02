@@ -6,7 +6,7 @@
 , six
 , decorator
 , nose
-, krb5
+, krb5Full
 , GSS
 , parameterized
 , shouldbe
@@ -17,25 +17,25 @@
 
 buildPythonPackage rec {
   pname = "gssapi";
-  version = "1.8.2";
+  version = "1.7.3";
   disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "pythongssapi";
     repo = "python-${pname}";
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-qz4EWAO++yq72/AGwyNOtH/fTRSFbiCo/K98htROUxI=";
+    rev = "v${version}";
+    sha256 = "sha256-/1YOnG6sCP8G8J3K2/RycTC95rXW9M+U3Mjz4GCt13s=";
   };
 
   # It's used to locate headers
   postPatch = ''
     substituteInPlace setup.py \
-      --replace 'get_output(f"{kc} gssapi --prefix")' '"${lib.getDev krb5}"'
+      --replace 'get_output(f"{kc} gssapi --prefix")' '"${lib.getDev krb5Full}"'
   '';
 
   nativeBuildInputs = [
     cython
-    krb5
+    krb5Full
   ];
 
   propagatedBuildInputs =  [
@@ -47,7 +47,7 @@ buildPythonPackage rec {
     GSS
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     k5test
     nose
     parameterized

@@ -1,6 +1,8 @@
 # tests available at pkgs/test/vim
-{ lib, stdenv, vim, vimPlugins, buildEnv, writeText
+{ lib, stdenv, vim, vimPlugins, vim_configurable, buildEnv, writeText
 , runCommand, makeWrapper
+, nix-prefetch-hg, nix-prefetch-git
+, fetchFromGitHub, runtimeShell
 , python3
 , callPackage, makeSetupHook
 , linkFarm
@@ -14,7 +16,7 @@ USAGE EXAMPLE
 Install Vim like this eg using nixos option environment.systemPackages which will provide
 vim-with-plugins in PATH:
 
-  vim-full.customize {
+  vim_configurable.customize {
     name = "vim-with-plugins"; # optional
 
     # add custom .vimrc lines like this:
@@ -105,7 +107,7 @@ fitting the vimrcConfig.vam.pluginDictionaries option.
 Thus the most simple usage would be:
 
   vim_with_plugins =
-    let vim = vim-full;
+    let vim = vim_configurable;
         inherit (vimUtil.override {inherit vim}) rtpPath addRtp buildVimPlugin vimHelpTags;
         vimPlugins = [
           # the derivation list from the buffer created by nix#ExportPluginsForNix
@@ -184,9 +186,9 @@ let
       depsOfOptionalPlugins = lib.subtractLists opt (findDependenciesRecursively opt);
       startWithDeps = findDependenciesRecursively start;
       allPlugins = lib.unique (startWithDeps ++ depsOfOptionalPlugins);
-      allPython3Dependencies = ps:
-        lib.flatten (builtins.map (plugin: (plugin.python3Dependencies or (_: [])) ps) allPlugins);
-      python3Env = python3.withPackages allPython3Dependencies;
+      python3Env = python3.withPackages (ps:
+        lib.flatten (builtins.map (plugin: (plugin.python3Dependencies or (_: [])) ps) allPlugins)
+      );
 
       packdirStart = vimFarm "pack/${packageName}/start" "packdir-start" allPlugins;
       packdirOpt = vimFarm "pack/${packageName}/opt" "packdir-opt" opt;
@@ -199,7 +201,7 @@ let
         ln -s ${python3Env}/${python3Env.sitePackages} $out/pack/${packageName}/start/__python3_dependencies/python3
       '';
     in
-      [ packdirStart packdirOpt ] ++ lib.optional (allPython3Dependencies python3.pkgs != []) python3link;
+      [ packdirStart packdirOpt python3link ];
   in
     buildEnv {
       name = "vim-pack-dir";
@@ -241,10 +243,10 @@ let
       */
       plugImpl =
       ''
-        source ${vimPlugins.vim-plug}/plug.vim
+        source ${vimPlugins.vim-plug.rtp}/plug.vim
         silent! call plug#begin('/dev/null')
 
-        '' + (lib.concatMapStringsSep "\n" (pkg: "Plug '${pkg}'") plug.plugins) + ''
+        '' + (lib.concatMapStringsSep "\n" (pkg: "Plug '${pkg.rtp}'") plug.plugins) + ''
 
         call plug#end()
       '';
@@ -391,7 +393,8 @@ rec {
     } ./neovim-require-check-hook.sh) {};
 
   inherit (import ./build-vim-plugin.nix {
-    inherit lib stdenv rtpPath toVimPlugin;
+    inherit lib stdenv rtpPath vim vimGenDocHook
+      toVimPlugin vimCommandCheckHook neovimRequireCheckHook;
   }) buildVimPlugin buildVimPluginFrom2Nix;
 
 

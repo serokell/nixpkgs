@@ -1,5 +1,4 @@
 { stdenv
-, lib
 , name
 , src
 , doTest ? true
@@ -13,11 +12,7 @@
 } @ args :
 
 let
-  mvnFlags = lib.escapeShellArgs [
-    "-Dmaven.repo.local=$M2_REPO"
-    (lib.optionalString (!doTest) "-Dmaven.test.skip.exec=true")
-    "${extraMvnFlags}"
-  ];
+  mvnFlags = "-Dmaven.repo.local=$M2_REPO ${if doTest then "" else "-Dmaven.test.skip.exec=true"} ${extraMvnFlags}";
 in
 
 stdenv.mkDerivation ( {

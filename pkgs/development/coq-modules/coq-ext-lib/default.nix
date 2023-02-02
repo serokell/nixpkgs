@@ -1,10 +1,10 @@
 { lib, mkCoqDerivation, coq, version ? null }:
 
-mkCoqDerivation rec {
+with lib; mkCoqDerivation rec {
   pname = "coq-ext-lib";
   owner = "coq-ext-lib";
   inherit version;
-  defaultVersion = with lib.versions; lib.switch coq.coq-version [
+  defaultVersion = with versions; switch coq.coq-version [
     { case = range "8.11" "8.16"; out = "0.11.7"; }
     { case = range "8.8" "8.16"; out = "0.11.6"; }
     { case = range "8.8" "8.14"; out = "0.11.4"; }
@@ -30,6 +30,6 @@ mkCoqDerivation rec {
 
   meta = {
     description = "A collection of theories and plugins that may be useful in other Coq developments";
-    maintainers = with lib.maintainers; [ jwiegley ptival ];
+    maintainers = with maintainers; [ jwiegley ptival ];
   };
 }

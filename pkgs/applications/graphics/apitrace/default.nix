@@ -1,37 +1,27 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  libX11,
-  procps,
-  python3,
-  libdwarf,
-  qtbase,
-  wrapQtAppsHook,
-  libglvnd,
-  gtest,
-  brotli,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, libX11, procps, python2, libdwarf, qtbase, qtwebkit, wrapQtAppsHook, libglvnd }:
 
 stdenv.mkDerivation rec {
   pname = "apitrace";
-  version = "11.1";
+  version = "7.1-572-g${builtins.substring 0 8 src.rev}";
 
   src = fetchFromGitHub {
-    owner = "apitrace";
+    sha256 = "11bwb0l8cr1bf9bj1s6cbmi77d5fy4qrphj9cgmcd8jpa862anp5";
+    rev = "26966134f15d28f6b4a9a0a560017b3ba36d60bf";
     repo = "apitrace";
-    rev = version;
-    hash = "sha256-rvC6iVWNNxH11hzQvRTo+SQi9jEUCPWGSdJmKJe9SQ0=";
-    fetchSubmodules = true;
+    owner = "apitrace";
   };
+
+  patches = [
+    # glibc 2.34 compat
+    # derived from https://github.com/apitrace/apitrace/commit/d28a980802ad48568c87da02d630c8babfe163bb
+    ./glibc-2.34-compat.patch
+  ];
 
   # LD_PRELOAD wrappers need to be statically linked to work against all kinds
   # of games -- so it's fine to use e.g. bundled snappy.
-  buildInputs = [ libX11 procps python3 libdwarf qtbase gtest brotli ];
+  buildInputs = [ libX11 procps python2 libdwarf qtbase qtwebkit ];
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
 
   # Don't automatically wrap all binaries, I prefer to explicitly only wrap
   # `qapitrace`.

@@ -30,7 +30,7 @@ buildPythonPackage rec {
     terminaltables
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

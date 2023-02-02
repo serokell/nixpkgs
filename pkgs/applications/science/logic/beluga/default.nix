@@ -11,10 +11,10 @@ ocamlPackages.buildDunePackage rec {
     sha256 = "1ziqjfv8jwidl8lj2mid2shhgqhv31dfh5wad2zxjpvf6038ahsw";
   };
 
-  duneVersion = "3";
+  useDune2 = true;
 
   buildInputs = with ocamlPackages; [
-    gen sedlex extlib dune-build-info linenoise
+    gen sedlex ocaml_extlib dune-build-info linenoise
   ];
 
   postPatch = ''
@@ -22,7 +22,7 @@ ocamlPackages.buildDunePackage rec {
   '';
 
   checkPhase = "./TEST";
-  nativeCheckInputs = [ rsync ];
+  checkInputs = [ rsync ];
   doCheck = true;
 
   postInstall = ''

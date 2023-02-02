@@ -175,7 +175,7 @@ in
       description = "Take snapper snapshot of root on boot";
       inherit documentation;
       serviceConfig.ExecStart = "${pkgs.snapper}/bin/snapper --config root create --cleanup-algorithm number --description boot";
-      serviceConfig.Type = "oneshot";
+      serviceConfig.type = "oneshot";
       requires = [ "local-fs.target" ];
       wantedBy = [ "multi-user.target" ];
       unitConfig.ConditionPathExists = "/etc/snapper/configs/root";

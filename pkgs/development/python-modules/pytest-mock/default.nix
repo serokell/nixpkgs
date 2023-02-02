@@ -2,7 +2,6 @@
 , buildPythonPackage
 , pythonOlder
 , fetchPypi
-, fetchpatch
 , pytest
 , pytest-asyncio
 , pytestCheckHook
@@ -11,7 +10,7 @@
 
 buildPythonPackage rec {
   pname = "pytest-mock";
-  version = "3.10.0";
+  version = "3.8.2";
 
   disabled = pythonOlder "3.7";
 
@@ -19,16 +18,8 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-+72whe98JSoyb9jNysCqOxMz2IEfExvcxwEALhvn7U8=";
+    hash = "sha256-d/A/RVQ5JVhwApXgWu0LEJaiDUpgpPPdzeWLDDHI/KI=";
   };
-
-  patches = [
-    (fetchpatch {
-      # Remove unnecessary py.code import
-      url = "https://github.com/pytest-dev/pytest-mock/pull/328/commits/e2016928db1147a2a46de6ee9fa878ca0e9d8fc8.patch";
-      hash = "sha256-5Gpzi7h7Io1CMykmBCZR/upM8E9isc3jEItYgwjEOWA=";
-    })
-  ];
 
   nativeBuildInputs = [ setuptools-scm ];
 
@@ -36,7 +27,7 @@ buildPythonPackage rec {
     pytest
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytestCheckHook
   ];

@@ -22,7 +22,7 @@ buildPythonPackage rec {
     idna
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

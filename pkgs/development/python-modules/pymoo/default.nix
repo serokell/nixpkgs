@@ -65,7 +65,7 @@ buildPythonPackage rec {
       --replace "https://raw.githubusercontent.com/anyoptimization/pymoo-data/main/" \
                 "file://$pymoo_data/"
   '';
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     nbformat
     notebook

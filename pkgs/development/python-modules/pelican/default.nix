@@ -69,7 +69,7 @@ buildPythonPackage rec {
     unidecode
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-xdist
     pytestCheckHook
     pandoc
@@ -107,7 +107,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Static site generator that requires no database or server-side logic";
-    homepage = "https://getpelican.com/";
+    homepage = "http://getpelican.com/";
     license = licenses.agpl3;
     maintainers = with maintainers; [ offline prikhi ];
   };

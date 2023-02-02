@@ -12,7 +12,7 @@ in
       example = "/run/secrets/password.env";
       description = lib.mdDoc ''
         The path to a file containing the PASSWORD environment variable
-        definition for Podgrab's authentication.
+        definition for Podgrab's authentification.
       '';
     };
 
@@ -36,7 +36,7 @@ in
       };
       serviceConfig = {
         DynamicUser = true;
-        EnvironmentFile = lib.optionals (cfg.passwordFile != null) [
+        EnvironmentFile = lib.optional (cfg.passwordFile != null) [
           cfg.passwordFile
         ];
         ExecStart = "${pkgs.podgrab}/bin/podgrab";

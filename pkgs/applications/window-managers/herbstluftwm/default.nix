@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeCheckInputs = [
+  checkInputs = [
     (python3.withPackages (ps: with ps; [ ewmh pytest xlib ]))
     xdotool
     xorgserver
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     python3.pkgs.pytestCheckHook
   ];
 
-  # make the package's module available
+  # make the package's module avalaible
   preCheck = ''
     export PYTHONPATH="$PYTHONPATH:../python"
   '';

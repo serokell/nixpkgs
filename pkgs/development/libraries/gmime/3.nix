@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       --replace /bin/rm rm
   '';
 
-  nativeCheckInputs = [ gnupg ];
+  checkInputs = [ gnupg ];
 
   doCheck = true;
 

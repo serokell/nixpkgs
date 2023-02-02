@@ -22,7 +22,7 @@ buildPythonPackage rec {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [
+  checkInputs = [
     os-service-types
     keystoneauth1
     oslotest

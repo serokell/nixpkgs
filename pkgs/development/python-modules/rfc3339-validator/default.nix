@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ pytestCheckHook hypothesis strict-rfc3339 ];
+  checkInputs = [ pytestCheckHook hypothesis strict-rfc3339 ];
   pythonImportsCheck = [ "rfc3339_validator" ];
 
   meta = with lib; {

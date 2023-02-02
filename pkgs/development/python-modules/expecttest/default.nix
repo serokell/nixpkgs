@@ -2,25 +2,25 @@
 , fetchFromGitHub
 , hypothesis
 , lib
-, poetry-core
+, poetry
 , pytestCheckHook
 }:
 
 buildPythonPackage rec {
   pname = "expecttest";
-  version = "0.1.4";
+  version = "0.1.3";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "ezyang";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-BFM0jFWXfH72n9XuFtU9URW8LWGPVJncXniBV5547W4=";
+    hash = "sha256-5CnpVFSbf3FcAa06Y7atG8sxu8uevpfrliB2HuVcrx0=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  buildInputs = [ poetry ];
 
-  nativeCheckInputs = [ hypothesis pytestCheckHook ];
+  checkInputs = [ hypothesis pytestCheckHook ];
 
   pythonImportsCheck = [ "expecttest" ];
 

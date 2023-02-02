@@ -25,17 +25,16 @@
 , sqlite
 , wrapQtAppsHook
 , xdg-utils
-, wrapGAppsHook
 , unrarSupport ? false
 }:
 
 stdenv.mkDerivation rec {
   pname = "calibre";
-  version = "6.11.0";
+  version = "6.7.1";
 
   src = fetchurl {
     url = "https://download.calibre-ebook.com/${version}/${pname}-${version}.tar.xz";
-    hash = "sha256-ylOZ5ljA5uBb2bX/qFhsmPQW6dJVEH9jxQaR2u8C4Wc=";
+    hash = "sha256-B//rBsvOXA5UqGjd2MLcAhDFCvreI7UmtfEpuxaIsa0=";
   };
 
   # https://sources.debian.org/patches/calibre/${version}+dfsg-1
@@ -47,8 +46,8 @@ stdenv.mkDerivation rec {
       hash = "sha256-uL1mSjgCl5ZRLbSuKxJM6XTfvVwog70F7vgKtQzQNEQ=";
     })
     (fetchpatch {
-      name = "0007-Hardening-Qt-code.patch";
-      url = "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${version}%2Bdfsg-1/debian/patches/0007-Hardening-Qt-code.patch";
+      name = "0006-Hardening-Qt-code.patch";
+      url = "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${version}%2Bdfsg-1/debian/patches/0006-Hardening-Qt-code.patch";
       hash = "sha256-CutVTb7K4tjewq1xAjHEGUHFcuuP/Z4FFtj4xQb4zKQ=";
     })
   ]
@@ -72,7 +71,6 @@ stdenv.mkDerivation rec {
     pkg-config
     qmake
     removeReferencesTo
-    wrapGAppsHook
     wrapQtAppsHook
   ];
 
@@ -96,7 +94,7 @@ stdenv.mkDerivation rec {
     xdg-utils
   ] ++ (
     with python3Packages; [
-      (apsw.overrideAttrs (oldAttrs: {
+      (apsw.overrideAttrs (oldAttrs: rec {
         setupPyBuildFlags = [ "--enable=load_extension" ];
       }))
       beautifulsoup4
@@ -171,7 +169,6 @@ stdenv.mkDerivation rec {
 
   # Wrap manually
   dontWrapQtApps = true;
-  dontWrapGApps = true;
 
   # Remove some references to shrink the closure size. This reference (as of
   # 2018-11-06) was a single string like the following:
@@ -181,9 +178,7 @@ stdenv.mkDerivation rec {
       $out/lib/calibre/calibre/plugins/podofo.so
 
     for program in $out/bin/*; do
-      wrapProgram $program \
-        ''${qtWrapperArgs[@]} \
-        ''${gappsWrapperArgs[@]} \
+      wrapQtApp $program \
         --prefix PYTHONPATH : $PYTHONPATH \
         --prefix PATH : ${poppler_utils.out}/bin
     done

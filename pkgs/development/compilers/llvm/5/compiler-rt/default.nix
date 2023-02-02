@@ -1,6 +1,4 @@
-{ lib, stdenv, llvm_meta, version, fetch, cmake, python3, libllvm, libcxxabi
-, doFakeLibgcc ? stdenv.hostPlatform.isFreeBSD
-}:
+{ lib, stdenv, llvm_meta, version, fetch, cmake, python3, libllvm, libcxxabi }:
 
 let
 
@@ -88,8 +86,6 @@ stdenv.mkDerivation {
     ln -s $out/lib/*/clang_rt.crtend-*.o $out/lib/linux/crtend.o
     ln -s $out/lib/*/clang_rt.crtbegin_shared-*.o $out/lib/linux/crtbeginS.o
     ln -s $out/lib/*/clang_rt.crtend_shared-*.o $out/lib/linux/crtendS.o
-  '' + lib.optionalString doFakeLibgcc ''
-    ln -s $out/lib/freebsd/libclang_rt.builtins-*.a $out/lib/freebsd/libgcc.a
   '';
 
   meta = llvm_meta // {

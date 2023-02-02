@@ -1,14 +1,14 @@
 { lib, mkCoqDerivation, coq, mathcomp-algebra, mathcomp-ssreflect,  mathcomp-fingroup, version ? null }:
 
-mkCoqDerivation rec {
+with lib; mkCoqDerivation rec {
   namePrefix = [ "coq" "mathcomp" ];
   pname = "zify";
   repo = "mczify";
   owner = "math-comp";
   inherit version;
 
-  defaultVersion = with lib.versions;
-     lib.switch [ coq.coq-version mathcomp-algebra.version ] [
+  defaultVersion = with versions;
+     switch [ coq.coq-version mathcomp-algebra.version ] [
        { cases = [ (range "8.13" "8.16") (isGe "1.12") ]; out = "1.1.0+1.12+8.13"; }
      ] null;
 
@@ -19,6 +19,6 @@ mkCoqDerivation rec {
 
   meta = {
     description = "Micromega tactics for Mathematical Components";
-    maintainers = with lib.maintainers; [ cohencyril ];
+    maintainers = with maintainers; [ cohencyril ];
   };
 }

@@ -50,7 +50,7 @@ in {
     };
     port = mkOption {
       description = lib.mdDoc "the port that elasticsearch is listening on";
-      type = types.port;
+      type = types.int;
       default = 9200;
     };
     actionYAML = mkOption {

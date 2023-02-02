@@ -15,7 +15,6 @@
 , liburcu
 , ncurses
 , pkg-config
-, gnumake42
 , zlib
 }:
 
@@ -35,7 +34,6 @@ stdenv.mkDerivation rec {
     flex
     makeWrapper
     pkg-config
-    gnumake42 # fails with make 4.4
   ];
 
   buildInputs = [

@@ -5,9 +5,6 @@
 , fetchFromGitHub
 , fetchpatch
 
-# nativeBuildInputs
-, flit-core
-
 # propagatedBuildInputs
 , babel
 , alabaster
@@ -37,8 +34,8 @@
 
 buildPythonPackage rec {
   pname = "sphinx";
-  version = "5.3.0";
-  format = "pyproject";
+  version = "5.1.1";
+  format = "setuptools";
 
   disabled = pythonOlder "3.6";
 
@@ -46,7 +43,7 @@ buildPythonPackage rec {
     owner = "sphinx-doc";
     repo = pname;
     rev = "refs/tags/v${version}";
-    hash = "sha256-80bVg1rfBebgSOKbWkzP84vpm39iLgM8lWlVD64nSsQ=";
+    hash = "sha256-dTgQNMRIn7ETm+1HgviOkWWOCmLX7Ez6DM9ChlI32mY=";
     postFetch = ''
       cd $out
       mv tests/roots/test-images/testimäge.png \
@@ -55,9 +52,13 @@ buildPythonPackage rec {
     '';
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  postPatch = ''
+    # remove impurity caused by date inclusion
+    # https://github.com/sphinx-doc/sphinx/blob/master/setup.cfg#L4-L6
+    substituteInPlace setup.cfg \
+      --replace "tag_build = .dev" "" \
+      --replace "tag_date = true" ""
+  '';
 
   propagatedBuildInputs = [
     babel
@@ -84,7 +85,7 @@ buildPythonPackage rec {
     importlib-metadata
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     cython
     html5lib
     pytestCheckHook
@@ -106,7 +107,7 @@ buildPythonPackage rec {
     # requires imagemagick (increases build closure size), doesn't
     # test anything substantial
     "test_ext_imgconverter"
-  ] ++ lib.optionals stdenv.isDarwin [
+  ] ++ lib.optional stdenv.isDarwin [
     # Due to lack of network sandboxing can't guarantee port 7777 isn't bound
     "test_inspect_main_url"
     "test_auth_header_uses_first_match"

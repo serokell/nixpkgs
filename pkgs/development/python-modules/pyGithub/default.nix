@@ -11,15 +11,14 @@
 
 buildPythonPackage rec {
   pname = "PyGithub";
-  version = "1.57";
-  format = "setuptools";
+  version = "1.56";
   disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "PyGithub";
     repo = "PyGithub";
     rev = "refs/tags/v${version}";
-    sha256 = "sha256-7CNvSOwDXXcJ082/Fmgr6OtTQeA30yDjt/Oq2nx4vEk=";
+    sha256 = "sha256-L6xrv3dAT/sWt/7ZeDy3P095g7Lpht52LkfCVYNLkbA=";
   };
 
   propagatedBuildInputs = [
@@ -37,7 +36,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library to access the GitHub API v3";
     homepage = "https://github.com/PyGithub/PyGithub";
-    changelog = "https://github.com/PyGithub/PyGithub/raw/v${version}/doc/changes.rst";
+    platforms = platforms.all;
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ jhhuh ];
   };

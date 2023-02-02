@@ -33,7 +33,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     genshi
     gunicorn

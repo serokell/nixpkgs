@@ -1,53 +1,44 @@
 { lib
 , buildPythonPackage
-, decorator
 , fetchPypi
-, invocations
-, invoke
 , pytest
+, six
+, decorator
 , pytestCheckHook
-, pythonOlder
 }:
 
 buildPythonPackage rec {
+  version = "1.1.5";
   pname = "pytest-relaxed";
-  version = "2.0.0";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-Szc8x1Rmb/YPVCWmnLQUZCwqEc56RsjOBmpzjkCSyjk=";
+    sha256 = "e39a7e5b14e14dfff0de0ad720dfffa740c128d599ab14cfac13f4deb34164a6";
   };
 
-  buildInputs = [
-    pytest
-  ];
+  # newer decorator versions are incompatible and cause the test suite to fail
+  # but only a few utility functions are used from this package which means it has no actual impact on test execution in paramiko and Fabric
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace "decorator>=4,<5" "decorator>=4" \
+      --replace "pytest>=3,<5" "pytest>=3"
+  '';
 
-  propagatedBuildInputs = [
-    decorator
-  ];
+  buildInputs = [ pytest ];
 
-  nativeCheckInputs = [
-    invocations
-    invoke
-    pytestCheckHook
-  ];
+  propagatedBuildInputs = [ six decorator ];
 
-  pytestFlagsArray = [
-    "tests"
-  ];
+  checkInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pytest_relaxed"
-  ];
+  # lots of assertion errors mainly around decorator
+  doCheck = false;
 
   meta = with lib; {
     homepage = "https://pytest-relaxed.readthedocs.io/";
     description = "Relaxed test discovery/organization for pytest";
-    changelog = "https://github.com/bitprophet/pytest-relaxed/blob/${version}/docs/changelog.rst";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = [ maintainers.costrouc ];
+    # see https://github.com/bitprophet/pytest-relaxed/issues/12
+    broken = true;
   };
 }

@@ -70,7 +70,7 @@ in
       };
 
       port = mkOption {
-        type = types.port;
+        type = types.int;
         default = 8000;
         description = lib.mdDoc ''
           Port to listen on.

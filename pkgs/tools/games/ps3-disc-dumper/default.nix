@@ -27,6 +27,10 @@ buildDotnetModule rec {
     openssl
   ];
 
+  dotnetFlags = [
+    "--runtime linux-x64"
+  ];
+
   meta = with lib; {
     homepage = "https://github.com/13xforever/ps3-disc-dumper";
     description = "A handy utility to make decrypted PS3 disc dumps";

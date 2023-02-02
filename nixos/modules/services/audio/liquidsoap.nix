@@ -38,13 +38,11 @@ in
 
       default = {};
 
-      example = literalExpression ''
-        {
-          myStream1 = "/etc/liquidsoap/myStream1.liq";
-          myStream2 = ./myStream2.liq;
-          myStream3 = "out(playlist(\"/srv/music/\"))";
-        }
-      '';
+      example = {
+        myStream1 = "/etc/liquidsoap/myStream1.liq";
+        myStream2 = literalExpression "./myStream2.liq";
+        myStream3 = "out(playlist(\"/srv/music/\"))";
+      };
 
       type = types.attrsOf (types.either types.path types.str);
     };

@@ -2,7 +2,6 @@
 , meson
 , ninja
 , pkg-config
-, runtimeShell
 , installShellFiles
 
 , platform-tools
@@ -12,10 +11,10 @@
 }:
 
 let
-  version = "1.25";
+  version = "1.24";
   prebuilt_server = fetchurl {
     url = "https://github.com/Genymobile/scrcpy/releases/download/v${version}/scrcpy-server-v${version}";
-    sha256 = "sha256-zgMGx7vQaucvbQb37A7jN3SZWmXeceCoOBPstnrsm9s=";
+    sha256 = "sha256-rnSoHqecDcclDlhmJ8J4wKmoxd5GyftcOMFn+xo28FY=";
   };
 in
 stdenv.mkDerivation rec {
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     owner = "Genymobile";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-4U/ChooesjhZSvxvk9dZrpZ/X0lf62+LEn72Ubrm2eM=";
+    sha256 = "sha256-mL0lSZUPMMcLGq4iPp/IgYZLaTeey9Nv9vVwY1gaIRk=";
   };
 
   # postPatch:
@@ -53,9 +52,6 @@ stdenv.mkDerivation rec {
 
     # runtime dep on `adb` to push the server
     wrapProgram "$out/bin/scrcpy" --prefix PATH : "${platform-tools}/bin"
-  '' + lib.optionalString stdenv.isLinux ''
-    substituteInPlace $out/share/applications/scrcpy-console.desktop \
-      --replace "/bin/bash" "${runtimeShell}"
   '';
 
   meta = with lib; {

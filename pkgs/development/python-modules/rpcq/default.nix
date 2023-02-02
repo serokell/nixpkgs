@@ -32,7 +32,7 @@ buildPythonPackage rec {
     ruamel-yaml
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     numpy
     pytest-asyncio
     pytestCheckHook

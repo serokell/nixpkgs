@@ -29,7 +29,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
   checkPhase = ''
     cd ./tests
     pytest

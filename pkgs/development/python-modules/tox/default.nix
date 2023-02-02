@@ -1,7 +1,6 @@
 { lib
 , buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+, fetchPypi
 , packaging
 , pluggy
 , py
@@ -9,71 +8,26 @@
 , virtualenv
 , setuptools-scm
 , toml
-, tomli
 , filelock
-, hatchling
-, hatch-vcs
-, platformdirs
-, pyproject-api
-, colorama
-, chardet
-, cachetools
-, testers
-, tox
 }:
 
 buildPythonPackage rec {
   pname = "tox";
-  version = "4.1.0";
-  format = "pyproject";
+  version = "3.26.0";
 
-  src = fetchFromGitHub {
-    owner = "tox-dev";
-    repo = "tox";
-    rev = "refs/tags/${version}";
-    hash = "sha256-ApJa7v1HJDca2jvZFKqOgKho4fI2tXFrjaFzLcS9Vfk=";
-  };
+  buildInputs = [ setuptools-scm ];
+  propagatedBuildInputs = [ packaging pluggy py six virtualenv toml filelock ];
 
-  postPatch = ''
-    substituteInPlace pyproject.toml \
-      --replace "packaging>=22" "packaging"
-  '';
+  doCheck = false;
 
-  SETUPTOOLS_SCM_PRETEND_VERSION = version;
-
-  nativeBuildInputs = [
-    hatchling
-    hatch-vcs
-  ];
-
-  propagatedBuildInputs = [
-    cachetools
-    chardet
-    colorama
-    filelock
-    packaging
-    platformdirs
-    pluggy
-    py
-    pyproject-api
-    six
-    toml
-    virtualenv
-  ]  ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
-
-  doCheck = false; # infinite recursion via devpi-client
-
-  passthru.tests = {
-    version = testers.testVersion { package = tox; };
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "sha256-RPPDR8aMLGh5nX1E8YCPnTlvyKGlAMvGJCUzdceuEH4=";
   };
 
   meta = with lib; {
-    changelog = "https://github.com/tox-dev/tox/releases/tag/${version}";
-    description = "A generic virtualenv management and test command line tool";
-    homepage = "https://github.com/tox-dev/tox";
+    description = "Virtualenv-based automation of test activities";
+    homepage = "https://tox.readthedocs.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
   };
 }

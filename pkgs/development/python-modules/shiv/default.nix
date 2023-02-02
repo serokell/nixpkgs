@@ -11,19 +11,19 @@
 
 buildPythonPackage rec {
   pname = "shiv";
-  version = "1.0.3";
+  version = "1.0.2";
   format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-vxRv8/Oryi6xIU6GAY82EkocItk1QO71JAMhys19f1c=";
+    sha256 = "sha256-BDSfgXSythWUrwVnsg27rHN0nsfumFdX/2e62h239UY=";
   };
 
   propagatedBuildInputs = [ click pip setuptools wheel ];
 
   pythonImportsCheck = [ "shiv" ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # AssertionError

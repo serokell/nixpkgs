@@ -15,12 +15,12 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ setuptools-scm ];
-#   nativeCheckInputs = [ backports ];
+#   checkInputs = [ backports ];
 
   # Requires backports package
   doCheck = false;
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  checkInputs = [ unittestCheckHook ];
 
   unittestFlagsArray = [ "tests" ];
 

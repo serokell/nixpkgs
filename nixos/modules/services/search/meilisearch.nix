@@ -9,6 +9,8 @@ in
 {
 
   meta.maintainers = with maintainers; [ Br1ght0ne happysalada ];
+  # Don't edit the docbook xml directly, edit the md and generate it:
+  # `pandoc meilisearch.md -t docbook --top-level-division=chapter --extract-media=media -f markdown+smart > meilisearch.xml`
   meta.doc = ./meilisearch.xml;
 
   ###### interface
@@ -19,7 +21,7 @@ in
     package = mkOption {
       description = lib.mdDoc "The package to use for meilisearch. Use this if you require specific features to be enabled. The default package has no features.";
       default = pkgs.meilisearch;
-      defaultText = lib.literalExpression "pkgs.meilisearch";
+      defaultText = "pkgs.meilisearch";
       type = types.package;
     };
 

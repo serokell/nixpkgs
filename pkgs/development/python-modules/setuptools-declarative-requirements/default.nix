@@ -12,7 +12,7 @@ buildPythonPackage rec {
 
   buildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [ pypiserver pytestCheckHook virtualenv ];
+  checkInputs = [ pypiserver pytestCheckHook virtualenv ];
 
   # Tests use network
   doCheck = false;

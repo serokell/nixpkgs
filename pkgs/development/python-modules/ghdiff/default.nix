@@ -10,7 +10,7 @@ buildPythonPackage rec {
     sha256 = "17mdhi2sq9017nq8rkjhhc87djpi5z99xiil0xz17dyplr7nmkqk";
   };
 
-  nativeCheckInputs = [ zope_testrunner ];
+  checkInputs = [ zope_testrunner ];
   propagatedBuildInputs = [ six chardet ];
 
   meta = with lib; {

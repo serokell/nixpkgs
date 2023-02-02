@@ -25,7 +25,7 @@ let
     ${cfg.extraConfig}
   '';
 
-  ntpFlags = [ "-c" "${configFile}" "-u" "ntp:ntp" ] ++ cfg.extraFlags;
+  ntpFlags = "-c ${configFile} -u ntp:ntp ${toString cfg.extraFlags}";
 
 in
 
@@ -137,7 +137,7 @@ in
           '';
 
         serviceConfig = {
-          ExecStart = "@${ntp}/bin/ntpd ntpd -g ${builtins.toString ntpFlags}";
+          ExecStart = "@${ntp}/bin/ntpd ntpd -g ${ntpFlags}";
           Type = "forking";
         };
       };

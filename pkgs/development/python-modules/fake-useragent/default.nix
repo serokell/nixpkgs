@@ -1,43 +1,17 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, importlib-metadata
-, importlib-resources
-, setuptools
-, pythonOlder
-, pytestCheckHook
-}:
+{ lib, fetchPypi, buildPythonPackage, six, pytest }:
 
 buildPythonPackage rec {
   pname = "fake-useragent";
-  version = "1.1.1";
-  format = "pyproject";
+  version = "0.1.11";
 
-  src = fetchFromGitHub {
-    owner = "fake-useragent";
-    repo = "fake-useragent";
-    rev = "refs/tags/${version}";
-    hash = "sha256-MKVJM8bduvA03xzL954huoCge7enG2BJtxZEAvo6HIY=";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "0dfz3bpmjmaxlhda6hfgsac7afb65pljibi8zkp9gc0ffn5rj161";
   };
 
-  postPatch = ''
-    sed -i '/addopts/d' pytest.ini
-  '';
+  propagatedBuildInputs = [ six ];
 
-  nativeBuildInputs = [
-    setuptools
-  ];
-
-  propagatedBuildInputs = [
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    importlib-resources
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
-
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ pytest ];
 
   meta = with lib; {
     description = "Up to date simple useragent faker with real world database";

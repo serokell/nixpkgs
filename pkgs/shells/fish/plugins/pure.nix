@@ -19,7 +19,7 @@ buildFishPlugin rec {
   # and https://github.com/pure-fish/pure/pull/275.
   doCheck = false;
 
-  nativeCheckInputs = [ git ];
+  checkInputs = [ git ];
   checkPlugins = [ fishtape ];
   checkPhase = ''
     # https://github.com/rafaelrinaldi/pure/issues/264

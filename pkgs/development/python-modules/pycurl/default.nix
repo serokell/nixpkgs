@@ -46,7 +46,7 @@ buildPythonPackage rec {
     curl
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     bottle
     pytestCheckHook
     flaky

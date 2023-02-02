@@ -24,7 +24,7 @@ buildPythonPackage rec {
     xlwt
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nose
     pyexcel
     mock

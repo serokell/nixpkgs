@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "trackballs";
-  version = "1.3.4";
+  version = "1.3.3";
 
   src = fetchFromGitHub {
     owner = "trackballs";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-JKSiNe5mu8rRztUhduGFY6IsSMx6VyBqKcGO5EssI+8=";
+    sha256 = "sha256-fCoQqGXwcpcq/gl67XXY5/wEvCM0ZZTV8LhjC+tnRuo=";
   };
 
   nativeBuildInputs = [ cmake ];

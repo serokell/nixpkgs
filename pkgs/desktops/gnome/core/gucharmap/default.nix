@@ -25,7 +25,7 @@
 , runCommand
 , symlinkJoin
 , gobject-introspection
-, gitUpdater
+, nix-update-script
 }:
 
 let
@@ -45,16 +45,16 @@ let
   };
 in stdenv.mkDerivation rec {
   pname = "gucharmap";
-  version = "15.0.2";
+  version = "15.0.0";
 
   outputs = [ "out" "lib" "dev" "devdoc" ];
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
-    repo = "gucharmap";
+    repo = pname;
     rev = version;
-    sha256 = "sha256-QoHLMq3U/BvpCFKttxLo0qs2xmZ/pCqPjsgq/MMWNbo=";
+    sha256 = "sha256-ymEtiOKdmQ1XWrGk40csX5O5BiwxH3aCPboVekcUukQ=";
   };
 
   nativeBuildInputs = [
@@ -90,13 +90,12 @@ in stdenv.mkDerivation rec {
   doCheck = true;
 
   postPatch = ''
-    patchShebangs \
-      data/meson_desktopfile.py \
-      gucharmap/gen-guch-unicode-tables.pl
+    patchShebangs data/meson_desktopfile.py gucharmap/gen-guch-unicode-tables.pl gucharmap/meson_compileschemas.py
   '';
 
   passthru = {
-    updateScript = gitUpdater {
+    updateScript = nix-update-script {
+      attrPath = "gnome.gucharmap";
     };
   };
 

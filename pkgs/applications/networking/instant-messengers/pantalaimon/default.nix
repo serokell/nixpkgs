@@ -34,14 +34,14 @@ buildPythonApplication rec {
     peewee
     prompt-toolkit
     setuptools
-  ] ++ lib.optionals enableDbusUi [
+  ] ++ lib.optional enableDbusUi [
       dbus-python
       notify2
       pygobject3
       pydbus
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest
     faker
     pytest-aiohttp

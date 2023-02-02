@@ -36,7 +36,7 @@ buildPythonPackage rec {
       --replace "--no-cov-on-fail" ""
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ] ++ passthru.optional-dependencies.images;
 

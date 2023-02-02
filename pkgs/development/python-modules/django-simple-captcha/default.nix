@@ -21,7 +21,7 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  nativeCheckInputs = [ testfixtures ];
+  checkInputs = [ testfixtures ];
   checkPhase = ''
     cd testproject
     ${python.interpreter} manage.py test captcha

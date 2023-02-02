@@ -24,12 +24,16 @@ let
 in {
 
   options.services.zookeeper = {
-    enable = mkEnableOption (lib.mdDoc "Zookeeper");
+    enable = mkOption {
+      description = lib.mdDoc "Whether to enable Zookeeper.";
+      default = false;
+      type = types.bool;
+    };
 
     port = mkOption {
       description = lib.mdDoc "Zookeeper Client port.";
       default = 2181;
-      type = types.port;
+      type = types.int;
     };
 
     id = mkOption {

@@ -13,30 +13,25 @@
 
 buildPythonPackage rec {
   pname = "xlib";
-  version = "0.33";
+  version = "0.31";
 
   src = fetchFromGitHub {
     owner = "python-xlib";
     repo = "python-xlib";
-    rev = "refs/tags/${version}";
-    hash = "sha256-u06OWlMIOUzHOVS4hvm72jGgTSXWUqMvEQd8bTpFog0=";
+    rev = version;
+    sha256 = "155p9xhsk01z9vdml74h07svlqy6gljnx9c6qbydcr14lwghwn06";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
+  patches = [
+    ./fix-no-protocol-specified.patch
   ];
 
-  buildInputs = [
-    xorg.libX11
-  ];
-
-  propagatedBuildInputs = [
-    six
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
+  buildInputs = [ xorg.libX11 ];
+  propagatedBuildInputs = [ six ];
 
   doCheck = !stdenv.isDarwin;
-
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     mock
     nose
@@ -51,11 +46,9 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog = "https://github.com/python-xlib/python-xlib/releases/tag/${version}";
     description = "Fully functional X client library for Python programs";
-    homepage = "https://github.com/python-xlib/python-xlib";
-    license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ ];
+    homepage = "http://python-xlib.sourceforge.net/";
+    license = licenses.gpl2Plus;
   };
 
 }

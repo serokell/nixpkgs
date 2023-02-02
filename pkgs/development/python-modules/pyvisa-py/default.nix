@@ -11,13 +11,13 @@
 
 buildPythonPackage rec {
   pname = "pyvisa-py";
-  version = "0.6.0";
+  version = "0.5.3";
 
   src = fetchFromGitHub {
     owner = "pyvisa";
     repo = "pyvisa-py";
     rev = "refs/tags/${version}";
-    hash = "sha256-1EAkE2uYjo8sUbSrF6E1AGZkKPTxkSre3ov2RU8YhfM=";
+    hash = "sha256-37GptqqBSIFOpm6SpS61ZZ9C4iU5AiOduVq255mTRNo=";
   };
 
   nativeBuildInputs = [
@@ -31,7 +31,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

@@ -38,7 +38,7 @@ buildPythonPackage rec {
     zope_interface
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

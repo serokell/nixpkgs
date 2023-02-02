@@ -15,7 +15,13 @@ in {
 
     services.opentsdb = {
 
-      enable = mkEnableOption (lib.mdDoc "OpenTSDB");
+      enable = mkOption {
+        type = types.bool;
+        default = false;
+        description = lib.mdDoc ''
+          Whether to run OpenTSDB.
+        '';
+      };
 
       package = mkOption {
         type = types.package;
@@ -43,7 +49,7 @@ in {
       };
 
       port = mkOption {
-        type = types.port;
+        type = types.int;
         default = 4242;
         description = lib.mdDoc ''
           Which port OpenTSDB listens on.

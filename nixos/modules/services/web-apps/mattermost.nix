@@ -106,7 +106,7 @@ in
       package = mkOption {
         type = types.package;
         default = pkgs.mattermost;
-        defaultText = lib.literalExpression "pkgs.mattermost";
+        defaultText = "pkgs.mattermost";
         description = lib.mdDoc "Mattermost derivation to use.";
       };
 
@@ -170,7 +170,7 @@ in
         type = types.attrs;
         default = { };
         description = lib.mdDoc ''
-          Additional configuration options as Nix attribute set in config.json schema.
+          Addtional configuration options as Nix attribute set in config.json schema.
         '';
       };
 
@@ -238,7 +238,7 @@ in
         package = mkOption {
           type = types.package;
           default = pkgs.matterircd;
-          defaultText = lib.literalExpression "pkgs.matterircd";
+          defaultText = "pkgs.matterircd";
           description = lib.mdDoc "matterircd derivation to use.";
         };
         parameters = mkOption {

@@ -2,7 +2,7 @@
 , buildPythonPackage
 , fetchFromGitHub
 , isPy3k
-, pyicu
+, PyICU
 , python
 }:
 
@@ -18,7 +18,7 @@ buildPythonPackage {
     sha256 = "01195hphjnlcvgykw143rf06s6y955sjc1r825a58vhjx7hj54zh";
   };
 
-  propagatedBuildInputs = [ pyicu ];
+  propagatedBuildInputs = [ PyICU ];
 
   checkPhase = ''
     ${python.interpreter} -m unittest slob

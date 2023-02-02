@@ -40,7 +40,7 @@ buildDunePackage rec {
   strictDeps = !doCheck;
 
   doCheck = true;
-  nativeCheckInputs = [
+  checkInputs = [
     hex
     alcotest
     asn1-combinators

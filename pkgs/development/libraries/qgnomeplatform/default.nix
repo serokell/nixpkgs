@@ -1,22 +1,19 @@
-{ stdenv
+{ mkDerivation
 , lib
 , fetchFromGitHub
 , nix-update-script
 , cmake
 , pkg-config
 , adwaita-qt
-, adwaita-qt6
 , glib
 , gtk3
 , qtbase
-, qtwayland
 , pantheon
 , substituteAll
 , gsettings-desktop-schemas
-, useQt6 ? false
 }:
 
-stdenv.mkDerivation rec {
+mkDerivation rec {
   pname = "qgnomeplatform";
   version = "0.8.4";
 
@@ -41,28 +38,21 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
+    adwaita-qt
     glib
     gtk3
     qtbase
-    qtwayland
-  ] ++ lib.optionals (!useQt6) [
-    adwaita-qt
-  ] ++ lib.optionals useQt6 [
-    adwaita-qt6
   ];
-
-  # Qt setup hook complains about missing `wrapQtAppsHook` otherwise.
-  dontWrapQtApps = true;
 
   cmakeFlags = [
     "-DGLIB_SCHEMAS_DIR=${glib.getSchemaPath gsettings-desktop-schemas}"
     "-DQT_PLUGINS_DIR=${placeholder "out"}/${qtbase.qtPluginPrefix}"
-  ] ++ lib.optionals useQt6 [
-    "-DUSE_QT6=true"
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      attrPath = pname;
+    };
   };
 
   meta = with lib; {

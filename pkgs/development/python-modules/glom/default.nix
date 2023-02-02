@@ -27,7 +27,7 @@ buildPythonPackage rec {
     face
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pyyaml
   ];

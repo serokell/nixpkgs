@@ -10,15 +10,15 @@
 
 buildPythonPackage rec {
   pname = "azure-eventgrid";
-  version = "4.9.1";
+  version = "4.9.0";
   format = "setuptools";
 
-  disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
     extension = "zip";
-    hash = "sha256-zRiS5XsinEQoyYsg2PSso3Y2pC7QwB1fbVkCF1OeQ3U=";
+    hash = "sha256-ueuOxhNATK6o/Vue+x5vtP0ac3CQellkuyQmSrq7tqQ=";
   };
 
   propagatedBuildInputs = [

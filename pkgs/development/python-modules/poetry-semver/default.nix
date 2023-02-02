@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "sha256-2Am2Eqons5vy0PydMbT0gJsOlyZGxfGc+kbHJbdjiBA=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "A semantic versioning library for Python.";

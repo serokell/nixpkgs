@@ -2,12 +2,13 @@
 , pkg-config, autoreconfHook
 , db5, openssl, boost, zlib, miniupnpc, libevent
 , protobuf, qtbase ? null
-, wrapQtAppsHook ? null, qttools ? null, qmake ? null, qrencode
+, wrapQtAppsHook ? null, qttools, qmake ? null, qrencode
 , withGui, withUpnp ? true, withUtils ? true, withWallet ? true
 , withZmq ? true, zeromq, util-linux ? null, Cocoa ? null }:
 
+with lib;
 stdenv.mkDerivation rec {
-  pname = "dogecoin" + lib.optionalString (!withGui) "d";
+  pname = "dogecoin" + optionalString (!withGui) "d";
   version = "1.14.6";
 
   src = fetchFromGitHub {
@@ -17,32 +18,32 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PmbmmA2Mq07dwB3cI7A9c/ewtu0I+sWvQT39Yekm/sU=";
   };
 
-  preConfigure = lib.optionalString withGui ''
-    export LRELEASE=${lib.getDev qttools}/bin/lrelease
+  preConfigure = optionalString withGui ''
+    export LRELEASE=${getDev qttools}/bin/lrelease
   '';
 
   nativeBuildInputs = [ pkg-config autoreconfHook util-linux ]
-    ++ lib.optionals withGui [ wrapQtAppsHook qttools ];
+    ++ optionals withGui [ wrapQtAppsHook qttools ];
 
   buildInputs = [ openssl protobuf boost zlib libevent ]
-    ++ lib.optionals withGui [ qtbase qrencode ]
-    ++ lib.optionals withUpnp [ miniupnpc ]
-    ++ lib.optionals withWallet [ db5 ]
-    ++ lib.optionals withZmq [ zeromq ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+    ++ optionals withGui [ qtbase qrencode ]
+    ++ optionals withUpnp [ miniupnpc ]
+    ++ optionals withWallet [ db5 ]
+    ++ optionals withZmq [ zeromq ]
+    ++ optionals stdenv.isDarwin [ Cocoa ];
 
   configureFlags = [
     "--with-incompatible-bdb"
     "--with-boost-libdir=${boost.out}/lib"
-  ] ++ lib.optionals (!withGui) [ "--with-gui=no" ]
-    ++ lib.optionals (!withUpnp) [ "--without-miniupnpc" ]
-    ++ lib.optionals (!withUtils) [ "--without-utils" ]
-    ++ lib.optionals (!withWallet) [ "--disable-wallet" ]
-    ++ lib.optionals (!withZmq) [ "--disable-zmq" ];
+  ] ++ optionals (!withGui) [ "--with-gui=no" ]
+    ++ optionals (!withUpnp) [ "--without-miniupnpc" ]
+    ++ optionals (!withUtils) [ "--without-utils" ]
+    ++ optionals (!withWallet) [ "--disable-wallet" ]
+    ++ optionals (!withZmq) [ "--disable-zmq" ];
 
   enableParallelBuilding = true;
 
-  meta = with lib; {
+  meta = {
     description = "Wow, such coin, much shiba, very rich";
     longDescription = ''
       Dogecoin is a decentralized, peer-to-peer digital currency that

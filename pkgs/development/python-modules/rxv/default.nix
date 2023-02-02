@@ -38,7 +38,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     pytest-asyncio
     pytest-timeout

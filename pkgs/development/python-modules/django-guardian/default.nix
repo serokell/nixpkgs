@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     django-environ
     mock
     pytestCheckHook

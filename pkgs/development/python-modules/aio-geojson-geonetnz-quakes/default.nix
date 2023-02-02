@@ -30,7 +30,7 @@ buildPythonPackage rec {
     pytz
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     aresponses
     pytest-asyncio
     pytestCheckHook

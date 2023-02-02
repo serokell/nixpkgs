@@ -34,12 +34,8 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-PLnfiWpelgKhs4FNry60sm6/QdhYs76FnZ/ZcRmb4Ok=";
   };
   patches = [ ./patches/no-network.patch ];
-
-  # We need both binary from "capnproto" and library files.
-  nativeBuildInputs = [ cmake pandoc capnproto ];
+  nativeBuildInputs = [ cmake pandoc ];
   buildInputs = [ capnproto sqlite boost zlib rapidjson ];
-  cmakeFlags = [ "-DLAMINAR_VERSION=${version}" ];
-
   preBuild = ''
     mkdir -p js css
     cp  ${js.vue}         js/vue.min.js

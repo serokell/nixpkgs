@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     dbus
   ];
 

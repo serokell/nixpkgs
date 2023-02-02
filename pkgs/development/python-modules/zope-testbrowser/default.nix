@@ -48,7 +48,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     zope_testing
     zope_testrunner

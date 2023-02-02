@@ -65,7 +65,7 @@ in
         };
 
         port = mkOption {
-          type = port;
+          type = int;
           default = 3000;
           description = lib.mdDoc "Metrics and diagnostics port.";
         };

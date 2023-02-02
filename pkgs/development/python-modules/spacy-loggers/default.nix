@@ -8,11 +8,11 @@
 
 buildPythonPackage rec {
   pname = "spacy-loggers";
-  version = "1.0.4";
+  version = "1.0.3";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-5vmDv3EjAJHVu3sRv2S9VEFeyoORCNX4PZFV0LqTvyg=";
+    sha256 = "sha256-APb9VU25/R/eZQGyPh8Ocvbu8Uux5/wVRW0R0dLekso=";
   };
 
   propagatedBuildInputs = [

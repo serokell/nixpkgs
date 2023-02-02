@@ -1,5 +1,5 @@
 { lib, stdenv, fetchurl, gperf, guile, gmp, zlib, liboop, readline, gnum4, pam
-, nettools, lsof, procps, libxcrypt }:
+, nettools, lsof, procps }:
 
 stdenv.mkDerivation rec {
   pname = "lsh";
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   # Should be present in upcoming 2.1 release.
   NIX_CFLAGS_COMPILE = "-std=gnu90 -fcommon";
 
-  buildInputs = [ gperf guile gmp zlib liboop readline gnum4 pam libxcrypt ];
+  buildInputs = [ gperf guile gmp zlib liboop readline gnum4 pam ];
 
   meta = {
     description = "GPL'd implementation of the SSH protocol";

@@ -33,7 +33,7 @@ buildPythonPackage rec {
 
   buildInputs = [ graphviz ];
 
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
 
   checkPhase = ''
     runHook preCheck

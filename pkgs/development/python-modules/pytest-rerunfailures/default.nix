@@ -2,18 +2,18 @@
 
 buildPythonPackage rec {
   pname = "pytest-rerunfailures";
-  version = "10.3";
+  version = "10.2";
 
   disabled = pythonOlder "3.5";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-2CRNeZ+Jpu215XMB3a6ztvENZpFjjVHoCzcTEVkuKMY=";
+    sha256 = "9e1e1bad51e07642c5bbab809fc1d4ec8eebcb7de86f90f1a26e6ef9de446697";
   };
 
   buildInputs = [ pytest ];
 
-  nativeCheckInputs = [ mock pytest ];
+  checkInputs = [ mock pytest ];
 
   checkPhase = ''
     py.test test_pytest_rerunfailures.py

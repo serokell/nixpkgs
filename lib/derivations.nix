@@ -17,7 +17,7 @@ in
     situations below.
 
     For illustration and/or testing, we define derivation such that its
-    evaluation is very noticeable.
+    evaluation is very noticable.
 
         let derivation = throw "This won't be evaluated.";
 

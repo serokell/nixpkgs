@@ -8,7 +8,7 @@
 
 buildPythonPackage rec {
   pname = "sphinx-jupyterbook-latex";
-  version = "0.5.2";
+  version = "0.5.1";
   format = "pyproject";
 
   disabled = pythonOlder "3.6";
@@ -16,12 +16,12 @@ buildPythonPackage rec {
   src = fetchPypi {
     inherit version;
     pname = "sphinx_jupyterbook_latex";
-    sha256 = "sha256-2h060Cj1XdvxC5Ewu58k/GDK+2ccvTnf2VU3qvyQly4=";
+    sha256 = "sha256-QErSEpolSEkJaQLzfcF0oDlugEhN5Y9/KwVwC2IknLY=";
   };
 
   postPatch = ''
     substituteInPlace setup.cfg \
-      --replace "sphinx>=4,<5.1" "sphinx"
+      --replace "sphinx>=3,<5" "sphinx>=3"
   '';
 
   propagatedBuildInputs = [ sphinx ]
@@ -32,7 +32,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Latex specific features for jupyter book";
     homepage = "https://github.com/executablebooks/sphinx-jupyterbook-latex";
-    changelog = "https://github.com/executablebooks/sphinx-jupyterbook-latex/raw/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ marsam ];
   };

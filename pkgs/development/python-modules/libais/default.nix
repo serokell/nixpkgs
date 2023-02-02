@@ -13,7 +13,7 @@ buildPythonPackage rec {
   # data files missing
   doCheck = false;
 
-  nativeCheckInputs = [ pytest pytest-runner pytest-cov coverage ];
+  checkInputs = [ pytest pytest-runner pytest-cov coverage ];
   propagatedBuildInputs = [ six ];
 
   meta = with lib; {

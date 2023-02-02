@@ -35,7 +35,7 @@ buildPythonPackage rec {
     lz4
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     freezegun
     mock
     nose

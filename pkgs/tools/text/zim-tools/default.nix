@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ meson ninja pkg-config ];
   buildInputs = [ docopt_cpp file gumbo mustache-hpp zimlib zlib ];
 
-  nativeCheckInputs = [ gtest ];
+  checkInputs = [ gtest ];
   doCheck = true;
 
   meta = {

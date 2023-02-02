@@ -1,19 +1,20 @@
 { stdenv
 , lib
 , buildPythonPackage
-, pythonOlder
 , fetchPypi
 , argon2-cffi
+, nose
+, nose_warnings_filters
 , glibcLocales
+, isPy3k
 , mock
 , jinja2
 , tornado
 , ipython_genutils
 , traitlets
-, jupyter-core
+, jupyter_core
 , jupyter-client
 , nbformat
-, nbclassic
 , nbconvert
 , ipykernel
 , terminado
@@ -26,24 +27,29 @@
 
 buildPythonPackage rec {
   pname = "notebook";
-  version = "6.5.2";
-  disabled = pythonOlder "3.7";
+  version = "6.4.12";
+  disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-wYl+UxfiJfx4tFVJpqtLZo5MmW/QOgTpOP5eevK//9A=";
+    sha256 = "sha256-YmjJ7JBIz/ekVAXJkMKaycpAsLw+wpJj0hjF4B8rToY=";
   };
 
   LC_ALL = "en_US.utf8";
 
-  nativeCheckInputs = [ pytestCheckHook glibcLocales ];
+  checkInputs = [ nose pytestCheckHook glibcLocales ]
+    ++ (if isPy3k then [ nose_warnings_filters ] else [ mock ]);
 
   propagatedBuildInputs = [
-    jinja2 tornado ipython_genutils traitlets jupyter-core send2trash
-    jupyter-client nbformat nbclassic
-    nbconvert ipykernel terminado requests pexpect
+    jinja2 tornado ipython_genutils traitlets jupyter_core send2trash
+    jupyter-client nbformat nbconvert ipykernel terminado requests pexpect
     prometheus-client argon2-cffi
   ];
+
+  # disable warning_filters
+  preCheck = lib.optionalString (!isPy3k) ''
+    echo "" > setup.cfg
+  '';
 
   postPatch = ''
     # Remove selenium tests
@@ -62,7 +68,7 @@ buildPythonPackage rec {
     "sock_server"
     "test_list_formats" # tries to find python MIME type
     "KernelCullingTest" # has a race condition failing on slower hardware
-  ] ++ lib.optionals stdenv.isDarwin [
+  ] ++ lib.optional stdenv.isDarwin [
     "test_delete"
     "test_checkpoints_follow_file"
   ];

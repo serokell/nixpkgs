@@ -1,14 +1,12 @@
 { lib
 , stdenv
 , buildPythonPackage
-, pythonOlder
+, isPy3k
 , fetchFromGitHub
 , substituteAll
 , alsa-utils
 , libnotify
 , which
-, poetry-core
-, pythonRelaxDepsHook
 , jeepney
 , loguru
 , pytest
@@ -18,16 +16,15 @@
 
 buildPythonPackage rec {
   pname = "notify-py";
-  version = "0.3.39";
-  format = "pyproject";
+  version = "0.3.3";
 
-  disabled = pythonOlder "3.6";
+  disabled = !isPy3k;
 
   src = fetchFromGitHub {
     owner = "ms7m";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-QIK5MCCOsD8SStoh7TRw+l9k28SjChwV2J/T7gMKnAs=";
+    rev = "v${version}";
+    sha256 = "1n35adwsyhz304n4ifnsz6qzkymwhyqc8sg8d76qv5psv2xsnzlf";
   };
 
   patches = lib.optionals stdenv.isLinux [
@@ -45,22 +42,13 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
-
-  pythonRelaxDeps = [
-    "loguru"
-  ];
-
   propagatedBuildInputs = [
     loguru
   ] ++ lib.optionals stdenv.isLinux [
     jeepney
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest
   ] ++ lib.optionals stdenv.isLinux [
     dbus
@@ -73,22 +61,17 @@ buildPythonPackage rec {
     PATH="$TMP/bin:$PATH" pytest
   '' else if stdenv.isLinux then ''
     dbus-run-session \
-      --config-file=${dbus}/share/dbus-1/session.conf \
+      --config-file=${dbus.daemon}/share/dbus-1/session.conf \
       pytest
   '' else ''
     pytest
   '';
-
-  # GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name
-  # org.freedesktop.Notifications was not provided by any .service files
-  doCheck = false;
 
   pythonImportsCheck = [ "notifypy" ];
 
   meta = with lib; {
     description = "Cross-platform desktop notification library for Python";
     homepage = "https://github.com/ms7m/notify-py";
-    changelog = "https://github.com/ms7m/notify-py/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ austinbutler dotlambda ];
   };

@@ -1,13 +1,14 @@
 { lib, mkCoqDerivation, coq, version ? null
 , ssreflect
 }:
+with lib;
 
 mkCoqDerivation {
   pname = "deriving";
   owner = "arthuraa";
 
   inherit version;
-  defaultVersion = with lib.versions; lib.switch coq.coq-version [
+  defaultVersion = with versions; switch coq.coq-version [
     { case = range "8.11" "8.16"; out = "0.1.0"; }
   ] null;
 
@@ -19,7 +20,7 @@ mkCoqDerivation {
 
   mlPlugin = true;
 
-  meta = with lib; {
+  meta = {
     description = "Generic instances of MathComp classes";
     license = licenses.mit;
     maintainers = [ maintainers.vbgl ];

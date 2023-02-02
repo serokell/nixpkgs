@@ -167,7 +167,7 @@ buildPythonPackage rec {
     cd ..
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pproxy
     pytest-asyncio
     pytest-randomly

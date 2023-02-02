@@ -27,7 +27,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-mock
     pytest-sugar

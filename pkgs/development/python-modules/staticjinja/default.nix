@@ -40,7 +40,7 @@ buildPythonPackage rec {
     easywatch
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-check
     markdown

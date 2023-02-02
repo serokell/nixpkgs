@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 set -e
 
 : ${NIXOS_CHANNELS:=https://nixos.org/channels/}

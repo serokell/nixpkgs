@@ -23,7 +23,7 @@ buildPythonPackage rec {
     wrapt
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nose
     coverage
   ];

@@ -6,7 +6,6 @@
 , ninja
 , libxkbcommon
 , wayland
-, wayland-scanner
 , wayland-protocols
 , wlroots
 , pixman
@@ -26,13 +25,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-G32cGmOwmnuVlj1hCq9NRti6plJbkAktfzM4aYzQ+k8=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-    wayland-scanner
-  ];
-
+  nativeBuildInputs = [ pkg-config meson ninja ];
   buildInputs = [
     libxkbcommon
     wayland

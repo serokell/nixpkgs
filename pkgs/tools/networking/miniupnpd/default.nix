@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchurl, iptables, libuuid, openssl, pkg-config
+{ stdenv, lib, fetchurl, iptables, libuuid, pkg-config
 , which, iproute2, gnused, coreutils, gawk, makeWrapper
 , nixosTests
 }:
@@ -8,20 +8,20 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "miniupnpd";
-  version = "2.3.1";
+  version = "2.1.20190502";
 
   src = fetchurl {
-    url = "https://miniupnp.tuxfamily.org/files/miniupnpd-${version}.tar.gz";
-    sha256 = "0crv975qqppnj27jba96yysq2911y49vjd74sp9vnjb54z0d9pyi";
+    url = "http://miniupnp.free.fr/files/download.php?file=miniupnpd-${version}.tar.gz";
+    sha256 = "1m8d0g9b0bjwsnqccw1yapp6n0jghmgzwixwjflwmvi2fi6hdp4b";
+    name = "miniupnpd-${version}.tar.gz";
   };
 
-  buildInputs = [ iptables libuuid openssl ];
+  buildInputs = [ iptables libuuid ];
   nativeBuildInputs= [ pkg-config makeWrapper ];
 
+  makefile = "Makefile.linux";
 
-  # ./configure is not a standard configure file, errors with:
-  # Option not recognized : --prefix=
-  dontAddPrefix = true;
+  buildFlags = [ "miniupnpd" "genuuid" ];
 
   installFlags = [ "PREFIX=$(out)" "INSTALLPREFIX=$(out)" ];
 
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    homepage = "https://miniupnp.tuxfamily.org/";
+    homepage = "http://miniupnp.free.fr/";
     description = "A daemon that implements the UPnP Internet Gateway Device (IGD) specification";
     platforms = platforms.linux;
     license = licenses.bsd3;

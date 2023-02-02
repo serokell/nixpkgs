@@ -2,7 +2,6 @@
 , libxml2, python3, isl, fetchurl, overrideCC, wrapCCWith
 , buildLlvmTools # tools, but from the previous stage, for cross
 , targetLlvmLibraries # libraries, but from the next stage, for cross
-, targetLlvm
 }:
 
 let
@@ -19,7 +18,7 @@ let
 
   llvm_meta = {
     license     = lib.licenses.ncsa;
-    maintainers = lib.teams.llvm.members;
+    maintainers = with lib.maintainers; [ lovek323 raskin dtzWill primeos ];
     platforms   = lib.platforms.all;
   };
 
@@ -122,7 +121,7 @@ let
     };
 
     openmp = callPackage ./openmp {
-      inherit llvm_meta targetLlvm;
+      inherit llvm_meta;
     };
   });
 

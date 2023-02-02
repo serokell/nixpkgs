@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, ruby, ocamlPackages
+{ lib, stdenv, fetchFromGitHub, ruby, dune_2, ocamlPackages
 , ipaexfont, junicode, lmodern, lmmath
 }:
 let
@@ -17,7 +17,6 @@ let
       rev = "v0.3.7+satysfi";
       sha256 = "0y8s0ij1vp1s4h5y1hn3ns76fzki2ba5ysqdib33akdav9krbj8p";
     };
-    propagatedBuildInputs = o.propagatedBuildInputs ++ [ ocamlPackages.result ];
   });
   yojson-with-position = ocamlPackages.buildDunePackage {
     pname = "yojson-with-position";
@@ -28,13 +27,13 @@ let
       rev = "v1.4.2+satysfi";
       sha256 = "17s5xrnpim54d1apy972b5l08bph4c0m5kzbndk600fl0vnlirnl";
     };
-    duneVersion = "3";
+    useDune2 = true;
     nativeBuildInputs = [ ocamlPackages.cppo ];
     propagatedBuildInputs = [ ocamlPackages.biniou ];
     inherit (ocamlPackages.yojson) meta;
   };
 in
-  ocamlPackages.buildDunePackage rec {
+  stdenv.mkDerivation rec {
     pname = "satysfi";
     version = "0.0.8";
     src = fetchFromGitHub {
@@ -51,24 +50,23 @@ in
       $out/share/satysfi
     '';
 
-    duneVersion = "3";
+    DUNE_PROFILE = "release";
 
-    nativeBuildInputs = with ocamlPackages; [ menhir cppo ];
+    nativeBuildInputs = [ ruby dune_2 ];
 
     buildInputs = [ camlpdf otfm yojson-with-position ] ++ (with ocamlPackages; [
-      menhirLib
-      batteries camlimages core_kernel ppx_deriving uutf omd re
+      ocaml findlib menhir menhirLib
+      batteries camlimages core_kernel ppx_deriving uutf omd cppo re
     ]);
 
-    postInstall = ''
-      mkdir -p $out/share/satysfi/dist/fonts
+    installPhase = ''
+      cp -r ${ipaexfont}/share/fonts/opentype/* lib-satysfi/dist/fonts/
+      cp -r ${junicode}/share/fonts/junicode-ttf/* lib-satysfi/dist/fonts/
+      cp -r ${lmodern}/share/fonts/opentype/public/lm/* lib-satysfi/dist/fonts/
+      cp -r ${lmmath}/share/fonts/opentype/latinmodern-math.otf lib-satysfi/dist/fonts/
+      make install PREFIX=$out LIBDIR=$out/share/satysfi
+      mkdir -p $out/share/satysfi/
       cp -r lib-satysfi/dist/ $out/share/satysfi/
-      cp -r \
-        ${ipaexfont}/share/fonts/opentype/* \
-        ${junicode}/share/fonts/junicode-ttf/* \
-        ${lmodern}/share/fonts/opentype/public/lm/* \
-        ${lmmath}/share/fonts/opentype/latinmodern-math.otf \
-        $out/share/satysfi/dist/fonts
     '';
 
     meta = with lib; {

@@ -44,7 +44,5 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl21;
     platforms = with platforms; (linux ++ darwin);
     maintainers = with maintainers; [ maggesi ];
-    # never built on aarch64-darwin since first introduction in nixpkgs
-    broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

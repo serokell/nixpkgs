@@ -8,14 +8,14 @@
 , coq
 , version ? null }:
 
-mkCoqDerivation rec {
+with lib; mkCoqDerivation rec {
   pname = "coqide";
   inherit version;
 
   inherit (coq) src;
   release."${coq.version}" = {};
 
-  defaultVersion = if lib.versions.isGe "8.14" coq.version then coq.version else null;
+  defaultVersion = if versions.isGe "8.14" coq.version then coq.version else null;
 
   preConfigure = ''
     patchShebangs dev/tools/

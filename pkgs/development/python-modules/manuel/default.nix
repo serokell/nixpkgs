@@ -17,7 +17,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ six ];
-  nativeCheckInputs = [ zope_testing ];
+  checkInputs = [ zope_testing ];
 
   meta = with lib; {
     description = "A documentation builder";

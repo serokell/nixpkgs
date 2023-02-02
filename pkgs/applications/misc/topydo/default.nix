@@ -22,7 +22,7 @@ buildPythonApplication rec {
     watchdog
   ];
 
-  nativeCheckInputs = [ unittestCheckHook mock freezegun pylint ];
+  checkInputs = [ unittestCheckHook mock freezegun pylint ];
 
   # Skip test that has been reported multiple times upstream without result:
   # bram85/topydo#271, bram85/topydo#274.

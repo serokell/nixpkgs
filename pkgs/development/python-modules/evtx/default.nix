@@ -32,7 +32,7 @@ buildPythonPackage rec {
     maturinBuildHook
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

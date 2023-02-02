@@ -34,7 +34,7 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     git
     mercurial
     patch

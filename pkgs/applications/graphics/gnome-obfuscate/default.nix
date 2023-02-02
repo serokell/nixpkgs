@@ -15,7 +15,6 @@
 , glib
 , gtk4
 , libadwaita
-, Foundation
 }:
 
 stdenv.mkDerivation rec {
@@ -55,8 +54,6 @@ stdenv.mkDerivation rec {
     glib
     gtk4
     libadwaita
-  ] ++ lib.optionals stdenv.isDarwin [
-    Foundation
   ];
 
   postPatch = ''

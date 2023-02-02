@@ -4,15 +4,16 @@
 , pythonOlder
 , fetchFromGitHub
 , pillow
-, toml
-, numpy
+, libX11
+, libXcursor
+, libpng
 , python
 , pytestCheckHook
 }:
 
 buildPythonPackage rec {
   pname = "clickgen";
-  version = "2.1.3";
+  version = "1.2.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.8";
@@ -20,15 +21,25 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "ful1e5";
     repo = "clickgen";
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-qDaSfIeKCbyl3C2iKz9DYQc1oNwTe5xDlGg/yYhakSw=";
+    rev = "v${version}";
+    sha256 = "sha256-01c8SVy+J004dq5KCUe62w7i/xUTxTfl/IpvUtGQgw0=";
   };
 
-  propagatedBuildInputs = [ pillow toml numpy ];
+  buildInputs = [ libXcursor libX11 libpng ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  propagatedBuildInputs = [ pillow ];
+
+  checkInputs = [ pytestCheckHook ];
+
+  postBuild = ''
+    # Needs to build xcursorgen.so
+    cd src/xcursorgen
+    make
+    cd ../..
+  '';
 
   postInstall = ''
+    install -m644 src/xcursorgen/xcursorgen.so $out/${python.sitePackages}/clickgen/xcursorgen.so
     # Copying scripts directory needed by clickgen script at $out/bin/
     cp -R src/clickgen/scripts $out/${python.sitePackages}/clickgen/scripts
   '';

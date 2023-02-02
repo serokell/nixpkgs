@@ -74,7 +74,7 @@ in buildPythonApplication rec {
     pygobject3
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     gtk3
   ];
 

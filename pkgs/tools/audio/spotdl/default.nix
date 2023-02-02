@@ -6,42 +6,30 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "spotdl";
-  version = "4.0.6";
-
-  format = "pyproject";
+  version = "3.9.6";
 
   src = fetchFromGitHub {
     owner = "spotDL";
     repo = "spotify-downloader";
     rev = "refs/tags/v${version}";
-    hash = "sha256-oZyEh76nNKMeEenz0dNLQ5Hd9jRaot6He8toxDSZZ/8=";
+    hash = "sha256-JoeNVMuEslz7A7G4ZvikimZrG75YrH5Mx3Oamtfy4cM=";
   };
-
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
-
-  pythonRelaxDeps = true;
 
   propagatedBuildInputs = with python3.pkgs; [
     spotipy
-    ytmusicapi
     pytube
-    yt-dlp
-    mutagen
     rich
+    rapidfuzz
+    mutagen
+    ytmusicapi
+    yt-dlp
     beautifulsoup4
     requests
-    rapidfuzz
-    python-slugify
-    uvicorn
-    pydantic
-    fastapi
-    platformdirs
+    unidecode
+    setuptools
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = with python3.pkgs; [
     pytestCheckHook
     pytest-mock
     pytest-vcr
@@ -49,36 +37,8 @@ python3.pkgs.buildPythonApplication rec {
     pytest-subprocess
   ];
 
-  preCheck = ''
-    export HOME=$TMPDIR
-  '';
-
-  disabledTestPaths = [
-    # require networking
-    "tests/test_init.py"
-    "tests/test_matching.py"
-    "tests/utils/test_m3u.py"
-    "tests/utils/test_metadata.py"
-    "tests/utils/test_search.py"
-  ];
-
-  disabledTests = [
-    # require networking
-    "test_album_from_string"
-    "test_album_from_url"
-    "test_album_length"
-    "test_artist_from_url"
-    "test_artist_from_string"
-    "test_convert"
-    "test_download_ffmpeg"
-    "test_download_song"
-    "test_playlist_from_string"
-    "test_playlist_from_url"
-    "test_playlist_length"
-    "test_preload_song"
-    "test_song_from_search_term"
-    "test_song_from_url"
-  ];
+  # requires networking
+  doCheck = false;
 
   makeWrapperArgs = [
     "--prefix" "PATH" ":" (lib.makeBinPath [ ffmpeg ])

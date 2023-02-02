@@ -26,7 +26,7 @@ buildPythonPackage rec {
     mergedict
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     hunspell
     hunspellDicts.en_US
     pytestCheckHook

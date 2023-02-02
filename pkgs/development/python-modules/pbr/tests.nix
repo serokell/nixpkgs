@@ -24,11 +24,8 @@ buildPythonPackage rec {
 
   dontBuild = true;
   dontInstall = true;
-  preConfigure = ''
-    pythonOutputDistPhase() { touch $dist; }
-  '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pbr
     build
     git

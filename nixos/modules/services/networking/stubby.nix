@@ -7,9 +7,7 @@ let
   settingsFormat = pkgs.formats.yaml { };
   confFile = settingsFormat.generate "stubby.yml" cfg.settings;
 in {
-  imports = [
-    (mkRemovedOptionModule [ "stubby" "debugLogging" ] "Use services.stubby.logLevel = \"debug\"; instead.")
-  ] ++ map (x:
+  imports = map (x:
     (mkRemovedOptionModule [ "services" "stubby" x ]
       "Stubby configuration moved to services.stubby.settings.")) [
         "authenticationMode"
@@ -51,22 +49,10 @@ in {
         '';
       };
 
-      logLevel = let
-        logLevels = {
-          emerg = 0;
-          alert = 1;
-          crit = 2;
-          error = 3;
-          warning = 4;
-          notice = 5;
-          info = 6;
-          debug = 7;
-        };
-      in mkOption {
-        default = null;
-        type = types.nullOr (types.enum (attrNames logLevels ++ attrValues logLevels));
-        apply = v: if isString v then logLevels.${v} else v;
-        description = lib.mdDoc "Log verbosity (syslog keyword or level).";
+      debugLogging = mkOption {
+        default = false;
+        type = types.bool;
+        description = lib.mdDoc "Enable or disable debug level logging.";
       };
 
     };
@@ -94,7 +80,7 @@ in {
         Type = "notify";
         AmbientCapabilities = "CAP_NET_BIND_SERVICE";
         CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
-        ExecStart = "${pkgs.stubby}/bin/stubby -C ${confFile} ${optionalString (cfg.logLevel != null) "-v ${toString cfg.logLevel}"}";
+        ExecStart = "${pkgs.stubby}/bin/stubby -C ${confFile} ${optionalString cfg.debugLogging "-l"}";
         DynamicUser = true;
         CacheDirectory = "stubby";
       };

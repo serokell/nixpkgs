@@ -19,7 +19,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ blessings six ];
-  nativeCheckInputs = [ nose coverage ];
+  checkInputs = [ nose coverage ];
 
   # test_prefixedWhitespace fails due to a python3 StringIO issue requiring
   # bytes rather than str

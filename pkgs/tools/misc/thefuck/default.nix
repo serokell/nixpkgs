@@ -16,7 +16,7 @@ buildPythonApplication rec {
 
   propagatedBuildInputs = [ colorama decorator psutil pyte six ];
 
-  nativeCheckInputs = [ go mock pytestCheckHook pytest-mock ];
+  checkInputs = [ go mock pytestCheckHook pytest-mock ];
 
   disabledTests = lib.optionals stdenv.isDarwin [
     "test_settings_defaults"

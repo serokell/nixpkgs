@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
 
       SMC can also generate GraphViz state diagrams from the input file.
     '';
-    homepage = "https://smc.sourceforge.net/";
+    homepage = "http://smc.sourceforge.net/";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.mpl11;
     platforms = platforms.linux;

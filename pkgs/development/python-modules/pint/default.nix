@@ -15,14 +15,14 @@
 
 buildPythonPackage rec {
   pname = "pint";
-  version = "0.20.1";
+  version = "0.19.2";
 
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit version;
     pname = "Pint";
-    sha256 = "sha256-OHzwQHjcff5KcIAzuq1Uq2HYKrBsTuPUkiseRdViYGc=";
+    sha256 = "sha256-4dSYn/UQs3ja1k+RcR572r5cp411sGoYVprEVGeMS68=";
   };
 
   nativeBuildInputs = [ setuptools-scm ];
@@ -30,7 +30,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ packaging ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-subtests
     numpy

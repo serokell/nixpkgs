@@ -2,25 +2,19 @@
 
 buildPythonPackage rec {
   pname = "pdftools.pdfposter";
-  version = "0.8.1";
-  format = "setuptools";
+  version = "0.8";
 
   propagatedBuildInputs = [ pypdf2 ];
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-yWFtHgVKAWs4dRlSk8t8cB2KBJeBOa0Frh3BLR9txS0=";
+    sha256 = "sha256-SYEn54kpO6KQ8ywpgu0+3uL+Ilr1hsfSornWrs2EBqQ=";
   };
-
-  pythonImportsCheck = [
-    "pdftools.pdfposter"
-    "pdftools.pdfposter.cmd"
-  ];
 
   meta = with lib; {
     description = "Split large pages of a PDF into smaller ones for poster printing";
     homepage = "https://pdfposter.readthedocs.io";
-    license = licenses.gpl3Plus;
+    license = licenses.gpl3;
     maintainers = with maintainers; [ wamserma ];
   };
 }

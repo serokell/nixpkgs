@@ -27,7 +27,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     fixtures
     mock
     pytest-cov

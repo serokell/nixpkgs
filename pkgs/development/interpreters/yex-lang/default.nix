@@ -24,5 +24,6 @@ rustPlatform.buildRustPackage rec {
     maintainers = with maintainers; [ AndersonTorres ];
     mainProgram = "yex";
     platforms = platforms.unix;
+    broken = stdenv.isAarch64 && stdenv.isLinux;
   };
 }

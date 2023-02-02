@@ -59,7 +59,7 @@ buildPythonPackage rec {
       --replace "crytic-compile==0.2.2" "crytic-compile>=0.2.2"
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

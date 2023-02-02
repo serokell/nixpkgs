@@ -43,7 +43,7 @@ in
     port = mkOption {
       description = lib.mdDoc "Kubernetes scheduler listening port.";
       default = 10251;
-      type = port;
+      type = int;
     };
 
     verbosity = mkOption {

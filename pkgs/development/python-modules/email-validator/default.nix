@@ -8,13 +8,13 @@
 
 buildPythonPackage rec {
   pname = "email-validator";
-  version = "1.3.0";
+  version = "1.2.1";
 
   src = fetchFromGitHub {
     owner = "JoshData";
     repo = "python-${pname}";
     rev = "refs/tags/v${version}";
-    hash = "sha256-mflUF2ZKYhCiQEoG+fKI+K266dukuSzG9cyg6gwBcTo=";
+    sha256 = "sha256-Avsqaev3LMoymU06y+u8MMv38ZI2cWk5tc/MkO+9oyA=";
   };
 
   propagatedBuildInputs = [
@@ -22,7 +22,7 @@ buildPythonPackage rec {
     idna
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 
@@ -47,7 +47,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A robust email syntax and deliverability validation library";
     homepage    = "https://github.com/JoshData/python-email-validator";
-    changelog   = "https://github.com/JoshData/python-email-validator/releases/tag/v${version}";
     license     = licenses.cc0;
     maintainers = with maintainers; [ siddharthist ];
   };

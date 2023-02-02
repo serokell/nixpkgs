@@ -29,7 +29,7 @@ buildPythonPackage rec {
     virtualenv
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

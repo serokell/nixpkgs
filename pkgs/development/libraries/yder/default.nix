@@ -6,7 +6,7 @@
 , systemd
 , check
 , subunit
-, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
+, withSystemd ? stdenv.isLinux
 }:
 
 stdenv.mkDerivation rec {
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ orcania ]
     ++ lib.optional withSystemd systemd;
 
-  nativeCheckInputs = [ check subunit ];
+  checkInputs = [ check subunit ];
 
   cmakeFlags = [
     "-DBUILD_YDER_TESTING=on"

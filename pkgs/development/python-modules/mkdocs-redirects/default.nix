@@ -1,12 +1,11 @@
 { lib
 , callPackage
-, buildPythonPackage
+, buildPythonApplication
 , fetchFromGitHub
 , mkdocs
-, pytestCheckHook
 }:
 
-buildPythonPackage rec {
+buildPythonApplication rec {
   pname = "mkdocs-redirects";
   version = "1.2.0";
 
@@ -21,13 +20,7 @@ buildPythonPackage rec {
     mkdocs
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
-
-  pythonImportsCheck = [
-    "mkdocs_redirects"
-  ];
+  pythonImportsCheck = [ "mkdocs" ];
 
   meta = with lib; {
     description = "Open source plugin for Mkdocs page redirects";

@@ -5,15 +5,13 @@
 , doxygen
 , freeglut
 , freetype
+, GLUT
 , libGL
 , libGLU
+, OpenGL
 , pkg-config
-, darwin
 }:
 
-let
-  inherit (darwin.apple_sdk.frameworks) OpenGL GLUT;
-in
 stdenv.mkDerivation rec {
   pname = "ftgl";
   version = "2.4.0";

@@ -20,7 +20,7 @@ buildGoModule rec {
 
   allowGoReference = true;
 
-  nativeCheckInputs = [ go ];
+  checkInputs = [ go ];
 
   meta = with lib; {
     description = "Detect ineffectual assignments in Go code";

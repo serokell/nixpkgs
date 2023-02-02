@@ -9,15 +9,18 @@
 , fixup_yarn_lock
 , nodejs
 , jitsi-meet
+, conf ? { }
 }:
 
 let
   pinData = lib.importJSON ./pin.json;
   noPhoningHome = {
     disable_guests = true; # disable automatic guest account registration at matrix.org
+    piwik = false; # disable analytics
   };
-in
-stdenv.mkDerivation rec {
+  configOverrides = writeText "element-config-overrides.json" (builtins.toJSON (noPhoningHome // conf));
+
+in stdenv.mkDerivation rec {
   pname = "element-web";
   inherit (pinData) version;
 
@@ -71,7 +74,7 @@ stdenv.mkDerivation rec {
     cp -R webapp $out
     cp ${jitsi-meet}/libs/external_api.min.js $out/jitsi_external_api.min.js
     echo "${version}" > "$out/version"
-    jq -s '.[0] * $conf' "config.sample.json" --argjson "conf" '${builtins.toJSON noPhoningHome}' > "$out/config.json"
+    jq -s '.[0] * .[1]' "config.sample.json" "${configOverrides}" > "$out/config.json"
 
     runHook postInstall
   '';

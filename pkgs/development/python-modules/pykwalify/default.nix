@@ -25,7 +25,7 @@ buildPythonPackage rec {
     ruamel-yaml
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     testfixtures
   ];

@@ -1,45 +1,26 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, fftw ? null
-, gettext
-, libintl
-, ncurses
-, openssl
-}:
+{ lib, stdenv, fetchurl, fetchpatch, gettext, libintl, ncurses, openssl
+, fftw ? null }:
 
 stdenv.mkDerivation rec {
   pname = "httping";
-  version = "2.9";
+  version = "2.5";
 
-  src = fetchFromGitHub {
-    owner = "folkertvanheusden";
-    repo = "HTTPing";
-    rev = "v${version}";
-    hash = "sha256-aExTXXtW03UKMuMjTMx1k/MUpcRMh1PdSPkDGH+Od70=";
+  src = fetchurl {
+    url = "https://vanheusden.com/httping/${pname}-${version}.tgz";
+    sha256 = "1y7sbgkhgadmd93x1zafqc4yp26ssiv16ni5bbi9vmvvdl55m29y";
   };
 
   patches = [
-    # Pull upstream fix for missing <unistd.h>
-    #   https://github.com/folkertvanheusden/HTTPing/pull/8
+    # Upstream fix for ncurses-6.3.
     (fetchpatch {
-      name = "add-unistd.patch";
-      url = "https://github.com/folkertvanheusden/HTTPing/commit/aad3c275686344fe9a235faeac4ee3832f3aa8d5.patch";
-      hash = "sha256-bz3AMQTSfSTwUyf9WbkAFWVmFo06ei+Qd55x+RRDREY=";
+      name = "ncurses-6.3.patch";
+      url = "https://github.com/folkertvanheusden/HTTPing/commit/4ea9d5b78540c972e3fe1bf44db9f7b3f87c0ad0.patch";
+      sha256 = "0w3kdkq6c6hz1d9jjnw0ldvd6dy39yamj8haf0hvcyb1sb67qjmp";
     })
   ];
 
-  nativeBuildInputs = [
-    gettext
-  ];
-
-  buildInputs = [
-    fftw
-    libintl
-    ncurses
-    openssl
-  ];
+  buildInputs = [ fftw libintl ncurses openssl ];
+  nativeBuildInputs = [ gettext ];
 
   makeFlags = [
     "DESTDIR=$(out)"
@@ -55,7 +36,7 @@ stdenv.mkDerivation rec {
       the transmission across the network also takes time! So it measures the
       latency of the webserver + network. It supports IPv6.
     '';
-    license = licenses.agpl3Only;
+    license = licenses.agpl3;
     maintainers = [];
     platforms = platforms.linux ++ platforms.darwin;
   };

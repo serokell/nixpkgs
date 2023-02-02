@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
 
 
   meta = with lib; {
-    homepage = "https://xine.sourceforge.net/";
+    homepage = "http://xine.sourceforge.net/";
     description = "A high-performance, portable and reusable multimedia playback engine";
     license = with licenses; [ gpl2Plus lgpl2Plus ];
     maintainers = with maintainers; [ AndersonTorres ];

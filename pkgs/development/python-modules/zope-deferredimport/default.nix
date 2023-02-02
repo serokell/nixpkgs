@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ zope_proxy ];
 
-  nativeCheckInputs = [ zope_testrunner ];
+  checkInputs = [ zope_testrunner ];
 
   checkPhase = ''
     zope-testrunner --test-path=src []

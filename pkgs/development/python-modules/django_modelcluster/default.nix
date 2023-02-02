@@ -31,7 +31,7 @@ buildPythonPackage rec {
     django-taggit
   ];
 
-  nativeCheckInputs = passthru.optional-dependencies.taggit;
+  checkInputs = passthru.optional-dependencies.taggit;
 
   checkPhase = ''
     runHook preCheck

@@ -5,7 +5,7 @@ echo "Sourcing luarocks-move-data-hook.sh"
 luarocksMoveDataHook () {
     echo "Executing luarocksMoveDataHook"
     if [ -d "$out/$rocksSubdir" ]; then
-        cp -rfv "$out/$rocksSubdir/$pname/$rockspecVersion/." "$out"
+        cp -rfv "$out/$rocksSubdir/$pname/$version/." "$out"
     fi
 
     echo "Finished executing luarocksMoveDataHook"

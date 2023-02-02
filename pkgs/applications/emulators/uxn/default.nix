@@ -4,15 +4,15 @@
 , SDL2
 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "uxn";
-  version = "unstable-2022-10-22";
+  version = "0.pre+unstable=2021-08-30";
 
   src = fetchFromSourcehut {
     owner = "~rabbits";
-    repo = "uxn";
-    rev = "1b2049e238df96f32335edf1c6db35bd09f8b42d";
-    hash = "sha256-lwms+qUelfpTC+i2m5b3dW7ww9298YMPFdPVsFrwcDQ=";
+    repo = pname;
+    rev = "a2e40d9d10c11ef48f4f93d0dc86f5085b4263ce";
+    hash = "sha256-/hxDYi814nQydm2iQk4NID4vpJ3BcBcM6NdL0iuZk5M=";
   };
 
   buildInputs = [
@@ -21,14 +21,14 @@ stdenv.mkDerivation {
 
   dontConfigure = true;
 
-  postPatch = ''
-     sed -i -e 's|UXNEMU_LDFLAGS="$(brew.*$|UXNEMU_LDFLAGS="$(sdl2-config --cflags --libs)"|' build.sh
-  '';
-
+  # It is easier to emulate build.sh script
   buildPhase = ''
     runHook preBuild
 
-    ./build.sh --no-run
+    cc -std=c89 -Wall -Wno-unknown-pragmas src/uxnasm.c -o uxnasm
+    cc -std=c89 -Wall -Wno-unknown-pragmas src/uxn.c src/uxncli.c -o uxncli
+    cc -std=c89 -Wall -Wno-unknown-pragmas src/uxn.c src/devices/ppu.c \
+       src/devices/apu.c src/uxnemu.c $(sdl2-config --cflags --libs) -o uxnemu
 
     runHook postBuild
   '';
@@ -36,10 +36,10 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    install -d $out/bin/ $out/share/uxn/
+    install -d $out/bin/ $out/share/${pname}/
 
-    cp bin/uxnasm bin/uxncli bin/uxnemu $out/bin/
-    cp -r projects $out/share/uxn/
+    cp uxnasm uxncli uxnemu $out/bin/
+    cp -r projects $out/share/${pname}/
 
     runHook postInstall
   '';
@@ -48,7 +48,7 @@ stdenv.mkDerivation {
     homepage = "https://wiki.xxiivv.com/site/uxn.html";
     description = "An assembler and emulator for the Uxn stack machine";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [ AndersonTorres kototama ];
+    maintainers = with maintainers; [ AndersonTorres ];
     platforms = with platforms; unix;
   };
 }

@@ -25,7 +25,7 @@ buildPythonPackage rec {
     cd library
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     pytestCheckHook
   ];

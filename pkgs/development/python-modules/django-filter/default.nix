@@ -23,7 +23,7 @@ buildPythonPackage rec {
   # Tests fail (needs the 'crispy_forms' module not packaged on nixos)
   doCheck = false;
 
-  nativeCheckInputs = [
+  checkInputs = [
     djangorestframework
     django
     mock

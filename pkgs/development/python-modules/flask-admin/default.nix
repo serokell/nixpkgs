@@ -53,7 +53,7 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     arrow
     colour
     email-validator

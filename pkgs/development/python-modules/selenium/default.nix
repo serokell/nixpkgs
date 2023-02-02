@@ -1,7 +1,6 @@
 { lib
 , fetchFromGitHub
 , buildPythonPackage
-, certifi
 , geckodriver
 , pytestCheckHook
 , pythonOlder
@@ -13,17 +12,14 @@
 
 buildPythonPackage rec {
   pname = "selenium";
-  version = "4.7.0";
-  format = "setuptools";
-
+  version = "4.4.2";
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "SeleniumHQ";
     repo = "selenium";
-    # check if there is a newer tag with or without -python suffix
-    rev = "refs/tags/selenium-${version}";
-    hash = "sha256-7inmi8dHi6So+8AbLq85Go/GEaiV1XK/7+wt9UkTdo8=";
+    rev = "refs/tags/selenium-${version}-python"; # check if there is a newer tag with -python suffix
+    hash = "sha256-sJJ3i4mnGp5fDgo64p6B2vRCqp/Wm99VoyRLyy4nBH8=";
   };
 
   postPatch = ''
@@ -36,13 +32,13 @@ buildPythonPackage rec {
   '';
 
   propagatedBuildInputs = [
-    certifi
     trio
     trio-websocket
     urllib3
-  ] ++ urllib3.optional-dependencies.socks;
+  ] ++ urllib3.optional-dependencies.secure
+  ++ urllib3.optional-dependencies.socks;
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 
@@ -54,6 +50,6 @@ buildPythonPackage rec {
     description = "Bindings for Selenium WebDriver";
     homepage = "https://selenium.dev/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jraygauthier SuperSandro2000 ];
+    maintainers = with maintainers; [ jraygauthier ];
   };
 }

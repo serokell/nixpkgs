@@ -12,7 +12,7 @@ buildPythonPackage rec {
   };
 
   LC_ALL = "en_US.UTF-8";
-  nativeCheckInputs = [ glibcLocales ];
+  checkInputs = [ glibcLocales ];
 
   meta = {
     homepage = "https://github.com/frewsxcv/python-geojson";

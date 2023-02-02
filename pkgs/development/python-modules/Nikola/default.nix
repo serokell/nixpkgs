@@ -83,7 +83,7 @@ buildPythonPackage rec {
     Yapsy
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     freezegun
     mock
     pytestCheckHook

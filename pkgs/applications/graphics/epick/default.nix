@@ -2,47 +2,44 @@
 , rustPlatform
 , fetchFromGitHub
 , stdenv
-, pkg-config
-, expat
-, fontconfig
-, freetype
+, python3
 , libGL
 , xorg
-, darwin
+, libxkbcommon
 , AppKit
+, IOKit
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "epick";
-  version = "0.9.0";
+  version = "0.8.2";
 
   src = fetchFromGitHub {
     owner = "vv9k";
     repo = pname;
     rev = version;
-    sha256 = "sha256-k0WQu1n1sAHVor58jr060vD5/2rDrt1k5zzJlrK9WrU=";
+    sha256 = "sha256-b4if2ggJY+8CsCX8jbnnWXy16k7sfB88CLlYYCrtltk=";
   };
 
-  cargoSha256 = "sha256-OQZPOiMTpoWabxHa3TJG8L3zq8WxMeFttw8xggSXsMA=";
+  cargoSha256 = "sha256-HyGSmeLJ+2Twkg94p1QqXZDix0mU2jGFfEot6hgUg34=";
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [
-    pkg-config
-  ];
+  nativeBuildInputs = lib.optional stdenv.isLinux python3;
 
   buildInputs = lib.optionals stdenv.isLinux [
-    expat
-    fontconfig
-    freetype
+    libGL
     xorg.libX11
     xorg.libXcursor
     xorg.libXi
     xorg.libXrandr
+    xorg.libxcb
+    libxkbcommon
   ] ++ lib.optionals stdenv.isDarwin [
     AppKit
+    IOKit
   ];
 
   postFixup = lib.optionalString stdenv.isLinux ''
-    patchelf $out/bin/epick --add-rpath ${lib.makeLibraryPath [ libGL ]}
+    patchelf --set-rpath ${lib.makeLibraryPath buildInputs} $out/bin/epick
   '';
 
   meta = with lib; {

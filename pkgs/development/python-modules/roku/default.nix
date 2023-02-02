@@ -15,7 +15,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ pytest flask ];
+  checkInputs = [ pytest flask ];
   pythonImportsCheck = [ "roku" ];
 
   meta = with lib; {

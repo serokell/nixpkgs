@@ -33,6 +33,9 @@ import ./make-test-python.nix ({ pkgs, ... }:
     nodes = {
       node = {...}: {
         environment.systemPackages = with pkgs; [
+          mongodb-3_4
+          mongodb-3_6
+          mongodb-4_0
           mongodb-4_2
           mongodb-4_4
           mongodb-5_0
@@ -43,6 +46,9 @@ import ./make-test-python.nix ({ pkgs, ... }:
     testScript = ''
       node.start()
     ''
+      + runMongoDBTest pkgs.mongodb-3_4
+      + runMongoDBTest pkgs.mongodb-3_6
+      + runMongoDBTest pkgs.mongodb-4_0
       + runMongoDBTest pkgs.mongodb-4_2
       + runMongoDBTest pkgs.mongodb-4_4
       + runMongoDBTest pkgs.mongodb-5_0

@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
     versionfinder
   ];
 
-  nativeCheckInputs = with python3Packages; [
+  checkInputs = with python3Packages; [
     freezegun
     onetimepass
     pytestCheckHook

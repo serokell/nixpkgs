@@ -30,7 +30,7 @@
 
 buildPythonPackage rec {
   pname = "rasterio";
-  version = "4"; # not x.y[ab]z, those are alpha/beta versions
+  version = "1.3.0"; # not x.y[ab]z, those are alpha/beta versions
   format = "pyproject";
   disabled = pythonOlder "3.6";
 
@@ -38,8 +38,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "rasterio";
     repo = "rasterio";
-    rev = "refs/tags/release-test-${version}";
-    hash = "sha256-YO0FnmIEt+88f6k2mdXDSQg7UKq1Swr8wqVUGdRyQR4=";
+    rev = "refs/tags/${version}";
+    hash = "sha256-CBnG1zNMOL3rAmnErv7XZZ2Cu9W+DnRPcjtKdmYXHUA=";
   };
 
   nativeBuildInputs = [
@@ -64,7 +64,7 @@ buildPythonPackage rec {
     rm -rf rasterio
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-randomly
     pytestCheckHook
     packaging

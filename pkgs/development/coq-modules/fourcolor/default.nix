@@ -1,4 +1,5 @@
 { lib, mkCoqDerivation, coq, mathcomp, version ? null }:
+with lib;
 
 mkCoqDerivation {
   pname = "fourcolor";
@@ -11,15 +12,15 @@ mkCoqDerivation {
   release."1.2.5".sha256 = "sha256-3qOPNCRjGK2UdHGMSqElpIXhAPVCklpeQgZwf9AFals=";
 
   inherit version;
-  defaultVersion = with lib.versions; lib.switch [ coq.version mathcomp.version ] [
+  defaultVersion = with versions; switch [ coq.version mathcomp.version ] [
     { cases = [ (isGe "8.11") (isGe "1.12") ]; out = "1.2.5"; }
     { cases = [ (isGe "8.11") (range "1.11" "1.14") ]; out = "1.2.4"; }
-    { cases = [ (isLe "8.13") (lib.pred.inter (isGe "1.11.0") (isLt "1.13")) ]; out = "1.2.3"; }
+    { cases = [ (isLe "8.13") (pred.inter (isGe "1.11.0") (isLt "1.13")) ]; out = "1.2.3"; }
   ] null;
 
   propagatedBuildInputs = [ mathcomp.algebra mathcomp.ssreflect mathcomp.fingroup ];
 
-  meta =  with lib; {
+  meta = {
     description = "Formal proof of the Four Color Theorem ";
     maintainers = with maintainers; [ siraben ];
     license = licenses.cecill-b;

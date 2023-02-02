@@ -5,20 +5,17 @@
 , setuptools
 , typing-extensions
 , pytestCheckHook
-, pythonOlder
 }:
 
 buildPythonPackage rec {
   pname = "pyvisa";
-  version = "1.13.0";
-
-  disabled = pythonOlder "3.7";
+  version = "1.12.0";
 
   src = fetchFromGitHub {
     owner = "pyvisa";
     repo = "pyvisa";
     rev = "refs/tags/${version}";
-    hash = "sha256-TBu3Xko0IxFBT2vzrsOxqEG3y4XfPzISEtbkWkIaCvM=";
+    hash = "sha256-2khTfj0RRna9YDPOs5kQHHhkeMwv3kTtGyDBYnu+Yhw=";
   };
 
   nativeBuildInputs = [
@@ -30,7 +27,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

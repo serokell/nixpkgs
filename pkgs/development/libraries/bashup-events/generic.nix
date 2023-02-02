@@ -49,7 +49,7 @@ resholve.mkDerivation rec {
   '';
 
   inherit doCheck;
-  nativeCheckInputs = [ bash ];
+  checkInputs = [ bash ];
 
   checkPhase = ''
     runHook preCheck
@@ -68,7 +68,7 @@ resholve.mkDerivation rec {
   };
 
   inherit doInstallCheck;
-  nativeInstallCheckInputs = [ bash ];
+  installCheckInputs = [ bash ];
   installCheckPhase = ''
     runHook preInstallCheck
     ${installCheck "${bash}/bin/bash"}

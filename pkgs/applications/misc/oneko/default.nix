@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, imake
-, gccmakedep
-, libX11
-, libXext
-}:
+{ lib, stdenv, fetchFromGitHub, imake, gccmakedep, xlibsWrapper }:
 
 stdenv.mkDerivation rec {
   version_name = "1.2.hanami.6";
@@ -18,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "0vx12v5fm8ar3f1g6jbpmd3b1q652d32nc67ahkf28djbqjgcbnc";
   };
   nativeBuildInputs = [ imake gccmakedep ];
-  buildInputs = [ libX11 libXext ];
+  buildInputs = [ xlibsWrapper ];
 
   makeFlags = [ "BINDIR=$(out)/bin" "MANPATH=$(out)/share/man" ];
   installTargets = [ "install" "install.man" ];

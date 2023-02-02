@@ -12,14 +12,14 @@
 
 buildPythonPackage rec {
   pname = "google-auth-oauthlib";
-  version = "0.8.0";
+  version = "0.5.2";
   format = "setuptools";
 
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-gQVqMQ+xxKPlp+GkQ+Hrllk8a7xVsmwCYeTTKV0+ZZM=";
+    sha256 = "sha256-1emKcSAzMGmfkqJrwIhHqS6MOxuNgqAh8a80Fk2xQ64=";
   };
 
   propagatedBuildInputs = [
@@ -27,14 +27,15 @@ buildPythonPackage rec {
     requests-oauthlib
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     click
     mock
     pytestCheckHook
   ];
 
-  # some tests require loopback networking
-  __darwinAllowLocalNetworking = true;
+  disabledTests = lib.optionals stdenv.isDarwin [
+    "test_run_local_server"
+  ];
 
   pythonImportsCheck = [
     "google_auth_oauthlib"

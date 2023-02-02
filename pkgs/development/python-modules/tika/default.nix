@@ -7,11 +7,11 @@
 
 buildPythonPackage rec {
   pname = "tika";
-  version = "2.6.0";
+  version = "1.24";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-VmcOuBKUTrJe1z8bOwdapB56E1t0skCCLyi4GeWzc9o=";
+    sha256 = "wsUPQFYi90UxhBEE+ehcF1Ea7eEd6OU4XqsaKaMfGRs=";
   };
 
   propagatedBuildInputs = [ pyyaml requests ];

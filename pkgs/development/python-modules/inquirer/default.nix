@@ -18,14 +18,14 @@
 
 buildPythonPackage rec {
   pname = "inquirer";
-  version = "3.1.1";
+  version = "2.9.2";
   format = "pyproject";
 
   src = fetchFromGitHub rec {
     owner = "magmax";
     repo = "python-inquirer";
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-gDJqD0IHshyGw9MmMtYjkkpvYklRLgPd6EtLVqi2I/o=";
+    rev = "v${version}";
+    sha256 = "sha256-TQEZeZDl4N78dE7CXy5OwquUoHuxxjmDAC3wdxqydaQ=";
   };
 
   nativeBuildInputs = [
@@ -38,7 +38,7 @@ buildPythonPackage rec {
     readchar
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pexpect
     pytest-mock
     pytestCheckHook

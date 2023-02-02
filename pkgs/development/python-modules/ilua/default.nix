@@ -2,7 +2,7 @@
 , buildPythonPackage
 , fetchPypi
 , jupyter_console
-, jupyter-core
+, jupyter_core
 , pygments
 , termcolor
 , txzmq
@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     jupyter_console
-    jupyter-core
+    jupyter_core
     pygments
     termcolor
     txzmq

@@ -8,7 +8,6 @@
   libuv,
   openfecSupport ? true,
   openfec,
-  speexdsp,
   libunwindSupport ? true,
   libunwind,
   pulseaudioSupport ? true,
@@ -17,13 +16,13 @@
 
 stdenv.mkDerivation rec {
   pname = "roc-toolkit";
-  version = "0.2.1";
+  version = "0.1.5";
 
   src = fetchFromGitHub {
     owner = "roc-streaming";
     repo = "roc-toolkit";
     rev = "v${version}";
-    sha256 = "sha256-W8PiI5W1T6pNaYzR4u6fPtkP8DKq/Z85Kq/WF5dXVxo=";
+    sha256 = "sha256:1pld340zfch4p3qaf5anrspq7vmxrgf9ddsdsq92pk49axaaz19w";
   };
 
   nativeBuildInputs = [
@@ -33,19 +32,20 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  propagatedBuildInputs = [
+  buildInputs = [
     libuv
     libunwind
     openfec
     libpulseaudio
-    speexdsp
   ];
 
   sconsFlags =
     [ "--build=${stdenv.buildPlatform.config}"
       "--host=${stdenv.hostPlatform.config}"
       "--prefix=${placeholder "out"}"
-      "--disable-sox" ] ++
+      "--disable-sox"
+      "--disable-doc"
+      "--disable-tests" ] ++
     lib.optional (!libunwindSupport) "--disable-libunwind" ++
     lib.optional (!pulseaudioSupport) "--disable-pulseaudio" ++
     (if (!openfecSupport)
@@ -56,8 +56,10 @@ stdenv.mkDerivation rec {
   prePatch = lib.optionalString stdenv.isAarch64
     "sed -i 's/c++98/c++11/g' SConstruct";
 
+  # TODO: Remove these patches in the next version.
   patches = [
-    ./fix-pkgconfig-installation.patch
+    ./0001-Remove-deprecated-scons-call.patch
+    ./0002-Fix-compatibility-with-new-SCons.patch
   ];
 
   meta = with lib; {

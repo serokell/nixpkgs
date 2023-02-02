@@ -13,30 +13,28 @@
 
 buildPythonPackage rec {
   pname = "pygls";
-  version = "0.13.0";
+  version = "0.12.1";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "openlawlibrary";
-    repo = "pygls";
-    rev = "v${version}";
-    hash = "sha256-guwOnB4EEUpucfprNLLr49Yn8EdOpRzzG+cT4NCn0rA=";
+    repo = pname;
+    rev = "refs/tags/v${version}";
+    sha256 = "sha256-L2KTNiI+I+r2fF88B1NSunowokrDzGCw3PXbxekg/oE=";
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
-  nativeBuildInputs = [
-    setuptools-scm
-    toml
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     pydantic
+    toml
     typeguard
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     pytest-asyncio
     pytestCheckHook
@@ -48,7 +46,6 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pygls" ];
 
   meta = with lib; {
-    changelog = "https://github.com/openlawlibrary/pygls/blob/${src.rev}/CHANGELOG.md";
     description = "Pythonic generic implementation of the Language Server Protocol";
     homepage = "https://github.com/openlawlibrary/pygls";
     license = licenses.asl20;

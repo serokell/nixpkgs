@@ -33,7 +33,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pillow
     pytestCheckHook
     pytest-astropy

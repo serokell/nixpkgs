@@ -42,7 +42,7 @@ buildPythonApplication rec {
     click-plugins
     elasticsearch
     flask-compress
-    flask-login
+    flask_login
     flask-wtf
     html2text
     python-dotenv

@@ -13,21 +13,11 @@ in
         example = false;
       };
 
-      skipPackages = lib.mkOption {
-        type = lib.types.listOf lib.types.package;
-        default = [];
-        internal = true;
-        description = lib.mdDoc ''
-          Packages to *not* include in the man-db.
-          This can be useful to avoid unnecessary rebuilds due to packages that change frequently, like nixos-version.
-        '';
-      };
-
       manualPages = lib.mkOption {
         type = lib.types.path;
         default = pkgs.buildEnv {
           name = "man-paths";
-          paths = lib.subtractLists cfg.skipPackages config.environment.systemPackages;
+          paths = config.environment.systemPackages;
           pathsToLink = [ "/share/man" ];
           extraOutputsToInstall = [ "man" ]
             ++ lib.optionals config.documentation.dev.enable [ "devman" ];
@@ -62,11 +52,9 @@ in
     environment.systemPackages = [ cfg.package ];
     environment.etc."man_db.conf".text =
       let
-        manualCache = pkgs.runCommand "man-cache" {
-          nativeBuildInputs = [ cfg.package ];
-        } ''
+        manualCache = pkgs.runCommandLocal "man-cache" { } ''
           echo "MANDB_MAP ${cfg.manualPages}/share/man $out" > man.conf
-          mandb -C man.conf -psc >/dev/null 2>&1
+          ${cfg.package}/bin/mandb -C man.conf -psc >/dev/null 2>&1
         '';
       in
       ''

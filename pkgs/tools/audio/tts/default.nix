@@ -32,14 +32,14 @@ let
 in
 python.pkgs.buildPythonApplication rec {
   pname = "tts";
-  version = "0.9.0";
-  format = "pyproject";
+  version = "0.8.0";
+  format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "coqui-ai";
     repo = "TTS";
     rev = "v${version}";
-    sha256 = "sha256-p4I583Rs/4eig7cnOcJjri2ugOLAeF2nvPIvMZrN1Ss=";
+    sha256 = "sha256-A48L1JGXckSEaZra00ZOBVxcYJMvhpQqzE8nABaP0TY=";
   };
 
   postPatch = let
@@ -53,6 +53,7 @@ python.pkgs.buildPythonApplication rec {
       "numpy"
       "umap-learn"
       "unidic-lite"
+      "pyworld"
     ];
   in ''
     sed -r -i \
@@ -60,6 +61,7 @@ python.pkgs.buildPythonApplication rec {
         ''-e 's/${package}.*[<>=]+.*/${package}/g' \''
       ) relaxedConstraints)}
     requirements.txt
+    sed -i '/tensorboardX/d' requirements.txt
   '';
 
   nativeBuildInputs = with python.pkgs; [
@@ -69,29 +71,27 @@ python.pkgs.buildPythonApplication rec {
   propagatedBuildInputs = with python.pkgs; [
     anyascii
     coqpit
+    coqui-trainer
     flask
     fsspec
-    g2pkk
     gdown
     gruut
     inflect
-    jamo
     jieba
     librosa
     matplotlib
     mecab-python3
-    nltk
     numba
     pandas
     pypinyin
     pysbd
+    pyworld
     scipy
     soundfile
     tensorflow
     torch-bin
     torchaudio-bin
     tqdm
-    trainer
     umap-learn
     unidic-lite
     webrtcvad
@@ -106,7 +106,7 @@ python.pkgs.buildPythonApplication rec {
     )
   '';
 
-  nativeCheckInputs = with python.pkgs; [
+  checkInputs = with python.pkgs; [
     espeak-ng
     pytestCheckHook
   ];
@@ -127,17 +127,15 @@ python.pkgs.buildPythonApplication rec {
 
   disabledTests = [
     # Requires network acccess to download models
-    "test_korean_text_to_phonemes"
-    "test_models_offset_0_step_3"
-    "test_models_offset_1_step_3"
-    "test_models_offset_2_step_3"
-    "test_run_all_models"
     "test_synthesize"
-    "test_voice_conversion"
+    "test_run_all_models"
     # Mismatch between phonemes
     "test_text_to_ids_phonemes_with_eos_bos_and_blank"
     # Takes too long
     "test_parametrized_wavernn_dataset"
+
+    # requires network
+    "test_voice_conversion"
   ];
 
   disabledTestPaths = [

@@ -90,7 +90,7 @@ buildPythonPackage rec {
       --replace "WTForms>=2.3.1,<3.1" "WTForms"
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     flask-testing
     pytestCheckHook
   ];

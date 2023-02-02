@@ -13,14 +13,14 @@
 
 buildPythonPackage rec {
   pname = "wordfreq";
-  version = "3.0.2";
+  version = "2.5.1";
   disabled = isPy27;
 
    src = fetchFromGitHub {
     owner = "LuminosoInsight";
     repo = "wordfreq";
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-ANOBbQWLB35Vz6oil6QZDpsNpKHeKUJnDKA5Q9JRVdE=";
+    rev = "v${version}";
+    sha256 = "1lw7kbsydd89hybassnnhqnj9s5ch9wvgd6pla96198nrq9mj7fw";
    };
 
   propagatedBuildInputs = [
@@ -36,7 +36,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "regex ==" "regex >="
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
   disabledTests = [
     # These languages require additional dictionaries that aren't packaged
     "test_languages"

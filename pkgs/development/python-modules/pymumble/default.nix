@@ -31,7 +31,7 @@ buildPythonPackage rec {
     protobuf
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pycrypto
     pytestCheckHook
   ];

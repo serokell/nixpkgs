@@ -16,7 +16,7 @@ buildPythonPackage rec {
     scipy pillow
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest keras
   ];
 

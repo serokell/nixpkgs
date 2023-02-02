@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ hidapi ];
 
-  nativeCheckInputs = [ nose ];
+  checkInputs = [ nose ];
 
  postPatch = ''
     hidapi=${hidapi}/lib/

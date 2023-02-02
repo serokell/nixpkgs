@@ -1,23 +1,17 @@
-{ lib, fetchFromGitHub, buildGoModule }:
+{ lib, fetchFromGitHub, buildGoPackage }:
 
-buildGoModule rec {
+buildGoPackage rec {
   pname = "cni";
-  version = "1.1.2";
+  version = "0.8.1";
 
   src = fetchFromGitHub {
     owner = "containernetworking";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-g7fVeoqquxPa17AfTu6wnB6PQJDluJ21T3ETrcvWtWg=";
+    sha256 = "sha256-vxwNHIc3rFi7HKIEZrBcr7Oxs2iUtFYcfJK7aXDUv3k=";
   };
 
-  vendorSha256 = "sha256-nH/myA/KdTeFXvmBymXITyx5fdCGnWRn6hNRinXc3/s=";
-
-  subPackages = [
-    "./cnitool"
-  ];
-
-  ldflags = [ "-s" "-w" ];
+  goPackagePath = "github.com/containernetworking/cni";
 
   meta = with lib; {
     description = "Container Network Interface - networking for Linux containers";

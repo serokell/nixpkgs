@@ -36,7 +36,7 @@ buildPythonPackage rec {
     traittypes
   ];
 
-  nativeCheckInputs = [ pytest pytest-cov nbval ];
+  checkInputs = [ pytest pytest-cov nbval ];
 
   checkPhase = "pytest ipydatawidgets/tests";
 

@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = with xorg; [ libX11 libXrandr libXcursor boost ];
-  nativeCheckInputs = [ gtest ];
+  checkInputs = [ gtest ];
 
   doCheck = true;
   checkTarget = "gtest";

@@ -122,7 +122,7 @@ in
       };
 
       port = mkOption {
-        type = types.port;
+        type = types.int;
         default = 3000;
         description = lib.mdDoc ''
           TCP port the web server should listen to.

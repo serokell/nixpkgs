@@ -22,7 +22,7 @@ buildPythonPackage rec {
     typish
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     attrs
     pytestCheckHook
     tzdata

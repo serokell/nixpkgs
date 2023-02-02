@@ -1,16 +1,16 @@
 { lib, stdenv, fetchFromGitHub, cmake, pkg-config, vala, gtk3, libgee
-, poppler, libpthreadstubs, gstreamer, gst-plugins-base, gst-plugins-good, gst-libav, gobject-introspection, wrapGAppsHook
-, qrencode, webkitgtk, discount, json-glib }:
+, poppler, libpthreadstubs, gstreamer, gst-plugins-base, gst-plugins-good, gst-libav, librsvg, pcre, gobject-introspection, wrapGAppsHook
+, webkitgtk, discount, json-glib }:
 
 stdenv.mkDerivation rec {
   pname = "pdfpc";
-  version = "4.6.0";
+  version = "4.5.0";
 
   src = fetchFromGitHub {
     repo = "pdfpc";
     owner = "pdfpc";
     rev = "v${version}";
-    hash = "sha256-5HFmbVsNajMwo+lBe9kJcJyQGe61N6Oy2CI/WJwmSE4=";
+    sha256 = "0bmy51w6ypz927hxwp5g7wapqvzqmsi3w32rch6i3f94kg1152ck";
   };
 
   nativeBuildInputs = [
@@ -22,12 +22,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     gtk3 libgee poppler
-    libpthreadstubs
+    libpthreadstubs librsvg pcre
     gstreamer
     gst-plugins-base
     (gst-plugins-good.override { gtkSupport = true; })
     gst-libav
-    qrencode
     webkitgtk
     discount
     json-glib

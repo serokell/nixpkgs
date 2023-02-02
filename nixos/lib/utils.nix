@@ -39,19 +39,11 @@ rec {
     || hasPrefix a'.mountPoint b'.mountPoint
     || any (hasPrefix a'.mountPoint) b'.depends;
 
-  # Escape a path according to the systemd rules. FIXME: slow
-  # The rules are described in systemd.unit(5) as follows:
-  # The escaping algorithm operates as follows: given a string, any "/" character is replaced by "-", and all other characters which are not ASCII alphanumerics, ":", "_" or "." are replaced by C-style "\x2d" escapes. In addition, "." is replaced with such a C-style escape when it would appear as the first character in the escaped string.
-  # When the input qualifies as absolute file system path, this algorithm is extended slightly: the path to the root directory "/" is encoded as single dash "-". In addition, any leading, trailing or duplicate "/" characters are removed from the string before transformation. Example: /foo//bar/baz/ becomes "foo-bar-baz".
-  escapeSystemdPath = s: let
-    replacePrefix = p: r: s: (if (hasPrefix p s) then r + (removePrefix p s) else s);
-    trim = s: removeSuffix "/" (removePrefix "/" s);
-    normalizedPath = strings.normalizePath s;
-  in
-    replaceStrings ["/"] ["-"]
-    (replacePrefix "." (strings.escapeC ["."] ".")
-    (strings.escapeC (stringToCharacters " !\"#$%&'()*+,;<=>=@[\\]^`{|}~-")
-    (if normalizedPath == "/" then normalizedPath else trim normalizedPath)));
+  # Escape a path according to the systemd rules, e.g. /dev/xyzzy
+  # becomes dev-xyzzy.  FIXME: slow.
+  escapeSystemdPath = s:
+   replaceChars ["/" "-" " "] ["-" "\\x2d" "\\x20"]
+   (removePrefix "/" s);
 
   # Quotes an argument for use in Exec* service lines.
   # systemd accepts "-quoted strings with escape sequences, toJSON produces
@@ -67,7 +59,7 @@ rec {
         else if builtins.isInt arg || builtins.isFloat arg then toString arg
         else throw "escapeSystemdExecArg only allows strings, paths and numbers";
     in
-      replaceStrings [ "%" "$" ] [ "%%" "$$" ] (builtins.toJSON s);
+      replaceChars [ "%" "$" ] [ "%%" "$$" ] (builtins.toJSON s);
 
   # Quotes a list of arguments into a single string for use in a Exec*
   # line.
@@ -112,7 +104,7 @@ rec {
         else if isAttrs item then
           map (name:
             let
-              escapedName = ''"${replaceStrings [''"'' "\\"] [''\"'' "\\\\"] name}"'';
+              escapedName = ''"${replaceChars [''"'' "\\"] [''\"'' "\\\\"] name}"'';
             in
               recurse (prefix + "." + escapedName) item.${name}) (attrNames item)
         else if isList item then

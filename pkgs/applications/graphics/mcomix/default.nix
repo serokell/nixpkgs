@@ -18,11 +18,11 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "mcomix";
-  version = "2.1.0";
+  version = "2.0.2";
 
   src = fetchurl {
     url = "mirror://sourceforge/mcomix/${pname}-${version}.tar.gz";
-    hash = "sha256-Nok4oqTezO84q9IDZvgi33ZeKfRL+tpg7QEDmp2ZZpU=";
+    sha256 = "sha256-7zjQcT5WoHxy+YzCDJ6s2ngOOfO4L9exuqBqacecClg=";
   };
 
   buildInputs = [ gobject-introspection gtk3 gdk-pixbuf ];

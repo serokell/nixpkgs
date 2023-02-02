@@ -27,7 +27,7 @@ buildPythonPackage rec {
     pytest
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     numpy
   ];

@@ -1,13 +1,11 @@
-{ lib
-, beam
+{ beam
 , callPackage
 , openssl_1_1
-, wxGTK32
+, wxGTK30
 , buildPackages
 , stdenv
 , wxSupport ? true
-, systemd
-, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd
+, systemdSupport ? stdenv.isLinux
 }:
 
 let
@@ -17,21 +15,23 @@ in
 {
   beamLib = callPackage ../development/beam-modules/lib.nix { };
 
-  latestVersion = "erlangR25";
+  # R24 is the default version.
+  # The main switch to change default Erlang version.
+  defaultVersion = "erlangR24";
 
   # Each
   interpreters = {
 
-    erlang = self.interpreters.${self.latestVersion};
-    erlang_odbc = self.interpreters."${self.latestVersion}_odbc";
-    erlang_javac = self.interpreters."${self.latestVersion}_javac";
-    erlang_odbc_javac = self.interpreters."${self.latestVersion}_odbc_javac";
+    erlang = self.interpreters.${self.defaultVersion};
+    erlang_odbc = self.interpreters."${self.defaultVersion}_odbc";
+    erlang_javac = self.interpreters."${self.defaultVersion}_javac";
+    erlang_odbc_javac = self.interpreters."${self.defaultVersion}_odbc_javac";
 
     # Standard Erlang versions, using the generic builder.
 
     # R25
     erlangR25 = self.beamLib.callErlang ../development/interpreters/erlang/R25.nix {
-      wxGTK = wxGTK32;
+      wxGTK = wxGTK30;
       parallelBuild = true;
       autoconf = buildPackages.autoconf269;
       inherit wxSupport systemdSupport;
@@ -45,7 +45,7 @@ in
 
     # R24
     erlangR24 = self.beamLib.callErlang ../development/interpreters/erlang/R24.nix {
-      wxGTK = wxGTK32;
+      wxGTK = wxGTK30;
       # Can be enabled since the bug has been fixed in https://github.com/erlang/otp/pull/2508
       parallelBuild = true;
       autoconf = buildPackages.autoconf269;
@@ -61,7 +61,7 @@ in
     # R23
     erlangR23 = self.beamLib.callErlang ../development/interpreters/erlang/R23.nix {
       openssl = openssl_1_1;
-      wxGTK = wxGTK32;
+      wxGTK = wxGTK30;
       # Can be enabled since the bug has been fixed in https://github.com/erlang/otp/pull/2508
       parallelBuild = true;
       autoconf = buildPackages.autoconf269;
@@ -77,7 +77,7 @@ in
     # R22
     erlangR22 = self.beamLib.callErlang ../development/interpreters/erlang/R22.nix {
       openssl = openssl_1_1;
-      wxGTK = wxGTK32;
+      wxGTK = wxGTK30;
       # Can be enabled since the bug has been fixed in https://github.com/erlang/otp/pull/2508
       parallelBuild = true;
       autoconf = buildPackages.autoconf269;
@@ -93,7 +93,7 @@ in
     # R21
     erlangR21 = self.beamLib.callErlang ../development/interpreters/erlang/R21.nix {
       openssl = openssl_1_1;
-      wxGTK = wxGTK32;
+      wxGTK = wxGTK30;
       autoconf = buildPackages.autoconf269;
       inherit wxSupport systemdSupport;
     };
@@ -120,7 +120,8 @@ in
   # Each field in this tuple represents all Beam packages in nixpkgs built with
   # appropriate Erlang/OTP version.
   packages = {
-    erlang = self.packages.${self.latestVersion};
+    # Packages built with default Erlang version.
+    erlang = self.packages.${self.defaultVersion};
 
     erlangR25 = self.packagesWith self.interpreters.erlangR25;
     erlangR24 = self.packagesWith self.interpreters.erlangR24;

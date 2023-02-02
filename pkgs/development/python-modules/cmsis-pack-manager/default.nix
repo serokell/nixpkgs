@@ -16,12 +16,11 @@
 }:
 let
   pname = "cmsis-pack-manager";
-  version = "0.5.1";
+  version = "0.4.0";
 
   src = fetchPypi {
-    pname = "cmsis_pack_manager";
-    inherit version;
-    sha256 = "sha256-2pKGJlPubR+C4UhdCuMDR9GG2wQOaP6YkMXxeAcaRkk=";
+    inherit pname version;
+    sha256 = "sha256-NeUG6PFI2eTwq5SNtAB6ZMA1M3z1JmMND29V9/O5sgw=";
   };
 
   native = rustPlatform.buildRustPackage {
@@ -55,7 +54,7 @@ buildPythonPackage rec {
   nativeBuildInputs = [ setuptools-scm ];
   propagatedBuildInputs = [ appdirs milksnake pyyaml ];
 
-  nativeCheckInputs = [ hypothesis jinja2 mock pytestCheckHook ];
+  checkInputs = [ hypothesis jinja2 mock pytestCheckHook ];
 
   preBuild = ''
     mkdir -p rust/target/release/deps

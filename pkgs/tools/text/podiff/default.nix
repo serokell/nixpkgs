@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation {
   pname = "podiff";
-  version = "1.4";
+  version = "1.3";
 
   src = fetchurl {
-    url = "ftp://download.gnu.org.ua/pub/release/podiff/podiff-1.4.tar.gz";
-    sha256 = "sha256-IxUx87CxdhWh8MqdcSo8GWaG358aZBaIx0oldK94sio=";
+    url = "ftp://download.gnu.org.ua/pub/release/podiff/podiff-1.3.tar.gz";
+    sha256 = "sha256-7fpix+GkXsfpRgnkHtk1iXF6ILHri7BtUhNPK6sDQFA=";
   };
 
   patchPhase = ''

@@ -24,7 +24,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ numpy torch threadpoolctl tqdm ];
-  nativeCheckInputs = [ dill pytestCheckHook ];
+  checkInputs = [ dill pytestCheckHook ];
 
   disabledTests = [ "test_affine" ];  # deprecated division operator '/'
 

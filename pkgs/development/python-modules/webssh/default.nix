@@ -1,5 +1,5 @@
-{ lib
-, stdenv
+{ stdenv
+, lib
 , buildPythonPackage
 , fetchPypi
 , paramiko
@@ -9,12 +9,12 @@
 
 buildPythonPackage rec {
   pname = "webssh";
-  version = "1.6.1";
+  version = "1.6.0";
   format = "setuptools";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-g3RRQUWbjHRaZRVekmETcrHYeVIIpeteCCh7o28jBLY=";
+    hash = "sha256-yqjwahh2METXD83geTGt5sUL+vmxbrYxj4KtwTxbD94=";
   };
 
   propagatedBuildInputs = [
@@ -22,7 +22,7 @@ buildPythonPackage rec {
     tornado
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 
@@ -36,11 +36,10 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
+    broken = stdenv.isDarwin;
     description = "Web based SSH client";
     homepage = "https://github.com/huashengdun/webssh/";
-    changelog = "https://github.com/huashengdun/webssh/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ davidtwco ];
-    broken = stdenv.isDarwin;
   };
 }

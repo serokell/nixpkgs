@@ -6,18 +6,19 @@
 , pandas
 , pytestCheckHook
 , which
+, verilog
 , yosys
 }:
 
 buildPythonPackage rec {
   pname = "edalize";
-  version = "0.4.1";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "olofk";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-h6b0mdAUR4NsN2SpnLu5OgS9Fy9ZRitG+5Sbon1jlUM=";
+    rev = "v${version}";
+    sha256 = "sha256-fpUNCxW7+uymodJ/yGME9VNcCEZdBROIdT1+blpgkzA=";
   };
 
   postPatch = ''
@@ -28,18 +29,17 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ jinja2 ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pandas
     which
     yosys
+    verilog
   ];
 
   pythonImportsCheck = [ "edalize" ];
 
   disabledTestPaths = [
-    "tests/test_questa_formal.py"
-    "tests/test_slang.py"
     "tests/test_apicula.py"
     "tests/test_ascentlint.py"
     "tests/test_diamond.py"

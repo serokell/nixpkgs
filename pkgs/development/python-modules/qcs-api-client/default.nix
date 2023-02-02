@@ -48,7 +48,7 @@ buildPythonPackage rec {
     toml
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytestCheckHook
     respx

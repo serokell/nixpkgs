@@ -1,11 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, poetry-core, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, poetry, pythonOlder
 , click, backports-cached-property, graphql-core, pygments, python-dateutil, python-multipart, typing-extensions
 , aiohttp, asgiref, chalice, django, fastapi, flask, pydantic, sanic, starlette, uvicorn
 }:
 
 buildPythonPackage rec {
   pname = "strawberry-graphql";
-  version = "0.151.2";
+  version = "0.125.0";
   format = "pyproject";
 
   disabled = pythonOlder "3.6";
@@ -13,20 +13,12 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "strawberry-graphql";
     repo = "strawberry";
-    rev = "refs/tags/${version}";
-    sha256 = "sha256-sHrdZ33irwTkm3OHQ2yxxcCWZDcaNbKy7amfRTtPVZ8=";
+    rev = version;
+    sha256 = "sha256-8ERmG10qNiYg9Zr8oUZk/Uz68sCE+oWrqmJ5kUMqbRo=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "switch-to-poetry-core.patch";
-      url = "https://github.com/strawberry-graphql/strawberry/commit/710bb96f47c244e78fc54c921802bcdb48f5f421.patch";
-      hash = "sha256-ekUZ2hDPCqwXp9n0YjBikwSkhCmVKUzQk7LrPECcD7Y=";
-    })
-  ];
-
   nativeBuildInputs = [
-    poetry-core
+    poetry
   ];
 
   propagatedBuildInputs = [

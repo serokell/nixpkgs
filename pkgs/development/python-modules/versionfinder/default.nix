@@ -2,7 +2,7 @@
 , backoff
 , buildPythonPackage
 , fetchFromGitHub
-, gitpython
+, GitPython
 , pytestCheckHook
 , pythonOlder
 , requests
@@ -23,11 +23,11 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [
-    gitpython
+    GitPython
     backoff
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     requests
   ];
@@ -49,7 +49,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Find the version of another package, whether installed via pip, setuptools or git";
     homepage = "https://github.com/jantman/versionfinder";
-    changelog = "https://github.com/jantman/versionfinder/blob/${version}/CHANGES.rst";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ zakame ];
   };

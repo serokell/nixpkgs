@@ -19,12 +19,6 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
-
   postInstall = ''
     installShellCompletion completion/*
   '';

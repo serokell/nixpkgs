@@ -2,7 +2,7 @@
 { stdenv, lib, fetchurl, cmake, libGLU, libGL, libX11, xorgproto, libXt, libpng, libtiff
 , fetchpatch
 , enableQt ? false, qtbase, qtx11extras, qttools, qtdeclarative, qtEnv
-, enablePython ? false, python ? throw "vtk: Python support requested, but no python interpreter was given."
+, enablePython ? false, pythonInterpreter ? throw "vtk: Python support requested, but no python interpreter was given."
 # Darwin support
 , Cocoa, CoreServices, DiskArbitration, IOKit, CFNetwork, Security, GLUT, OpenGL
 , ApplicationServices, CoreText, IOSurface, ImageIO, xpc, libobjc
@@ -11,7 +11,7 @@
 let
   inherit (lib) optionalString optionals optional;
 
-  pythonMajor = lib.substring 0 1 python.pythonVersion;
+  pythonMajor = lib.substring 0 1 pythonInterpreter.pythonVersion;
 
 in stdenv.mkDerivation rec {
   pname = "vtk${optionalString enableQt "-qvtk"}";
@@ -30,6 +30,8 @@ in stdenv.mkDerivation rec {
                            else  [ (qtEnv "qvtk-qt-env" [ qtx11extras qttools qtdeclarative ]) ])
     ++ optionals stdenv.isLinux [
       libGLU
+      libGL
+      libX11
       xorgproto
       libXt
     ] ++ optionals stdenv.isDarwin [
@@ -46,12 +48,10 @@ in stdenv.mkDerivation rec {
       ImageIO
       OpenGL
       GLUT
-    ] ++ optionals enablePython [
-      python
+    ] ++ optional enablePython [
+      pythonInterpreter
     ];
-  propagatedBuildInputs = optionals stdenv.isDarwin [ libobjc ]
-    ++ optionals stdenv.isLinux [ libX11 libGL ];
-    # see https://github.com/NixOS/nixpkgs/pull/178367#issuecomment-1238827254
+  propagatedBuildInputs = optionals stdenv.isDarwin [ libobjc ];
 
   patches = map fetchpatch patchesToFetch;
 
@@ -87,13 +87,6 @@ in stdenv.mkDerivation rec {
     sed -i 's|COMMAND vtkHashSource|COMMAND "DYLD_LIBRARY_PATH=''${VTK_BINARY_DIR}/lib" ''${VTK_BINARY_DIR}/bin/vtkHashSource-${majorVersion}|' ./Parallel/Core/CMakeLists.txt
     sed -i 's/fprintf(output, shift)/fprintf(output, "%s", shift)/' ./ThirdParty/libxml2/vtklibxml2/xmlschemas.c
     sed -i 's/fprintf(output, shift)/fprintf(output, "%s", shift)/g' ./ThirdParty/libxml2/vtklibxml2/xpath.c
-  '';
-
-  postInstall = optionalString enablePython ''
-    substitute \
-      ${./vtk.egg-info} \
-      $out/${python.sitePackages}/vtk-${version}.egg-info \
-      --subst-var-by VTK_VER "${version}"
   '';
 
   meta = with lib; {

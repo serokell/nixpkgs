@@ -6,15 +6,15 @@
 , libusb-compat-0_1
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation rec {
   pname = "teensy-loader-cli";
-  version = "2.2";
+  version = "2.1+unstable=2021-04-10";
 
   src = fetchFromGitHub {
     owner = "PaulStoffregen";
     repo = "teensy_loader_cli";
-    rev = finalAttrs.version;
-    sha256 = "sha256-C9Qhd6LhAES7X0sh4rofjAM+gxwuosahVQHeR76LyIo=";
+    rev = "9dbbfa3b367b6c37e91e8a42dae3c6edfceccc4d";
+    sha256 = "lQ1XtaWPr6nvE8NArD1980QVOH6NggO3FlfsntUjY7s=";
   };
 
   nativeBuildInputs = [
@@ -30,8 +30,8 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     install -Dm555 teensy_loader_cli $out/bin/teensy-loader-cli
-    install -Dm444 -t $out/share/doc/teensy-loader-cli *.md *.txt
-    go-md2man -in README.md -out teensy-loader-cli.1
+    install -Dm444 -t $out/share/doc/${pname} *.md *.txt
+    go-md2man -in README.md -out ${pname}.1
     installManPage *.1
 
     runHook postInstall
@@ -43,4 +43,4 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.gpl3Only;
     platforms = platforms.unix;
   };
-})
+}

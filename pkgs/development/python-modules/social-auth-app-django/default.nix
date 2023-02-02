@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "social_django" ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     django
   ];
 

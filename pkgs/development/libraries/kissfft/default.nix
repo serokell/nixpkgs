@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeCheckInputs = [
+  checkInputs = [
     py
     (if datatype == "float" then fftwFloat else fftw)
   ];

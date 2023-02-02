@@ -9,14 +9,13 @@
 
 buildPythonPackage rec {
   pname = "jsonpath-ng";
-  version = "1.5.3";
+  version = "1.5.2";
 
   src = fetchFromGitHub {
     owner = "h2non";
     repo = pname;
-    # missing tag https://github.com/h2non/jsonpath-ng/issues/114
-    rev = "cce4a3d4063ac8af928795acc53beb27a2bfd101";
-    sha256 = "sha256-+9iQHQs5TQhZFeIqMlsa3FFPfZEktAWy1lSdJU7kZrc=";
+    rev = "v${version}";
+    sha256 = "1cxjwhx0nj85a3awnl7j6afnk07awzv45qfwxl5jqbbc9cxh5bd6";
   };
 
   propagatedBuildInputs = [
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   disabledTestPaths = [
     # Exclude tests that require oslotest

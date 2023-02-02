@@ -1,45 +1,30 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, google-api-core
+, pytestCheckHook
 , grpc-google-iam-v1
+, google-api-core
+, libcst
 , mock
 , proto-plus
-, protobuf
 , pytest-asyncio
-, pytestCheckHook
-, pythonOlder
 }:
 
 buildPythonPackage rec {
   pname = "google-cloud-kms";
-  version = "2.13.0";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "2.12.1";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-0nOQnibi1T0JW9NQaKSrNCnfB5EgsnNYMVCEiUsPRdU=";
+    sha256 = "sha256-A1sIdkNdK4L6gb3VBApuKJ71J5N2Jq43kcD8DpHU99E=";
   };
 
-  propagatedBuildInputs = [
-    grpc-google-iam-v1
-    google-api-core
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs = [ grpc-google-iam-v1 google-api-core libcst proto-plus ];
 
-  nativeCheckInputs = [
-    mock
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  checkInputs = [ mock pytestCheckHook pytest-asyncio ];
 
   # Disable tests that need credentials
-  disabledTests = [
-    "test_list_global_key_rings"
-  ];
+  disabledTests = [ "test_list_global_key_rings" ];
 
   pythonImportsCheck = [
     "google.cloud.kms"
@@ -49,7 +34,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Cloud Key Management Service (KMS) API API client library";
     homepage = "https://github.com/googleapis/python-kms";
-    changelog = "https://github.com/googleapis/python-kms/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

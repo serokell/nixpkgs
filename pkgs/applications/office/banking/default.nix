@@ -13,19 +13,18 @@
 , gobject-introspection
 , libadwaita
 , librsvg
-, gtk4
 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "banking";
-  version = "0.6.0";
+  version = "0.5.1";
   format = "other";
 
   src = fetchFromGitLab {
     owner = "tabos";
     repo = "banking";
     rev = version;
-    hash = "sha256-x/um40sRD58d5LuuJlyietCV1Rw4H5VSO0I3ZwD5kO8=";
+    sha256 = "sha256-tZlBpDcwQ/aWroP2sFQBZcvmBD26PiY7q/8xFA8GnVc=";
   };
 
   postPatch = ''
@@ -41,11 +40,10 @@ python3.pkgs.buildPythonApplication rec {
     ninja
     pkg-config
     wrapGAppsHook4
-    gobject-introspection
-    gtk4 # for gtk4-update-icon-cache
   ];
 
   buildInputs = [
+    gobject-introspection
     libadwaita
     librsvg
   ];
@@ -54,8 +52,8 @@ python3.pkgs.buildPythonApplication rec {
     cryptography
     fints
     mt-940
-    onetimepad
     pygobject3
+    pysqlitecipher
     schwifty
   ];
 

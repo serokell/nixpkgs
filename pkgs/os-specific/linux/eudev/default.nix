@@ -2,6 +2,7 @@
 , stdenv
 , fetchFromGitHub
 , autoreconfHook
+, glib
 , gperf
 , kmod
 , pkg-config
@@ -26,6 +27,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
+    glib
     kmod
     util-linux
   ];

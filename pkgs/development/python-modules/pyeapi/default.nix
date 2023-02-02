@@ -31,7 +31,7 @@ buildPythonPackage rec {
     netaddr
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     pytestCheckHook
   ];

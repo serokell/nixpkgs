@@ -12,16 +12,15 @@
 
 buildPythonPackage rec {
   pname = "adguardhome";
-  version = "0.6.1";
+  version = "0.5.1";
   format = "pyproject";
-
   disabled = pythonOlder "3.8";
 
   src = fetchFromGitHub {
     owner = "frenck";
     repo = "python-${pname}";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-ZeajC8FM7Py+DWknVjnwiM4jaCCcnxfC+kTbHEEmyms=";
+    rev = "v${version}";
+    sha256 = "sha256-HAgt52Bo2NOUkpr5xvWTcRyrLKpfcBDlVAZxgDNI7hY=";
   };
 
   postPatch = ''
@@ -33,29 +32,24 @@ buildPythonPackage rec {
       --replace 0.0.0 ${version}
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp
     yarl
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     aresponses
     pytest-asyncio
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "adguardhome"
-  ];
+  pythonImportsCheck = [ "adguardhome" ];
 
   meta = with lib; {
     description = "Python client for the AdGuard Home API";
     homepage = "https://github.com/frenck/python-adguardhome";
-    changelog = "https://github.com/frenck/python-adguardhome/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ jamiemagee ];
   };

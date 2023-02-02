@@ -1,4 +1,4 @@
-postFixupHooks+=(_makeSymlinksRelative)
+fixupOutputHooks+=(_makeSymlinksRelative)
 
 # For every symlink in $output that refers to another file in $output
 # ensure that the symlink is relative. This removes references to the output

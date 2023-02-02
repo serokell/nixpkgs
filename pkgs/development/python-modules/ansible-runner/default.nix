@@ -3,7 +3,6 @@
 , ansible-core
 , buildPythonPackage
 , fetchPypi
-, glibcLocales
 , mock
 , openssh
 , pbr
@@ -13,7 +12,6 @@
 , pytest-timeout
 , pytest-xdist
 , pytestCheckHook
-, pythonOlder
 , python-daemon
 , pyyaml
 , six
@@ -21,14 +19,12 @@
 
 buildPythonPackage rec {
   pname = "ansible-runner";
-  version = "2.3.1";
+  version = "2.2.1";
   format = "setuptools";
-
-  disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-HS8C06Ylc/OOaKI3kBGLeYF5HCvtK18i96NqIhwoh1Y=";
+    hash = "sha256-zZtssRdAEbTi4KWZPU0E2SjN5f4iqJk67UQ4STOHwYI=";
   };
 
   nativeBuildInputs = [
@@ -44,9 +40,8 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     ansible-core # required to place ansible CLI onto the PATH in tests
-    glibcLocales
     pytestCheckHook
     pytest-mock
     pytest-timeout
@@ -70,7 +65,7 @@ buildPythonPackage rec {
     "test_large_stdout_blob"
     # Failed: DID NOT RAISE <class 'RuntimeError'>
     "test_validate_pattern"
-  ] ++ lib.optionals stdenv.isDarwin [
+  ] ++ lib.optional stdenv.isDarwin [
     # test_process_isolation_settings is currently broken on Darwin Catalina
     # https://github.com/ansible/ansible-runner/issues/413
     "process_isolation_settings"

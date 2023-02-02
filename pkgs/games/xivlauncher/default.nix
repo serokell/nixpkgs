@@ -3,18 +3,17 @@
 , useSteamRun ? true }:
 
 let
-  rev = "1.0.3";
+  rev = "6246fde6b54f8c7e340057fe2d940287c437153f";
 in
   buildDotnetModule rec {
     pname = "XIVLauncher";
-    version = rev;
+    version = "1.0.1.0";
 
     src = fetchFromGitHub {
       owner = "goatcorp";
-      repo = "XIVLauncher.Core";
+      repo = "FFXIVQuickLauncher";
       inherit rev;
-      hash = "sha256-aQVfW6Ef8X6L6hBEOCY/Py5tEyorXqtOO3v70mD7efA=";
-      fetchSubmodules = true;
+      sha256 = "sha256-sM909/ysrlwsiVSBrMo4cOZUWxjRA3ZSwlloGythOAY=";
     };
 
     nativeBuildInputs = [ copyDesktopItems ];
@@ -23,12 +22,16 @@ in
     nugetDeps = ./deps.nix; # File generated with `nix-build -A xivlauncher.passthru.fetch-deps`
 
     dotnetFlags = [
+      "--runtime linux-x64"
       "-p:BuildHash=${rev}"
-      "-p:PublishSingleFile=false"
+    ];
+
+    dotnetBuildFlags = [
+      "--no-self-contained"
     ];
 
     postPatch = ''
-      substituteInPlace lib/FFXIVQuickLauncher/src/XIVLauncher.Common/Game/Patch/Acquisition/Aria/AriaHttpPatchAcquisition.cs \
+      substituteInPlace src/XIVLauncher.Common/Game/Patch/Acquisition/Aria/AriaHttpPatchAcquisition.cs \
         --replace 'ariaPath = "aria2c"' 'ariaPath = "${aria2}/bin/aria2c"'
     '';
 
@@ -54,7 +57,6 @@ in
         desktopName = "XIVLauncher";
         comment = meta.description;
         categories = [ "Game" ];
-        startupWMClass = "XIVLauncher.Core";
       })
     ];
 
@@ -62,8 +64,7 @@ in
       description = "Custom launcher for FFXIV";
       homepage = "https://github.com/goatcorp/FFXIVQuickLauncher";
       license = licenses.gpl3;
-      maintainers = with maintainers; [ sersorrel witchof0x20 ];
+      maintainers = with maintainers; [ ashkitten sersorrel ];
       platforms = [ "x86_64-linux" ];
-      mainProgram = "XIVLauncher.Core";
     };
   }

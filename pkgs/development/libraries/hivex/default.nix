@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchurl, pkg-config, autoreconfHook, makeWrapper, perlPackages
-, ocamlPackages, libxml2, libintl
-}:
+{ lib, stdenv, fetchurl, pkg-config, autoreconfHook, makeWrapper
+, perlPackages, libxml2, libintl }:
 
 stdenv.mkDerivation rec {
   pname = "hivex";
@@ -13,21 +12,12 @@ stdenv.mkDerivation rec {
 
   patches = [ ./hivex-syms.patch ];
 
-  postPatch = ''
-    substituteInPlace ocaml/Makefile.am \
-        --replace '$(DESTDIR)$(OCAMLLIB)' '$(out)/lib/ocaml/${ocamlPackages.ocaml.version}/site-lib'
-  '';
-
-  strictDeps = true;
-  nativeBuildInputs = [ autoreconfHook makeWrapper perlPackages.perl pkg-config ]
-  ++ (with ocamlPackages; [ ocaml findlib ]);
+  nativeBuildInputs = [ autoreconfHook makeWrapper pkg-config ];
   buildInputs = [
     libxml2
   ]
   ++ (with perlPackages; [ perl IOStringy ])
   ++ lib.optionals stdenv.isDarwin [ libintl ];
-
-  enableParallelBuilding = true;
 
   postInstall = ''
     wrapProgram $out/bin/hivexregedit \
@@ -40,7 +30,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Windows registry hive extraction library";
-    license = licenses.lgpl2Only;
+    license = licenses.lgpl2;
     homepage = "https://github.com/libguestfs/hivex";
     maintainers = with maintainers; [offline];
     platforms = platforms.unix;

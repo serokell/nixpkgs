@@ -23,7 +23,7 @@ buildPythonPackage rec {
   # Seems to look for files in the wrong dir
   doCheck = false;
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  checkInputs = [ unittestCheckHook ];
 
   unittestFlagsArray = [ "-s" "tests" ];
 

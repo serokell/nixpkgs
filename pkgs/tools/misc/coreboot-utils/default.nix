@@ -38,7 +38,6 @@ let
     msrtool = generic {
       pname = "msrtool";
       meta.description = "Dump chipset-specific MSR registers";
-      meta.platforms = [ "x86_64-linux" "i686-linux" ];
       buildInputs = [ pciutils zlib ];
       preConfigure = "export INSTALL=install";
     };

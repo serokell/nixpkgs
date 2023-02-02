@@ -38,14 +38,14 @@ in
       + lib.optionalString enableQt "-qt"
       + lib.optionalString (!enableQt) "-sdl"
       + lib.optionalString forceWayland "-wayland";
-    version = "1.14.4";
+    version = "1.13.2";
 
     src = fetchFromGitHub {
       owner = "hrydgard";
       repo = "ppsspp";
       rev = "v${finalAttrs.version}";
       fetchSubmodules = true;
-      sha256 = "sha256-7xzhN8JIQD4LZg8sQ8rLNYZrW0nCNBfZFgzoKdoWbKc=";
+      sha256 = "sha256-Ubbl2KCZ4QlWDtTxl4my0nKNGY25DOkD/iEurzVx4gU=";
     };
 
     postPatch = ''

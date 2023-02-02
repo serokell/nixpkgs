@@ -22,7 +22,7 @@ in
         type = types.bool;
         default = false;
         description = lib.mdDoc ''
-          Whether to enable `gpsd`, a GPS service daemon.
+          Whether to enable `gpsd', a GPS service daemon.
         '';
       };
 
@@ -77,14 +77,6 @@ in
         '';
       };
 
-      listenany = mkOption {
-        type = types.bool;
-        default = false;
-        description = lib.mdDoc ''
-          Listen on all addresses rather than just loopback.
-        '';
-      };
-
     };
 
   };
@@ -114,7 +106,6 @@ in
             -S "${toString cfg.port}"                             \
             ${optionalString cfg.readonly "-b"}                   \
             ${optionalString cfg.nowait "-n"}                     \
-            ${optionalString cfg.listenany "-G"}                  \
             "${cfg.device}"
         '';
       };

@@ -34,7 +34,7 @@ buildPythonPackage rec {
     uritemplate
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-mock
   ];

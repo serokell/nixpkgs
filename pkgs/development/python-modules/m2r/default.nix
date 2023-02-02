@@ -32,7 +32,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ mistune docutils ];
 
-  nativeCheckInputs = [ pygments ];
+  checkInputs = [ pygments ];
 
   meta = with lib; {
     homepage = "https://github.com/miyakogi/m2r";

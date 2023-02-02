@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = "https://jocr.sourceforge.net/";
+    homepage = "http://jocr.sourceforge.net/";
     description = "GPL Optical Character Recognition";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;

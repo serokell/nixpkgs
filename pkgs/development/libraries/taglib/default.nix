@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation rec {
   pname = "taglib";
-  version = "1.13";
+  version = "1.12";
 
   src = fetchFromGitHub {
     owner = "taglib";
     repo = "taglib";
     rev = "v${version}";
-    sha256 = "sha256-DRALRH+/7c2lBvCpLp8hop3Xxsf76F1q8L7F9qehqQA=";
+    sha256 = "sha256-omErajnYgxbflsbe6pS2KsexZcXisso0WGYnmIud7WA=";
   };
 
   nativeBuildInputs = [ cmake ];

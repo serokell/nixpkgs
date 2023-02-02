@@ -16,7 +16,6 @@
 , dissect-ntfs
 , dissect-regf
 , dissect-sql
-, dissect-thumbcache
 , dissect-util
 , dissect-volume
 , dissect-xfs
@@ -36,7 +35,7 @@
 
 buildPythonPackage rec {
   pname = "dissect-target";
-  version = "3.4";
+  version = "3.3";
   format = "pyproject";
 
   disabled = pythonOlder "3.7";
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     owner = "fox-it";
     repo = "dissect.target";
     rev = version;
-    hash = "sha256-QwEznweETwDTuTctOnq0n27JYXC9BO5l6BYpXsMRVq4=";
+    hash = "sha256-EWUYN2OsYeDo3C+QgjAVq9NXiVk1KWGILwtT0cI0tB0=";
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
@@ -80,7 +79,6 @@ buildPythonPackage rec {
       dissect-fat
       dissect-ffs
       dissect-sql
-      dissect-thumbcache
       dissect-xfs
       fusepy
       ipython
@@ -90,7 +88,7 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ] ++ passthru.optional-dependencies.full;
 

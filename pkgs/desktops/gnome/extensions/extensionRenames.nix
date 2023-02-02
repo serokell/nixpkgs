@@ -16,9 +16,6 @@
   "azan@faissal.bensefia.id" = "azan-islamic-prayer-times";
   "azan@hatem.masmoudi.org" = null;
 
-  "noannoyance@sindex.com" = "noannoyance";
-  "noannoyance@daase.net" = "noannoyance-2";
-
   # ############################################################################
   # These are conflicts for older extensions (i.e. they don't support the latest GNOME version).
   # Make sure to move them up once they are updated
@@ -36,9 +33,6 @@
 
   "wireguard-indicator@gregos.me" = "wireguard-indicator-2";
   "wireguard-indicator@atareao.es" = "wireguard-indicator";
-
-  "auto-activities@acedron.github.io" = "auto-activities-2";
-  "auto-activities@CleoMenezesJr.github.io" = "auto-activities";
 
   # ####### GNOME 41 #######
 
@@ -65,6 +59,9 @@
 
   "Hide_Activities@shay.shayel.org" = "hide-activities-button";
   "hide-activities-button@nmingori.gnome-shell-extensions.org" = "hide-activities-button-2";
+
+  "noannoyance@sindex.com" = "noannoyance";
+  "noannoyance@daase.net" = "noannoyance-2";
 
   "SomaFm-Radio@alireza6677.gmail.com" = "somafm-internet-radio";
   "SomaFm-Radio@cajhne.gmail.com" = "somafm-internet-radio-2";

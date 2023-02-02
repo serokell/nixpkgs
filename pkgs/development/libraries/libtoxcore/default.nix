@@ -27,7 +27,7 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkg-config ];
 
   doCheck = true;
-  nativeCheckInputs = [ check ];
+  checkInputs = [ check ];
 
   postInstall = ''
     substituteInPlace $out/lib/pkgconfig/toxcore.pc \

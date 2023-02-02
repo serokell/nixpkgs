@@ -24,7 +24,7 @@ buildPythonPackage rec {
     sseclient-py
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     mock
     requests-mock

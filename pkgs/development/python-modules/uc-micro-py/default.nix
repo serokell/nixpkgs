@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-23mKwoRGjtxpCOC26V8bAN5QEHLDOoSqPeTlUuIrxZ0=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
   pythonImportsCheck = [ "uc_micro" ];
 
   meta = with lib; {

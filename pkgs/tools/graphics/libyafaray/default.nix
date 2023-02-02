@@ -1,4 +1,5 @@
-{ cmake
+{ boost165
+, cmake
 , fetchFromGitHub
 , freetype
 , ilmbase
@@ -36,6 +37,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
+    boost165
     freetype
     ilmbase
     libjpeg

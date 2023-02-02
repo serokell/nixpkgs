@@ -43,7 +43,7 @@ buildPythonPackage rec {
       --replace "def testBindv6(self):" "def dontTestBindv6(self):"
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     unittestCheckHook
   ];
 

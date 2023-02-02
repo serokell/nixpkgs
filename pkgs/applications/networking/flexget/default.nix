@@ -5,20 +5,23 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "flexget";
-  version = "3.5.18";
-  format = "pyproject";
+  version = "3.3.37";
 
   # Fetch from GitHub in order to use `requirements.in`
   src = fetchFromGitHub {
     owner = "flexget";
     repo = "flexget";
     rev = "refs/tags/v${version}";
-    hash = "sha256-gMOpKXLUihiNcpHF6045D1ZcYwTgyjaVIFpDRCln5rI=";
+    hash = "sha256-9rNdl76taviGfy5va3VLmZpqH2nErAMhOg2gQQCfJyI=";
   };
 
   postPatch = ''
-    # remove dependency constraints but keep environment constraints
-    sed 's/[~<>=][^;]*//' -i requirements.txt
+    # Symlink requirements.in because upstream uses `pip-compile` which yields
+    # python-version dependent requirements
+    ln -sf requirements.in requirements.txt
+
+    # remove dependency constraints
+    sed 's/[~<>=].*//' -i requirements.txt
 
     # "zxcvbn-python" was renamed to "zxcvbn", and we don't have the former in
     # nixpkgs. See: https://github.com/NixOS/nixpkgs/issues/62110
@@ -29,7 +32,7 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   propagatedBuildInputs = with python3Packages; [
-    # See https://github.com/Flexget/Flexget/blob/master/requirements.txt
+    # See https://github.com/Flexget/Flexget/blob/master/requirements.in
     APScheduler
     beautifulsoup4
     click
@@ -52,13 +55,12 @@ python3Packages.buildPythonApplication rec {
     rich
     rpyc
     sqlalchemy
-    typing-extensions
 
     # WebUI requirements
     cherrypy
     flask-compress
     flask-cors
-    flask-login
+    flask_login
     flask-restful
     flask-restx
     flask
@@ -72,7 +74,6 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://flexget.com/";
-    changelog = "https://github.com/Flexget/Flexget/releases/tag/v${version}";
     description = "Multipurpose automation tool for all of your media";
     license = licenses.mit;
     maintainers = with maintainers; [ marsam ];

@@ -19,21 +19,21 @@
 
 buildPythonPackage rec {
   pname = "pywlroots";
-  version = "0.15.24";
+  version = "0.15.22";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-TvYhxiAbK+mpcEE9y79WH96dzeDnvI0xPaUxSYQqyHE=";
+    sha256 = "sha256-KzpQk7ANinEVvOBeZ+8vPmuuu4LbatjHBKUL44bcAAI=";
   };
 
   nativeBuildInputs = [ pkg-config ];
   propagatedNativeBuildInputs = [ cffi ];
   buildInputs = [ libinput libxkbcommon pixman xorg.libxcb udev wayland wlroots ];
   propagatedBuildInputs = [ cffi pywayland xkbcommon ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   postBuild = ''
     ${python.interpreter} wlroots/ffi_build.py

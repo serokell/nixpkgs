@@ -89,7 +89,7 @@ buildPythonPackage rec {
     # These tests are marked as "Expected fail" (xfail)
     cat ${conftestSkipNetworkErrors} >> tests/conftest.py
   '';
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-mpl
     matplotlib
@@ -130,7 +130,7 @@ buildPythonPackage rec {
 
   #pytestFlagsArray = ["-x" "-W" "ignore"]; # uncomment this to debug
 
-  pythonImportsCheck = [
+  pythonImportCheck = [
     "shap"
     "shap.explainers"
     "shap.explainers.other"

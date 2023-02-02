@@ -13,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-vQEfC8Z7xMM/fhBG6jSuhLEP/Iece5Rje1yqbpjVuPg=";
   };
 
-  nativeCheckInputs = [ hypothesis ];
+  checkInputs = [ hypothesis ];
 
   meta = with lib; {
     description = "conversion of ints and rationals to any base";

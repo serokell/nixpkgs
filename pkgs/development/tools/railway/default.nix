@@ -2,18 +2,18 @@
 
 buildGoModule rec {
   pname = "railway";
-  version = "2.1.0";
+  version = "2.0.13";
 
   src = fetchFromGitHub {
     owner = "railwayapp";
     repo = "cli";
     rev = "v${version}";
-    sha256 = "sha256-JpIy8u6L7yOZgTFxFft+vhcat3uPT9EvOXAQOmrpvpc=";
+    sha256 = "sha256-NYYzMwwRm49YPcXUeriYIXjjK4ZJbbtF9Otr3MWXsiY=";
   };
 
   ldflags = [ "-s" "-w" ];
 
-  vendorHash = "sha256-nLuomuAScodgLUKzMTiygtFBnNHrqAojOySZgKLVGJY=";
+  vendorSha256 = "sha256-nLuomuAScodgLUKzMTiygtFBnNHrqAojOySZgKLVGJY=";
 
   postInstall = ''
     mv $out/bin/cli $out/bin/railway

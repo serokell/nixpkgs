@@ -7,7 +7,7 @@
 
 buildPythonPackage rec {
   pname = "prometheus-client";
-  version = "0.15.0";
+  version = "0.14.1";
   format = "setuptools";
 
   disabled = pythonOlder "3.6";
@@ -15,11 +15,11 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "prometheus";
     repo = "client_python";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-LabvQMNiRH4jclMnN0P4M3w25NQasNQEu1HWvRDQQ2o=";
+    rev = "v${version}";
+    sha256 = "sha256-hvBdWOMDuzF91Hv4u//tF+z6la0JfiTQHlpS4TnWpmk=";
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

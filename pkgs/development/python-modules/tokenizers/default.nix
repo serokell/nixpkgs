@@ -97,7 +97,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     datasets
     pytestCheckHook
     requests

@@ -1,12 +1,8 @@
-{ lib, stdenv, buildPackages, runCommand, nettools, bc, bison, flex, perl, rsync, gmp, libmpc, mpfr, openssl
+{ lib, buildPackages, runCommand, nettools, bc, bison, flex, perl, rsync, gmp, libmpc, mpfr, openssl
 , libelf, cpio, elfutils, zstd, python3Minimal, zlib, pahole
-, fetchpatch
 }:
 
 let
-  lib_ = lib;
-  stdenv_ = stdenv;
-
   readConfig = configfile: import (runCommand "config.nix" {} ''
     echo "{" > "$out"
     while IFS='=' read key val; do
@@ -16,16 +12,18 @@ let
     done < "${configfile}"
     echo "}" >> $out
   '').outPath;
-in lib.makeOverridable ({
+in {
+  lib,
+  # Allow overriding stdenv on each buildLinux call
+  stdenv,
   # The kernel version
   version,
   # Position of the Linux build expression
   pos ? null,
   # Additional kernel make flags
   extraMakeFlags ? [],
-  # The name of the kernel module directory
-  # Needs to be X.Y.Z[-extra], so pad with zeros if needed.
-  modDirVersion ? lib.versions.pad 3 version,
+  # The version of the kernel module directory
+  modDirVersion ? version,
   # The kernel source (tarball, git checkout, etc.)
   src,
   # a list of { name=..., patch=..., extraConfig=...} patches
@@ -38,7 +36,7 @@ in lib.makeOverridable ({
   # Custom seed used for CONFIG_GCC_PLUGIN_RANDSTRUCT if enabled. This is
   # automatically extended with extra per-version and per-config values.
   randstructSeed ? "",
-  # Extra meta attributes
+  # Use defaultMeta // extraMeta
   extraMeta ? {},
 
   # for module compatibility
@@ -49,7 +47,7 @@ in lib.makeOverridable ({
   # Whether to utilize the controversial import-from-derivation feature to parse the config
   allowImportFromDerivation ? false,
   # ignored
-  features ? null, lib ? lib_, stdenv ? stdenv_,
+  features ? null,
 }:
 
 let
@@ -57,7 +55,8 @@ let
     hasAttr getAttr optional optionals optionalString optionalAttrs maintainers platforms;
 
   # Dependencies that are required to build kernel modules
-  moduleBuildDependencies = [ perl libelf ]
+  moduleBuildDependencies = [ perl ]
+    ++ optional (lib.versionAtLeast version "4.14") libelf
     ++ optional (lib.versionAtLeast version "5.13") zstd;
 
   drvAttrs = config_: kernelConf: kernelPatches: configfile:
@@ -101,22 +100,12 @@ let
       patches =
         map (p: p.patch) kernelPatches
         # Required for deterministic builds along with some postPatch magic.
-        ++ optional (lib.versionOlder version "5.19") ./randstruct-provide-seed.patch
+        ++ optional (lib.versionAtLeast version "4.13" && lib.versionOlder version "5.19") ./randstruct-provide-seed.patch
         ++ optional (lib.versionAtLeast version "5.19") ./randstruct-provide-seed-5.19.patch
         # Fixes determinism by normalizing metadata for the archive of kheaders
-        ++ optional (lib.versionAtLeast version "5.2" && lib.versionOlder version "5.4") ./gen-kheaders-metadata.patch
-        # Linux 5.12 marked certain PowerPC-only symbols as GPL, which breaks
-        # OpenZFS; this was fixed in Linux 5.19 so we backport the fix
-        # https://github.com/openzfs/zfs/pull/13367
-        ++ optional (lib.versionAtLeast version "5.12" &&
-                     lib.versionOlder version "5.19" &&
-                     stdenv.hostPlatform.isPower)
-          (fetchpatch {
-            url = "https://git.kernel.org/pub/scm/linux/kernel/git/powerpc/linux.git/patch/?id=d9e5c3e9e75162f845880535957b7fd0b4637d23";
-            hash = "sha256-bBOyJcP6jUvozFJU0SPTOf3cmnTQ6ZZ4PlHjiniHXLU=";
-          });
+        ++ optional (lib.versionAtLeast version "5.2" && lib.versionOlder version "5.4") ./gen-kheaders-metadata.patch;
 
-      postPatch = ''
+      prePatch = ''
         sed -i Makefile -e 's|= depmod|= ${buildPackages.kmod}/bin/depmod|'
 
         # fixup for pre-5.4 kernels using the $(cd $foo && /bin/pwd) pattern
@@ -129,9 +118,14 @@ let
         # See also https://kernelnewbies.org/BuildId
         sed -i Makefile -e 's|--build-id=[^ ]*|--build-id=none|'
 
-        # Some linux-hardened patches now remove certain files in the scripts directory, so the file may not exist.
-        [[ -f scripts/ld-version.sh ]] && patchShebangs scripts/ld-version.sh
+        # Some linux-hardened patches now remove certain files in the scripts directory, so we cannot
+        # patch all scripts until after patches are applied.
+        # However, scripts/ld-version.sh is still ran when generating a configfile for a kernel, so it needs
+        # to be patched prior to patchPhase
+        patchShebangs scripts/ld-version.sh
+      '';
 
+      postPatch = ''
         # Set randstruct seed to a deterministic but diversified value. Note:
         # we could have instead patched gen-random-seed.sh to take input from
         # the buildFlags, but that would require also patching the kernel's
@@ -141,7 +135,7 @@ let
           if [ -f "$file" ]; then
             substituteInPlace "$file" \
               --replace NIXOS_RANDSTRUCT_SEED \
-              $(echo ${randstructSeed}${src} ${placeholder "configfile"} | sha256sum | cut -d ' ' -f 1 | tr -d '\n')
+              $(echo ${randstructSeed}${src} ${configfile} | sha256sum | cut -d ' ' -f 1 | tr -d '\n')
             break
           fi
         done
@@ -364,7 +358,7 @@ let
     };
 in
 
-assert lib.versionOlder version "5.8" -> libelf != null;
+assert (lib.versionAtLeast version "4.14" && lib.versionOlder version "5.8") -> libelf != null;
 assert lib.versionAtLeast version "5.8" -> elfutils != null;
 
 stdenv.mkDerivation ((drvAttrs config stdenv.hostPlatform.linux-kernel kernelPatches configfile) // {
@@ -376,7 +370,7 @@ stdenv.mkDerivation ((drvAttrs config stdenv.hostPlatform.linux-kernel kernelPat
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [ perl bc nettools openssl rsync gmp libmpc mpfr zstd python3Minimal ]
       ++ optional  (stdenv.hostPlatform.linux-kernel.target == "uImage") buildPackages.ubootTools
-      ++ optional  (lib.versionOlder version "5.8") libelf
+      ++ optional  (lib.versionAtLeast version "4.14" && lib.versionOlder version "5.8") libelf
       # Removed util-linuxMinimal since it should not be a dependency.
       ++ optionals (lib.versionAtLeast version "4.16") [ bison flex ]
       ++ optionals (lib.versionAtLeast version "5.2")  [ cpio pahole zlib ]
@@ -390,7 +384,6 @@ stdenv.mkDerivation ((drvAttrs config stdenv.hostPlatform.linux-kernel kernelPat
     "O=$(buildRoot)"
     "CC=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
     "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
-    "HOSTLD=${buildPackages.stdenv.cc.bintools}/bin/${buildPackages.stdenv.cc.targetPrefix}ld"
     "ARCH=${stdenv.hostPlatform.linuxArch}"
   ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
@@ -398,4 +391,4 @@ stdenv.mkDerivation ((drvAttrs config stdenv.hostPlatform.linux-kernel kernelPat
     ++ extraMakeFlags;
 
   karch = stdenv.hostPlatform.linuxArch;
-} // (optionalAttrs (pos != null) { inherit pos; })))
+} // (optionalAttrs (pos != null) { inherit pos; }))

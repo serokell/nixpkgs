@@ -1,17 +1,17 @@
-{ autoreconfHook, boost180, cargo, coreutils, curl, cxx-rs, db62, fetchFromGitHub
-, hexdump, lib, libevent, libsodium, makeWrapper, rust, rustPlatform
-, pkg-config, Security, stdenv, testers, utf8cpp, util-linux, zcash, zeromq
+{ autoreconfHook, boost179, cargo, coreutils, curl, cxx-rs, db62, fetchFromGitHub
+, hexdump, lib, libevent, libsodium, makeWrapper, rust, rustPlatform, pkg-config
+, stdenv, testers, utf8cpp, util-linux, zcash, zeromq
 }:
 
 rustPlatform.buildRustPackage.override { inherit stdenv; } rec {
   pname = "zcash";
-  version = "5.3.0";
+  version = "5.1.0";
 
   src = fetchFromGitHub {
     owner = "zcash";
     repo  = "zcash";
     rev = "v${version}";
-    hash = "sha256-mlABKZDYYC3y+KlXQVFqdcm46m8K9tbOCqk4lM4shp8=";
+    sha256 = "sha256-tU6DuWpe8Vlx0qIilAKWuO7WFp1ucbxtvOxoWLA0gdc=";
   };
 
   prePatch = lib.optionalString stdenv.isAarch64 ''
@@ -20,20 +20,15 @@ rustPlatform.buildRustPackage.override { inherit stdenv; } rec {
       --replace "linker = \"aarch64-linux-gnu-gcc\"" ""
   '';
 
-  cargoHash = "sha256-6uhtOaBsgMw59Dy6yivZYUEWDsYfpInA7VmJrqxDS/4=";
+  patches = [
+    ./patches/fix-missing-header.patch
+  ];
+
+  cargoSha256 = "sha256-ZWmkveDEENdXRirGmnUWSjtPNJvX0Jpgfxhzk44F7Q0=";
 
   nativeBuildInputs = [ autoreconfHook cargo cxx-rs hexdump makeWrapper pkg-config ];
 
-  buildInputs = [
-    boost180
-    db62
-    libevent
-    libsodium
-    utf8cpp
-    zeromq
-  ] ++ lib.optionals stdenv.isDarwin [
-    Security
-  ];
+  buildInputs = [ boost179 db62 libevent libsodium utf8cpp zeromq ];
 
   # Use the stdenv default phases (./configure; make) instead of the
   # ones from buildRustPackage.
@@ -55,7 +50,7 @@ rustPlatform.buildRustPackage.override { inherit stdenv; } rec {
 
   configureFlags = [
     "--disable-tests"
-    "--with-boost-libdir=${lib.getLib boost180}/lib"
+    "--with-boost-libdir=${lib.getLib boost179}/lib"
     "RUST_TARGET=${rust.toRustTargetSpec stdenv.hostPlatform}"
   ];
 
@@ -80,8 +75,5 @@ rustPlatform.buildRustPackage.override { inherit stdenv; } rec {
     homepage = "https://z.cash/";
     maintainers = with maintainers; [ rht tkerber centromere ];
     license = licenses.mit;
-
-    # https://github.com/zcash/zcash/issues/4405
-    broken = stdenv.hostPlatform.isAarch64 && stdenv.hostPlatform.isDarwin;
   };
 }

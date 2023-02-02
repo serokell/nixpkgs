@@ -1,5 +1,4 @@
 { lib
-, stdenv
 , buildPythonPackage
 , fetchPypi
 , pythonOlder
@@ -20,6 +19,7 @@
 , openapi-spec-validator
 , python-dateutil
 , python-jose
+, pytz
 , pyyaml
 , requests
 , responses
@@ -36,15 +36,20 @@
 
 buildPythonPackage rec {
   pname = "moto";
-  version = "4.0.12";
+  version = "4.0.3";
   format = "setuptools";
 
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-MPjzFljxjNsV62JsjLOgdSDw2MIZMib7yzMmrhL7okY=";
+    sha256 = "sha256-iutWdX5oavPkpj+Qr7yXPLIxrarYfFzonmiTbBCbC+k=";
   };
+
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace "werkzeug>=0.5,<2.2.0" "werkzeug>=0.5"
+  '';
 
   propagatedBuildInputs = [
     aws-xray-sdk
@@ -62,6 +67,7 @@ buildPythonPackage rec {
     openapi-spec-validator
     python-dateutil
     python-jose
+    pytz
     pyyaml
     requests
     responses
@@ -70,7 +76,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     freezegun
     pytestCheckHook
     sure
@@ -97,7 +103,7 @@ buildPythonPackage rec {
     "--deselect=tests/test_s3/test_server.py::test_s3_server_bucket_versioning"
     "--deselect=tests/test_s3/test_multiple_accounts_server.py::TestAccountIdResolution::test_with_custom_request_header"
 
-    # Disable tests that require docker daemon
+    # Disalbe test that require docker daemon
     "--deselect=tests/test_events/test_events_lambdatriggers_integration.py::test_creating_bucket__invokes_lambda"
     "--deselect=tests/test_s3/test_s3_lambda_integration.py::test_objectcreated_put__invokes_lambda"
 
@@ -113,13 +119,6 @@ buildPythonPackage rec {
 
     # Blocks test execution
     "--deselect=tests/test_utilities/test_threaded_server.py::TestThreadedMotoServer::test_load_data_from_inmemory_client"
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-    "--deselect=tests/test_utilities/test_threaded_server.py::test_threaded_moto_server__different_port"
-    "--deselect=tests/test_utilities/test_threaded_server.py::TestThreadedMotoServer::test_server_can_handle_multiple_services"
-    "--deselect=tests/test_utilities/test_threaded_server.py::TestThreadedMotoServer::test_server_is_reachable"
-
-    # AssertionError: expected `{0}` to be greater than `{1}`
-    "--deselect=tests/test_databrew/test_databrew_recipes.py::test_publish_recipe"
   ];
 
   disabledTestPaths = [
@@ -132,8 +131,6 @@ buildPythonPackage rec {
     "tests/test_awslambda/test_lambda_eventsourcemapping.py"
     "tests/test_awslambda/test_lambda_invoke.py"
     "tests/test_batch/test_batch_jobs.py"
-    "tests/test_kinesis/test_kinesis.py"
-    "tests/test_kinesis/test_kinesis_stream_consumers.py"
   ];
 
   disabledTests = [

@@ -3,7 +3,7 @@
 stdenv.mkDerivation {
   pname = "coq-simple-io-test";
   inherit (simple-io) src version;
-  nativeCheckInputs = [ coq simple-io ];
+  checkInputs = [ coq simple-io ];
   dontConfigure = true;
   dontBuild = true;
   doCheck = true;

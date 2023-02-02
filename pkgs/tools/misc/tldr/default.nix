@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
       tldr pages gives common use cases for commands, so you don't need to hunt
       through a man page for the correct flags.
     '';
-    homepage = "https://tldr-pages.github.io";
-    changelog = "https://github.com/tldr-pages/tldr-c-client/blob/v${version}/CHANGELOG.md";
+    homepage = "http://tldr-pages.github.io";
     license = licenses.mit;
     maintainers = with maintainers; [ taeer carlosdagos ];
     platforms = platforms.all;

@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
   ++ lib.optional podcastSupport python3.pkgs.feedparser
   ++ lib.optional wikipediaSupport webkitgtk;
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = with python3.pkgs; [
     pytest
   ];
 

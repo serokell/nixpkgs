@@ -51,10 +51,10 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "libpulsar";
-  version = "2.10.2";
+  version = "2.10.1";
 
   src = fetchurl {
-    hash = "sha256-IONnsSDbnX2qz+Xya0taHYSViTOiRI36AfcxmY3dNpo=";
+    hash = "sha256-qMj76jnxRH68DE6JkZjQrLSNzgXGnO7HjPjlaFavaUY=";
     url = "mirror://apache/pulsar/pulsar-${version}/apache-pulsar-${version}-src.tar.gz";
   };
 

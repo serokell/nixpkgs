@@ -1,5 +1,5 @@
 { stdenv, lib, fetchFromGitHub
-, bzip2, expat, libedit, lmdb, openssl, libxcrypt
+, bzip2, expat, libedit, lmdb, openssl
 , python3 # for tests only
 , cpp11 ? false
 }:
@@ -31,7 +31,7 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-h455isEmnRyoasXhh1UaA5PICcEEM8/C3IJf5yHRl5g=";
   };
 
-  buildInputs = [ zeroc_mcpp bzip2 expat libedit lmdb openssl libxcrypt ];
+  buildInputs = [ zeroc_mcpp bzip2 expat libedit lmdb openssl ];
 
   preBuild = ''
     makeFlagsArray+=(
@@ -49,7 +49,7 @@ in stdenv.mkDerivation rec {
   outputs = [ "out" "bin" "dev" ];
 
   doCheck = true;
-  nativeCheckInputs = with python3.pkgs; [ passlib ];
+  checkInputs = with python3.pkgs; [ passlib ];
   checkPhase = with lib; let
     # these tests require network access so we need to skip them.
     brokenTests = map escapeRegex [

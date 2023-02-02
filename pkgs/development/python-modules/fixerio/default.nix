@@ -22,7 +22,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     httpretty
     pytestCheckHook
     responses

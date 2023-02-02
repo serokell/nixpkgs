@@ -55,7 +55,7 @@ py.pkgs.buildPythonPackage rec {
     vivisect
   ] ++ viv-utils.optional-dependencies.flirt;
 
-  nativeCheckInputs = with py.pkgs; [
+  checkInputs = with py.pkgs; [
     pytest-sugar
     pytestCheckHook
     pyyaml

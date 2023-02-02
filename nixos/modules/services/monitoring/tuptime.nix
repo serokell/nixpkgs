@@ -54,8 +54,8 @@ in {
             Type = "oneshot";
             User = "_tuptime";
             RemainAfterExit = true;
-            ExecStart = "${pkgs.tuptime}/bin/tuptime -q";
-            ExecStop = "${pkgs.tuptime}/bin/tuptime -qg";
+            ExecStart = "${pkgs.tuptime}/bin/tuptime -x";
+            ExecStop = "${pkgs.tuptime}/bin/tuptime -xg";
           };
         };
 
@@ -64,7 +64,7 @@ in {
           serviceConfig = {
             Type = "oneshot";
             User = "_tuptime";
-            ExecStart = "${pkgs.tuptime}/bin/tuptime -q";
+            ExecStart = "${pkgs.tuptime}/bin/tuptime -x";
           };
         };
       };

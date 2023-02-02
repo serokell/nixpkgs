@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
     # Use gd from Nixpkgs instead of the vendored one.
     # This is required for non-ASCII fonts to work:
-    # https://ploticus.sourceforge.net/doc/fonts.html
+    # http://ploticus.sourceforge.net/doc/fonts.html
     ./use-gd-package.patch
   ];
 
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ pSub ];
-    homepage = "https://ploticus.sourceforge.net/";
+    homepage = "http://ploticus.sourceforge.net/";
     platforms = with platforms; linux ++ darwin;
   };
 }

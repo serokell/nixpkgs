@@ -87,7 +87,7 @@ unwrapped = stdenv.mkDerivation rec {
   '';
 
   doInstallCheck = with stdenv; hostPlatform == buildPlatform;
-  nativeInstallCheckInputs = [ cmocka which cacert lua.cqueues lua.basexx lua.http ];
+  installCheckInputs = [ cmocka which cacert lua.cqueues lua.basexx lua.http ];
   installCheckPhase = ''
     meson test --print-errorlogs
   '';

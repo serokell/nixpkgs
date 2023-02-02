@@ -4,6 +4,8 @@
 
 assert enableNls -> (gettext != null);
 
+with lib;
+
 let
   nixSyntaxHighlight = fetchFromGitHub {
     owner = "seitz";
@@ -14,14 +16,14 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "nano";
-  version = "7.1";
+  version = "6.4";
 
   src = fetchurl {
     url = "mirror://gnu/nano/${pname}-${version}.tar.xz";
-    sha256 = "V7p1Hpt1GfD23e5QUgLjh8dd3kQMH3qhuTEMw4FAaDY=";
+    sha256 = "QZmujKeKd5beVt4aQbgh3EeRLAMH6YFrVswxffNGYcA=";
   };
 
-  nativeBuildInputs = [ texinfo ] ++ lib.optional enableNls gettext;
+  nativeBuildInputs = [ texinfo ] ++ optional enableNls gettext;
   buildInputs = [ ncurses ];
 
   outputs = [ "out" "info" ];
@@ -69,7 +71,7 @@ in stdenv.mkDerivation rec {
     '';
   };
 
-  meta = with lib; {
+  meta = {
     homepage = "https://www.nano-editor.org/";
     description = "A small, user-friendly console text editor";
     license = licenses.gpl3Plus;

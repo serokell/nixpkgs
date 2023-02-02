@@ -8,24 +8,24 @@
 
 buildDotnetModule rec {
   pname = "inklecate";
-  version = "1.1.1";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "inkle";
     repo = "ink";
     rev = "v${version}";
-    hash = "sha512-aUjjT5Qf64wrKRn1vkwJadMOBWMkvsXUjtZ7S3/ZWAh1CCDkQNO84mSbtbVc9ny0fKeJEqaDX2tJNwq7pYqAbA==";
+    sha256 = "00lagmwsbxap5mgnw4gndpavmv3xsgincdaq1zvw7fkc3vn3pxqc";
   };
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
   buildInputs = [ stdenv.cc.cc.lib ];
 
   projectFile = "inklecate/inklecate.csproj";
-  nugetDeps = ./deps.nix;
+  nugetDeps = if stdenv.isDarwin then ./deps-darwin.nix else ./deps-linux.nix;
   executables = [ "inklecate" ];
 
-  dotnet-sdk = dotnetCorePackages.sdk_6_0;
-  dotnet-runtime = dotnetCorePackages.runtime_6_0;
+  dotnet-runtime = dotnetCorePackages.runtime_3_1;
+  dotnet-sdk = dotnetCorePackages.sdk_3_1;
 
   meta = with lib; {
     description = "Compiler for ink, inkle's scripting language";

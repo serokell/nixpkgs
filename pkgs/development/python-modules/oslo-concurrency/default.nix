@@ -45,10 +45,7 @@ buildPythonPackage rec {
     pbr
   ];
 
-  # tests hang for unknown reason and time the build out
-  doCheck = false;
-
-  nativeCheckInputs = [
+  checkInputs = [
     eventlet
     fixtures
     oslotest
@@ -60,10 +57,7 @@ buildPythonPackage rec {
     export NIX_REDIRECTS=/etc/protocols=${iana-etc}/etc/protocols:/etc/resolv.conf=$(realpath resolv.conf)
     export LD_PRELOAD=${libredirect}/lib/libredirect.so
 
-    stestr run -e <(echo "
-    oslo_concurrency.tests.unit.test_lockutils_eventlet.TestInternalLock.test_fair_lock_with_spawn
-    oslo_concurrency.tests.unit.test_lockutils_eventlet.TestInternalLock.test_fair_lock_with_spawn_n
-    ")
+    stestr run
   '';
 
   pythonImportsCheck = [ "oslo_concurrency" ];

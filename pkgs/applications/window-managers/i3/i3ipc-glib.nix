@@ -4,6 +4,7 @@
 }:
 
 stdenv.mkDerivation rec {
+
   pname = "i3ipc-glib";
   version = "1.0.1";
 
@@ -14,10 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "01fzvrbnzcwx0vxw29igfpza9zwzp2s7msmzb92v01z0rz0y5m0p";
   };
 
-  strictDeps = true;
-  nativeBuildInputs = [ autoreconfHook which pkg-config gtk-doc gobject-introspection ];
+  nativeBuildInputs = [ autoreconfHook which pkg-config ];
 
-  buildInputs = [ libxcb json-glib xorgproto ];
+  buildInputs = [ libxcb json-glib gtk-doc xorgproto gobject-introspection ];
+
 
   preAutoreconf = ''
     gtkdocize

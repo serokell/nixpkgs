@@ -57,7 +57,7 @@ buildPythonPackage rec {
     kill $REDIS_PID
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     croniter
     django-redis
     pytest-django

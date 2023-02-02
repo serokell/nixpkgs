@@ -8,7 +8,7 @@ let
   # Escaping is done according to https://www.postgresql.org/docs/current/sql-syntax-lexical.html#SQL-SYNTAX-CONSTANTS
   setDatabaseOption = key: value:
     "UPDATE settings SET value = '${
-      lib.replaceStrings [ "'" ] [ "''" ] (builtins.toJSON value)
+      lib.replaceChars [ "'" ] [ "''" ] (builtins.toJSON value)
     }' WHERE key = '${key}';";
   updateDatabaseConfigSQL = pkgs.writeText "update-database-config.sql"
     (concatStringsSep "\n" (mapAttrsToList setDatabaseOption
@@ -128,7 +128,7 @@ in {
           '';
         };
       };
-      package = mkPackageOptionMD pkgs "listmonk" {};
+      package = mkPackageOption pkgs "listmonk" {};
       settings = mkOption {
         type = types.submodule { freeformType = tomlFormat.type; };
         description = lib.mdDoc ''
@@ -202,7 +202,7 @@ in {
         NoNewPrivileges = true;
         CapabilityBoundingSet = "";
         SystemCallArchitecture = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" ];
+        SystemCallFilter = [ "@system-service" "~@privileged" "@resources" ];
         ProtectDevices = true;
         ProtectControlGroups = true;
         ProtectKernelTunables = true;

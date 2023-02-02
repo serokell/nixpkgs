@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchurl, fetchpatch, fixDarwinDylibNames, nativeBuildRoot, buildRootOnly ? false }:
+{ stdenv, lib, fetchurl, fetchpatch, fixDarwinDylibNames, nativeBuildRoot }:
 
 import ./base.nix {
   version = "63.1";
@@ -11,4 +11,4 @@ import ./base.nix {
     })
   ];
   patchFlags = [ "-p3" ];
-} { inherit stdenv lib fetchurl fixDarwinDylibNames nativeBuildRoot buildRootOnly; }
+} { inherit stdenv lib fetchurl fixDarwinDylibNames nativeBuildRoot; }

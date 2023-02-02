@@ -2,7 +2,8 @@
 , buildPythonPackage
 , fetchPypi
 , google-api-core
-, protobuf
+, libcst
+, mock
 , proto-plus
 , pytestCheckHook
 , pytest-asyncio
@@ -11,25 +12,26 @@
 
 buildPythonPackage rec {
   pname = "google-cloud-os-config";
-  version = "1.14.0";
+  version = "1.12.4";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-CLZC9Iub3LWvDPhetxlHorccRUritd+YzTI/MF1hHrY=";
+    hash = "sha256-SmzCo/nh6FbTt+7lw4XAyF5gwDHQCOz8Nbl05/AkDfY=";
   };
 
   propagatedBuildInputs = [
     google-api-core
+    libcst
     proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
+  checkInputs = [
+    mock
     pytestCheckHook
+    pytest-asyncio
   ];
 
   pythonImportsCheck = [
@@ -44,7 +46,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Google Cloud OS Config API client library";
     homepage = "https://github.com/googleapis/python-os-config";
-    changelog = "https://github.com/googleapis/python-os-config/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

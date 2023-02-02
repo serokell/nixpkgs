@@ -10,13 +10,12 @@
 , pytest-asyncio
 , pytestCheckHook
 , pythonOlder
-, tenacity
 , wrapt
 }:
 
 buildPythonPackage rec {
   pname = "teslajsonpy";
-  version = "3.7.2";
+  version = "3.0.0";
   format = "pyproject";
 
   disabled = pythonOlder "3.7";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     owner = "zabuldon";
     repo = pname;
     rev = "refs/tags/v${version}";
-    hash = "sha256-VOxdX6O6MG2F2ENiFI5+i7Yh+onHq755DsL7obm6Tcg=";
+    sha256 = "sha256-9S1ZhXHkLnDmYBAMwOIQt7AUj43+wtxXGpYx7oe4CGc=";
   };
 
   nativeBuildInputs = [
@@ -38,11 +37,10 @@ buildPythonPackage rec {
     backoff
     beautifulsoup4
     httpx
-    tenacity
     wrapt
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytestCheckHook
   ];
@@ -54,7 +52,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library to work with Tesla API";
     homepage = "https://github.com/zabuldon/teslajsonpy";
-    changelog = "https://github.com/zabuldon/teslajsonpy/releases/tag/v${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

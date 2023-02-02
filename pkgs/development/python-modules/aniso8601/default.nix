@@ -20,7 +20,7 @@ buildPythonPackage rec {
     python-dateutil
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ] ++ lib.optional (!isPy3k) mock;
 

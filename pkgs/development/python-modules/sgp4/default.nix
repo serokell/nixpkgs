@@ -1,4 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi, numpy }:
+{ lib, buildPythonPackage, fetchPypi, tox, numpy }:
 
 buildPythonPackage rec {
   pname = "sgp4";
@@ -9,7 +9,7 @@ buildPythonPackage rec {
     sha256 = "sha256-YXm4dQRId+lBYzwgr3ci/SMaiNiomvAb8wvWTzPN7O8=";
   };
 
-  nativeCheckInputs = [ numpy ];
+  checkInputs = [ tox numpy ];
 
   pythonImportsCheck = [ "sgp4" ];
 

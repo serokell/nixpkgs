@@ -18,6 +18,8 @@ buildPythonPackage rec {
     sha256 = "sha256-iSzzyI8HZOpOb4dyt520MV/wds14fNag2+UOF09KS7w=";
   };
 
+  nativeBuildInputs = srht.nativeBuildInputs;
+
   propagatedBuildInputs = [
     srht
     redis

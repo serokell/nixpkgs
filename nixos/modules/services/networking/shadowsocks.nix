@@ -48,7 +48,7 @@ in
       };
 
       port = mkOption {
-        type = types.port;
+        type = types.int;
         default = 8388;
         description = lib.mdDoc ''
           Port which the server uses.

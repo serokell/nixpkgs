@@ -3,13 +3,13 @@
 
 stdenv.mkDerivation rec {
   pname = "opencl-headers";
-  version = "2022.09.30";
+  version = "2022.09.23";
 
   src = fetchFromGitHub {
     owner = "KhronosGroup";
     repo = "OpenCL-Headers";
     rev = "v${version}";
-    sha256 = "sha256-Vbh+bt/g+7glEyqMYCKTANggaIOW/n1L3TaCNouc/28=";
+    sha256 = "sha256-kBXkevcapVfpFmI5C77DwULrC8zjcoto+veb49Ksixk=";
   };
 
   installPhase = ''

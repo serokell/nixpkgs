@@ -32,7 +32,9 @@ self: super: {
 
     plr = super.callPackage ./ext/plr.nix { };
 
-    plv8 = super.callPackage ./ext/plv8 { };
+    plv8 = super.callPackage ./ext/plv8 {
+      v8 = self.v8_8_x;
+    };
 
     pgjwt = super.callPackage ./ext/pgjwt.nix { };
 
@@ -61,8 +63,6 @@ self: super: {
     pgrouting = super.callPackage ./ext/pgrouting.nix { };
 
     pg_partman = super.callPackage ./ext/pg_partman.nix { };
-
-    pg_relusage = super.callPackage ./ext/pg_relusage.nix { };
 
     pg_safeupdate = super.callPackage ./ext/pg_safeupdate.nix { };
 

@@ -19,9 +19,9 @@ let
   # We only want to create a database if we're actually going to connect to it.
   databaseActuallyCreateLocally = cfg.database.createLocally && cfg.database.host == null;
 
-  tlsEnabled = cfg.enableACME
+  tlsEnabled = (cfg.enableACME
                 || cfg.sslCertificate != null
-                || cfg.sslCertificateKey != null;
+                || cfg.sslCertificateKey != null);
 in
 {
   options = {
@@ -42,8 +42,11 @@ in
 
       hostname = lib.mkOption {
         type = lib.types.str;
-        default = config.networking.fqdnOrHostName;
-        defaultText = lib.literalExpression "config.networking.fqdnOrHostName";
+        default = if config.networking.domain != null then
+                    config.networking.fqdn
+                  else
+                    config.networking.hostName;
+        defaultText = lib.literalExpression "config.networking.fqdn";
         example = "discourse.example.com";
         description = lib.mdDoc ''
           The hostname to serve Discourse on.
@@ -795,13 +798,13 @@ in
           "public"
           "sockets"
         ];
-        RuntimeDirectoryMode = "0750";
+        RuntimeDirectoryMode = 0750;
         StateDirectory = map (p: "discourse/" + p) [
           "uploads"
           "backups"
           "tmp"
         ];
-        StateDirectoryMode = "0750";
+        StateDirectoryMode = 0750;
         LogsDirectory = "discourse";
         TimeoutSec = "infinity";
         Restart = "on-failure";
@@ -820,10 +823,10 @@ in
 
     services.nginx = lib.mkIf cfg.nginx.enable {
       enable = true;
+      additionalModules = [ pkgs.nginxModules.brotli ];
 
       recommendedTlsSettings = true;
       recommendedOptimisation = true;
-      recommendedBrotliSettings = true;
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
 

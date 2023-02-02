@@ -50,7 +50,7 @@ in
       };
 
       port = mkOption {
-        type = types.port;
+        type = types.int;
         default = 3000;
         description = lib.mdDoc "Listing port";
       };

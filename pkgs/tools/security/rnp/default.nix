@@ -36,9 +36,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ asciidoctor cmake gnupg gtest pkg-config python3 ];
 
-  # NOTE: check-only inputs should ideally be moved to nativeCheckInputs, but it
+  # NOTE: check-only inputs should ideally be moved to checkInputs, but it
   # would fail during buildPhase.
-  # nativeCheckInputs = [ gtest python3 ];
+  # checkInputs = [ gtest python3 ];
 
   outputs = [ "out" "lib" "dev" ];
 

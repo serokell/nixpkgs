@@ -30,7 +30,7 @@ buildPythonPackage rec {
     selenium
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     cssselect
     django
     flask

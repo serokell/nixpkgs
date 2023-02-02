@@ -1,36 +1,21 @@
 { lib
 , buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
+, fetchPypi
 }:
 
 buildPythonPackage rec {
-  pname = "retry-decorator";
+  pname = "retry_decorator";
   version = "1.1.1";
-  format = "setuptools";
 
-  disabled = pythonOlder "3.7";
-
-  src = fetchFromGitHub {
-    owner = "pnpnpn";
-    repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-0dZq4YbPcH4ItyMnpF7B20YYLtzwniJClBK9gRndU1M=";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "e1e8ad02e518fe11073f2ea7d80b6b8be19daa27a60a1838aff7c731ddcf2ebe";
   };
-
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
-
-  pythonImportsCheck = [
-    "retry_decorator"
-  ];
 
   meta = with lib; {
-    description = "Decorator for retrying when exceptions occur";
     homepage = "https://github.com/pnpnpn/retry-decorator";
-    changelog = "https://github.com/pnpnpn/retry-decorator/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
+    description = "Retry Decorator for python functions";
+    license = licenses.mit;
   };
+
 }

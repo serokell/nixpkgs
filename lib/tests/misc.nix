@@ -212,21 +212,6 @@ runTests {
     expected = [ "1" "2" "3" ];
   };
 
-  testPadVersionLess = {
-    expr = versions.pad 3 "1.2";
-    expected = "1.2.0";
-  };
-
-  testPadVersionLessExtra = {
-    expr = versions.pad 3 "1.3-rc1";
-    expected = "1.3.0-rc1";
-  };
-
-  testPadVersionMore = {
-    expr = versions.pad 3 "1.2.3.4";
-    expected = "1.2.3";
-  };
-
   testIsStorePath =  {
     expr =
       let goodPath =
@@ -327,96 +312,6 @@ runTests {
     expected = true;
   };
 
-  testNormalizePath = {
-    expr = strings.normalizePath "//a/b//c////d/";
-    expected = "/a/b/c/d/";
-  };
-
-  testCharToInt = {
-    expr = strings.charToInt "A";
-    expected = 65;
-  };
-
-  testEscapeC = {
-    expr = strings.escapeC [ " " ] "Hello World";
-    expected = "Hello\\x20World";
-  };
-
-  testToInt = testAllTrue [
-    # Naive
-    (123 == toInt "123")
-    (0 == toInt "0")
-    # Whitespace Padding
-    (123 == toInt " 123")
-    (123 == toInt "123 ")
-    (123 == toInt " 123 ")
-    (123 == toInt "   123   ")
-    (0 == toInt " 0")
-    (0 == toInt "0 ")
-    (0 == toInt " 0 ")
-    (-1 == toInt "-1")
-    (-1 == toInt " -1 ")
-  ];
-
-  testToIntFails = testAllTrue [
-    ( builtins.tryEval (toInt "") == { success = false; value = false; } )
-    ( builtins.tryEval (toInt "123 123") == { success = false; value = false; } )
-    ( builtins.tryEval (toInt "0 123") == { success = false; value = false; } )
-    ( builtins.tryEval (toInt " 0d ") == { success = false; value = false; } )
-    ( builtins.tryEval (toInt " 1d ") == { success = false; value = false; } )
-    ( builtins.tryEval (toInt " d0 ") == { success = false; value = false; } )
-    ( builtins.tryEval (toInt "00") == { success = false; value = false; } )
-    ( builtins.tryEval (toInt "01") == { success = false; value = false; } )
-    ( builtins.tryEval (toInt "002") == { success = false; value = false; } )
-    ( builtins.tryEval (toInt " 002 ") == { success = false; value = false; } )
-    ( builtins.tryEval (toInt " foo ") == { success = false; value = false; } )
-    ( builtins.tryEval (toInt " foo 123 ") == { success = false; value = false; } )
-    ( builtins.tryEval (toInt " foo123 ") == { success = false; value = false; } )
-  ];
-
-  testToIntBase10 = testAllTrue [
-    # Naive
-    (123 == toIntBase10 "123")
-    (0 == toIntBase10 "0")
-    # Whitespace Padding
-    (123 == toIntBase10 " 123")
-    (123 == toIntBase10 "123 ")
-    (123 == toIntBase10 " 123 ")
-    (123 == toIntBase10 "   123   ")
-    (0 == toIntBase10 " 0")
-    (0 == toIntBase10 "0 ")
-    (0 == toIntBase10 " 0 ")
-    # Zero Padding
-    (123 == toIntBase10 "0123")
-    (123 == toIntBase10 "0000123")
-    (0 == toIntBase10 "000000")
-    # Whitespace and Zero Padding
-    (123 == toIntBase10 " 0123")
-    (123 == toIntBase10 "0123 ")
-    (123 == toIntBase10 " 0123 ")
-    (123 == toIntBase10 " 0000123")
-    (123 == toIntBase10 "0000123 ")
-    (123 == toIntBase10 " 0000123 ")
-    (0 == toIntBase10 " 000000")
-    (0 == toIntBase10 "000000 ")
-    (0 == toIntBase10 " 000000 ")
-    (-1 == toIntBase10 "-1")
-    (-1 == toIntBase10 " -1 ")
-  ];
-
-  testToIntBase10Fails = testAllTrue [
-    ( builtins.tryEval (toIntBase10 "") == { success = false; value = false; } )
-    ( builtins.tryEval (toIntBase10 "123 123") == { success = false; value = false; } )
-    ( builtins.tryEval (toIntBase10 "0 123") == { success = false; value = false; } )
-    ( builtins.tryEval (toIntBase10 " 0d ") == { success = false; value = false; } )
-    ( builtins.tryEval (toIntBase10 " 1d ") == { success = false; value = false; } )
-    ( builtins.tryEval (toIntBase10 " d0 ") == { success = false; value = false; } )
-    ( builtins.tryEval (toIntBase10 " foo ") == { success = false; value = false; } )
-    ( builtins.tryEval (toIntBase10 " foo 123 ") == { success = false; value = false; } )
-    ( builtins.tryEval (toIntBase10 " foo 00123 ") == { success = false; value = false; } )
-    ( builtins.tryEval (toIntBase10 " foo00123 ") == { success = false; value = false; } )
-  ];
-
 # LISTS
 
   testFilter = {
@@ -496,23 +391,6 @@ runTests {
 
 
 # ATTRSETS
-
-  testConcatMapAttrs = {
-    expr = concatMapAttrs
-      (name: value: {
-        ${name} = value;
-        ${name + value} = value;
-      })
-      {
-        foo = "bar";
-        foobar = "baz";
-      };
-    expected = {
-      foo = "bar";
-      foobar = "baz";
-      foobarbaz = "baz";
-    };
-  };
 
   # code from the example
   testRecursiveUpdateUntil = {
@@ -746,7 +624,7 @@ runTests {
       float = 0.1337;
       bool = true;
       emptystring = "";
-      string = "fn\${o}\"r\\d";
+      string = ''fno"rd'';
       newlinestring = "\n";
       path = /. + "/foo";
       null_ = null;
@@ -754,16 +632,16 @@ runTests {
       functionArgs = { arg ? 4, foo }: arg;
       list = [ 3 4 function [ false ] ];
       emptylist = [];
-      attrs = { foo = null; "foo b/ar" = "baz"; };
+      attrs = { foo = null; "foo bar" = "baz"; };
       emptyattrs = {};
       drv = deriv;
     };
     expected = rec {
       int = "42";
-      float = "0.1337";
+      float = "~0.133700";
       bool = "true";
       emptystring = ''""'';
-      string = ''"fn\''${o}\"r\\d"'';
+      string = ''"fno\"rd"'';
       newlinestring = "\"\\n\"";
       path = "/foo";
       null_ = "null";
@@ -771,9 +649,9 @@ runTests {
       functionArgs = "<function, args: {arg?, foo}>";
       list = "[ 3 4 ${function} [ false ] ]";
       emptylist = "[ ]";
-      attrs = "{ foo = null; \"foo b/ar\" = \"baz\"; }";
+      attrs = "{ foo = null; \"foo bar\" = \"baz\"; }";
       emptyattrs = "{ }";
-      drv = "<derivation ${deriv.name}>";
+      drv = "<derivation ${deriv.drvPath}>";
     };
   };
 
@@ -818,8 +696,8 @@ runTests {
       newlinestring = "\n";
       multilinestring = ''
         hello
-        ''${there}
-        te'''st
+        there
+        test
       '';
       multilinestring' = ''
         hello
@@ -846,8 +724,8 @@ runTests {
       multilinestring = ''
         '''
           hello
-          '''''${there}
-          te''''st
+          there
+          test
         ''''';
       multilinestring' = ''
         '''

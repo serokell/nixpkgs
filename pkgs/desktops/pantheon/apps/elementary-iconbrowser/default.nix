@@ -18,13 +18,13 @@
 
 stdenv.mkDerivation rec {
   pname = "elementary-iconbrowser";
-  version = "2.1.1";
+  version = "2.0.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "iconbrowser";
     rev = version;
-    sha256 = "sha256-xooZfQmeB4rvlO8zKWnUuXPCFQNCTdjd7C53/j9EoHg=";
+    sha256 = "sha256-aXFgL5l9jnOZJJgMOYwiE7W//1sq23CbLEDmhYFJT38=";
   };
 
   nativeBuildInputs = [
@@ -59,7 +59,9 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      attrPath = "pantheon.${pname}";
+    };
   };
 
   meta = with lib; {

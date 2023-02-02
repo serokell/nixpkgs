@@ -2,8 +2,7 @@
 , fetchFromGitLab
 , gnome
 , dconf
-, wxGTK32
-, gtk3
+, wxGTK31-gtk3
 , makeWrapper
 , gsettings-desktop-schemas
 , hicolor-icon-theme
@@ -104,9 +103,9 @@ let
     if srcOverridep "libVersion" then srcs.libVersion
     else versionsImport.${baseName}.libVersion.version;
 
-  wxGTK = wxGTK32;
+  wxGTK = wxGTK31-gtk3;
   python = python3;
-  wxPython = python.pkgs.wxPython_4_2;
+  wxPython = python.pkgs.wxPython_4_1;
 
   inherit (lib) concatStringsSep flatten optionalString optionals;
 in
@@ -138,12 +137,13 @@ stdenv.mkDerivation rec {
     ++ optionals (withScripting)
     [ python.pkgs.wrapPython ];
 
-  # We are emulating wrapGAppsHook, along with other variables to the wrapper
+  # We are emulating wrapGAppsHook, along with other variables to the
+  # wrapper
   makeWrapperArgs = with passthru.libraries; [
     "--prefix XDG_DATA_DIRS : ${base}/share"
     "--prefix XDG_DATA_DIRS : ${hicolor-icon-theme}/share"
     "--prefix XDG_DATA_DIRS : ${gnome.adwaita-icon-theme}/share"
-    "--prefix XDG_DATA_DIRS : ${gtk3}/share/gsettings-schemas/${gtk3.name}"
+    "--prefix XDG_DATA_DIRS : ${wxGTK.gtk}/share/gsettings-schemas/${wxGTK.gtk.name}"
     "--prefix XDG_DATA_DIRS : ${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}"
     # wrapGAppsHook did these two as well, no idea if it matters...
     "--prefix XDG_DATA_DIRS : ${cups}/share"
@@ -223,6 +223,11 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ evils kiwi ];
     # kicad is cross platform
     platforms = lib.platforms.all;
+    # despite that, nipkgs' wxGTK for darwin is "wxmac"
+    # and wxPython_4_0 does not account for this
+    # adjusting this package to downgrade to python2Packages.wxPython (wxPython 3),
+    # seems like more trouble than fixing wxPython_4_0 would be
+    # additionally, libngspice is marked as linux only, though it should support darwin
 
     hydraPlatforms = if (with3d) then [ ] else platforms;
     # We can't download the 3d models on Hydra,
@@ -230,7 +235,5 @@ stdenv.mkDerivation rec {
     # as long as the base and libraries (minus 3d) are build,
     # this wrapper does not need to get built
     # the kicad-*small "packages" cause this to happen
-
-    mainProgram = "kicad";
   };
 }

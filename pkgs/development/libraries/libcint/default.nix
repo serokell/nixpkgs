@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   doCheck = true;
-  nativeCheckInputs = [ python3.pkgs.numpy ];
+  checkInputs = [ python3.pkgs.numpy ];
 
   meta = with lib; {
     description = "General GTO integrals for quantum chemistry";

@@ -25,7 +25,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     iocapture
     mock
     pytestCheckHook

@@ -17,7 +17,7 @@ luarocks.overrideAttrs (old: {
     updateScript = unstableGitUpdater { };
   };
 
-  meta = old.meta // {
+  meta = {
     mainProgram = "luarocks";
   };
 })

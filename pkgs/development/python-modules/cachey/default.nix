@@ -17,7 +17,7 @@
     sha256 = "sha256-5USmuufrrWtmgibpfkjo9NtgN30hdl8plJfythmxM4s=";
   };
   propagatedBuildInputs = [ typing-extensions heapdict ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
   pythonImportsCheck = [
     "cachey"
   ];

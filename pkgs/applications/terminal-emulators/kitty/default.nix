@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, python3Packages, libunistring
+{ lib, stdenv, fetchFromGitHub, python3Packages, libunistring
 , harfbuzz, fontconfig, pkg-config, ncurses, imagemagick
 , libstartup_notification, libGL, libX11, libXrandr, libXinerama, libXcursor
 , libxkbcommon, libXi, libXext, wayland-protocols, wayland
@@ -7,11 +7,13 @@
 , openssl
 , installShellFiles
 , dbus
-, Libsystem
+, darwin
 , Cocoa
+, CoreGraphics
+, Foundation
+, IOKit
 , Kernel
-, UniformTypeIdentifiers
-, UserNotifications
+, OpenGL
 , libcanberra
 , libicns
 , libpng
@@ -26,14 +28,14 @@
 with python3Packages;
 buildPythonApplication rec {
   pname = "kitty";
-  version = "0.26.5";
+  version = "0.26.2";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "kovidgoyal";
     repo = "kitty";
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-UloBlV26HnkvbzP/NynlPI77z09MBEVgtrg5SeTmwB4=";
+    rev = "v${version}";
+    sha256 = "sha256-IqXRkKzOfqWolH/534nmM2R/69olhFOk6wbbF4ifRd0=";
   };
 
   buildInputs = [
@@ -44,14 +46,16 @@ buildPythonApplication rec {
     openssl.dev
   ] ++ lib.optionals stdenv.isDarwin [
     Cocoa
+    CoreGraphics
+    Foundation
+    IOKit
     Kernel
-    UniformTypeIdentifiers
-    UserNotifications
+    OpenGL
     libpng
     python3
     zlib
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
-    Libsystem
+  ] ++ lib.optionals (stdenv.isDarwin && (builtins.hasAttr "UserNotifications" darwin.apple_sdk.frameworks)) [
+    darwin.apple_sdk.frameworks.UserNotifications
   ] ++ lib.optionals stdenv.isLinux [
     fontconfig libunistring libcanberra libX11
     libXrandr libXinerama libXcursor libxkbcommon libXi libXext
@@ -75,13 +79,6 @@ buildPythonApplication rec {
   outputs = [ "out" "terminfo" "shell_integration" ];
 
   patches = [
-    # Fix clone-in-kitty not working on bash >= 5.2
-    # TODO: Removed on kitty release > 0.26.5
-    (fetchpatch {
-      url = "https://github.com/kovidgoyal/kitty/commit/51bba9110e9920afbefeb981e43d0c1728051b5e.patch";
-      sha256 = "sha256-1aSU4aU6j1/om0LsceGfhH1Hdzp+pPaNeWAi7U6VcP4=";
-    })
-
     # Gets `test_ssh_env_vars` to pass when `bzip2` is in the output of `env`.
     ./fix-test_ssh_env_vars.patch
 
@@ -112,7 +109,6 @@ buildPythonApplication rec {
     '';
   in ''
     runHook preBuild
-    ${ lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) "export MACOSX_DEPLOYMENT_TARGET=11" }
     ${if stdenv.isDarwin then ''
       ${python.interpreter} setup.py build ${darwinOptions}
       make docs
@@ -129,7 +125,7 @@ buildPythonApplication rec {
     runHook postBuild
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pillow
 
     # Shells needed for shell integration tests
@@ -222,6 +218,6 @@ buildPythonApplication rec {
     license = licenses.gpl3Only;
     changelog = "https://sw.kovidgoyal.net/kitty/changelog/";
     platforms = platforms.darwin ++ platforms.linux;
-    maintainers = with maintainers; [ tex rvolosatovs Luflosi adamcstephens ];
+    maintainers = with maintainers; [ tex rvolosatovs Luflosi ];
   };
 }

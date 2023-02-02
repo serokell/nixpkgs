@@ -20,7 +20,7 @@ python3.pkgs.buildPythonApplication rec {
     rich
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = with python3.pkgs; [
     freezegun
     jsonschema
     pytestCheckHook

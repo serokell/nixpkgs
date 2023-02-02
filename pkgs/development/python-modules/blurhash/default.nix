@@ -22,7 +22,7 @@ buildPythonPackage rec {
     sed -i '/^addopts/d' setup.cfg
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pillow
     numpy

@@ -63,7 +63,7 @@ in python.pkgs.buildPythonApplication rec {
     "--prefix" "PATH" ":" (lib.makeBinPath [ perl gpsbabel ])
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     glibcLocales
     perl
     xvfb-run

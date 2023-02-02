@@ -33,8 +33,7 @@ in
 
 stdenv.mkDerivation {
 
-  pname = "brscan4-etc-files";
-  version = "0.4.3-3";
+  name = "brscan4-etc-files-0.4.3-3";
   src = "${brscan4}/opt/brother/scanner/brscan4";
 
   nativeBuildInputs = [ brscan4 ];

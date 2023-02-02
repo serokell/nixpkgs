@@ -8,12 +8,10 @@
 , glib
 , gobject-introspection
 , gsettings-desktop-schemas
-, gtk-layer-shell
 , gtk3
 , json-glib
 , libgee
 , libhandy
-, libpulseaudio
 , libxml2
 , meson
 , ninja
@@ -27,13 +25,13 @@
 
 stdenv.mkDerivation rec {
   pname = "swaysettings";
-  version = "0.4.0";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "ErikReider";
     repo = "SwaySettings";
     rev = "v${version}";
-    hash = "sha256-dn3n5DOAsw0FeXBkh19A2qB/5O+RyA2/Fj5PVtMOyL0=";
+    hash = "sha256-2bbB+37t6chbdnOSpIolAsy7aD9i1UizWqkcF8Frfsk=";
   };
 
   nativeBuildInputs = [
@@ -54,12 +52,10 @@ stdenv.mkDerivation rec {
     glib
     gobject-introspection
     gsettings-desktop-schemas
-    gtk-layer-shell
     gtk3
     json-glib
     libgee
     libhandy
-    libpulseaudio
     libxml2
     pantheon.granite
   ];

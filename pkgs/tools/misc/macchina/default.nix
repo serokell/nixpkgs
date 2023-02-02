@@ -1,35 +1,24 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, installShellFiles
-, stdenv
-, darwin
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, installShellFiles
+, libiconv, Foundation }:
 
 rustPlatform.buildRustPackage rec {
   pname = "macchina";
-  version = "6.1.8";
+  version = "6.1.6";
 
   src = fetchFromGitHub {
     owner = "Macchina-CLI";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-MntHq5nphfjbO0Rx7v6WjsnabSMH5Ke3aR9/embG/rk=";
+    sha256 = "sha256-0wPMx3IMYhB3XxSsTRqKIsNCGghnRcpwZloHjLxjlMo=";
   };
 
-  cargoHash = "sha256-w8WIpT8rUe7olB5kdpDyrId6D698AhcqzsfpOlutaHQ=";
+  cargoSha256 = "sha256-QaqRIc3eKp7Wy5798wCCA4hk9Twa5Nr1mXTIxf+Hy/Q=";
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
-
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.AppKit
-    darwin.apple_sdk.frameworks.DisplayServices
-  ];
+  nativeBuildInputs = [ installShellFiles ];
+  buildInputs = lib.optionals stdenv.isDarwin [ libiconv Foundation ];
 
   postInstall = ''
-    installManPage doc/macchina.{1,7}
+    installShellCompletion target/completions/*.{bash,fish}
   '';
 
   meta = with lib; {
@@ -37,6 +26,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Macchina-CLI/macchina";
     changelog = "https://github.com/Macchina-CLI/macchina/releases/tag/v${version}";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [ _414owen figsoda ];
+    maintainers = with maintainers; [ _414owen ];
   };
 }

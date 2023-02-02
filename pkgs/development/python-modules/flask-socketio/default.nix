@@ -23,7 +23,7 @@ buildPythonPackage rec {
     python-socketio
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     coverage
     pytestCheckHook
   ];

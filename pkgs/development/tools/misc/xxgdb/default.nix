@@ -1,14 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, imake
-, gccmakedep
-, libX11
-, libXaw
-, libXext
-, libXmu
-, libXt
-}:
+{ lib, stdenv, fetchurl, imake, xlibsWrapper, gccmakedep, libXaw }:
 
 stdenv.mkDerivation rec {
   pname = "xxgdb";
@@ -25,7 +15,7 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ imake gccmakedep ];
-  buildInputs = [ libX11 libXaw libXext libXmu libXt ];
+  buildInputs = [ xlibsWrapper libXaw ];
 
   preConfigure = ''
     mkdir build

@@ -7,7 +7,7 @@
 , scdoc
 , xwayland
 , wayland-protocols
-, wlroots_0_16
+, wlroots
 , libxkbcommon
 , pixman
 , udev
@@ -20,13 +20,13 @@
 
 stdenv.mkDerivation rec {
   pname = "river";
-  version = "0.2.1";
+  version = "0.1.3";
 
   src = fetchFromGitHub {
     owner = "riverwm";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-eIW8NNhacAM/7gZCUHCmiySANLenfcaCRTUkoJUZRPQ=";
+    rev = "v${version}";
+    sha256 = "sha256-bHfHhyDx/Wzhvhr7mAeVzJf0TBJgMTGb/ClGjWMLlQ8=";
     fetchSubmodules = true;
   };
 
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     wayland-protocols
-    wlroots_0_16
+    wlroots
     libxkbcommon
     pixman
     udev
@@ -52,7 +52,6 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
     zig build -Drelease-safe -Dcpu=baseline ${lib.optionalString xwaylandSupport "-Dxwayland"} -Dman-pages --prefix $out install
-    install contrib/river.desktop -Dt $out/share/wayland-sessions
     runHook postInstall
   '';
 
@@ -62,13 +61,11 @@ stdenv.mkDerivation rec {
   */
   installFlags = [ "DESTDIR=$(out)" ];
 
-  passthru.providedSessions = ["river"];
-
   meta = with lib; {
     homepage = "https://github.com/ifreund/river";
     description = "A dynamic tiling wayland compositor";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ fortuneteller2k adamcstephens ];
+    maintainers = with maintainers; [ fortuneteller2k ];
   };
 }

@@ -15,12 +15,11 @@ stdenv.mkDerivation ({
 
   dontUnpack = true;
   dontConfigure = true;
+  dontBuild = true;
   dontFixup = true;
 
-  buildPhase = ''
-    cp -r ${src} src
-    chmod -R u+w src
-    cd src
+  prePhases = ''
+    cp ${src} .
     HOME='.' DEBUG=1 ${rebar3}/bin/rebar3 get-deps
   '';
 

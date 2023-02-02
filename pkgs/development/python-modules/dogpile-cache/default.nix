@@ -30,7 +30,7 @@ buildPythonPackage rec {
 
   dontUseSetuptoolsCheck = true;
 
-  nativeCheckInputs = [ pytestCheckHook mock Mako ];
+  checkInputs = [ pytestCheckHook mock Mako ];
 
   propagatedBuildInputs = [ decorator stevedore ];
 

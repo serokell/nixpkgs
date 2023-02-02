@@ -2,19 +2,15 @@
 , stdenv
 , fetchFromGitea
 , alsa-lib
-, bison
 , fcft
-, flex
 , json_c
 , libmpdclient
 , libxcb
 , libyaml
 , meson
 , ninja
-, pipewire
 , pixman
 , pkg-config
-, pulseaudio
 , scdoc
 , tllist
 , udev
@@ -30,27 +26,26 @@
 }:
 
 let
-  inherit (lib) mesonEnable;
+  # Courtesy of sternenseemann and FRidh
+  mesonFeatureFlag = feature: flag:
+    "-D${feature}=${if flag then "enabled" else "disabled"}";
 in
-assert (x11Support || waylandSupport);
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation rec {
   pname = "yambar";
-  version = "1.9.0";
+  version = "1.8.0";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "dnkl";
     repo = "yambar";
-    rev = finalAttrs.version;
-    hash = "sha256-0bgRnZYLGWJ9PE62i04hPBcgzWyd30DK7AUuejSgta4=";
+    rev = version;
+    hash = "sha256-zXhIXT3JrVSllnYheDU2KK3NE2VYa+xuKufIXjdMFjU=";
   };
 
   nativeBuildInputs = [
-    bison
-    flex
+    pkg-config
     meson
     ninja
-    pkg-config
     scdoc
     wayland-scanner
   ];
@@ -61,9 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     json_c
     libmpdclient
     libyaml
-    pipewire
     pixman
-    pulseaudio
     tllist
     udev
   ] ++ lib.optionals (waylandSupport) [
@@ -79,13 +72,13 @@ stdenv.mkDerivation (finalAttrs: {
   mesonBuildType = "release";
 
   mesonFlags = [
-    (mesonEnable "backend-x11" x11Support)
-    (mesonEnable "backend-wayland" waylandSupport)
+    (mesonFeatureFlag "backend-x11" x11Support)
+    (mesonFeatureFlag "backend-wayland" waylandSupport)
   ];
 
   meta = with lib; {
     homepage = "https://codeberg.org/dnkl/yambar";
-    changelog = "https://codeberg.org/dnkl/yambar/releases/tag/${finalAttrs.version}";
+    changelog = "https://codeberg.org/dnkl/yambar/releases/tag/${version}";
     description = "Modular status panel for X11 and Wayland";
     longDescription = ''
       yambar is a lightweight and configurable status panel (bar, for short) for
@@ -114,6 +107,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = licenses.mit;
     maintainers = with maintainers; [ AndersonTorres ];
-    platforms = platforms.linux;
+    platforms = with platforms; unix;
   };
-})
+}

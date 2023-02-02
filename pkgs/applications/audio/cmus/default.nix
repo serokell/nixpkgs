@@ -39,6 +39,8 @@
 #, vtxSupport ? true, libayemu ? null
 }:
 
+with lib;
+
 assert samplerateSupport -> jackSupport;
 
 # vorbis and tremor are mutually exclusive
@@ -111,16 +113,16 @@ stdenv.mkDerivation rec {
 
   patches = [ ./option-debugging.patch ];
 
-  configurePhase = "./configure " + lib.concatStringsSep " " ([
+  configurePhase = "./configure " + concatStringsSep " " ([
     "prefix=$out"
     "CONFIG_WAV=y"
-  ] ++ lib.concatMap (a: a.flags) opts);
+  ] ++ concatMap (a: a.flags) opts);
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ ncurses ]
     ++ lib.optional stdenv.cc.isClang clangGCC
     ++ lib.optionals stdenv.isDarwin [ libiconv CoreAudio AudioUnit VideoToolbox ]
-    ++ lib.flatten (lib.concatMap (a: a.deps) opts);
+    ++ flatten (concatMap (a: a.deps) opts);
 
   makeFlags = [ "LD=$(CC)" ];
 

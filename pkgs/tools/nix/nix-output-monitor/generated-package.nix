@@ -14,6 +14,7 @@
   extra,
   fetchzip,
   filepath,
+  generic-optics,
   hermes-json,
   HUnit,
   lib,
@@ -22,13 +23,12 @@
   mtl,
   nix-derivation,
   optics,
+  process,
   random,
   relude,
   safe,
   stm,
   streamly,
-  strict,
-  strict-types,
   terminal-size,
   text,
   time,
@@ -38,10 +38,10 @@
 }:
 mkDerivation {
   pname = "nix-output-monitor";
-  version = "2.0.0.5";
+  version = "2.0.0.2";
   src = fetchzip {
-    url = "https://github.com/maralorn/nix-output-monitor/archive/refs/tags/v2.0.0.5.tar.gz";
-    sha256 = "02xrbf2nr64yfny3idkjb1xbd97wl8m5viifrwjf4hi6ivs5bl18";
+    url = "https://github.com/maralorn/nix-output-monitor/archive/refs/tags/v2.0.0.2.tar.gz";
+    sha256 = "1xfcl7203sgc88a9xdnswwk7rirsaff7jb27yil7mrb7ni10g2f9";
   };
   isLibrary = true;
   isExecutable = true;
@@ -57,6 +57,7 @@ mkDerivation {
     directory
     extra
     filepath
+    generic-optics
     hermes-json
     lock-file
     MemoTrie
@@ -67,8 +68,6 @@ mkDerivation {
     safe
     stm
     streamly
-    strict
-    strict-types
     terminal-size
     text
     time
@@ -87,6 +86,7 @@ mkDerivation {
     directory
     extra
     filepath
+    generic-optics
     hermes-json
     lock-file
     MemoTrie
@@ -97,8 +97,6 @@ mkDerivation {
     safe
     stm
     streamly
-    strict
-    strict-types
     terminal-size
     text
     time
@@ -118,6 +116,7 @@ mkDerivation {
     directory
     extra
     filepath
+    generic-optics
     hermes-json
     HUnit
     lock-file
@@ -125,17 +124,15 @@ mkDerivation {
     mtl
     nix-derivation
     optics
+    process
     random
     relude
     safe
     stm
     streamly
-    strict
-    strict-types
     terminal-size
     text
     time
-    typed-process
     wcwidth
     word8
   ];

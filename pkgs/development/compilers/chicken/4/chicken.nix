@@ -31,7 +31,6 @@ stdenv.mkDerivation {
   ] ++ (lib.optionals stdenv.isDarwin [
     "XCODE_TOOL_PATH=${darwin.binutils.bintools}/bin"
     "C_COMPILER=$(CC)"
-    "POSTINSTALL_PROGRAM=install_name_tool"
   ]);
 
   # We need a bootstrap-chicken to regenerate the c-files after
@@ -42,8 +41,6 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [
     makeWrapper
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-    darwin.autoSignDarwinBinariesHook
   ];
 
   buildInputs = lib.optionals (bootstrap-chicken != null) [

@@ -32,7 +32,7 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nose
   ];
 

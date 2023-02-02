@@ -20,7 +20,7 @@ buildGoModule {
 
   nativeBuildInputs = [ cmake ninja perl ];
 
-  vendorSha256 = null;
+  vendorSha256 = "0sjjj9z1dhilhpc8pq4154czrb79z9cm044jvn75kxcjv6v5l2m5";
 
   # hack to get both go and cmake configure phase
   # (if we use postConfigure then cmake will loop runHook postConfigure)

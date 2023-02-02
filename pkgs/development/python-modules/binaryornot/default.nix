@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ chardet ];
 
-  nativeCheckInputs = [ hypothesis ];
+  checkInputs = [ hypothesis ];
 
   meta = with lib; {
     homepage = "https://github.com/audreyr/binaryornot";

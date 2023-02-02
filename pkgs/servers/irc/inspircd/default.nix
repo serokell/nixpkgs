@@ -50,7 +50,6 @@ let
     "mysql"
     "pgsql"
     "regex_pcre"
-    "regex_pcre2"
     "regex_re2"
     "regex_tre"
     "sqlite3"
@@ -70,7 +69,6 @@ in
 , postgresql
 , libmysqlclient
 , pcre
-, pcre2
 , tre
 , re2
 , sqlite
@@ -99,7 +97,6 @@ let
     mysql           = [ libmysqlclient ];
     pgsql           = [ postgresql ];
     regex_pcre      = [ pcre ];
-    regex_pcre2     = [ pcre2 ];
     regex_re2       = [ re2 ];
     regex_tre       = [ tre ];
     sqlite3         = [ sqlite ];
@@ -145,13 +142,13 @@ in
 
 stdenv.mkDerivation rec {
   pname = "inspircd";
-  version = "3.15.0";
+  version = "3.14.0";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-4n9Tj+xTmPRPisiFjlyx7kYfReonIxoCWu18XWfEXY0=";
+    sha256 = "sha256-xrS/lvXHMVdtKta+57Vu4HygAuALFj+odJi8ScyrLGQ=";
   };
 
   outputs = [ "bin" "lib" "man" "doc" "out" ];

@@ -1,55 +1,25 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, perl
-, wrapGAppsHook
-, wrapQtAppsHook
-, qtbase
-, qtcharts
-, qtpositioning
-, qtmultimedia
-, qtserialport
-, qttranslations
-, qtwayland
-, qtwebengine
-, calcmysky
-, qxlsx
-, indilib
-, libnova
+{ stdenv, lib, fetchFromGitHub
+, cmake, freetype, libpng, libGLU, libGL, openssl, perl, libiconv
+, qtscript, qtserialport, qttools, qtcharts
+, qtmultimedia, qtlocation, qtbase, wrapQtAppsHook
 }:
 
 stdenv.mkDerivation rec {
   pname = "stellarium";
-  version = "1.2";
+  version = "0.22.2";
 
   src = fetchFromGitHub {
     owner = "Stellarium";
     repo = "stellarium";
     rev = "v${version}";
-    sha256 = "sha256-0/ZSe6QfM2zVsqcbyqefl9hiuex72KPxJvVMRNCnpZg=";
+    sha256 = "sha256-FBH5IB1keMzRP06DQK2e7HX8rwm5/sdTX+cB80uG0vw=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    perl
-    wrapGAppsHook
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake perl wrapQtAppsHook ];
 
   buildInputs = [
-    qtbase
-    qtcharts
-    qtpositioning
-    qtmultimedia
-    qtserialport
-    qttranslations
-    qtwayland
-    qtwebengine
-    calcmysky
-    qxlsx
-    indilib
-    libnova
+    freetype libpng libGLU libGL openssl libiconv qtscript qtserialport qttools
+    qtmultimedia qtlocation qtbase qtcharts
   ];
 
   preConfigure = lib.optionalString stdenv.isDarwin ''
@@ -58,17 +28,11 @@ stdenv.mkDerivation rec {
                 'SET(CMAKE_INSTALL_PREFIX "${placeholder "out"}/Applications/Stellarium.app/Contents")'
   '';
 
-  dontWrapGApps = true;
-
-  preFixup = ''
-    qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
-  '';
-
   meta = with lib; {
     description = "Free open-source planetarium";
     homepage = "https://stellarium.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [ ma27 ];
   };
 }

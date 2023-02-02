@@ -52,7 +52,7 @@ buildPythonApplication rec {
   # will fail without pre-seeded config files
   doCheck = false;
 
-  nativeCheckInputs = [ unittestCheckHook mock ];
+  checkInputs = [ unittestCheckHook mock ];
 
   unittestFlagsArray = [ "-s" "tests" "-v" ];
 

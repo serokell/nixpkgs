@@ -22,7 +22,13 @@ in {
 
     services.bosun = {
 
-      enable = mkEnableOption (lib.mdDoc "bosun");
+      enable = mkOption {
+        type = types.bool;
+        default = false;
+        description = lib.mdDoc ''
+          Whether to run bosun.
+        '';
+      };
 
       package = mkOption {
         type = types.package;

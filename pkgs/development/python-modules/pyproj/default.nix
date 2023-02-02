@@ -17,14 +17,14 @@
 
 buildPythonPackage rec {
   pname = "pyproj";
-  version = "3.4.1";
+  version = "3.3.1";
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "pyproj4";
     repo = "pyproj";
     rev = "refs/tags/${version}";
-    hash = "sha256-SbuamcVXvbV5eGm08jhbp1yBno60vkniHrH5xrPej2A=";
+    hash = "sha256-QmpwnOnMjV29Tq+M6FCotDytq6zlhsp0Zgzw3V7nhNQ=";
   };
 
   # force pyproj to use ${proj}
@@ -43,7 +43,7 @@ buildPythonPackage rec {
      certifi
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     mock
     numpy
@@ -53,13 +53,14 @@ buildPythonPackage rec {
   ];
 
   preCheck = ''
-    # import from $out
-    rm -r pyproj
+    # We need to build extensions locally to run tests
+    ${python.interpreter} setup.py build_ext --inplace
+    cd test
   '';
 
   disabledTestPaths = [
-    "test/test_doctest_wrapper.py"
-    "test/test_datadir.py"
+    "test_doctest_wrapper.py"
+    "test_datadir.py"
   ];
 
   disabledTests = [
@@ -85,10 +86,9 @@ buildPythonPackage rec {
   ];
 
   meta = {
-    description = "Python interface to PROJ library";
+    description = "Python interface to PROJ.4 library";
     homepage = "https://github.com/pyproj4/pyproj";
-    changelog = "https://github.com/pyproj4/pyproj/blob/${src.rev}/docs/history.rst";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lsix dotlambda ];
+    license = with lib.licenses; [ isc ];
+    maintainers = with lib.maintainers; [ lsix ];
   };
 }

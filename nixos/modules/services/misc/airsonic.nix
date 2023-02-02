@@ -48,7 +48,7 @@ in {
       };
 
       port = mkOption {
-        type = types.port;
+        type = types.int;
         default = 4040;
         description = lib.mdDoc ''
           The port on which Airsonic will listen for

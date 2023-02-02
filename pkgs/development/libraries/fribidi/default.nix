@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   doCheck = true;
-  nativeCheckInputs = [ python3 ];
+  checkInputs = [ python3 ];
 
   meta = with lib; {
     homepage = "https://github.com/fribidi/fribidi";

@@ -9,13 +9,13 @@
 
 buildPythonPackage rec {
   pname = "micloud";
-  version = "0.6";
+  version = "0.5";
 
   src = fetchFromGitHub {
     owner = "Squachen";
     repo = "micloud";
     rev = "v_${version}";
-    hash = "sha256-IsNXFs1N+rKwqve2Pjp+wRTZCxHF4acEo6KyhsSKuqI=";
+    sha256 = "sha256-1qtOsEH+G5ASsRyVCa4U0WQ/9kDRn1WpPNkvuvWFovQ=";
   };
 
   propagatedBuildInputs = [

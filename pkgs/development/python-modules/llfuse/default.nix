@@ -42,7 +42,7 @@ buildPythonPackage rec {
 
   # On Darwin, the test requires macFUSE to be installed outside of Nix.
   doCheck = !stdenv.isDarwin;
-  nativeCheckInputs = [ pytestCheckHook which ];
+  checkInputs = [ pytestCheckHook which ];
 
   disabledTests = [
     "test_listdir" # accesses /usr/bin

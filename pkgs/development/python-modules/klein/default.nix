@@ -42,7 +42,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     hypothesis
     treq
   ];

@@ -9,20 +9,15 @@
 , pytest-timeout
 , pytest-django
 , case
-, pytestCheckHook
-, pythonOlder
-}:
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "django-celery-beat";
-  version = "2.4.0";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "2.3.0";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-WO/pRg5Dc6JBwrPYOVGPKaKK4ZvICo26INogTH6lBhM=";
+    sha256 = "sha256-uiT4btlWug7itDI3pJMD6/Wqfg+wzLfgVCt+MaRj3Lo=";
   };
 
   propagatedBuildInputs = [
@@ -32,7 +27,7 @@ buildPythonPackage rec {
     tzdata
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     ephem
     pytest-timeout
     pytest-django
@@ -45,9 +40,7 @@ buildPythonPackage rec {
     "t/unit/test_schedulers.py"
   ];
 
-  pythonImportsCheck = [
-    "django_celery_beat"
-  ];
+  pythonImportsCheck = [ "django_celery_beat" ];
 
   meta = with lib; {
     description = "Celery Periodic Tasks backed by the Django ORM";

@@ -1,47 +1,42 @@
 { lib
-, absl-py
-, buildPythonPackage
-, dm-tree
-, docutils
-, etils
 , fetchFromGitHub
+, buildPythonPackage
 , numpy
-, pythonOlder
 , tabulate
-, tensorflow
-, tensorflow-datasets
+, six
+, dm-tree
+, absl-py
 , wrapt
-}:
+, docutils
+, tensorflow
+, tensorflow-datasets }:
 
 buildPythonPackage rec {
   pname = "dm-sonnet";
   version = "2.0.0";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "deepmind";
     repo = "sonnet";
     rev = "v${version}";
-    hash = "sha256-YSMeH5ZTfP1OdLBepsxXAVczBG/ghSjCWjoz/I+TFl8=";
+    sha256 = "sha256-YSMeH5ZTfP1OdLBepsxXAVczBG/ghSjCWjoz/I+TFl8=";
   };
 
-  propagatedBuildInputs = [
+  buildInputs = [
+    absl-py
     dm-tree
-    etils
     numpy
+    six
     tabulate
     wrapt
-  ] ++ etils.optional-dependencies.epath;
+  ];
 
-  passthru.optional-dependencies = {
-    tensorflow = [
-      tensorflow
-    ];
-  };
+  propagatedBuildInputs = [
+    tabulate
+    tensorflow
+  ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     docutils
     tensorflow-datasets
   ];

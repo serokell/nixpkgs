@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation rec {
   pname = "xlogo";
-  version = "1.0.6";
+  version = "1.0.5";
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     owner = "app";
     repo = "xlogo";
     rev = "refs/tags/xlogo-${version}";
-    hash = "sha256-S7Z2nGQt07YBHlbA1u/+rvDwtzT381e90jieoiun+E8=";
+    hash = "sha256-AyNFzRZtbCKkGacBCaGZZkLRTAGq5TrA2OXGqwoKq24=";
   };
 
   nativeBuildInputs = [ xorg-autoconf autoreconfHook pkg-config ];

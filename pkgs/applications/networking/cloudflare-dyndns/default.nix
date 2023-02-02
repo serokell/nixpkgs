@@ -1,10 +1,17 @@
 { lib
-, python3
+, buildPythonApplication
+, attrs
+, click
+, cloudflare
 , fetchFromGitHub
 , fetchpatch
+, poetry-core
+, pydantic
+, pytestCheckHook
+, requests
 }:
 
-python3.pkgs.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "cloudflare-dyndns";
   version = "4.1";
   format = "pyproject";
@@ -16,11 +23,11 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-6Q5fpJ+HuQ+hc3xTtB5tR43pn9WZ0nZZR723iLAkpis=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
+  nativeBuildInputs = [
     poetry-core
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
+  propagatedBuildInputs = [
     attrs
     click
     cloudflare
@@ -28,7 +35,7 @@ python3.pkgs.buildPythonApplication rec {
     requests
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = [
     pytestCheckHook
   ];
 

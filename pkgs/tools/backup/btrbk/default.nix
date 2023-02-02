@@ -18,11 +18,11 @@
 
 stdenv.mkDerivation rec {
   pname = "btrbk";
-  version = "0.32.5";
+  version = "0.32.4";
 
   src = fetchurl {
     url = "https://digint.ch/download/btrbk/releases/${pname}-${version}.tar.xz";
-    sha256 = "8f5AkWgCFteMeQPYKn+P+V6Ypb6x0f/bK6UpOovDn7Q=";
+    sha256 = "zGWdHrQZwBtMZ58gcnpj5eZksIwbCRIiz1qwif9ihto=";
   };
 
   nativeBuildInputs = [ asciidoctor makeWrapper ];
@@ -53,9 +53,7 @@ stdenv.mkDerivation rec {
       --prefix PATH ':' "${lib.makeBinPath [ btrfs-progs bash mbuffer openssh ]}"
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) btrbk btrbk-no-timer btrbk-section-order;
-  };
+  passthru.tests.btrbk = nixosTests.btrbk;
 
   passthru.updateScript = genericUpdater {
     versionLister = writeShellScript "btrbk-versionLister" ''

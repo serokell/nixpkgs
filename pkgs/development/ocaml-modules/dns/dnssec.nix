@@ -7,7 +7,6 @@ buildDunePackage {
   pname = "dnssec";
 
   inherit (dns) version src;
-  duneVersion = "3";
 
   propagatedBuildInputs = [
     cstruct
@@ -20,7 +19,7 @@ buildDunePackage {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [
+  checkInputs = [
     alcotest
     base64
   ];

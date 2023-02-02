@@ -21,7 +21,7 @@ buildPythonPackage rec {
     django
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     django-jinja
   ];
 

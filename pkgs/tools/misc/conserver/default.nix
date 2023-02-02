@@ -3,7 +3,6 @@
 , fetchFromGitHub
 , fetchpatch
 , autoreconfHook
-, libxcrypt
 , gssapiSupport ? false
 , libkrb5
 , freeipmiSupport ? false
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ libxcrypt ]
+  buildInputs = [ ]
     ++ lib.optionals freeipmiSupport [ freeipmi ]
     ++ lib.optionals gssapiSupport [ libkrb5 ]
     ++ lib.optionals opensslSupport [ openssl ];

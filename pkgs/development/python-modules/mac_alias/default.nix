@@ -1,23 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
+{ lib, buildPythonPackage, fetchPypi
 }:
 
 buildPythonPackage rec {
-  pname = "mac-alias";
-  version = "2.2.2";
-  format = "pyproject";
+  version = "2.2.0";
+  pname = "mac_alias";
 
   src = fetchPypi {
-    pname = "mac_alias";
-    inherit version;
-    hash = "sha256-yZxyjrUS6VXBHxpiA6D/qIg7JlSeiv5ogEAxql2oVrc=";
+    inherit pname version;
+    sha256 = "0eb84a63f98bf54c2f9fbdc4de956a63e64eb8a4a124143a1c1f5a78326442f0";
   };
-
-  nativeBuildInputs = [
-    setuptools
-  ];
 
   # pypi package does not include tests;
   # tests anyway require admin privileges to succeed

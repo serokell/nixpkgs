@@ -42,7 +42,7 @@ buildPythonPackage rec {
     schema
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

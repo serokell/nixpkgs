@@ -17,16 +17,14 @@
 , typing-extensions }:
 
 buildPythonPackage rec {
-  version = "1.26.1";
+  version = "1.25.1";
   pname = "azure-core";
   disabled = pythonOlder "3.6";
-
-  __darwinAllowLocalNetworking = true;
 
   src = fetchPypi {
     inherit pname version;
     extension = "zip";
-    sha256 = "sha256-IjsOkMvdHwPEGxlbAyOYmYQ/INAJZNu4XmQ4aHNBSi0=";
+    sha256 = "sha256-PBzzaGUOduwAnAfNEXSpXNy0cbJHu3LRgkX31WwYCbI=";
   };
 
   propagatedBuildInputs = [
@@ -35,7 +33,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     aiodns
     aiohttp
     flask
@@ -65,7 +63,7 @@ buildPythonPackage rec {
   # disable 8 tests failing on some darwin machines with errors:
   # azure.core.polling.base_polling.BadStatus: Invalid return status 403 for 'GET' operation
   # azure.core.exceptions.HttpResponseError: Operation returned an invalid status 'Forbidden'
-  ] ++ lib.optionals stdenv.isDarwin [
+  ] ++ lib.optional stdenv.isDarwin [
     "location_polling_fail"
   ];
   disabledTestPaths = [
@@ -78,7 +76,7 @@ buildPythonPackage rec {
     "tests/testserver_tests/"
     # requires missing pytest plugin
     "tests/async_tests/test_rest_asyncio_transport.py"
-    # needs msrest, which cannot be included in nativeCheckInputs due to circular dependency new in msrest 0.7.1
+    # needs msrest, which cannot be included in checkInputs due to circular dependency new in msrest 0.7.1
     # azure-core needs msrest which needs azure-core
     "tests/test_polling.py"
     "tests/async_tests/test_base_polling_async.py"

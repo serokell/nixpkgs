@@ -8,13 +8,12 @@
 , pythonOlder
 , setuptools
 , setuptools-scm
-, wheel
 , zstandard
 }:
 
 buildPythonPackage rec {
   pname = "flow-record";
-  version = "3.7";
+  version = "3.5";
   format = "pyproject";
 
   disabled = pythonOlder "3.7";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     owner = "fox-it";
     repo = "flow.record";
     rev = version;
-    hash = "sha256-bXI7q+unlrXvagKisAO4INfzeXlC4g918xmPmwMDCK8=";
+    hash = "sha256-hULz5pIqCKujVH3SpzFgzNM9R7WTtqAmuNOxG7VlUd0=";
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
@@ -31,7 +30,6 @@ buildPythonPackage rec {
   nativeBuildInputs = [
     setuptools
     setuptools-scm
-    wheel
   ];
 
   propagatedBuildInputs = [
@@ -48,7 +46,7 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 
@@ -59,11 +57,6 @@ buildPythonPackage rec {
   disabledTestPaths = [
     # Test requires rdump
     "tests/test_rdump.py"
-  ];
-
-
-  disabledTests = [
-    "test_rdump_fieldtype_path_json"
   ];
 
   meta = with lib; {

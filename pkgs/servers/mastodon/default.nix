@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   # Putting the callPackage up in the arguments list also does not work.
   src = if srcOverride != null then srcOverride else callPackage ./source.nix {};
 
-  mastodonGems = bundlerEnv {
+  mastodon-gems = bundlerEnv {
     name = "${pname}-gems-${version}";
     inherit version;
     ruby = ruby_3_0;
@@ -36,16 +36,16 @@ stdenv.mkDerivation rec {
     '';
   };
 
-  mastodonModules = stdenv.mkDerivation {
+  mastodon-modules = stdenv.mkDerivation {
     pname = "${pname}-modules";
     inherit src version;
 
     yarnOfflineCache = fetchYarnDeps {
       yarnLock = "${src}/yarn.lock";
-      sha256 = "sha256-fuU92fydoazSXBHwA+DG//gRgWVYQ1M3m2oNS2iwv4I=";
+      sha256 = "sha256-2NSibx026ENAqphGGhNoLwUldWTEPbDBrYu3hgeRlnM=";
     };
 
-    nativeBuildInputs = [ fixup_yarn_lock nodejs-slim yarn mastodonGems mastodonGems.wrappedRuby ];
+    nativeBuildInputs = [ fixup_yarn_lock nodejs-slim yarn mastodon-gems mastodon-gems.wrappedRuby ];
 
     RAILS_ENV = "production";
     NODE_ENV = "production";
@@ -79,19 +79,19 @@ stdenv.mkDerivation rec {
     '';
   };
 
-  propagatedBuildInputs = [ imagemagick ffmpeg file mastodonGems.wrappedRuby ];
-  buildInputs = [ mastodonGems nodejs-slim ];
+  propagatedBuildInputs = [ imagemagick ffmpeg file mastodon-gems.wrappedRuby ];
+  buildInputs = [ mastodon-gems nodejs-slim ];
 
   buildPhase = ''
-    ln -s $mastodonModules/node_modules node_modules
-    ln -s $mastodonModules/public/assets public/assets
-    ln -s $mastodonModules/public/packs public/packs
+    ln -s ${mastodon-modules}/node_modules node_modules
+    ln -s ${mastodon-modules}/public/assets public/assets
+    ln -s ${mastodon-modules}/public/packs public/packs
 
     patchShebangs bin/
-    for b in $(ls $mastodonGems/bin/)
+    for b in $(ls ${mastodon-gems}/bin/)
     do
       if [ ! -f bin/$b ]; then
-        ln -s $mastodonGems/bin/$b bin/$b
+        ln -s ${mastodon-gems}/bin/$b bin/$b
       fi
     done
 
@@ -121,6 +121,6 @@ stdenv.mkDerivation rec {
     homepage = "https://joinmastodon.org";
     license = licenses.agpl3Plus;
     platforms = [ "x86_64-linux" "i686-linux" "aarch64-linux" ];
-    maintainers = with maintainers; [ happy-river erictapen izorkin ghuntley ];
+    maintainers = with maintainers; [ happy-river erictapen izorkin ];
   };
 }

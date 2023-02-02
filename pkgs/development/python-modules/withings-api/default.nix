@@ -42,7 +42,7 @@ buildPythonPackage rec {
     pydantic
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     responses
   ];

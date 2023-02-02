@@ -20,7 +20,7 @@ buildDunePackage rec {
 
   # Assumes nss-cacert < 3.74 https://github.com/mirage/ca-certs/issues/21
   doCheck = false;
-  nativeCheckInputs = [
+  checkInputs = [
     cacert    # for /etc/ssl/certs/ca-bundle.crt
     alcotest
     fmt

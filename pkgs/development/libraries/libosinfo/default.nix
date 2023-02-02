@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     libxml2
     libxslt
   ];
-  nativeCheckInputs = [
+  checkInputs = [
     check
     curl
     perl

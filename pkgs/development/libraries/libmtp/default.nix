@@ -35,11 +35,9 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ libusb1 ];
 
-  preConfigure = "NOCONFIGURE=1 ./autogen.sh";
+  preConfigure = "./autogen.sh";
 
   configureFlags = [ "--with-udev=${placeholder "out"}/lib/udev" ];
-
-  configurePlatforms = [ "build" "host" ];
 
   enableParallelBuilding = true;
 

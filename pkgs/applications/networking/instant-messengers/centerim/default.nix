@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    homepage = "https://www.centerim.org/";
+    homepage = "http://www.centerim.org/";
     description = "Fork of CenterICQ, a curses instant messaging program";
     license = lib.licenses.gpl2Plus;
     platforms = with lib.platforms; linux;

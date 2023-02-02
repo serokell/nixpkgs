@@ -33,7 +33,7 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ]
   ++ passthru.optional-dependencies.async;

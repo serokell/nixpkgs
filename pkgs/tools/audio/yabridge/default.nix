@@ -3,7 +3,7 @@
 , fetchFromGitHub
 , substituteAll
 , pkgsi686Linux
-, dbus
+, libnotify
 , meson
 , ninja
 , pkg-config
@@ -27,14 +27,6 @@ let
     repo = "bitsery";
     rev = "v5.2.2";
     sha256 = "sha256-VwzVtxt+E/SVcxqIJw8BKPO2q7bu/hkhY+nB7FHrZpY=";
-  };
-
-  # Derived from subprojects/clap.wrap
-  clap = fetchFromGitHub {
-    owner = "free-audio";
-    repo = "clap";
-    rev = "1.1.4";
-    sha256 = "sha256-3zDvzC3Hs4OmT2qvaDa69rmBkHoQ8qY9TZlsPxsJA40=";
   };
 
   # Derived from subprojects/function2.wrap
@@ -65,20 +57,20 @@ let
   vst3 = fetchFromGitHub {
     owner = "robbert-vdh";
     repo = "vst3sdk";
-    rev = "v3.7.7_build_19-patched";
+    rev = "v3.7.5_build_44-patched";
     fetchSubmodules = true;
-    sha256 = "sha256-LsPHPoAL21XOKmF1Wl/tvLJGzjaCLjaDAcUtDvXdXSU=";
+    sha256 = "sha256-6cuEUa+BXa6MnAYIBq873n0NRLadcPfMX+kpf4ysE6M=";
   };
 in multiStdenv.mkDerivation rec {
   pname = "yabridge";
-  version = "5.0.3";
+  version = "4.0.2";
 
   # NOTE: Also update yabridgectl's cargoHash when this is updated
   src = fetchFromGitHub {
     owner = "robbert-vdh";
     repo = pname;
     rev = version;
-    sha256 = "sha256-T3BU77BbVr6vlVoijUQy86eF0lCgM4S4d5VSnLE4pas=";
+    sha256 = "sha256-rce6gxnB+RpG84Xakw0h4vZ8lyEQ41swWQGuwpomV2I=";
   };
 
   # Unpack subproject sources
@@ -86,7 +78,6 @@ in multiStdenv.mkDerivation rec {
     cd "$sourceRoot/subprojects"
     cp -R --no-preserve=mode,ownership ${asio} asio
     cp -R --no-preserve=mode,ownership ${bitsery} bitsery
-    cp -R --no-preserve=mode,ownership ${clap} clap
     cp -R --no-preserve=mode,ownership ${function2} function2
     cp -R --no-preserve=mode,ownership ${ghc_filesystem} ghc_filesystem
     cp -R --no-preserve=mode,ownership ${tomlplusplus} tomlplusplus
@@ -98,7 +89,7 @@ in multiStdenv.mkDerivation rec {
     (substituteAll {
       src = ./hardcode-dependencies.patch;
       libxcb32 = pkgsi686Linux.xorg.libxcb;
-      inherit wine;
+      inherit libnotify wine;
     })
 
     # Patch the chainloader to search for libyabridge through NIX_PROFILES
@@ -111,7 +102,6 @@ in multiStdenv.mkDerivation rec {
       cd subprojects
       cp packagefiles/asio/* asio
       cp packagefiles/bitsery/* bitsery
-      cp packagefiles/clap/* clap
       cp packagefiles/function2/* function2
       cp packagefiles/ghc_filesystem/* ghc_filesystem
     )
@@ -126,7 +116,6 @@ in multiStdenv.mkDerivation rec {
 
   buildInputs = [
     libxcb
-    dbus
   ];
 
   mesonFlags = [
@@ -141,7 +130,7 @@ in multiStdenv.mkDerivation rec {
     runHook preInstall
     mkdir -p "$out/bin" "$out/lib"
     cp yabridge-host{,-32}.exe{,.so} "$out/bin"
-    cp libyabridge{,-chainloader}-{vst2,vst3,clap}.so "$out/lib"
+    cp libyabridge{,-chainloader}-{vst2,vst3}.so "$out/lib"
     runHook postInstall
   '';
 
@@ -153,7 +142,9 @@ in multiStdenv.mkDerivation rec {
     done
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    attrPath = pname;
+  };
 
   meta = with lib; {
     description = "A modern and transparent way to use Windows VST2 and VST3 plugins on Linux";

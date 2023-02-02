@@ -30,7 +30,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     webob
     blinker
     mock

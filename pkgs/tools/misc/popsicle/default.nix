@@ -1,54 +1,73 @@
-{ lib
-, stdenv
+{ stdenv
 , fetchFromGitHub
+, rustc
+, cargo
 , rustPlatform
-, glib
 , pkg-config
+, dbus
+, glib
+, cairo
+, pango
+, atk
+, lib
 , gdk-pixbuf
 , gtk3
-, wrapGAppsHook
 }:
 
-stdenv.mkDerivation rec {
+rustPlatform.buildRustPackage.override { stdenv = stdenv; } rec {
   pname = "popsicle";
-  version = "1.3.1";
+  version = "unstable-2021-12-20";
 
   src = fetchFromGitHub {
     owner = "pop-os";
     repo = pname;
-    rev = version;
-    sha256 = "sha256-NqzuZmVabQ5WHOlBEsJhL/5Yet3TMSuo/gofSabCjTY=";
+    rev = "b02ebf5f2e6c18777453ca9a144d69689a6fa901";
+    sha256 = "03ilhvnr4mwy7b8bipp616h16m2ilxzxz2zjpkzy3afwvh9bz1mx";
   };
 
-  cargoDeps = rustPlatform.fetchCargoTarball {
-    inherit src;
-    sha256 = "sha256-k2M1c9kk1blE0ZKjstDQANdbUzI4oS1Ho5P+sR4cRtg=";
-  };
+  cargoSha256 = "1c54wxyrfxk5chnjhxw6vaznm7ff9dkx1rxlgp417jfygiwijjs4";
 
-  nativeBuildInputs = [
-    glib
-    pkg-config
-    rustPlatform.cargoSetupHook
-    rustPlatform.rust.cargo
-    rustPlatform.rust.rustc
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gtk3 pkg-config ];
 
   buildInputs = [
-    gdk-pixbuf
     gtk3
+    dbus
+    glib
+    cairo
+    pango
+    atk
+    gdk-pixbuf
   ];
 
+  # Use the stdenv default phases (./configure; make) instead of the
+  # ones from buildRustPackage.
+  configurePhase = "configurePhase";
+  buildPhase = "buildPhase";
+  checkPhase = "checkPhase";
+  installPhase = "installPhase";
+
+  postPatch = ''
+    # Have to do this here instead of in preConfigure because
+    # cargoDepsCopy gets unset after postPatch.
+    configureFlagsArray+=("RUST_VENDORED_SOURCES=$cargoDepsCopy")
+  '';
+
   makeFlags = [
-    "prefix=$(out)"
+    "PREFIX=${placeholder "out"}"
+    "DESTDIR=${placeholder "out"}"
   ];
+
+  postInstall = ''
+    # install man page, icon, etc...
+    mv $out/usr/local/* $out
+    rm -rf $out/usr
+  '';
 
   meta = with lib; {
     description = "Multiple USB File Flasher";
     homepage = "https://github.com/pop-os/popsicle";
-    changelog = "https://github.com/pop-os/popsicle/releases/tag/${version}";
-    maintainers = with maintainers; [ _13r0ck figsoda ];
+    maintainers = with maintainers; [ _13r0ck ];
     license = licenses.mit;
-    platforms = platforms.linux;
+    platforms = [ "aarch64-linux" "x86_64-linux" ];
   };
 }

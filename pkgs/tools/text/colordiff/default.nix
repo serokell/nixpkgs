@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "colordiff";
-  version = "1.0.21";
+  version = "1.0.20";
 
   src = fetchFromGitHub {
     owner = "daveewart";
     repo = "colordiff";
     rev = "v${version}";
-    sha256 = "sha256-TNOw6dqsT0dOIddRoGwEF85CaQF8ICMFUi+GiG5WWpk=";
+    sha256 = "sha256-+TtVnUX88LMd8zmhLsKTyR9JlgR7IkUB18PF3LRgPB0=";
   };
 
   nativeBuildInputs = [ docbook_xml_dtd_412 docbook_xsl perl w3m-batch xmlto ];

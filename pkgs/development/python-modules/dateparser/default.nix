@@ -1,8 +1,7 @@
 { lib
 , buildPythonPackage
-, pythonOlder
+, isPy3k
 , fetchFromGitHub
-, fetchpatch
 , python-dateutil
 , pytz
 , regex
@@ -13,48 +12,51 @@
 , langdetect
 , parameterized
 , pytestCheckHook
-, gitpython
-, parsel
-, requests
+, GitPython
 , ruamel-yaml
 }:
 
 buildPythonPackage rec {
   pname = "dateparser";
-  version = "1.1.6";
+  version = "1.1.1";
 
-  disabled = pythonOlder "3.7";
-
-  format = "setuptools";
+  disabled = !isPy3k;
 
   src = fetchFromGitHub {
     owner = "scrapinghub";
     repo = "dateparser";
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-rn8RD1nnUi4MhK6QKLaP5eG6UAFrhlecimvn8sAsu6k=";
+    rev = "v${version}";
+    sha256 = "sha256-bDup3q93Zq+pvwsy/lQy2byOMjG6C/+7813hWQMbZRU=";
   };
 
-  propagatedBuildInputs = [
-    python-dateutil
-    pytz
-    regex
-    tzlocal
+  patches = [
+    ./regex-compat.patch
   ];
 
-  passthru.optional-dependencies = {
-    calendars = [ hijri-converter convertdate ];
-    fasttext = [ fasttext ];
-    langdetect = [ langdetect ];
-  };
+  postPatch = ''
+    substituteInPlace setup.py --replace \
+      'regex !=2019.02.19,!=2021.8.27,<2022.3.15' \
+      'regex'
 
-  nativeCheckInputs = [
+    # https://github.com/scrapinghub/dateparser/issues/1053
+    substituteInPlace tests/test_search.py --replace \
+      "('June 2020', datetime.datetime(2020, 6, datetime.datetime.utcnow().day, 0, 0))," \
+      "('June 2020', datetime.datetime(2020, 6, min(30, datetime.datetime.utcnow().day), 0, 0)),"
+  '';
+
+  propagatedBuildInputs = [
+    # install_requires
+    python-dateutil pytz regex tzlocal
+    # extra_requires
+    hijri-converter convertdate fasttext langdetect
+  ];
+
+  checkInputs = [
     parameterized
     pytestCheckHook
-    gitpython
-    parsel
-    requests
+    GitPython
     ruamel-yaml
-  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  ];
 
   preCheck = ''
     export HOME="$TEMPDIR"
@@ -72,7 +74,6 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "dateparser" ];
 
   meta = with lib; {
-    changelog = "https://github.com/scrapinghub/dateparser/blob/${src.rev}/HISTORY.rst";
     description = "Date parsing library designed to parse dates from HTML pages";
     homepage = "https://github.com/scrapinghub/dateparser";
     license = licenses.bsd3;

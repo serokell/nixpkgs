@@ -1,29 +1,12 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, libpng
-, glib /*just passthru*/
-
-# for passthru.tests
-, cairo
-, qemu
-, scribus
-, tigervnc
-, wlroots
-, xwayland
-}:
+{ lib, stdenv, fetchurl, pkg-config, libpng, glib /*just passthru*/ }:
 
 stdenv.mkDerivation rec {
   pname = "pixman";
-  version = "0.42.2";
+  version = "0.38.4";
 
   src = fetchurl {
-    urls = [
-      "mirror://xorg/individual/lib/${pname}-${version}.tar.gz"
-      "https://cairographics.org/releases/${pname}-${version}.tar.gz"
-    ];
-    hash = "sha256-6hSA762i/ZSLx1Nm98NJ4cltMpfQmj/mJibjjiNKYl4=";
+    url = "mirror://xorg/individual/lib/${pname}-${version}.tar.bz2";
+    sha256 = "0l0m48lnmdlmnaxn2021qi5cj366d9fzfjxkqgcj9bs14pxbgaw4";
   };
 
   separateDebugInfo = !stdenv.hostPlatform.isStatic;
@@ -32,9 +15,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libpng ];
 
-  configureFlags = lib.optional stdenv.isAarch32 "--disable-arm-iwmmxt"
-    # Disable until https://gitlab.freedesktop.org/pixman/pixman/-/issues/46 is resolved
-    ++ lib.optional (stdenv.isAarch64 && !stdenv.cc.isGNU) "--disable-arm-a64-neon";
+  configureFlags = lib.optional stdenv.isAarch32 "--disable-arm-iwmmxt";
 
   preConfigure = ''
     # https://gitlab.freedesktop.org/pixman/pixman/-/issues/62
@@ -44,10 +25,6 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   postInstall = glib.flattenInclude;
-
-  passthru.tests = {
-    inherit cairo qemu scribus tigervnc wlroots xwayland;
-  };
 
   meta = with lib; {
     homepage = "http://pixman.org";

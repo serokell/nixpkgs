@@ -43,7 +43,7 @@ buildPythonPackage rec {
     ujson
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     aresponses
     pytest-asyncio
     pytest-aiohttp

@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "sha256-sYvR7VPJDuV9VxTWata7crZOkw1K7KmDCJLAi7KNpgg=";
   };
 
-  nativeCheckInputs = [ mercurial nose ];
+  checkInputs = [ mercurial nose ];
 
   preCheck = ''
     export HGTMP=$(mktemp -d)

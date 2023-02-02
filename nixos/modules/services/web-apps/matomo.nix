@@ -12,6 +12,8 @@ let
   phpExecutionUnit = "phpfpm-${pool}";
   databaseService = "mysql.service";
 
+  fqdn = if config.networking.domain != null then config.networking.fqdn else config.networking.hostName;
+
 in {
   imports = [
     (mkRenamedOptionModule [ "services" "piwik" "enable" ] [ "services" "matomo" "enable" ])
@@ -75,9 +77,11 @@ in {
 
       hostname = mkOption {
         type = types.str;
-        default = "${user}.${config.networking.fqdnOrHostName}";
+        default = "${user}.${fqdn}";
         defaultText = literalExpression ''
-          "${user}.''${config.${options.networking.fqdnOrHostName}}"
+          if config.${options.networking.domain} != null
+          then "${user}.''${config.${options.networking.fqdn}}"
+          else "${user}.''${config.${options.networking.hostName}}"
         '';
         example = "matomo.yourdomain.org";
         description = lib.mdDoc ''
@@ -174,7 +178,7 @@ in {
           CURRENT_PACKAGE=$(readlink ${dataDir}/current-package)
           NEW_PACKAGE=${cfg.package}
           if [ "$CURRENT_PACKAGE" != "$NEW_PACKAGE" ]; then
-            # keeping tmp around between upgrades seems to bork stuff, so delete it
+            # keeping tmp arround between upgrades seems to bork stuff, so delete it
             rm -rf ${dataDir}/tmp
           fi
         elif [ -e ${dataDir}/tmp ]; then
@@ -325,7 +329,7 @@ in {
   };
 
   meta = {
-    doc = ./matomo.xml;
+    doc = ./matomo-doc.xml;
     maintainers = with lib.maintainers; [ florianjacob ];
   };
 }

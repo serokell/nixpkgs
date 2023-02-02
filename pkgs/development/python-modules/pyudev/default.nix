@@ -16,7 +16,7 @@ buildPythonPackage rec {
       --replace "find_library(name)" "'${lib.getLib udev}/lib/libudev.so'"
     '';
 
-  nativeCheckInputs = [ pytest mock hypothesis docutils ];
+  checkInputs = [ pytest mock hypothesis docutils ];
   propagatedBuildInputs = [ six ];
 
   checkPhase = ''

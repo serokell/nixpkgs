@@ -47,15 +47,15 @@
 , wayland-protocols
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+let self = stdenv.mkDerivation rec {
   pname = "mutter";
-  version = "43.2";
+  version = "43.0";
 
   outputs = [ "out" "dev" "man" "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/mutter/${lib.versions.major finalAttrs.version}/mutter-${finalAttrs.version}.tar.xz";
-    sha256 = "/S63B63DM8wnevhoXlzzkTXhxNeYofnQXojkU9w+u4Q=";
+    url = "mirror://gnome/sources/mutter/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    sha256 = "jZulKO2Z72eZZC4Uez/p8ry+ypvs7ShFwcrbMxzT5SU=";
   };
 
   patches = [
@@ -65,6 +65,15 @@ stdenv.mkDerivation (finalAttrs: {
       url = "https://gitlab.gnome.org/GNOME/mutter/-/commit/285a5a4d54ca83b136b787ce5ebf1d774f9499d5.patch";
       sha256 = "/npUE3idMSTVlFptsDpZmGWjZ/d2gqruVlJKq4eF4xU=";
     })
+
+    # color-device: Don't create profiles from obvious garbage data
+    # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2627
+    (fetchpatch {
+      url = "https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2627.patch";
+      sha256 = "SafC29+gjcj6JswHY6yuwcOS16LPYvFwYW1TEpNNSHc=";
+    })
+
+
   ];
 
   mesonFlags = [
@@ -150,12 +159,12 @@ stdenv.mkDerivation (finalAttrs: {
   separateDebugInfo = true;
 
   passthru = {
-    libdir = "${finalAttrs.finalPackage}/lib/mutter-11";
+    libdir = "${self}/lib/mutter-11";
 
     tests = {
       libdirExists = runCommand "mutter-libdir-exists" {} ''
-        if [[ ! -d ${finalAttrs.finalPackage.libdir} ]]; then
-          echo "passthru.libdir should contain a directory, “${finalAttrs.finalPackage.libdir}” is not one."
+        if [[ ! -d ${self.libdir} ]]; then
+          echo "passthru.libdir should contain a directory, “${self.libdir}” is not one."
           exit 1
         fi
         touch $out
@@ -163,8 +172,8 @@ stdenv.mkDerivation (finalAttrs: {
     };
 
     updateScript = gnome.updateScript {
-      packageName = "mutter";
-      attrPath = "gnome.mutter";
+      packageName = pname;
+      attrPath = "gnome.${pname}";
     };
   };
 
@@ -175,4 +184,5 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = teams.gnome.members;
     platforms = platforms.linux;
   };
-})
+};
+in self

@@ -7,7 +7,7 @@
 let
 
   inherit (vimUtils.override {inherit vim;})
-    buildVimPluginFrom2Nix;
+    buildVimPluginFrom2Nix vimGenDocHook vimCommandCheckHook;
 
   inherit (lib) extends;
 

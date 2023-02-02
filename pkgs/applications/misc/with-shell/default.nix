@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
 
       $ with git
       git> add .
-      git> commit -a -m "Committed"
+      git> commit -a -m "Commited"
       git> push
 
       Can also be used for compound commands.

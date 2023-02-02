@@ -27,9 +27,6 @@ mkDerivation rec {
       -e "s,^Exec.*,Exec=$out/bin/kmplayer -qwindowtitle %c %i %U,"
   '';
 
-  # required for kf5auth to work correctly
-  cmakeFlags = ["-DCMAKE_POLICY_DEFAULT_CMP0012=NEW"];
-
   nativeBuildInputs = [ extra-cmake-modules makeWrapper ];
 
   buildInputs = [
@@ -44,7 +41,7 @@ mkDerivation rec {
 
   meta = with lib; {
     description = "MPlayer front-end for KDE";
-    license = with licenses; [ gpl2Plus lgpl2Plus fdl12Plus ];
+    license = with licenses; [ gpl2 lgpl2 fdl12 ];
     homepage = "https://kmplayer.kde.org/";
     maintainers = with maintainers; [ sander zraexy ];
   };

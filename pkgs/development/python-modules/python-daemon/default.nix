@@ -33,7 +33,7 @@ buildPythonPackage rec {
     lockfile
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     testscenarios
     testtools

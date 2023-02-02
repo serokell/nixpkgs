@@ -2,15 +2,15 @@
 
 buildPythonPackage rec {
   pname = "dasbus";
-  version = "1.7";
+  version = "1.6";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-qIUNhBrf6O5fe7n4LPRJq5tJUNwGM4lwcXGODQA2tvY=";
+    hash = "sha256-FJrY/Iw9KYMhq1AVm1R6soNImaieR+IcbULyyS5W6U0=";
   };
 
   propagatedBuildInputs = [ pygobject3 ];
-  nativeCheckInputs = [ dbus ];
+  checkInputs = [ dbus ];
 
   meta = with lib; {
     homepage = "https://github.com/rhinstaller/dasbus";

@@ -1,32 +1,15 @@
-{ lib
-, rustPlatform
-, fetchCrate
-, pkg-config
-, openssl
-, stdenv
-, Security
-}:
+{ lib, rustPlatform, fetchCrate }:
 
 rustPlatform.buildRustPackage rec {
   pname = "kind2";
-  version = "0.2.79";
+  version = "0.2.77";
 
   src = fetchCrate {
     inherit pname version;
-    sha256 = "sha256-QRPk7BpGVvhGHcDxCWJtJp5d3QOq72ESt5VbaSq5jBU=";
+    sha256 = "sha256-drWAWiSALq8rb3J2phNE/dt4e6xmJY7Ob8cES1kYEPo=";
   };
 
-  cargoSha256 = "sha256-i7RAJmhUQzjMe9w7z7hPrpiap64L12Shu4DL+e5A6oc=";
-
-  nativeBuildInputs = [ pkg-config ];
-
-  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
-
-  # these tests are flaky
-  checkFlags = [
-    "--skip=test_checker"
-    "--skip=test_run_hvm"
-  ];
+  cargoSha256 = "sha256-rF0TvNWE90sUqslBGPnGmD6mZFPlCCkM1jyuFt8n8Nw=";
 
   meta = with lib; {
     description = "A functional programming language and proof assistant";

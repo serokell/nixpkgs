@@ -24,7 +24,7 @@ buildPythonPackage rec {
     trio
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytestCheckHook
     pytest-trio

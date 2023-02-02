@@ -15,7 +15,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  nativeCheckInputs = [ jq ];
+  checkInputs = [ jq ];
 
   postInstall = ''
     wrapProgram $out/bin/jiq \
@@ -26,6 +26,6 @@ buildGoModule rec {
     homepage = "https://github.com/fiatjaf/jiq";
     license = licenses.mit;
     description = "jid on jq - interactive JSON query tool using jq expressions";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [ ma27 ];
   };
 }

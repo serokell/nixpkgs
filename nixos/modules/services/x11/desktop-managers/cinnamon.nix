@@ -12,7 +12,6 @@ let
     extraGSettingsOverrides = cfg.extraGSettingsOverrides;
   };
 
-  notExcluded = pkg: (!(lib.elem pkg config.environment.cinnamon.excludePackages));
 in
 
 {
@@ -66,18 +65,10 @@ in
         enable = mkDefault true;
 
         # Taken from mint-artwork.gschema.override
-        theme = mkIf (notExcluded pkgs.cinnamon.mint-themes) {
-          name = mkDefault "Mint-Y-Aqua";
-          package = mkDefault pkgs.cinnamon.mint-themes;
-        };
-        iconTheme = mkIf (notExcluded pkgs.cinnamon.mint-x-icons) {
-          name = mkDefault "Mint-Y-Aqua";
-          package = mkDefault pkgs.cinnamon.mint-x-icons;
-        };
-        cursorTheme = mkIf (notExcluded pkgs.cinnamon.mint-cursor-themes) {
-          name = mkDefault "Bibata-Modern-Classic";
-          package = mkDefault pkgs.cinnamon.mint-cursor-themes;
-        };
+        theme.name = mkDefault "Mint-X";
+        theme.package = mkDefault pkgs.cinnamon.mint-themes;
+        iconTheme.name = mkDefault "Mint-X-Dark";
+        iconTheme.package = mkDefault pkgs.cinnamon.mint-x-icons;
       };
       services.xserver.displayManager.sessionCommands = ''
         if test "$XDG_CURRENT_DESKTOP" = "Cinnamon"; then
@@ -105,7 +96,7 @@ in
       services.dbus.packages = with pkgs.cinnamon; [
         cinnamon-common
         cinnamon-screensaver
-        nemo-with-extensions
+        nemo
         xapp
       ];
       services.cinnamon.apps.enable = mkDefault true;
@@ -132,8 +123,11 @@ in
         cinnamon-screensaver = {};
       };
 
-      environment.systemPackages = with pkgs.cinnamon // pkgs; ([
+      environment.systemPackages = with pkgs.cinnamon // pkgs; [
         desktop-file-utils
+        nixos-artwork.wallpapers.simple-dark-gray
+        onboard
+        sound-theme-freedesktop
 
         # common-files
         cinnamon-common
@@ -154,37 +148,28 @@ in
         polkit_gnome
 
         # packages
-        nemo-with-extensions
+        nemo
         cinnamon-control-center
         cinnamon-settings-daemon
         libgnomekbd
-
-        # theme
-        gnome.adwaita-icon-theme
-        gnome.gnome-themes-extra
-        gtk3.out
-
-        # other
-        glib # for gsettings
-        xdg-user-dirs
-      ] ++ utils.removePackagesByName [
-        # accessibility
-        onboard
         orca
 
         # theme
-        sound-theme-freedesktop
-        nixos-artwork.wallpapers.simple-dark-gray
+        gnome.adwaita-icon-theme
+        hicolor-icon-theme
+        gnome.gnome-themes-extra
+        gtk3.out
         mint-artwork
-        mint-cursor-themes
         mint-themes
         mint-x-icons
         mint-y-icons
-        xapp # provides some xapp-* icons
-      ] config.environment.cinnamon.excludePackages);
+        vanilla-dmz
 
-      xdg.mime.enable = true;
-      xdg.icons.enable = true;
+        # other
+        glib # for gsettings
+        shared-mime-info # for update-mime-database
+        xdg-user-dirs
+      ];
 
       # Override GSettings schemas
       environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR = "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
@@ -198,10 +183,10 @@ in
       programs.bash.vteIntegration = mkDefault true;
       programs.zsh.vteIntegration = mkDefault true;
 
-      # Harmonize Qt applications under Cinnamon
-      qt.enable = true;
-      qt.platformTheme = "gnome";
-      qt.style = "adwaita";
+      # Harmonize Qt5 applications under Pantheon
+      qt5.enable = true;
+      qt5.platformTheme = "gnome";
+      qt5.style = "adwaita";
 
       # Default Fonts
       fonts.fonts = with pkgs; [

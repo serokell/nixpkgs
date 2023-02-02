@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ future numpy ];
 
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
 
   doCheck = true;
 

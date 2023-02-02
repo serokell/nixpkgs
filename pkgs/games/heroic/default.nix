@@ -1,7 +1,6 @@
 { lib
 , mkYarnPackage
 , fetchFromGitHub
-, gitUpdater
 , makeWrapper
 , electron
 , gogdl
@@ -10,13 +9,13 @@
 
 mkYarnPackage rec {
   pname = "heroic-unwrapped";
-  version = "2.5.2";
+  version = "2.4.3";
 
   src = fetchFromGitHub {
     owner = "Heroic-Games-Launcher";
     repo = "HeroicGamesLauncher";
     rev = "v${version}";
-    sha256 = "sha256-vyZH/uOE7Oph8TuBFM2cUFwM4ed8Ri3fKRUrl9A6zHc=";
+    sha256 = "sha256-x9zIM2kKi+JgIGIidQYjyjqVGweFJ8DE7IX9gYULQuQ=";
   };
 
   packageJSON = ./package.json;
@@ -30,11 +29,10 @@ mkYarnPackage rec {
   DISABLE_ESLINT_PLUGIN = "true";
 
   postBuild = let
-    yarnCmd = "yarn --offline --frozen-lockfile --ignore-engines --ignore-scripts --lockfile ${yarnLock}";
+    yarnCmd = "yarn --production --offline --frozen-lockfile --ignore-engines --ignore-scripts --lockfile ${yarnLock}";
   in ''
-    rm deps/heroic/node_modules
-    ln -s ../../node_modules deps/heroic/
-    ${yarnCmd} vite build
+    ${yarnCmd} build-electron
+    ${yarnCmd} build
   '';
 
   # Disable bundling into a tar archive.
@@ -46,8 +44,8 @@ mkYarnPackage rec {
     deps = "$out/libexec/heroic/deps/heroic";
   in ''
     rm -rf "${deps}/public/bin" "${deps}/build/bin"
-    mkdir -p "${deps}/build/bin/linux"
-    ln -s "${gogdl}/bin/gogdl" "${legendary-gl}/bin/legendary" "${deps}/build/bin/linux"
+    mkdir -p "${deps}/public/bin/linux"
+    ln -s "${gogdl}/bin/gogdl" "${legendary-gl}/bin/legendary" "${deps}/public/bin/linux"
 
     makeWrapper "${electron}/bin/electron" "$out/bin/heroic" \
       --inherit-argv0 \
@@ -60,10 +58,6 @@ mkYarnPackage rec {
     ln -s "${deps}/flatpak/com.heroicgameslauncher.hgl.desktop" "$out/share/applications"
     ln -s "${deps}/flatpak/com.heroicgameslauncher.hgl.png" "$out/share/icons/hicolor/512x512/apps"
   '';
-
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "v";
-  };
 
   meta = with lib; {
     description = "A Native GOG and Epic Games Launcher for Linux, Windows and Mac";

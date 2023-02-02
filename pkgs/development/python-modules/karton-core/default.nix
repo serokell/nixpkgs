@@ -22,7 +22,7 @@ buildPythonPackage rec {
     redis
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  checkInputs = [ unittestCheckHook ];
 
   pythonImportsCheck = [
     "karton.core"

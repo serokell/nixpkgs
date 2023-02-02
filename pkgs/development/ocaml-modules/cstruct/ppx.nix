@@ -15,5 +15,5 @@ buildDunePackage {
   propagatedBuildInputs = [ cstruct ppxlib sexplib stdlib-shims ];
 
   doCheck = true;
-  nativeCheckInputs = [ ounit cppo ppx_sexp_conv cstruct-sexp cstruct-unix ];
+  checkInputs = [ ounit cppo ppx_sexp_conv cstruct-sexp cstruct-unix ];
 }

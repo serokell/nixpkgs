@@ -20,7 +20,7 @@ buildPerlPackage rec {
 
   buildInputs = [ PodMarkdown JSONXS TextCSV ];
 
-  nativeCheckInputs = [ which bzip2 ];
+  checkInputs = [ which bzip2 ];
 
   meta = {
     homepage = "https://github.com/darold/pgbadger";

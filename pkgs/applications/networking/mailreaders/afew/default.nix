@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     python3Packages.setuptools python3Packages.notmuch chardet dkimpy
   ];
 
-  nativeCheckInputs = with python3Packages; [
+  checkInputs = with python3Packages; [
     freezegun notmuch
   ];
 

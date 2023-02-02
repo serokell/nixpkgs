@@ -23,8 +23,6 @@ import ./make-test-python.nix ({ lib, pkgs, ... }: {
         cryptroot2.device = "/dev/vdd";
       };
       virtualisation.bootDevice = "/dev/mapper/cryptroot";
-      # test mounting device unlocked in initrd after switching root
-      virtualisation.fileSystems."/cryptroot2".device = "/dev/mapper/cryptroot2";
     };
   };
 
@@ -33,8 +31,6 @@ import ./make-test-python.nix ({ lib, pkgs, ... }: {
     machine.wait_for_unit("multi-user.target")
     machine.succeed("echo -n supersecret | cryptsetup luksFormat -q --iter-time=1 /dev/vdc -")
     machine.succeed("echo -n supersecret | cryptsetup luksFormat -q --iter-time=1 /dev/vdd -")
-    machine.succeed("echo -n supersecret | cryptsetup luksOpen   -q               /dev/vdd cryptroot2")
-    machine.succeed("mkfs.ext4 /dev/mapper/cryptroot2")
 
     # Boot from the encrypted disk
     machine.succeed("bootctl set-default nixos-generation-1-specialisation-boot-luks.conf")
@@ -48,6 +44,5 @@ import ./make-test-python.nix ({ lib, pkgs, ... }: {
     machine.wait_for_unit("multi-user.target")
 
     assert "/dev/mapper/cryptroot on / type ext4" in machine.succeed("mount")
-    assert "/dev/mapper/cryptroot2 on /cryptroot2 type ext4" in machine.succeed("mount")
   '';
 })

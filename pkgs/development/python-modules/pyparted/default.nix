@@ -39,7 +39,7 @@ buildPythonPackage rec {
   '';
 
   nativeBuildInputs = [ pkgs.pkg-config ];
-  nativeCheckInputs = [ six ];
+  checkInputs = [ six ];
   propagatedBuildInputs = [ pkgs.parted ];
 
   checkPhase = ''

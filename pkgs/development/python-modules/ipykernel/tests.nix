@@ -19,7 +19,7 @@ buildPythonPackage rec {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [
+  checkInputs = [
     flaky
     ipykernel
     ipyparallel

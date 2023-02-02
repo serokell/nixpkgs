@@ -52,7 +52,7 @@ buildPythonPackage rec {
     typing
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-xdist
   ];

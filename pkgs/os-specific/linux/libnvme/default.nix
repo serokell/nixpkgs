@@ -1,6 +1,7 @@
 { fetchFromGitHub
 , json_c
 , lib
+, libuuid
 , meson
 , ninja
 , openssl
@@ -13,7 +14,7 @@
 
 stdenv.mkDerivation rec {
   pname = "libnvme";
-  version = "1.2";
+  version = "1.1";
 
   outputs = [ "out" "man" ];
 
@@ -21,7 +22,7 @@ stdenv.mkDerivation rec {
     owner = "linux-nvme";
     repo = "libnvme";
     rev = "v${version}";
-    sha256 = "sha256-U9Fj3OcBe32C0PKhI05eF/6jikHAvdyvXH16IY0rWxI=";
+    sha256 = "EPAPWY6/Bh8I1eLslKJAofLn0IAizmGn00Q5PJPtdRw=";
   };
 
   postPatch = ''
@@ -35,12 +36,13 @@ stdenv.mkDerivation rec {
     ninja
     perl # for kernel-doc
     pkg-config
-    python3
   ];
 
   buildInputs = [
     json_c
+    libuuid
     openssl
+    python3
     systemd
   ];
 

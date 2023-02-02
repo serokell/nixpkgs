@@ -26,7 +26,9 @@ in
 
   imports = [
     (mkRenamedOptionModule [ "services" "xserver" "vaapiDrivers" ] [ "hardware" "opengl" "extraPackages" ])
-    (mkRemovedOptionModule [ "hardware" "opengl" "s3tcSupport" ] "S3TC support is now always enabled in Mesa.")
+    (mkRemovedOptionModule [ "hardware" "opengl" "s3tcSupport" ] ''
+      S3TC support is now always enabled in Mesa.
+    '')
   ];
 
   options = {
@@ -87,28 +89,21 @@ in
       extraPackages = mkOption {
         type = types.listOf types.package;
         default = [];
-        example = literalExpression "with pkgs; [ intel-media-driver intel-ocl vaapiIntel ]";
+        example = literalExpression "with pkgs; [ vaapiIntel libvdpau-va-gl vaapiVdpau intel-ocl ]";
         description = lib.mdDoc ''
-          Additional packages to add to OpenGL drivers.
-          This can be used to add OpenCL drivers, VA-API/VDPAU drivers etc.
-
-          ::: {.note}
-          intel-media-driver supports hardware Broadwell (2014) or newer. Older hardware should use the mostly unmaintained vaapiIntel driver.
-          :::
+          Additional packages to add to OpenGL drivers. This can be used
+          to add OpenCL drivers, VA-API/VDPAU drivers etc.
         '';
       };
 
       extraPackages32 = mkOption {
         type = types.listOf types.package;
         default = [];
-        example = literalExpression "with pkgs.pkgsi686Linux; [ intel-media-driver vaapiIntel ]";
+        example = literalExpression "with pkgs.pkgsi686Linux; [ vaapiIntel libvdpau-va-gl vaapiVdpau ]";
         description = lib.mdDoc ''
-          Additional packages to add to 32-bit OpenGL drivers on 64-bit systems.
-          Used when {option}`driSupport32Bit` is set. This can be used to add OpenCL drivers, VA-API/VDPAU drivers etc.
-
-          ::: {.note}
-          intel-media-driver supports hardware Broadwell (2014) or newer. Older hardware should use the mostly unmaintained vaapiIntel driver.
-          :::
+          Additional packages to add to 32-bit OpenGL drivers on
+          64-bit systems. Used when {option}`driSupport32Bit` is
+          set. This can be used to add OpenCL drivers, VA-API/VDPAU drivers etc.
         '';
       };
 
@@ -129,6 +124,7 @@ in
   };
 
   config = mkIf cfg.enable {
+
     assertions = [
       { assertion = cfg.driSupport32Bit -> pkgs.stdenv.isx86_64;
         message = "Option driSupport32Bit only makes sense on a 64-bit system.";

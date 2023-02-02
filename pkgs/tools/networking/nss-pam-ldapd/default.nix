@@ -1,6 +1,6 @@
 { lib, stdenv, fetchurl
 , pkg-config, makeWrapper, autoreconfHook
-, openldap, python3, pam
+, openldap, python2, pam
 }:
 
 stdenv.mkDerivation rec {
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config makeWrapper autoreconfHook ];
-  buildInputs = [ openldap pam python3 ];
+  buildInputs = [ openldap pam python2 ];
 
   preConfigure = ''
     substituteInPlace Makefile.in --replace "install-data-local: " "# install-data-local: "

@@ -51,7 +51,7 @@ let pylama = buildPythonPackage rec {
   # escape infinite recursion pylint -> isort -> pylama
   doCheck = false;
 
-  nativeCheckInputs = [
+  checkInputs = [
     pylint
     pytestCheckHook
   ];

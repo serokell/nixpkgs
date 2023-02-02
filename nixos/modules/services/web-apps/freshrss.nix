@@ -60,7 +60,7 @@ in
       };
 
       port = mkOption {
-        type = types.nullOr types.port;
+        type = with types; nullOr port;
         default = null;
         description = mdDoc "Database port for FreshRSS.";
         example = 3306;
@@ -73,7 +73,7 @@ in
       };
 
       passFile = mkOption {
-        type = types.nullOr types.path;
+        type = types.nullOr types.str;
         default = null;
         description = mdDoc "Database password file for FreshRSS.";
         example = "/run/secrets/freshrss";
@@ -116,18 +116,12 @@ in
         with default values.
       '';
     };
-
-    user = mkOption {
-      type = types.str;
-      default = "freshrss";
-      description = lib.mdDoc "User under which Freshrss runs.";
-    };
   };
+
 
   config =
     let
-      defaultServiceConfig = {
-        ReadWritePaths = "${cfg.dataDir}";
+      systemd-hardening = {
         CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
         DeviceAllow = "";
         LockPersonality = true;
@@ -152,11 +146,6 @@ in
         SystemCallArchitectures = "native";
         SystemCallFilter = [ "@system-service" "~@resources" "~@privileged" ];
         UMask = "0007";
-        Type = "oneshot";
-        User = cfg.user;
-        Group = config.users.users.${cfg.user}.group;
-        StateDirectory = "freshrss";
-        WorkingDirectory = cfg.package;
       };
     in
     mkIf cfg.enable {
@@ -166,17 +155,9 @@ in
         virtualHosts.${cfg.virtualHost} = {
           root = "${cfg.package}/p";
 
-          # php files handling
-          # this regex is mandatory because of the API
           locations."~ ^.+?\.php(/.*)?$".extraConfig = ''
             fastcgi_pass unix:${config.services.phpfpm.pools.${cfg.pool}.socket};
             fastcgi_split_path_info ^(.+\.php)(/.*)$;
-            # By default, the variable PATH_INFO is not set under PHP-FPM
-            # But FreshRSS API greader.php need it. If you have a “Bad Request” error, double check this var!
-            # NOTE: the separate $path_info variable is required. For more details, see:
-            # https://trac.nginx.org/nginx/ticket/321
-            set $path_info $fastcgi_path_info;
-            fastcgi_param PATH_INFO $path_info;
             include ${pkgs.nginx}/conf/fastcgi_params;
             include ${pkgs.nginx}/conf/fastcgi.conf;
           '';
@@ -210,17 +191,12 @@ in
         };
       };
 
-      users.users."${cfg.user}" = {
+      users.users.freshrss = {
         description = "FreshRSS service user";
         isSystemUser = true;
-        group = "${cfg.user}";
-        home = cfg.dataDir;
+        group = "freshrss";
       };
-      users.groups."${cfg.user}" = { };
-
-      systemd.tmpfiles.rules = [
-        "d '${cfg.dataDir}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -"
-      ];
+      users.groups.freshrss = { };
 
       systemd.services.freshrss-config =
         let
@@ -244,29 +220,35 @@ in
         {
           description = "Set up the state directory for FreshRSS before use";
           wantedBy = [ "multi-user.target" ];
-          serviceConfig = defaultServiceConfig //{
+          serviceConfig = {
             Type = "oneshot";
             User = "freshrss";
             Group = "freshrss";
             StateDirectory = "freshrss";
             WorkingDirectory = cfg.package;
-          };
+          } // systemd-hardening;
           environment = {
             FRESHRSS_DATA_PATH = cfg.dataDir;
           };
 
           script = ''
+            # create files with correct permissions
+            mkdir -m 755 -p ${cfg.dataDir}
+
             # do installation or reconfigure
             if test -f ${cfg.dataDir}/config.php; then
               # reconfigure with settings
-              ./cli/reconfigure.php ${settingsFlags}
-              ./cli/update-user.php --user ${cfg.defaultUser} --password "$(cat ${cfg.passwordFile})"
+              ${pkgs.php}/bin/php ./cli/reconfigure.php ${settingsFlags}
+              ${pkgs.php}/bin/php ./cli/update-user.php --user ${cfg.defaultUser} --password "$(cat ${cfg.passwordFile})"
             else
+              # Copy the user data template directory
+              cp -r ./data ${cfg.dataDir}
+
               # check correct folders in data folder
-              ./cli/prepare.php
+              ${pkgs.php}/bin/php ./cli/prepare.php
               # install with settings
-              ./cli/do-install.php ${settingsFlags}
-              ./cli/create-user.php --user ${cfg.defaultUser} --password "$(cat ${cfg.passwordFile})"
+              ${pkgs.php}/bin/php ./cli/do-install.php ${settingsFlags}
+              ${pkgs.php}/bin/php ./cli/create-user.php --user ${cfg.defaultUser} --password "$(cat ${cfg.passwordFile})"
             fi
           '';
         };
@@ -279,9 +261,14 @@ in
         environment = {
           FRESHRSS_DATA_PATH = cfg.dataDir;
         };
-        serviceConfig = defaultServiceConfig //{
-          ExecStart = "${cfg.package}/app/actualize_script.php";
-        };
+        serviceConfig = {
+          Type = "oneshot";
+          User = "freshrss";
+          Group = "freshrss";
+          StateDirectory = "freshrss";
+          WorkingDirectory = cfg.package;
+          ExecStart = "${pkgs.php}/bin/php ./app/actualize_script.php";
+        } // systemd-hardening;
       };
     };
 }

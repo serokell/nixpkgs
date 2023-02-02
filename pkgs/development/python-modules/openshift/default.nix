@@ -38,7 +38,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = ["openshift"];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-bdd
     pytestCheckHook
   ];

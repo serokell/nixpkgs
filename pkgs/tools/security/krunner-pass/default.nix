@@ -42,12 +42,8 @@ mkDerivation rec {
     ''-DNIXPKGS_PASS=\"${lib.getBin pass}/bin/pass\"''
   ];
 
-  cmakeFlags = [
-    # there are *lots* of pointless warnings in v1.3.0
-    "-Wno-dev"
-    # required for kf5auth to work correctly
-    "-DCMAKE_POLICY_DEFAULT_CMP0012=NEW"
-  ];
+  # there are *lots* of pointless warnings in v1.3.0
+  cmakeFlags = [ "-Wno-dev" ];
 
   meta = with lib; {
     description = "Integrates krunner with pass the unix standard password manager (https://www.passwordstore.org/)";

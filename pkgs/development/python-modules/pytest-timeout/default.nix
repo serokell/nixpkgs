@@ -21,7 +21,7 @@ buildPythonPackage rec {
     pytest
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pexpect
     pytest-cov

@@ -24,7 +24,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ boto3 cachecontrol iso3166 python-dateutil requests polyline uritemplate ];
-  nativeCheckInputs = [ pytestCheckHook responses ];
+  checkInputs = [ pytestCheckHook responses ];
 
   meta = with lib; {
     homepage = "https://github.com/mapbox/mapbox-sdk-py";

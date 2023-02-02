@@ -24,7 +24,7 @@ buildPythonPackage rec {
     semver
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nose
   ];
 

@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    homepage = "https://asap.sourceforge.net/";
+    homepage = "http://asap.sourceforge.net/";
     mainProgram = "asap-sdl";
     description = "Another Slight Atari Player";
     longDescription = ''

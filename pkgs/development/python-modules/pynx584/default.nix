@@ -32,7 +32,7 @@ buildPythonPackage rec {
     stevedore
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     pytestCheckHook
   ];

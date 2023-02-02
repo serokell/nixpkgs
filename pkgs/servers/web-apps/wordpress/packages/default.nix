@@ -2,7 +2,7 @@
 # Licensed under: MIT
 # Slightly modified
 
-{ lib, newScope, plugins, themes, languages, callPackage }:
+{ lib, newScope, plugins, themes, languages }:
 
 let packages = self:
   let
@@ -82,4 +82,4 @@ let packages = self:
   } // lib.mapAttrs (type: pkgs: lib.makeExtensible (_: lib.mapAttrs (pname: data: self.mkOfficialWordpressDerivation { type = lib.removeSuffix "s" type; inherit pname data; }) pkgs)) generatedJson;
 
 # This creates an extensible scope.
-in lib.recursiveUpdate ((lib.makeExtensible (_: (lib.makeScope newScope packages))).extend (selfWP: superWP: {})) (callPackage ./thirdparty.nix {})
+in (lib.makeExtensible (_: (lib.makeScope newScope packages))).extend (selfWP: superWP: {})

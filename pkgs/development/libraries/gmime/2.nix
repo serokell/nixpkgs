@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       --replace /bin/mkdir mkdir
   '';
 
-  nativeCheckInputs = [ gnupg ];
+  checkInputs = [ gnupg ];
 
   enableParallelBuilding = true;
 

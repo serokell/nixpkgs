@@ -13,6 +13,7 @@
 , rresult
 , tls
 , uri
+, bigarray-compat
 , bigstringaf
 , domain-name
 , httpaf
@@ -26,7 +27,6 @@ buildDunePackage {
   inherit (git) version src;
 
   minimalOCamlVersion = "4.08";
-  duneVersion = "3";
 
   propagatedBuildInputs = [
     git
@@ -43,6 +43,7 @@ buildDunePackage {
     mirage-time
     tls
     uri
+    bigarray-compat
     bigstringaf
     domain-name
     httpaf

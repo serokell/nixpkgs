@@ -2,23 +2,18 @@
 
 stdenv.mkDerivation rec {
   pname = "ois";
-  version = "1.5.1";
+  version = "1.5";
 
   src = fetchFromGitHub {
     owner = "wgois";
     repo = "OIS";
     rev = "v${version}";
-    sha256 = "sha256-ir6p+Tzf8L5VOW/rsG4yelsth7INbhABO2T7pfMHcFo=";
+    sha256 = "0g8krgq5bdx2rw7ig0xva4kqv4x815672i7z6lljp3n8847wmypa";
   };
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = lib.optionals stdenv.isLinux [ libX11 ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa IOKit Kernel ];
-
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-  ];
+  buildInputs = [ libX11 ] ++ lib.optionals stdenv.isDarwin [ Cocoa IOKit Kernel ];
 
   meta = with lib; {
     description = "Object-oriented C++ input system";

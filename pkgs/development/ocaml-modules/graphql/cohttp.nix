@@ -8,12 +8,12 @@ buildDunePackage rec {
 
   inherit (graphql) version src;
 
-  duneVersion = "3";
+  useDune2 = true;
 
   nativeBuildInputs = [ ocaml-crunch ];
   propagatedBuildInputs = [ astring cohttp digestif graphql ocplib-endian ];
 
-  nativeCheckInputs = lib.optionals doCheck [ alcotest cohttp-lwt-unix graphql-lwt ];
+  checkInputs = lib.optionals doCheck [ alcotest cohttp-lwt-unix graphql-lwt ];
 
   doCheck = true;
 

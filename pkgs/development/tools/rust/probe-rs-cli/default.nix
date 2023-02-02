@@ -1,28 +1,18 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchCrate
-, pkg-config
-, libusb1
-, openssl
-, DarwinTools
-, AppKit
-}:
+{ lib, stdenv, rustPlatform, fetchCrate, pkg-config, libusb1, AppKit }:
 
 rustPlatform.buildRustPackage rec {
   pname = "probe-rs-cli";
-  version = "0.14.0";
+  version = "0.13.0";
 
   src = fetchCrate {
     inherit pname version;
-    sha256 = "sha256-y9EHksRDVbw58XiV7/dKzy4p6OWWAkQ3X9LP/WDWD2c=";
+    sha256 = "sha256-3aKRUABJ1LkRGzwDSwQZeNXKGeRmTlbHKSGewfKn+2Q=";
   };
 
-  cargoSha256 = "sha256-vv8XSAsGs1M97Y6cIGYevCdaxmPy3aDmHFF00exumq8=";
+  cargoSha256 = "sha256-bOfdpRVm9zqpFF/YmD06u4OKdyqXwfCSTNlTIZZygeg=";
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
-
-  buildInputs = [ libusb1 openssl ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ libusb1 ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
 
   meta = with lib; {
     description = "CLI tool for on-chip debugging and flashing of ARM chips";

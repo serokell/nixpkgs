@@ -22,7 +22,7 @@
 let
   documentation_deps = [
     (texlive.combine {
-      inherit (texlive) scheme-small wrapfig gensymb;
+      inherit (texlive) scheme-small wrapfig was;
     })
     xvfb-run
     imagemagick
@@ -45,9 +45,6 @@ python3Packages.buildPythonApplication rec {
 
   # Patch out a few paths that assume that we're using the FHS:
   postPatch = ''
-    substituteInPlace setup.py \
-      --replace python-Levenshtein Levenshtein
-
     chmod a+w -R ..
     patchShebangs ../tools
 
@@ -86,7 +83,7 @@ python3Packages.buildPythonApplication rec {
     done
   '';
 
-  nativeCheckInputs = [ dbus ];
+  checkInputs = [ dbus.daemon ];
 
   nativeBuildInputs = [
     wrapGAppsHook
@@ -117,7 +114,7 @@ python3Packages.buildPythonApplication rec {
     # only need to run a virtual X server + dbus but also have a large enough
     # resolution, because the Cairo test tries to draw a 200x200 window.
     xvfb-run -s '-screen 0 800x600x24' dbus-run-session \
-      --config-file=${dbus}/share/dbus-1/session.conf \
+      --config-file=${dbus.daemon}/share/dbus-1/session.conf \
       $out/bin/paperwork-gtk chkdeps
 
     # content of make test, without the dep on make install

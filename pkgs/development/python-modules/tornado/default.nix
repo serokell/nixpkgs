@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "sha256-m2MEGb3oTsZmv9fqCkyyqKZRwtXMzb3RlyoMhZ38PBM=";
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     pycares
     pycurl
     twisted

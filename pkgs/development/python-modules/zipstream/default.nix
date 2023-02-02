@@ -9,7 +9,7 @@ buildPythonPackage rec {
     sha256 = "01im5anqdyggmwkigqcjg0qw2a5bnn84h33mfaqjjd69a28lpwif";
   };
 
-  nativeCheckInputs = [ nose ];
+  checkInputs = [ nose ];
 
   meta = {
     description = "A zip archive generator";

@@ -28,7 +28,7 @@ buildPythonPackage (rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-Lc+FNrfXLfeEnDqNBs9R96jtoFEOCG2vLRWGKip/+VM=";
+    sha256 = "sha256-13I7sttnxO6vORFZzpOKmXu3PfwOpSGmXqvozrhzIm0=";
   };
 
   postPatch = ''
@@ -47,7 +47,7 @@ buildPythonPackage (rec {
     twisted
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     parameterized
     psutil

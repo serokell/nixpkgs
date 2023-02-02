@@ -22,7 +22,7 @@ buildPythonPackage rec {
     boltons
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

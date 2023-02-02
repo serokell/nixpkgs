@@ -24,7 +24,7 @@ buildPythonPackage rec {
     gtk3
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     gobject-introspection
   ];

@@ -13,7 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-mJZRk3p+D3tCKIYggD5jVBXcKqJotEexljDzLKpn4/E=";
 
-  nativeCheckInputs = [ perl ];
+  checkInputs = [ perl ];
 
   postInstall = ''
     ln -s $out/bin/XD $out/bin/XD-CLI

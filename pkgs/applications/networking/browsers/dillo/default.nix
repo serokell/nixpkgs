@@ -8,7 +8,7 @@
 , libXinerama
 , libjpeg
 , libpng
-, mbedtls_2
+, mbedtls
 , openssl
 , perl
 , pkg-config
@@ -38,7 +38,7 @@ stdenv.mkDerivation {
     libXinerama
     libjpeg
     libpng
-    mbedtls_2
+    mbedtls
     openssl
     perl
   ];

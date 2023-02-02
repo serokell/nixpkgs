@@ -57,7 +57,7 @@ installSphinxPhase() {
 
         else
             # shellcheck disable=2154
-            docdir="${doc:-$out}/share/doc/${name}"
+            docdir="${doc:-$out}/share/doc/${pname}"
 
             mkdir -p "$docdir"
 

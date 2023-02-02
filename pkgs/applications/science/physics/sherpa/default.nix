@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "sherpa";
-  version = "2.2.13";
+  version = "2.2.12";
 
   src = fetchurl {
     url = "https://www.hepforge.org/archive/sherpa/SHERPA-MC-${version}.tar.gz";
-    sha256 = "sha256-FIozm2AmxaELIDiLBNx8RtUCy1fIjTGtnpFiAcKcZXE=";
+    sha256 = "sha256-UpRkd1yoKLncllEQUm80DedDtgA8Hm+Kvi/BRVCu0AE=";
   };
 
   postPatch = lib.optionalString (stdenv.hostPlatform.libc == "glibc") ''
@@ -34,7 +34,5 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/sherpa-team/sherpa";
     platforms = platforms.unix;
     maintainers = with maintainers; [ veprbl ];
-    # never built on aarch64-darwin since first introduction in nixpkgs
-    broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

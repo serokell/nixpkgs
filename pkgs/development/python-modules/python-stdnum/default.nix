@@ -1,34 +1,23 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, fetchPypi, buildPythonPackage, nose }:
 
 buildPythonPackage rec {
+  version = "1.17";
   pname = "python-stdnum";
-  version = "1.18";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
-
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-vMdj2cSa4j2l0remhtX9He7J2QUTQRYKENGscjomvsA=";
+    sha256 = "374e2b5e13912ccdbf50b0b23fca2c3e0531174805c32d74e145f37756328340";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ nose ];
 
-  pythonImportsCheck = [
-    "stdnum"
-  ];
+  checkPhase = ''
+    nosetests
+  '';
 
-  meta = with lib; {
-    description = "Python module to handle standardized numbers and codes";
+  meta = {
     homepage = "https://arthurdejong.org/python-stdnum/";
-    license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ johbo ];
+    description = "Python module to handle standardized numbers and codes";
+    maintainers = with lib.maintainers; [ johbo ];
+    license = lib.licenses.lgpl2Plus;
   };
 }

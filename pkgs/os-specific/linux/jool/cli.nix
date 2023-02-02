@@ -10,11 +10,6 @@ stdenv.mkDerivation {
 
   src = sourceAttrs.src;
 
-  outputs = [
-    "out"
-    "man"
-  ];
-
   nativeBuildInputs = [ autoreconfHook pkg-config ];
   buildInputs = [ libnl iptables ];
 

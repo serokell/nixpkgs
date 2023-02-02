@@ -23,7 +23,7 @@ buildPythonPackage rec {
   ];
 
   doCheck = false;
-  # Mouseinfo requires a X server running to import successfully
+  # Mouseinfo requires a X server running to import succesfully
   # pythonImportsCheck = [ "mouseinfo" ];
 
   propagatedBuildInputs = [

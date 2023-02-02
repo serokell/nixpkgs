@@ -24,7 +24,7 @@ buildPythonPackage rec {
     "apcaccess"
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

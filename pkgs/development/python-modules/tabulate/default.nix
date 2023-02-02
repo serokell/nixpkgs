@@ -1,39 +1,22 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, pythonOlder
-, setuptools-scm
-, setuptools
-, wcwidth
-, pytestCheckHook
+, nose
 }:
 
 buildPythonPackage rec {
-  version = "0.9.0";
+  version = "0.8.10";
   pname = "tabulate";
-  format = "pyproject";
-
-  disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-AJWxK/WWbeUpwP6x+ghnFnGzNo7sd9fverEUviwGizw=";
+    sha256 = "sha256-bFfz8916wngncBVfOtstsLGiaWN+QvJ1mZJeZLEU9Rk=";
   };
 
-  SETUPTOOLS_SCM_PRETEND_VERSION = version;
+  checkInputs = [ nose ];
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
-
-  passthru.optional-dependencies = {
-    widechars = [ wcwidth ];
-  };
-
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  # Tests: cannot import common (relative import).
+  doCheck = false;
 
   meta = {
     description = "Pretty-print tabular data";

@@ -33,14 +33,14 @@ buildPythonPackage rec {
     pyroute2
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     aioresponses
     pytest-asyncio
     pytestCheckHook
   ];
 
   pytestFlagsArray = [
-    "--asyncio-mode=auto"
+    "--asyncio-mode=legacy"
   ];
 
   postPatch = ''

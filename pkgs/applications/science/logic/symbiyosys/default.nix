@@ -48,7 +48,7 @@ stdenv.mkDerivation {
   '';
 
   doCheck = false; # not all provers are yet packaged...
-  nativeCheckInputs = [ python3 yosys boolector yices z3 aiger ];
+  checkInputs = [ python3 yosys boolector yices z3 aiger ];
   checkPhase = "make test";
 
   meta = {

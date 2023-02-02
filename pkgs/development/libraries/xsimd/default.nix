@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DBUILD_TESTS=ON" ];
 
   doCheck = true;
-  nativeCheckInputs = [ gtest ];
+  checkInputs = [ gtest ];
   checkTarget = "xtest";
   GTEST_FILTER =
     let

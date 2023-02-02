@@ -7,14 +7,14 @@
 
 buildPythonPackage rec {
   pname = "aliyun-python-sdk-iot";
-  version = "8.49.0";
+  version = "8.44.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-POrDx4xXCIOBU4hvXu03XcZI2F6xHsjHNJRBaGFC8U8=";
+    hash = "sha256-hozd22BeDcFSLQS20+zWZancIgdFevuBbXkt7pe3HfY=";
   };
 
   propagatedBuildInputs = [
@@ -31,7 +31,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "IoT module of Aliyun Python SDK";
     homepage = "https://github.com/aliyun/aliyun-openapi-python-sdk";
-    changelog = "https://github.com/aliyun/aliyun-openapi-python-sdk/blob/master/aliyun-python-sdk-iot/ChangeLog.txt";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

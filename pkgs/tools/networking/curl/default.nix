@@ -1,6 +1,6 @@
 { lib, stdenv, fetchurl, pkg-config, perl, nixosTests
 , brotliSupport ? false, brotli
-, c-aresSupport ? false, c-aresMinimal
+, c-aresSupport ? false, c-ares
 , gnutlsSupport ? false, gnutls
 , gsaslSupport ? false, gsasl
 , gssSupport ? with stdenv.hostPlatform; (
@@ -47,14 +47,14 @@ assert !(opensslSupport && wolfsslSupport);
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "curl";
-  version = "7.87.0";
+  version = "7.85.0";
 
   src = fetchurl {
     urls = [
       "https://curl.haxx.se/download/curl-${finalAttrs.version}.tar.bz2"
       "https://github.com/curl/curl/releases/download/curl-${finalAttrs.version}/curl-${finalAttrs.version}.tar.bz2"
     ];
-    hash = "sha256-XW4Sh2G3EQlG0Sdq/28PJm8rcm9eYZ9+CgV6R0FV8wc=";
+    sha256 = "sha256-IafoNijulhZKwrNv9r+Z1GfHsLYhwffjF9jw2WARU5w=";
   };
 
   patches = [
@@ -75,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
   # applications that use Curl.
   propagatedBuildInputs = with lib;
     optional brotliSupport brotli ++
-    optional c-aresSupport c-aresMinimal ++
+    optional c-aresSupport c-ares ++
     optional gnutlsSupport gnutls ++
     optional gsaslSupport gsasl ++
     optional gssSupport libkrb5 ++

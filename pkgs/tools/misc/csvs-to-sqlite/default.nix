@@ -37,7 +37,7 @@ in with python.pkgs; buildPythonApplication rec {
     six
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

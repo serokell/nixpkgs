@@ -23,7 +23,7 @@ buildPythonPackage rec {
     clikit
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "XDG Base Directory Specification for Python";

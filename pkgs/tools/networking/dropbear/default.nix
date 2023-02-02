@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, glibc, zlib, libxcrypt
+{ lib, stdenv, fetchurl, glibc, zlib
 , enableStatic ? stdenv.hostPlatform.isStatic
 , enableSCP ? false
 , sftpPath ? "/run/current-system/sw/libexec/sftp-server"
@@ -16,11 +16,11 @@ in
 
 stdenv.mkDerivation rec {
   pname = "dropbear";
-  version = "2022.83";
+  version = "2020.81";
 
   src = fetchurl {
     url = "https://matt.ucc.asn.au/dropbear/releases/dropbear-${version}.tar.bz2";
-    sha256 = "sha256-vFoSH/vJS1FxrV6+Ab5CdG1Qqnl8lUmkY5iUoWdJRDs=";
+    sha256 = "0fy5ma4cfc2pk25mcccc67b2mf1rnb2c06ilb7ddnxbpnc85s8s8";
   };
 
   dontDisableStatic = enableStatic;
@@ -49,12 +49,11 @@ stdenv.mkDerivation rec {
     ./pass-path.patch
   ];
 
-  buildInputs = [ zlib libxcrypt ] ++ lib.optionals enableStatic [ glibc.static zlib.static ];
+  buildInputs = [ zlib ] ++ lib.optionals enableStatic [ glibc.static zlib.static ];
 
   meta = with lib; {
-    description = "A small footprint implementation of the SSH 2 protocol";
     homepage = "https://matt.ucc.asn.au/dropbear/dropbear.html";
-    changelog = "https://github.com/mkj/dropbear/raw/DROPBEAR_${version}/CHANGES";
+    description = "A small footprint implementation of the SSH 2 protocol";
     license = licenses.mit;
     maintainers = with maintainers; [ abbradar ];
     platforms = platforms.linux;

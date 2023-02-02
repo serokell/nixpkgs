@@ -30,7 +30,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytest-httpx
     pytestCheckHook

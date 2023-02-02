@@ -15,7 +15,7 @@ with python3.pkgs; buildPythonApplication rec {
 
   outputs = [
     "out"
-  ] ++ lib.optionals withManpage [
+  ] ++ lib.optional withManpage [
     "man"
   ];
 
@@ -47,7 +47,7 @@ with python3.pkgs; buildPythonApplication rec {
     urwidtrees
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     future
     gawk
     gnupg

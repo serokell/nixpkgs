@@ -33,7 +33,7 @@ buildPythonPackage rec {
     sqlalchemy
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nose
   ];
 

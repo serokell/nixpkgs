@@ -5,7 +5,6 @@
 , graphql-core
 , graphql-relay
 , promise
-, py
 , pytest-asyncio
 , pytest-benchmark
 , pytest-mock
@@ -18,7 +17,7 @@
 
 buildPythonPackage rec {
   pname = "graphene";
-  version = "3.2.1";
+  version = "3.1.1";
   format = "setuptools";
 
   disabled = pythonOlder "3.6";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     owner = "graphql-python";
     repo = "graphene";
     rev = "refs/tags/v${version}";
-    hash = "sha256-XnrzgPkkFsTgNE9J+eSkD8f5MokKjtZhbbE/dxNZryk=";
+    sha256 = "sha256-04ocm/Q/CDi5dRNhReuvr5nAiowMZUJrZol/wJOjG50=";
   };
 
   propagatedBuildInputs = [
@@ -36,9 +35,8 @@ buildPythonPackage rec {
     graphql-relay
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     promise
-    py
     pytestCheckHook
     pytest-asyncio
     pytest-benchmark
@@ -58,7 +56,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "GraphQL Framework for Python";
     homepage = "https://github.com/graphql-python/graphene";
-    changelog = "https://github.com/graphql-python/graphene/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

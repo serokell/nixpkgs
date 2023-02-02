@@ -13,7 +13,7 @@
 
 buildPythonPackage rec {
   pname = "pykeyatome";
-  version = "2.1.1";
+  version = "2.1.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.8";
@@ -22,7 +22,7 @@ buildPythonPackage rec {
     owner = "jugla";
     repo = "pyKeyAtome";
     rev = "refs/tags/V${version}";
-    hash = "sha256-/HfWPrpW4NowFmdmU2teIiex1O03bHemnUdhOoEDRgc=";
+    sha256 = "sha256-DUnER/Vom5Yc3syx4kPP1WbI7FpC+XGK9X4c1RrJJFk=";
   };
 
   propagatedBuildInputs = [
@@ -31,7 +31,7 @@ buildPythonPackage rec {
     simplejson
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-aiohttp
     pytestCheckHook
     requests-mock
@@ -53,7 +53,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module to get data from Atome Key";
     homepage = "https://github.com/jugla/pyKeyAtome";
-    changelog = "https://github.com/jugla/pyKeyAtome/releases/tag/V${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

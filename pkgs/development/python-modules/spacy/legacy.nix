@@ -12,17 +12,13 @@ buildPythonPackage rec {
     sha256 = "sha256-T33LxObI6MtOrbsAn5wKGipnRC4AMsjWd2yUcMN1mQM=";
   };
 
-  # nativeCheckInputs = [ pytestCheckHook spacy ];
+  # checkInputs = [ pytestCheckHook spacy ];
   doCheck = false;
-
-  pythonImportsCheck = [
-    "spacy_legacy"
-  ];
+  pythonImportsCheck = [ "spacy_legacy" ];
 
   meta = with lib; {
-    description = "Legacy registered functions for spaCy backwards compatibility";
-    homepage = "https://github.com/explosion/spacy-legacy";
-    changelog = "https://github.com/explosion/spacy-legacy/releases/tag/v${version}";
+    description = "A Path interface for local and cloud bucket storage";
+    homepage = "https://github.com/justindujardin/pathy";
     license = licenses.asl20;
     maintainers = with maintainers; [ melling ];
   };

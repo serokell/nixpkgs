@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    homepage    = "https://log4cpp.sourceforge.net/";
+    homepage    = "http://log4cpp.sourceforge.net/";
     description = "A logging framework for C++ patterned after Apache log4j";
     license     = licenses.lgpl21Plus;
     platforms   = platforms.unix;

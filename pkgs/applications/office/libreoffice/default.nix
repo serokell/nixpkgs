@@ -32,12 +32,12 @@
 , which
 , icu
 , boost
-, jdk17
+, jdk
 , ant
 , cups
 , xorg
 , fontforge
-, jre17_minimal
+, jre_minimal
 , openssl
 , gperf
 , cppunit
@@ -94,9 +94,8 @@
 , ncurses
 , libepoxy
 , gpgme
-, libwebp
 , abseil-cpp
-, langs ? [ "ar" "ca" "cs" "da" "de" "en-GB" "en-US" "eo" "es" "fr" "hu" "it" "ja" "nl" "pl" "pt" "pt-BR" "ro" "ru" "sl" "tr" "uk" "zh-CN" ]
+, langs ? [ "ca" "cs" "da" "de" "en-GB" "en-US" "eo" "es" "fr" "hu" "it" "ja" "nl" "pl" "pt" "pt-BR" "ro" "ru" "sl" "uk" "zh-CN" ]
 , withHelp ? true
 , kdeIntegration ? false
 , mkDerivation ? null
@@ -117,11 +116,11 @@ assert builtins.elem variant [ "fresh" "still" ];
 let
   inherit (lib)
     flatten flip
-    concatMapStrings concatStringsSep
+    concatMapStrings concatMapStringsSep concatStringsSep
     getDev getLib
-    optionals optionalString;
+    optional optionals optionalString;
 
-  jre' = jre17_minimal.override {
+  jre' = jre_minimal.override {
     modules = [ "java.base" "java.desktop" "java.logging" "java.sql" ];
   };
 
@@ -129,7 +128,7 @@ let
 
   primary-src = importVariant "primary.nix" { inherit fetchurl; };
 
-  inherit (primary-src) major minor version;
+  inherit (primary-src) major minor subdir version;
 
   langsSpaces = concatStringsSep " " langs;
 
@@ -195,8 +194,20 @@ in
     tar -xf ${srcs.translations}
   '';
 
-  patches = optionals (variant == "still") [ ./skip-failed-test-with-icu70.patch ./gpgme-1.18.patch ]
-  ;
+  patches = [
+    ./skip-failed-test-with-icu70.patch
+
+    # Fix build with poppler 22.03
+    (fetchurl {
+      url = "https://github.com/archlinux/svntogit-packages/raw/f82958b9538f86e41b51f1ba7134968d2f3788d1/trunk/poppler-22.03.0.patch";
+      sha256 = "5h4qJmx6Q3Q3dHUlSi8JXBziN2mAswGVWk5aDTLTwls=";
+    })
+
+    # Fix build with poppler 22.04
+    ./poppler-22-04-0.patch
+
+    ./gpgme-1.18.patch
+  ];
 
   ### QT/KDE
   #
@@ -215,7 +226,7 @@ in
   # add the missing dependencies to it).
   postPatch = ''
     substituteInPlace shell/source/unix/exec/shellexec.cxx \
-      --replace xdg-open ${if kdeIntegration then "kde-open5" else "xdg-open"}
+      --replace /usr/bin/xdg-open ${if kdeIntegration then "kde-open5" else "xdg-open"}
 
     # configure checks for header 'gpgme++/gpgmepp_version.h',
     # and if it is found (no matter where) uses a hardcoded path
@@ -330,7 +341,6 @@ in
       sed -e '/CPPUNIT_TEST(testEmbeddedDataSource);/d' -i './sw/qa/extras/uiwriter/uiwriter.cxx'
       sed -e '/CPPUNIT_TEST(testTdf96479);/d' -i './sw/qa/extras/uiwriter/uiwriter.cxx'
       sed -e '/CPPUNIT_TEST(testInconsistentBookmark);/d' -i './sw/qa/extras/uiwriter/uiwriter.cxx'
-      sed -e /CppunitTest_sw_layoutwriter/d -i sw/Module_sw.mk
       sed -e "s/DECLARE_SW_ROUNDTRIP_TEST(\([_a-zA-Z0-9.]\+\)[, ].*, *\([_a-zA-Z0-9.]\+\))/class \\1: public \\2 { public: void verify() override; }; void \\1::verify() /" -i "sw/qa/extras/ooxmlexport/ooxmlexport9.cxx"
       sed -e "s/DECLARE_SW_ROUNDTRIP_TEST(\([_a-zA-Z0-9.]\+\)[, ].*, *\([_a-zA-Z0-9.]\+\))/class \\1: public \\2 { public: void verify() override; }; void \\1::verify() /" -i "sw/qa/extras/ooxmlexport/ooxmlencryption.cxx"
       sed -e "s/DECLARE_SW_ROUNDTRIP_TEST(\([_a-zA-Z0-9.]\+\)[, ].*, *\([_a-zA-Z0-9.]\+\))/class \\1: public \\2 { public: void verify() override; }; void \\1::verify() /" -i "sw/qa/extras/odfexport/odfexport.cxx"
@@ -366,7 +376,8 @@ in
 
     for f in $out/share/applications/*.desktop; do
       substituteInPlace "$f" \
-        --replace "Exec=libreoffice${major}.${minor}" "Exec=libreoffice"
+        --replace "Exec=libreofficedev${major}.${minor}" "Exec=libreoffice" \
+        --replace "Exec=libreoffice${major}.${minor}"    "Exec=libreoffice"
     done
 
     cp -r sysui/desktop/icons  "$out/share"
@@ -421,6 +432,7 @@ in
     "--disable-postgresql-sdbc"
     "--disable-firebird-sdbc"
     "--without-fonts"
+    "--without-myspell-dicts"
     "--without-doxygen"
 
     # TODO: package these as system libraries
@@ -437,12 +449,10 @@ in
     "--without-system-libstaroffice"
     "--without-system-libepubgen"
     "--without-system-libqxp"
-    "--with-system-mdds"
+    "--without-system-mdds" # we have mdds but our version is too new
     # https://github.com/NixOS/nixpkgs/commit/5c5362427a3fa9aefccfca9e531492a8735d4e6f
     "--without-system-orcus"
     "--without-system-xmlsec"
-    "--without-system-cuckoo"
-    "--without-system-zxing"
   ] ++ optionals kdeIntegration [
     "--enable-kf5"
     "--enable-qt5"
@@ -460,7 +470,7 @@ in
     bison
     fontforge
     gdb
-    jdk17
+    jdk
     libtool
     pkg-config
   ]
@@ -563,8 +573,7 @@ in
     gst-plugins-ugly
     gstreamer
   ])
-  ++ optionals kdeIntegration [ qtbase qtx11extras kcoreaddons kio ]
-  ++ optionals (lib.versionAtLeast (lib.versions.majorMinor version) "7.4") [ libwebp ];
+  ++ optionals kdeIntegration [ qtbase qtx11extras kcoreaddons kio ];
 
   passthru = {
     inherit srcs;

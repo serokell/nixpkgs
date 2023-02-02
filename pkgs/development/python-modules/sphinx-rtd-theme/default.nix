@@ -9,18 +9,17 @@
 
 buildPythonPackage rec {
   pname = "sphinx-rtd-theme";
-  version = "1.1.1";
+  version = "1.0.0";
 
   src = fetchPypi {
     pname = "sphinx_rtd_theme";
     inherit version;
-    sha256 = "sha256-YUbIRfHhlHs8PdRDLCiZihaTzMdCtPmtfGMSnwdXwQM=";
+    sha256 = "0p3abj91c3l72ajj5jwblscsdf1jflrnn0djx2h5y6f2wjbx9ipf";
   };
 
   postPatch = ''
-    substituteInPlace setup.cfg \
-      --replace "docutils <0.18" "docutils" \
-      --replace "sphinx >=1.6,<6" "sphinx"
+    substituteInPlace setup.py \
+      --replace "docutils<0.18" "docutils"
   '';
 
   preBuild = ''
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     sphinx
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     readthedocs-sphinx-ext
     pytestCheckHook
   ];

@@ -40,7 +40,7 @@ buildPythonPackage rec {
     backports-zoneinfo
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytest-timeout
     pytestCheckHook

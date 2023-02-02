@@ -30,7 +30,7 @@ buildPythonPackage rec {
     pysigma
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pysigma-pipeline-sysmon
     pytestCheckHook
   ];

@@ -15,14 +15,14 @@
 
 buildPythonPackage rec {
   pname = "fastavro";
-  version = "1.7.0";
+  version = "1.6.1";
 
   disabled = pythonOlder "3.6";
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = "refs/tags/${version}";
-    sha256 = "sha256-vzaaX3wj1UkFGCohxYlPw6NA0b+oV/2JtpYXC4zncjk=";
+    sha256 = "sha256-2BtJQiDPMMIxbO0FdOQT/jzsaiPMTdmf8S21ezmQRLQ=";
   };
 
   preBuild = ''
@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     lz4
     numpy
     pandas

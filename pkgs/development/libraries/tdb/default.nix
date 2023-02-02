@@ -5,7 +5,6 @@
 , python3
 , readline
 , libxslt
-, libxcrypt
 , docbook-xsl-nons
 , docbook_xml_dtd_45
 }:
@@ -31,7 +30,6 @@ stdenv.mkDerivation rec {
   buildInputs = [
     python3
     readline # required to build python
-    libxcrypt
   ];
 
   wafPath = "buildtools/bin/waf";

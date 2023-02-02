@@ -48,7 +48,7 @@ buildPythonPackage rec {
     mechanicalsoup
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     httpretty
     pytestCheckHook
   ];

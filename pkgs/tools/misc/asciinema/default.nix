@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication rec {
       --replace "python3" "${python3Packages.python}/bin/python"
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     glibcLocales
     python3Packages.nose
   ];

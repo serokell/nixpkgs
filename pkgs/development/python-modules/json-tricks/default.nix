@@ -20,7 +20,7 @@ buildPythonPackage rec {
     sha256 = "wdpqCqMO0EzKyqE4ishL3CTsSw3sZPGvJ0HEktKFgZU=";
   };
 
-  nativeCheckInputs = [ numpy pandas pytz pytestCheckHook ];
+  checkInputs = [ numpy pandas pytz pytestCheckHook ];
 
   pythonImportsCheck = [ "json_tricks" ];
 

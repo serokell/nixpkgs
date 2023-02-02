@@ -29,21 +29,16 @@
 
 buildPythonPackage rec {
   pname = "aiohttp";
-  version = "3.8.3";
-  format = "pyproject";
-
+  version = "3.8.1";
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "3828fb41b7203176b82fe5d699e0d845435f2374750a44b480ea6b930f6be269";
+    sha256 = "fc5471e1a54de15ef71c1bc6ebe80d4dc681ea600e68bfd1cbce40427f0b7578";
   };
 
   postPatch = ''
     sed -i '/--cov/d' setup.cfg
-
-    substituteInPlace setup.cfg \
-      --replace "charset-normalizer >=2.0, < 3.0" "charset-normalizer >=2.0, < 4.0"
   '';
 
   propagatedBuildInputs = [
@@ -65,7 +60,7 @@ buildPythonPackage rec {
     idna-ssl
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     async_generator
     freezegun
     gunicorn

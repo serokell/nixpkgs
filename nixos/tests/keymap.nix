@@ -64,6 +64,7 @@ let
 
               # wait for reader to be ready
               machine.wait_for_file("${readyFile}")
+              machine.sleep(1)
 
               # send all keys
               for key in inputs:
@@ -77,18 +78,9 @@ let
       with open("${pkgs.writeText "tests.json" (builtins.toJSON tests)}") as json_file:
           tests = json.load(json_file)
 
-      # These environments used to run in the opposite order, causing the
-      # following error at openvt startup.
-      #
-      # openvt: Couldn't deallocate console 1
-      #
-      # This error did not appear in successful runs.
-      # I don't know the exact cause, but I it seems that openvt and X are
-      # fighting over the virtual terminal. This does not appear to be a problem
-      # when the X test runs first.
       keymap_environments = {
-          "Xorg Keymap": "DISPLAY=:0 xterm -title testterm -class testterm -fullscreen -e",
           "VT Keymap": "openvt -sw --",
+          "Xorg Keymap": "DISPLAY=:0 xterm -title testterm -class testterm -fullscreen -e",
       }
 
       machine.wait_for_x()

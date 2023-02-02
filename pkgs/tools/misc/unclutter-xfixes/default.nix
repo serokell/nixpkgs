@@ -1,5 +1,5 @@
 { lib, stdenv, fetchFromGitHub,
-  libev, libX11, libXext, libXi, libXfixes,
+  xlibsWrapper, libev, libXi, libXfixes,
   pkg-config, asciidoc, libxslt, docbook_xsl }:
 
 stdenv.mkDerivation rec {
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config asciidoc libxslt docbook_xsl ];
-  buildInputs = [ libev libX11 libXext libXi libXfixes ];
+  buildInputs = [ xlibsWrapper libev libXi libXfixes ];
 
   prePatch = ''
     substituteInPlace Makefile --replace 'PKG_CONFIG =' 'PKG_CONFIG ?='

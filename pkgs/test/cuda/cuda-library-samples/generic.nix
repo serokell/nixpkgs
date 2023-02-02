@@ -54,8 +54,6 @@ in
 
     src = "${src}/cuTENSOR";
 
-    buildInputs = [ cutensor ];
-
     cmakeFlags = [
       "-DCUTENSOR_EXAMPLE_BINARY_INSTALL_DIR=${builtins.placeholder "out"}/bin"
     ];

@@ -21,7 +21,7 @@ buildPythonPackage rec {
     astropy-helpers
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     astropy
     pillow
     pytestCheckHook

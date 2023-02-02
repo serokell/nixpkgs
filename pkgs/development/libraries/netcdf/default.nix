@@ -55,7 +55,7 @@ in stdenv.mkDerivation rec {
   '';
 
   doCheck = !(mpiSupport || (stdenv.isDarwin && stdenv.isAarch64));
-  nativeCheckInputs = [ unzip ];
+  checkInputs = [ unzip ];
 
   preCheck = ''
     export HOME=$TEMP

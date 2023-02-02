@@ -2,19 +2,19 @@
 
 buildGoModule rec {
   pname = "drone-runner-docker";
-  version = "1.8.3";
+  version = "1.8.1";
 
   src = fetchFromGitHub {
     owner = "drone-runners";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-ZoQeCuT5FRhxp/ikB0gkp3QVOQ6OS7ukkz4QanWT9G0=";
+    rev = "v${version}";
+    sha256 = "sha256-3SbvnW+mCwaBCF77rAnDMqZRHX9wDCjXvFGq9w0E5Qw=";
   };
 
-  vendorHash = "sha256-KcNp3VdJ201oxzF0bLXY4xWHqHNz54ZrVSI96cfhU+k=";
+  vendorSha256 = "sha256-E18ykjQc1eoHpviYok+NiLaeH01UMQmigl9JDwtR+zo=";
 
   meta = with lib; {
-    maintainers = with maintainers; [ endocrimes indeednotjames ];
+    maintainers = with maintainers; [ endocrimes ];
     license = licenses.unfreeRedistributable;
     homepage = "https://github.com/drone-runners/drone-runner-docker";
     description = "Drone pipeline runner that executes builds inside Docker containers";

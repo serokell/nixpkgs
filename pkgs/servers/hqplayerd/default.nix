@@ -6,33 +6,27 @@
 , fetchurl
 , flac
 , gcc12
+, gnome
 , gssdp
 , gupnp
 , gupnp-av
 , lame
 , libgmpris
 , libusb-compat-0_1
-, llvmPackages_14
+, llvmPackages_10
 , meson
 , mpg123
 , ninja
 , rpmextract
 , wavpack
-
-, callPackage
-, rygel ? null
-}@inputs:
-let
-  # FIXME: Replace with gnome.rygel once hqplayerd releases a new version.
-  rygel-hqplayerd = inputs.rygel or (callPackage ./rygel.nix { });
-in
+}:
 stdenv.mkDerivation rec {
   pname = "hqplayerd";
-  version = "4.33.0-96sse42";
+  version = "4.32.4-94sse42";
 
   src = fetchurl {
     url = "https://www.signalyst.eu/bins/${pname}/fc36/${pname}-${version}.fc36.x86_64.rpm";
-    hash = "sha256-4gPK31XMd5JUp2+il1Qa7r0EaXVGEvKoYLNGSD2dLUs=";
+    hash = "sha256-hTckJdZzD/Sx/uV30dlGiT46QvzIGp6BQdNNRlQ/Mgw=";
   };
 
   unpackPhase = ''
@@ -46,14 +40,14 @@ stdenv.mkDerivation rec {
     cairo
     flac
     gcc12.cc.lib
-    rygel-hqplayerd
+    gnome.rygel
     gssdp
     gupnp
     gupnp-av
     lame
     libgmpris
     libusb-compat-0_1
-    llvmPackages_14.openmp
+    llvmPackages_10.openmp
     mpg123
     wavpack
   ];
@@ -111,10 +105,6 @@ stdenv.mkDerivation rec {
     addOpenGLRunpath $out/bin/hqplayerd
     $out/bin/hqplayerd --version
   '';
-
-  passthru = {
-    rygel = rygel-hqplayerd;
-  };
 
   meta = with lib; {
     homepage = "https://www.signalyst.com/custom.html";

@@ -5,7 +5,7 @@
 , gtk2, gdk-pixbuf, gdk-pixbuf-xlib, libxml2, pam
 , systemd, coreutils
 , forceInstallAllHacks ? false
-, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
+, withSystemd ? stdenv.isLinux
 }:
 
 stdenv.mkDerivation rec {

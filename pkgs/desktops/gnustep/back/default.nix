@@ -2,10 +2,9 @@
 , cairo
 , fetchzip
 , base, gui
-, fontconfig
+, xlibsWrapper
 , freetype
 , pkg-config
-, libXft
 , libXmu
 }:
 
@@ -19,7 +18,7 @@ gsmakeDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ cairo base gui fontconfig freetype libXft libXmu ];
+  buildInputs = [ cairo base gui freetype xlibsWrapper libXmu ];
   meta = {
     description = "A generic backend for GNUstep";
   };

@@ -25,7 +25,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ packaging appdirs requests ];
 
   preCheck = "HOME=$TMPDIR";
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
   # tries to touch network
   disabledTests = [
     "pooch_custom_url"

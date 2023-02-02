@@ -10,6 +10,7 @@
 , jre
 }:
 
+assert lib.versionAtLeast jre.version "17.0.0";
 let
   pname = "scala-cli";
   sources = builtins.fromJSON (builtins.readFile ./sources.json);
@@ -21,11 +22,7 @@ stdenv.mkDerivation {
   inherit pname version;
   nativeBuildInputs = [ installShellFiles makeWrapper ]
     ++ lib.optional stdenv.isLinux autoPatchelfHook;
-  buildInputs =
-    assert lib.assertMsg (lib.versionAtLeast jre.version "17.0.0") ''
-      scala-cli requires Java 17 or newer, but ${jre.name} is ${jre.version}
-    '';
-    [ coreutils zlib stdenv.cc.cc ];
+  buildInputs = [ coreutils zlib stdenv.cc.cc ];
   src =
     let
       asset = assets."${stdenv.hostPlatform.system}" or (throw "Unsupported platform ${stdenv.hostPlatform.system}");
@@ -44,8 +41,7 @@ stdenv.mkDerivation {
     runHook preInstall
     install -Dm755 scala-cli $out/bin/.scala-cli-wrapped
     makeWrapper $out/bin/.scala-cli-wrapped $out/bin/scala-cli \
-      --set JAVA_HOME ${jre.home} \
-      --argv0 "$out/bin/scala-cli"
+      --set JAVA_HOME ${jre.home}
     runHook postInstall
   '';
 

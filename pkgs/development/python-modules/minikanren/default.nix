@@ -6,7 +6,6 @@
 , multipledispatch
 , etuples
 , logical-unification
-, py
 , pytestCheckHook
 , pytest-html
 }:
@@ -30,8 +29,7 @@ buildPythonPackage rec {
     logical-unification
   ];
 
-  nativeCheckInputs = [
-    py
+  checkInputs = [
     pytestCheckHook
     pytest-html
   ];

@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [ protobuf ];
+  checkInputs = [ protobuf ];
   checkPhase = ''
     runHook preCheck
 

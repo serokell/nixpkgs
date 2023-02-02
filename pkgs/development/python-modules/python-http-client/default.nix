@@ -7,7 +7,7 @@
 }:
 
 buildPythonPackage rec {
-  pname = "python-http-client";
+  pname = "python_http_client";
   version = "3.3.7";
   format = "setuptools";
 
@@ -20,14 +20,9 @@ buildPythonPackage rec {
     sha256 = "sha256-8Qs5Jw0LMV2UucLnlFKJQ2PUhYaQx6uJdIV/4gaPH3w=";
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     pytestCheckHook
-  ];
-
-  disabledTests = [
-    # checks date in license file and subsequently fails after new years
-    "test_daterange"
   ];
 
   pythonImportsCheck = [

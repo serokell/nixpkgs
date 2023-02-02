@@ -1,39 +1,55 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, makeWrapper
-, nixosTests
-, systemd
-, withSystemdSupport ? true
-}:
+{ lib, buildGoPackage, fetchFromGitHub, makeWrapper, nixosTests
+, systemd, withSystemdSupport ? true }:
 
-buildGoModule rec {
+with lib;
+
+buildGoPackage rec {
   pname = "postfix_exporter";
-  version = "0.3.0";
+  version = "0.1.2";
+
+  goPackagePath = "github.com/kumina/postfix_exporter";
 
   src = fetchFromGitHub {
     owner = "kumina";
     repo = "postfix_exporter";
     rev = version;
-    sha256 = "sha256-63ze51Qbjm+3CV1OFGFa9cS4ucZ+gMKaJyBF2b//CfM=";
+    sha256 = "1b9ib3scxni6hlw55wv6f0z1xfn27l0p29as24f71rs70pyzy4hm";
   };
 
-  vendorSha256 = "sha256-a4Lk4wh4mvXEjLgFksZIVVtbp+zTUyjtLVuk7vuot2k=";
+  nativeBuildInputs = optional withSystemdSupport makeWrapper;
+  buildInputs = optional withSystemdSupport systemd;
+  tags = optional (!withSystemdSupport) "nosystemd";
 
-  ldflags = [ "-s" "-w" ];
+  goDeps = ./postfix-exporter-deps.nix;
+  extraSrcs = optionals withSystemdSupport [
+    {
+      goPackagePath = "github.com/coreos/go-systemd";
+      src = fetchFromGitHub {
+        owner = "coreos";
+        repo = "go-systemd";
+        rev = "d1b7d058aa2adfc795ad17ff4aaa2bc64ec11c78";
+        sha256 = "1nz3v1b90hnmj2vjjwq96pr6psxlndqjyd30v9sgiwygzb7db9mv";
+      };
+    }
+    {
+      goPackagePath = "github.com/coreos/pkg";
+      src = fetchFromGitHub {
+        owner = "coreos";
+        repo = "pkg";
+        rev = "97fdf19511ea361ae1c100dd393cc47f8dcfa1e1";
+        sha256 = "1srn87wih25l09f75483hnxsr8fc6rq3bk7w1x8125ym39p6mg21";
+      };
+    }
+  ];
 
-  nativeBuildInputs = lib.optionals withSystemdSupport [ makeWrapper ];
-  buildInputs = lib.optionals withSystemdSupport [ systemd ];
-  tags = lib.optionals (!withSystemdSupport) "nosystemd";
-
-  postInstall = lib.optionals withSystemdSupport ''
+  postInstall = optionalString withSystemdSupport ''
     wrapProgram $out/bin/postfix_exporter \
       --prefix LD_LIBRARY_PATH : "${lib.getLib systemd}/lib"
   '';
 
   passthru.tests = { inherit (nixosTests.prometheus-exporters) postfix; };
 
-  meta = with lib; {
+  meta = {
     inherit (src.meta) homepage;
     description = "A Prometheus exporter for Postfix";
     license = licenses.asl20;

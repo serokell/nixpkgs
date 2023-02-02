@@ -30,7 +30,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace mahotas/io/freeimage.py \

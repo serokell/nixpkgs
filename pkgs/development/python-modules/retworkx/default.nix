@@ -39,7 +39,7 @@ buildPythonPackage rec {
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
   pythonImportsCheck = [ "retworkx" ];
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     fixtures
     graphviz

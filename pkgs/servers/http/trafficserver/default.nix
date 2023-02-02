@@ -50,11 +50,11 @@
 
 stdenv.mkDerivation rec {
   pname = "trafficserver";
-  version = "9.1.4";
+  version = "9.1.3";
 
   src = fetchzip {
     url = "mirror://apache/trafficserver/trafficserver-${version}.tar.bz2";
-    sha256 = "sha256-+iq+z+1JE6JE6OLcUwRRAe2/EISqb6Ax6pNm8GcB7bc=";
+    sha256 = "sha256-Ihhsbn4PvIjWskmbWKajThIwtuiEyldBpmtuQ8RdyHA=";
   };
 
   patches = [
@@ -107,6 +107,10 @@ stdenv.mkDerivation rec {
       tools/check-unused-dependencies
 
     substituteInPlace configure --replace '/usr/bin/file' '${file}/bin/file'
+
+    # TODO: remove after the following change has been released
+    # https://github.com/apache/trafficserver/pull/8683
+    cp ${catch2}/include/catch2/catch.hpp tests/include/catch.hpp
   '' + lib.optionalString stdenv.isLinux ''
     substituteInPlace configure \
       --replace '/usr/include/linux' '${linuxHeaders}/include/linux'
@@ -121,6 +125,9 @@ stdenv.mkDerivation rec {
     "--enable-experimental-plugins"
     (lib.enableFeature enableWCCP "wccp")
 
+    # the configure script can't auto-locate the following from buildInputs
+    "--with-lzma=${xz.dev}"
+    "--with-zlib=${zlib.dev}"
     (lib.withFeatureAs withHiredis "hiredis" hiredis)
   ];
 

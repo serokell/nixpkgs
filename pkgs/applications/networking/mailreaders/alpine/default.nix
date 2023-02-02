@@ -1,5 +1,5 @@
 {lib, stdenv, fetchurl, ncurses, tcl, openssl, pam, libkrb5
-, openldap, libxcrypt
+, openldap
 }:
 
 stdenv.mkDerivation rec {
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    ncurses tcl openssl pam libkrb5 openldap libxcrypt
+    ncurses tcl openssl pam libkrb5 openldap
   ];
 
   hardeningDisable = [ "format" ];

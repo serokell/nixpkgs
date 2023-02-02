@@ -38,7 +38,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     grequests
     mock
     responses

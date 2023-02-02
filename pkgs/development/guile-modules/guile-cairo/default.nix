@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   doCheck = false; # Cannot find unit-test module from guile-lib
-  nativeCheckInputs = [ guile-lib ];
+  checkInputs = [ guile-lib ];
 
   meta = with lib; {
     homepage = "https://www.nongnu.org/guile-cairo/";

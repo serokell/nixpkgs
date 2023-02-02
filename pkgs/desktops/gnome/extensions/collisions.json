@@ -137,10 +137,6 @@
       "ShutdownTimer@neumann",
       "ShutdownTimer@deminder"
     ],
-    "noannoyance": [
-      "noannoyance@sindex.com",
-      "noannoyance@daase.net"
-    ],
     "fuzzy-clock": [
       "fuzzy-clock@keepawayfromfire.co.uk",
       "FuzzyClock@johngoetz"
@@ -179,10 +175,6 @@
       "lockkeys@vaina.lt",
       "lockkeys@fawtytoo"
     ],
-    "noannoyance": [
-      "noannoyance@sindex.com",
-      "noannoyance@daase.net"
-    ],
     "panel-date-format": [
       "panel-date-format@keiii.github.com",
       "panel-date-format@atareao.es"
@@ -194,10 +186,6 @@
     "volume-scroller": [
       "volume_scroller@trflynn89.pm.me",
       "volume_scroller@noskoski"
-    ],
-    "auto-activities": [
-      "auto-activities@acedron.github.io",
-      "auto-activities@CleoMenezesJr.github.io"
     ]
   },
   "43": {
@@ -208,10 +196,6 @@
     "workspace-indicator": [
       "workspace-indicator@gnome-shell-extensions.gcampax.github.com",
       "horizontal-workspace-indicator@tty2.io"
-    ],
-    "noannoyance": [
-      "noannoyance@sindex.com",
-      "noannoyance@daase.net"
     ]
   }
 }

@@ -69,7 +69,7 @@ in stdenv.mkDerivation rec {
     cmake
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     gtest
 
     # Should appear BEFORE lit, since lit passes through python rather

@@ -1,6 +1,5 @@
 { ffmpeg_5-full
 , nv-codec-headers-11
-, chromaprint
 , fetchFromGitHub
 , lib
 }:
@@ -9,21 +8,17 @@
   nv-codec-headers = nv-codec-headers-11;
 }).overrideAttrs (old: rec {
   pname = "jellyfin-ffmpeg";
-  version = "5.1.2-6";
+  version = "5.1.2-1";
 
   src = fetchFromGitHub {
     owner = "jellyfin";
     repo = "jellyfin-ffmpeg";
     rev = "v${version}";
-    sha256 = "sha256-YPw29cnScchL4Y2CEatUjzqUW/U9kOdi29Dr577Qy5A=";
+    sha256 = "sha256-56IDFZnHDL3jArNd/U/ZRdHyJ54oqhY+U4XcwOLTGqQ=";
   };
 
-  buildInputs = old.buildInputs ++ [ chromaprint ];
-
   configureFlags = old.configureFlags ++ [
-    "--extra-version=Jellyfin"
     "--disable-ptx-compression" # https://github.com/jellyfin/jellyfin/issues/7944#issuecomment-1156880067
-    "--enable-chromaprint"
   ];
 
   postPatch = ''

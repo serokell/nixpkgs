@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     mkdir -p build_ && cd $_
   '';
 
-  nativeCheckInputs = [ file ];
+  checkInputs = [ file ];
   inherit doCheck;
   checkPhase = ''
     runHook preCheck
@@ -77,20 +77,20 @@ stdenv.mkDerivation rec {
 
     substituteInPlace ../programs/zstdless \
       --replace "zstdcat" "$bin/bin/zstdcat"
-  '' + lib.optionalString buildContrib (
-    ''
-      cp contrib/pzstd/pzstd $bin/bin/pzstd
-    '' + lib.optionalString stdenv.isDarwin ''
-      install_name_tool -change @rpath/libzstd.1.dylib $out/lib/libzstd.1.dylib $bin/bin/pzstd
-    ''
-  );
+  '' + lib.optionalString buildContrib ''
+    cp contrib/pzstd/pzstd $bin/bin/pzstd
+  '' + lib.optionalString stdenv.isDarwin ''
+    install_name_tool -change @rpath/libzstd.1.dylib $out/lib/libzstd.1.dylib $bin/bin/pzstd
+  '';
 
   outputs = [ "bin" "dev" ]
     ++ lib.optional stdenv.hostPlatform.isUnix "man"
     ++ [ "out" ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      attrPath = pname;
+    };
   };
 
   meta = with lib; {

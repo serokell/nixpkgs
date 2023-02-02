@@ -42,7 +42,7 @@
 , pango
 , pipewire
 , pciutils
-, heimdal
+, libheimdal
 , libpulseaudio
 , systemd
 , writeScript
@@ -137,7 +137,7 @@ stdenv.mkDerivation {
       pango
       pipewire
       pciutils
-      heimdal
+      libheimdal
       libpulseaudio
       systemd
       ffmpeg
@@ -205,7 +205,6 @@ stdenv.mkDerivation {
   };
 
   meta = with lib; {
-    changelog = "https://www.thunderbird.net/en-US/thunderbird/${version}/releasenotes/";
     description = "Mozilla Thunderbird, a full-featured email client (binary package)";
     homepage = "http://www.mozilla.org/thunderbird/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];

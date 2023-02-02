@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "NTLM/NTLMv2 authenticating HTTP proxy";
-    homepage = "https://cntlm.sourceforge.net/";
+    homepage = "http://cntlm.sourceforge.net/";
     license = licenses.gpl2;
     maintainers =
       [

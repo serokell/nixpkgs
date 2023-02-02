@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, fetchpatch, ncurses, libX11 }:
+{ lib, stdenv, fetchurl, fetchpatch, ncurses, xlibsWrapper }:
 
 let
    useX11 = !stdenv.isAarch32 && !stdenv.isMips;
@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
   NIX_CFLAGS_COMPILE = "-fcommon";
 
   prefixKey = "-prefix ";
-  configureFlags = [ "-no-tk" ] ++ optionals useX11 [ "-x11lib" libX11 ];
+  configureFlags = [ "-no-tk" ] ++ optionals useX11 [ "-x11lib" xlibsWrapper ];
   buildFlags = [ "world" ] ++ optionals useNativeCompilers [ "bootstrap" "world.opt" ];
-  buildInputs = [ ncurses ] ++ optionals useX11 [ libX11 ];
+  buildInputs = [ ncurses ] ++ optional useX11 xlibsWrapper;
   installTargets = "install" + optionalString useNativeCompilers " installopt";
   preConfigure = ''
     CAT=$(type -tp cat)

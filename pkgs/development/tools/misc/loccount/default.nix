@@ -1,28 +1,17 @@
-{ lib, buildGoModule, fetchFromGitLab, python3 }:
-buildGoModule rec {
+{ lib, buildGoPackage, fetchFromGitLab }:
+buildGoPackage rec {
   pname = "loccount";
-  version = "2.14";
+  version = "1.2";
+
+  goPackagePath = "gitlab.com/esr/loccount";
+  excludedPackages = "tests";
 
   src = fetchFromGitLab {
     owner = "esr";
     repo = "loccount";
     rev = version;
-    hash = "sha256-9tzDNwWM4uzxC+xqM603l8EIqYrGUUvZgSe6r1EyHi8=";
+    sha256 = "18z7ai7wy2k9yd3w65d37apfqs3h9bc2c15y7v1bydppi44zfsdk";
   };
-
-  vendorHash = null;
-
-  excludedPackages = "tests";
-
-  nativeBuildInputs = [ python3 ];
-
-  ldflags = [ "-s" "-w" ];
-
-  preBuild = ''
-    patchShebangs --build tablegen.py
-
-    go generate
-  '';
 
   meta = with lib; {
     description = "Re-implementation of sloccount in Go";
@@ -37,9 +26,10 @@ buildGoModule rec {
       an exception; loccount corrects buggy counting of single-quote multiline
       literals in sloccount 2.26.
     '';
-    homepage = "https://gitlab.com/esr/loccount";
-    downloadPage = "https://gitlab.com/esr/loccount/tree/master";
+    homepage="https://gitlab.com/esr/loccount";
+    downloadPage="https://gitlab.com/esr/loccount/tree/master";
     license = licenses.bsd2;
     maintainers = with maintainers; [ calvertvl ];
+    platforms = platforms.unix;
   };
 }

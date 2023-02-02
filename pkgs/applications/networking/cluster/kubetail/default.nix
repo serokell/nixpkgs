@@ -1,23 +1,21 @@
-{ stdenv, fetchFromGitHub, lib, installShellFiles, makeWrapper, kubectl }:
+{ stdenv, fetchFromGitHub, lib, ... }:
 
 stdenv.mkDerivation rec {
   pname = "kubetail";
-  version = "1.6.16";
+  version = "1.6.13";
 
   src = fetchFromGitHub {
     owner = "johanhaleby";
     repo = "kubetail";
     rev = version;
-    sha256 = "sha256-kkbhhAaiKP01LR7F5JVMgy6Ujji8JDc+Aaho1vft3XQ=";
+    sha256 = "sha256-EkOewNInzEEEgMOffYoRaKwhgYuBXgHaCkVgWg2mIDE=";
   };
 
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
-
   installPhase = ''
-    install -Dm755 kubetail "$out/bin/kubetail"
-    wrapProgram $out/bin/kubetail --prefix PATH : ${lib.makeBinPath [ kubectl ]}
-
-    installShellCompletion completion/kubetail.{bash,fish,zsh}
+    install -Dm755 kubetail                 "$out/bin/kubetail"
+    install -Dm755 completion/kubetail.bash "$out/share/bash-completion/completions/kubetail"
+    install -Dm755 completion/kubetail.fish "$out/share/fish/vendor_completions.d/kubetail.fish"
+    install -Dm755 completion/kubetail.zsh  "$out/share/zsh/site-functions/_kubetail"
   '';
 
   meta = with lib; {

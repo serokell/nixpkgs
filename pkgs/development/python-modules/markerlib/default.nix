@@ -15,7 +15,7 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ setuptools ];
-  nativeCheckInputs = [ nose ];
+  checkInputs = [ nose ];
 
   checkPhase = ''
     nosetests

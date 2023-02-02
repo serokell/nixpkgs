@@ -24,7 +24,7 @@ buildPythonPackage rec {
     nettools
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

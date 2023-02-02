@@ -15,13 +15,13 @@
 
 stdenv.mkDerivation rec {
   pname = "lastpass-cli";
-  version = "1.3.4";
+  version = "1.3.3";
 
   src = fetchFromGitHub {
     owner = "lastpass";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-bPAENorvj48cyRpnMLmyENXlipSGhTLW+XVoyrPogTE=";
+    sha256 = "168jg8kjbylfgalhicn0llbykd7kdc9id2989gg0nxlgmnvzl58a";
   };
 
   patches = [

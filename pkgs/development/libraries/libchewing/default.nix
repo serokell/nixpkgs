@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Intelligent Chinese phonetic input method";
-    homepage = "https://chewing.im/";
+    homepage = "http://chewing.im/";
     license = licenses.lgpl21Only;
     maintainers = [ maintainers.ericsagnes ];
     platforms = platforms.linux;

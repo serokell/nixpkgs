@@ -113,9 +113,6 @@ let
       mkdir -pv $out/share/minetest/games/minetest_game/
       cp -rv ${sources.data}/* $out/share/minetest/games/minetest_game/
       patchShebangs $out
-    '' + lib.optionalString stdenv.isDarwin ''
-      mkdir -p $out/Applications
-      mv $out/minetest.app $out/Applications
     '';
 
     meta = with lib; {

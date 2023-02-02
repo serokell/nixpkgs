@@ -1,44 +1,22 @@
-{ lib
-, stdenv
-, fetchurl
-, autoreconfHook
-, which
-, ocamlPackages
-}:
+{ lib, stdenv, fetchurl, ocamlPackages }:
 
 stdenv.mkDerivation rec {
   pname = "cubicle";
-  version = "1.2.0";
+  version = "1.1.2";
   src = fetchurl {
-    url = "https://github.com/cubicle-model-checker/cubicle/archive/refs/tags/${version}.tar.gz";
-    hash = "sha256-/EtbXpyXqRm0jGcMfGLAEwdr92061edjFys1V7/w6/Y=";
+    url = "http://cubicle.lri.fr/cubicle-${version}.tar.gz";
+    sha256 = "10kk80jdmpdvql88sdjsh7vqzlpaphd8vip2lp47aarxjkwjlz1q";
   };
 
-  # https://github.com/cubicle-model-checker/cubicle/issues/1
   postPatch = ''
-    substituteInPlace Makefile.in \
-      --replace "@OCAMLC@" "ocamlfind ocamlc -package num" \
-      --replace "@OCAMLOPT@" "ocamlfind ocamlopt -package num"
+    substituteInPlace Makefile.in --replace "\\n" ""
   '';
 
-  strictDeps = true;
-
-  nativeBuildInputs = [
-    autoreconfHook
-    which
-  ] ++ (with ocamlPackages; [
-    findlib
-    ocaml
-  ]);
-
-  buildInputs = with ocamlPackages; [
-    functory
-    num
-  ];
+  buildInputs = with ocamlPackages; [ ocaml findlib functory ];
 
   meta = with lib; {
     description = "An open source model checker for verifying safety properties of array-based systems";
-    homepage = "https://cubicle.lri.fr/";
+    homepage = "http://cubicle.lri.fr/";
     license = licenses.asl20;
     platforms = platforms.unix;
     maintainers = with maintainers; [ dwarfmaster ];

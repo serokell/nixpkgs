@@ -5,7 +5,7 @@ stdenv.mkDerivation {
   version = "1.0.2.0";
 
   src = fetchurl {
-    url = "https://bricxcc.sourceforge.net/wavrsocvt.tgz";
+    url = "http://bricxcc.sourceforge.net/wavrsocvt.tgz";
     sha256 = "15qlvdfwbiclljj7075ycm78yzqahzrgl4ky8pymix5179acm05h";
   };
 
@@ -29,7 +29,7 @@ stdenv.mkDerivation {
       supported sample rates in the standard NXT firmware).
       You can then upload these with e.g. nxt-python.
     '';
-    homepage = "https://bricxcc.sourceforge.net/";
+    homepage = "http://bricxcc.sourceforge.net/";
     license = licenses.mpl11;
     maintainers = with maintainers; [ leenaars ];
     platforms = with platforms; linux;

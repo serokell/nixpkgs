@@ -1,24 +1,30 @@
-{ buildGoModule, fetchFromGitHub, lib, installShellFiles }:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "jump";
-  version = "0.51.0";
+  version = "0.41.0";
 
   src = fetchFromGitHub {
     owner = "gsamokovarov";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-nlCuotEiAX2+xx7T8jWZo2p4LNLhWXDdcU6DxJprgx0=";
+    sha256 = "sha256-nI4n1WxgdGGP822APBOLZ5lNkjwL1KfP5bKUxfvXdnE=";
   };
 
-  vendorSha256 = "sha256-nMUqZWdq//q/DNthvpKiYLq8f95O0QoItyX5w4vHzSA=";
+  vendorSha256 = null;
 
-  nativeBuildInputs = [ installShellFiles ];
+  doCheck = false;
 
-  ldflags = [ "-s" "-w" ];
-
+  outputs = [ "out" "man"];
   postInstall = ''
-    installManPage man/j.1 man/jump.1
+    install -D --mode=444 man/j.1 man/jump.1 -t $man/man/man1/
+
+    # generate completion scripts for jump
+    export HOME="$NIX_BUILD_TOP"
+    mkdir -p $out/share/{bash-completion/completions,fish/vendor_completions.d,zsh/site-functions}
+    $out/bin/jump shell bash > "$out/share/bash-completion/completions/jump"
+    $out/bin/jump shell fish > $out/share/fish/vendor_completions.d/jump.fish
+    $out/bin/jump shell zsh > $out/share/zsh/site-functions/_jump
   '';
 
   meta = with lib; {
@@ -30,6 +36,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/gsamokovarov/jump";
     license = licenses.mit;
-    maintainers = with maintainers; [ aaronjheng ];
+    maintainers = with maintainers; [ ];
   };
 }

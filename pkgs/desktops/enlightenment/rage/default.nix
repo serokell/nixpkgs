@@ -7,7 +7,6 @@
 , efl
 , gst_all_1
 , wrapGAppsHook
-, directoryListingUpdater
 }:
 
 stdenv.mkDerivation rec {
@@ -34,8 +33,6 @@ stdenv.mkDerivation rec {
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-libav
   ];
-
-  passthru.updateScript = directoryListingUpdater { };
 
   meta = with lib; {
     description = "Video and audio player along the lines of mplayer";

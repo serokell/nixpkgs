@@ -29,7 +29,7 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    platforms = platforms.unix;
+    platforms = platforms.linux;
     maintainers = teams.gnome.members;
   };
 }

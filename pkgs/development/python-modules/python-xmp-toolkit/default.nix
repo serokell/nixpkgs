@@ -2,6 +2,7 @@
 , exempi
 , fetchFromGitHub
 , mock
+, pythonOlder
 , pytz
 , lib, stdenv
 }:
@@ -25,6 +26,8 @@ buildPythonPackage {
 
   buildInputs = [ exempi ];
 
+  checkInputs = lib.optionals (pythonOlder "3.3") [ mock ];
+
   propagatedBuildInputs = [ pytz ];
 
   postPatch = ''
@@ -34,10 +37,6 @@ buildPythonPackage {
 
   # hangs on darwin + sandbox
   doCheck = !stdenv.isDarwin;
-
-  preCheck = ''
-    rm test/{test_exempi,test_files}.py
-  '';
 
   meta = with lib; {
     homepage = "https://github.com/python-xmp-toolkit/python-xmp-toolkit";

@@ -8,7 +8,7 @@
 
     nativeBuildInputs = [ cmake ];
     buildInputs = [ geant4 ];
-    nativeCheckInputs = with geant4.data; [
+    checkInputs = with geant4.data; [
       G4EMLOW
       G4ENSDFSTATE
       G4PARTICLEXS

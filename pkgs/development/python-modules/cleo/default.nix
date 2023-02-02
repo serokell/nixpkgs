@@ -3,22 +3,27 @@
 , fetchFromGitHub
 , crashtest
 , poetry-core
+, pylev
 , pytest-mock
 , pytestCheckHook
-, rapidfuzz
 }:
 
 buildPythonPackage rec {
   pname = "cleo";
-  version = "2.0.1";
+  version = "1.0.0a5";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "python-poetry";
     repo = pname;
     rev = "refs/tags/${version}";
-    hash = "sha256-y9PYlGSPLpZl9Ad2AFuDKIopH0LRETLp35aiZtLcXzM=";
+    hash = "sha256-FtGGIRF/tA2OWEjkCFwa1HHg6VY+5E5mAiJC/zjUC1g=";
   };
+
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace 'crashtest = "^0.3.1"' 'crashtest = "*"'
+  '';
 
   nativeBuildInputs = [
     poetry-core
@@ -26,7 +31,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     crashtest
-    rapidfuzz
+    pylev
   ];
 
   pythonImportsCheck = [
@@ -36,14 +41,13 @@ buildPythonPackage rec {
     "cleo.helpers"
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-mock
     pytestCheckHook
   ];
 
   meta = with lib; {
     homepage = "https://github.com/python-poetry/cleo";
-    changelog = "https://github.com/python-poetry/cleo/blob/${src.rev}/CHANGELOG.md";
     description = "Allows you to create beautiful and testable command-line interfaces";
     license = licenses.mit;
     maintainers = with maintainers; [ jakewaksbaum ];

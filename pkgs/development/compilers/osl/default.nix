@@ -6,7 +6,7 @@
 , libclang
 , zlib
 , openexr
-, openimageio
+, openimageio2
 , llvm
 , boost
 , flex
@@ -33,7 +33,6 @@ in stdenv.mkDerivation rec {
   };
 
   cmakeFlags = [
-    "-DBoost_ROOT=${boost}"
     "-DUSE_BOOST_WAVE=ON"
     "-DENABLE_RTTI=ON"
 
@@ -60,7 +59,7 @@ in stdenv.mkDerivation rec {
     libclang
     llvm
     openexr
-    openimageio
+    openimageio2
     partio
     pugixml
     python3.pkgs.pybind11
@@ -74,6 +73,7 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
+    broken = (stdenv.isLinux && stdenv.isAarch64);
     description = "Advanced shading language for production GI renderers";
     homepage = "https://opensource.imageworks.com/osl.html";
     maintainers = with maintainers; [ hodapp ];

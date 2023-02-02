@@ -3,7 +3,6 @@
 , buildPythonPackage
 , dill
 , fetchFromGitHub
-, fetchpatch
 , fsspec
 , huggingface-hub
 , importlib-metadata
@@ -32,14 +31,6 @@ buildPythonPackage rec {
     rev = "refs/tags/${version}";
     hash = "sha256-5j8HT/DzHH8xssv97g/9kpSgtpaY6daWOGwjasD1psg=";
   };
-
-  patches = [
-    (fetchpatch {
-      # Backport support for dill<3.7
-      url = "https://github.com/huggingface/datasets/pull/5166.patch";
-      hash = "sha256-QigpXKHi2B60M/iIWSqvBU9hW5vBu6IHGML22aCMevo=";
-    })
-  ];
 
   postPatch = ''
     substituteInPlace setup.py \

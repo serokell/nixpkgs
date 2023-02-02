@@ -1,32 +1,16 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, autoreconfHook
-, pkg-config
-, help2man
-, python3
-
-, alsa-lib
-, libxslt
-, systemd
-, libusb-compat-0_1
-, libftdi1
-, libICE
-, libSM
-, libX11
-}:
+{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, pkg-config, help2man, python3,
+  alsa-lib, xlibsWrapper, libxslt, systemd, libusb-compat-0_1, libftdi1 }:
 
 let
   pythonEnv = python3.pythonForBuild.withPackages (p: with p; [ pyyaml setuptools ]);
 in
 stdenv.mkDerivation rec {
   pname = "lirc";
-  version = "0.10.2";
+  version = "0.10.1";
 
   src = fetchurl {
     url = "mirror://sourceforge/lirc/${pname}-${version}.tar.bz2";
-    sha256 = "sha256-PUTsgnSIHPJi8WCAVkHwgn/8wgreDYXn5vO5Dg09Iio=";
+    sha256 = "1whlyifvvc7w04ahq07nnk1h18wc8j7c6wnvlb6mszravxh3qxcb";
   };
 
   patches = [
@@ -66,9 +50,11 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ autoreconfHook help2man libxslt pythonEnv pkg-config ];
+  nativeBuildInputs = [ autoreconfHook help2man libxslt pythonEnv ];
 
-  buildInputs = [ alsa-lib systemd libusb-compat-0_1 libftdi1 libICE libSM libX11 ];
+  depsBuildBuild = [ pkg-config ];
+
+  buildInputs = [ alsa-lib xlibsWrapper systemd libusb-compat-0_1 libftdi1 ];
 
   DEVINPUT_HEADER = "include/linux/input-event-codes.h";
 

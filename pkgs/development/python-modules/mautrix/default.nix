@@ -1,25 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, aiohttp
-, pythonOlder
-, sqlalchemy
-, ruamel-yaml
-, CommonMark
-, lxml
-, aiosqlite
+{ lib, buildPythonPackage, fetchPypi, aiohttp, pythonOlder
+, sqlalchemy, ruamel-yaml, CommonMark, lxml, aiosqlite
 }:
 
 buildPythonPackage rec {
   pname = "mautrix";
-  version = "0.18.9";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.8";
+  version = "0.17.8";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-Ihaz/izB9L6osu3CPwBWOwLZ2JOLKhsDuqOUf/B02qI=";
+    sha256 = "sha256-DFajAD5mnXLQmJGRv4j2mWhtIj77nZNSQhbesX4qMys=";
   };
 
   propagatedBuildInputs = [
@@ -33,17 +22,16 @@ buildPythonPackage rec {
     lxml
   ];
 
+  disabled = pythonOlder "3.8";
+
   # no tests available
   doCheck = false;
 
-  pythonImportsCheck = [
-    "mautrix"
-  ];
+  pythonImportsCheck = [ "mautrix" ];
 
   meta = with lib; {
-    description = "Asyncio Matrix framework";
     homepage = "https://github.com/tulir/mautrix-python";
-    changelog = "https://github.com/mautrix/python/releases/tag/v${version}";
+    description = "A Python 3 asyncio Matrix framework.";
     license = licenses.mpl20;
     maintainers = with maintainers; [ nyanloutre ma27 sumnerevans ];
   };

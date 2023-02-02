@@ -2,7 +2,6 @@
 , angr
 , buildPythonPackage
 , fetchFromGitHub
-, fetchpatch
 , progressbar
 , pythonOlder
 , pythonRelaxDepsHook
@@ -22,14 +21,6 @@ buildPythonPackage rec {
     rev = "v${version}";
     hash = "sha256-wIPk7Cz7FSPviPFBSLrBjLr9M0o3pyoJM7wiAhHrg9Q=";
   };
-
-  patches = [
-    (fetchpatch {
-      name = "compatibility-with-newer-angr.patch";
-      url = "https://github.com/angr/angrop/commit/23194ee4ecdcb7a7390ec04eb133786ec3f807b1.patch";
-      hash = "sha256-n9/oPUblUHSk81qwU129rnNOjsNViaegp6454CaDo+8=";
-    })
-  ];
 
   nativeBuildInputs = [
     pythonRelaxDepsHook

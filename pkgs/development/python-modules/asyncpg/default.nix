@@ -8,20 +8,17 @@
 
 buildPythonPackage rec {
   pname = "asyncpg";
-  version = "0.27.0";
+  version = "0.26.0";
   format = "setuptools";
 
-  disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-cgmG2aRwXdikD98XIDb1rnhyJQNqfrRucExFqo9iwFQ=";
+    hash = "sha256-d+aEok/uF7o+SHypgtAlntF7rhr2gAb0zyhLI7og6iw=";
   };
 
-  # sandboxing issues on aarch64-darwin, see https://github.com/NixOS/nixpkgs/issues/198495
-  doCheck = postgresql.doCheck;
-
-  nativeCheckInputs = [
+  checkInputs = [
     uvloop
     postgresql
   ];

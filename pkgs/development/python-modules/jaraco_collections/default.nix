@@ -8,12 +8,12 @@
 
 buildPythonPackage rec {
   pname = "jaraco.collections";
-  version = "3.8.0";
+  version = "3.5.2";
   format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-VjBP1L1OuNWFzgys4KyAQYeRsUCFHjdIElQbCqJ8kdA=";
+    sha256 = "sha256-ByuT6zX55IUISFdVU05mo07xzISvKR/Sfzm0TUwN0sM=";
   };
 
   postPatch = ''

@@ -40,14 +40,14 @@ let
   };
 in buildPythonPackage rec {
   pname = "numpy";
-  version = "1.23.5";
+  version = "1.23.3";
   format = "setuptools";
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
     extension = "tar.gz";
-    hash = "sha256-Gxdm1vOXwYFT1AAV3fx53bcVyrrcBNLSKNTlqLxN7Ro=";
+    hash = "sha256-Ub9JwM0dUr4KJAqmbzRYr8S5XYmT0tBPDZH6YMEK9s0=";
   };
 
   patches = lib.optionals python.hasDistutilsCxxPatch [
@@ -75,7 +75,7 @@ in buildPythonPackage rec {
 
   enableParallelBuilding = true;
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest
     hypothesis
     typing-extensions

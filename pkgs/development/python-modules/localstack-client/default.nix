@@ -3,21 +3,18 @@
 , fetchFromGitHub
 , boto3
 , pytestCheckHook
-
-# downstream dependencies
-, localstack
 }:
 
 buildPythonPackage rec {
   pname = "localstack-client";
-  version = "1.39";
+  version = "1.36";
 
   src = fetchFromGitHub {
     owner = "localstack";
     repo = "localstack-python-client";
     # Request for proper tags: https://github.com/localstack/localstack-python-client/issues/38
-    rev = "f1e538ad23700e5b1afe98720404f4801475e470";
-    sha256 = "sha256-MBXTiTzCwkduJPPRN7OKaWy2q9J8xCX/GGu09tyac3A=";
+    rev = "92229c02c5b3cd0cef006e99c3d47db15aefcb4f";
+    sha256 = "sha256-pbDpe/5o4YU/2UIi8YbhzhIlXigOb/M2vjW9DKcIxoI=";
   };
 
   propagatedBuildInputs = [
@@ -28,9 +25,7 @@ buildPythonPackage rec {
     "localstack_client"
   ];
 
-  # All commands test `localstack` which is a downstream dependency
-  doCheck = false;
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 
@@ -41,10 +36,6 @@ buildPythonPackage rec {
 
   # For tests
   __darwinAllowLocalNetworking = true;
-
-  passthru.tests = {
-    inherit localstack;
-  };
 
   meta = with lib; {
     description = "A lightweight Python client for LocalStack";

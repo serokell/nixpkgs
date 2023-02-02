@@ -4,7 +4,7 @@
 , pkgsCross
 , klipper
 , klipper-firmware
-, python3
+, python2
 , avrdude
 , stm32flash
 , mcu ? "mcu"
@@ -19,7 +19,7 @@ in
 writeShellApplication {
   name = "klipper-flash-${mcu}";
   runtimeInputs = [
-    python3
+    python2
     pkgsCross.avr.stdenv.cc
     gnumake
   ] ++ lib.optionals (boardArch == "avr") [ avrdude ] ++ lib.optionals (boardArch == "stm32") [ stm32flash ];

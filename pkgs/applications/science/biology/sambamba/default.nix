@@ -10,30 +10,23 @@
 
 stdenv.mkDerivation rec {
   pname = "sambamba";
-  version = "1.0.0";
+  version = "0.8.2";
 
   src = fetchFromGitHub {
     owner = "biod";
     repo = "sambamba";
     rev = "v${version}";
-    sha256 = "sha256-HwAzsbT71Q35Io6H7Hzs4RTatpRpdHqV0cwPYAlsf6c=";
+    sha256 = "sha256-FEa9QjQoGNUOAtMNMZcqpTKMKVtXoBuOomTy0mpos/0=";
     fetchSubmodules = true;
   };
 
   nativeBuildInputs = [ which python3 ldc ];
   buildInputs = [ zlib lz4 ];
 
-  buildFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-  ];
-
   # Upstream's install target is broken; copy manually
   installPhase = ''
-    runHook preInstall
-
-    install -Dm755 bin/sambamba-${version} $out/bin/sambamba
-
-    runHook postInstall
+    mkdir -p $out/bin
+    cp bin/sambamba-${version} $out/bin/sambamba
   '';
 
   meta = with lib; {

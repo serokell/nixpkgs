@@ -50,7 +50,7 @@ buildPythonPackage rec {
     pkgconfig
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest
   ];
 

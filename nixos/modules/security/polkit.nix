@@ -14,8 +14,6 @@ in
 
     security.polkit.enable = mkEnableOption (lib.mdDoc "polkit");
 
-    security.polkit.debug = mkEnableOption (lib.mdDoc "debug logs from polkit. This is required in order to see log messages from rule definitions.");
-
     security.polkit.extraConfig = mkOption {
       type = types.lines;
       default = "";
@@ -23,7 +21,6 @@ in
         ''
           /* Log authorization checks. */
           polkit.addRule(function(action, subject) {
-            // Make sure to set { security.polkit.debug = true; } in configuration.nix
             polkit.log("user " +  subject.user + " is attempting action " + action.id + " from PID " + subject.pid);
           });
 
@@ -60,11 +57,6 @@ in
     environment.systemPackages = [ pkgs.polkit.bin pkgs.polkit.out ];
 
     systemd.packages = [ pkgs.polkit.out ];
-
-    systemd.services.polkit.serviceConfig.ExecStart = [
-      ""
-      "${pkgs.polkit.out}/lib/polkit-1/polkitd ${optionalString (!cfg.debug) "--no-debug"}"
-    ];
 
     systemd.services.polkit.restartTriggers = [ config.system.path ];
     systemd.services.polkit.stopIfChanged = false;

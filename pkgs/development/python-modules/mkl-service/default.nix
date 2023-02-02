@@ -13,7 +13,7 @@ buildPythonPackage rec {
 
   MKLROOT = mkl;
 
-  nativeCheckInputs = [ nose ];
+  checkInputs = [ nose ];
   nativeBuildInputs = [ cython ];
   propagatedBuildInputs = [ mkl six ];
 

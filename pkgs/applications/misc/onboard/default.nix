@@ -93,7 +93,7 @@ python3.pkgs.buildPythonApplication rec {
     dconf
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     # for Onboard.SpellChecker.aspell_cmd doctests
     (aspellWithDicts (dicts: with dicts; [ en ]))
 

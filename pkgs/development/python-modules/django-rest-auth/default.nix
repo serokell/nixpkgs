@@ -31,7 +31,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     django-allauth
     drf-jwt
     responses

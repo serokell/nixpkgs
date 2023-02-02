@@ -48,7 +48,6 @@ addMakeFlags() {
   makeFlags="BINDIR=${!outputBin}/bin $makeFlags"
   makeFlags="LIBDIR=${!outputLib}/lib $makeFlags"
   makeFlags="SHLIBDIR=${!outputLib}/lib $makeFlags"
-  makeFlags="SHAREDIR=${!outputLib}/share $makeFlags"
   makeFlags="MANDIR=${!outputMan}/share/man $makeFlags"
   makeFlags="INFODIR=${!outputInfo}/share/info $makeFlags"
   makeFlags="DOCDIR=${!outputDoc}/share/doc $makeFlags"
@@ -62,13 +61,10 @@ setBSDSourceDir() {
   sourceRoot=$PWD/$sourceRoot
   export BSDSRCDIR=$sourceRoot
   export _SRC_TOP_=$BSDSRCDIR
-  cd $sourceRoot
-}
 
-cdBSDPath() {
-  if [ -d "$COMPONENT_PATH" ]
-    then sourceRoot=$sourceRoot/$COMPONENT_PATH
-    cd $COMPONENT_PATH
+  cd $sourceRoot
+  if [ -d "$BSD_PATH" ]
+    then sourceRoot=$sourceRoot/$BSD_PATH
   fi
 }
 
@@ -108,7 +104,6 @@ moveUsrDir() {
 }
 
 postUnpackHooks+=(setBSDSourceDir)
-postPatchHooks+=(cdBSDPath)
 preConfigureHooks+=(addMakeFlags)
 preInstallHooks+=(includesPhase)
 fixupOutputHooks+=(moveUsrDir)

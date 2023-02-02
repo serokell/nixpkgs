@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook pkg-config ];
   buildInputs = [ numactl ncurses ];
-  nativeCheckInputs = [ check ];
+  checkInputs = [ check ];
 
   patches = [
     (fetchpatch {

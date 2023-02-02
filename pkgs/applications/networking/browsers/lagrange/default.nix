@@ -15,15 +15,15 @@
 , enableTUI ? false, ncurses, sealcurses
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation rec {
   pname = "lagrange";
-  version = "1.14.2";
+  version = "1.13.7";
 
   src = fetchFromGitHub {
     owner = "skyjake";
     repo = "lagrange";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-9onjQ7fRLlL5/1vMtNHjBBcB7Fyk1ERaHg5IwtwbJQg=";
+    rev = "v${version}";
+    sha256 = "sha256-WUNDkLKT/AgS5WkBKbVSM5/1zSjQuE8Aq68JLSOHFEs=";
   };
 
   nativeBuildInputs = [ cmake pkg-config zip ];
@@ -50,7 +50,9 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      attrPath = pname;
+    };
   };
 
   meta = with lib; {
@@ -60,4 +62,4 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;
   };
-})
+}

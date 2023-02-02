@@ -23,7 +23,7 @@ in {
       port = mkOption {
         description = lib.mdDoc "Grafana port.";
         default = 3000;
-        type = types.port;
+        type = types.int;
       };
 
     };
@@ -36,7 +36,7 @@ in {
     port = mkOption {
       description = lib.mdDoc "Listening port.";
       default = 8686;
-      type = types.port;
+      type = types.int;
     };
 
     templateDir = mkOption {

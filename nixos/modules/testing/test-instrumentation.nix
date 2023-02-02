@@ -96,12 +96,6 @@ in
         MaxLevelConsole=debug
       '';
 
-    boot.initrd.systemd.contents."/etc/systemd/journald.conf".text = ''
-      [Journal]
-      ForwardToConsole=yes
-      MaxLevelConsole=debug
-    '';
-
     systemd.extraConfig = ''
       # Don't clobber the console with duplicate systemd messages.
       ShowStatus=no
@@ -112,8 +106,6 @@ in
       # Allow very slow start
       DefaultTimeoutStartSec=300
     '';
-
-    boot.initrd.systemd.extraConfig = config.systemd.extraConfig;
 
     boot.consoleLogLevel = 7;
 

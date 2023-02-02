@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "ocaml-react";
-  version = "1.2.2";
+  version = "1.2.1";
 
   src = fetchurl {
     url = "https://erratique.ch/software/react/releases/react-${version}.tbz";
-    sha256 = "sha256-xK3TFdbx8VPRFe58qN1gwSZf9NQIwmYSX8tRJP0ij5k=";
+    sha256 = "1aj8w79gdd9xnrbz7s5p8glcb4pmimi8jp9f439dqnf6ih3mqb3v";
   };
 
   nativeBuildInputs = [ ocaml findlib ocamlbuild ];
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     homepage = "https://erratique.ch/software/react";
     description = "Applicative events and signals for OCaml";
     license = licenses.bsd3;
-    inherit (ocaml.meta) platforms;
+    platforms = ocaml.meta.platforms or [ ];
     maintainers = with maintainers; [ maggesi vbmithr gal_bolle ];
   };
 }

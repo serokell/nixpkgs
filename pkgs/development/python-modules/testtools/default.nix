@@ -5,6 +5,7 @@
 , pbr
 , python-mimeparse
 , extras
+, unittest2
 , traceback2
 , testscenarios
 }:
@@ -24,7 +25,7 @@ buildPythonPackage rec {
 
   # testscenarios has a circular dependency on testtools
   doCheck = false;
-  nativeCheckInputs = [ testscenarios ];
+  checkInputs = [ testscenarios ];
 
   pythonRemoveDeps = [ "fixtures" ];
 

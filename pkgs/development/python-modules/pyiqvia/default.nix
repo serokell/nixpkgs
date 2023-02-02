@@ -13,7 +13,7 @@
 
 buildPythonPackage rec {
   pname = "pyiqvia";
-  version = "2022.10.0";
+  version = "2022.04.0";
   format = "pyproject";
 
   disabled = pythonOlder "3.8";
@@ -21,8 +21,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "bachya";
     repo = pname;
-    rev = "refs/tags/${version}";
-    hash = "sha256-4xoK/SwpcsjIpGUertWoSlRsKIpgpV1XmuIzDJcZMZg=";
+    rev = version;
+    hash = "sha256-qW1rjKc1+w2rTUGackPjb0qgTZpFXh0ZRBqMmf4nDnk=";
   };
 
   nativeBuildInputs = [
@@ -34,7 +34,7 @@ buildPythonPackage rec {
     backoff
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     aresponses
     pytest-aiohttp
     pytest-asyncio

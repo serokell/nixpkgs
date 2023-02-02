@@ -1,12 +1,12 @@
 { lib, stdenv, fetchFromGitHub, makeWrapper, runCommand
 , cacert, moreutils, jq, git, pkg-config, yarn, python3
-, esbuild, nodejs-16_x-openssl_1_1, libsecret, xorg, ripgrep
+, esbuild, nodejs-14_x, libsecret, xorg, ripgrep
 , AppKit, Cocoa, Security, cctools }:
 
 let
   system = stdenv.hostPlatform.system;
 
-  nodejs = nodejs-16_x-openssl_1_1;
+  nodejs = nodejs-14_x;
   yarn' = yarn.override { inherit nodejs; };
   defaultYarnOpts = [ "frozen-lockfile" "non-interactive" "no-progress"];
 
@@ -27,13 +27,13 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "openvscode-server";
-  version = "1.73.1";
+  version = "1.69.2";
 
   src = fetchFromGitHub {
     owner = "gitpod-io";
     repo = "openvscode-server";
     rev = "openvscode-server-v${version}";
-    sha256 = "DZWAzNRRRZ/eElwRGvSK7TxstKK6X1Tj+uAxD4SOScQ=";
+    sha256 = "e2vEEZg2H37oFRN+0kZnWW5RU2ma2JJR66XLFDNEOXc=";
   };
 
   yarnCache = stdenv.mkDerivation {
@@ -56,8 +56,15 @@ in stdenv.mkDerivation rec {
 
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash = "sha256-7UBXigQj7c+fuHPIM5BbRe02DuL+cs6VbQ/D84Yk8i4=";
+    outputHash = "sha256-5wOR7rKzGLE8EAlGd4CkrFUsUOEJOdwuNWQzEdbAL+g=";
   };
+
+  # Extract the Node.js source code which is used to compile packages with
+  # native bindings
+  nodeSources = runCommand "node-sources" {} ''
+    tar --no-same-owner --no-same-permissions -xf ${nodejs.src}
+    mv node-* $out
+  '';
 
   nativeBuildInputs = [
     nodejs yarn' python3 pkg-config makeWrapper git jq moreutils
@@ -95,9 +102,9 @@ in stdenv.mkDerivation rec {
 
     # set offline mirror to yarn cache we created in previous steps
     yarn --offline config set yarn-offline-mirror "${yarnCache}"
-
+  '' + lib.optionalString stdenv.isLinux ''
     # set nodedir, so we can build binaries later
-    npm config set nodedir "${nodejs}"
+    npm config set nodedir "${nodeSources}"
   '';
 
   buildPhase = ''

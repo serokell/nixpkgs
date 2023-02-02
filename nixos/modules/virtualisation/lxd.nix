@@ -129,19 +129,11 @@ in {
       description = "LXD Container Management Daemon";
 
       wantedBy = [ "multi-user.target" ];
-      after = [
-        "network-online.target"
-        (mkIf config.virtualisation.lxc.lxcfs.enable "lxcfs.service")
-      ];
-      requires = [
-        "network-online.target"
-        "lxd.socket"
-        (mkIf config.virtualisation.lxc.lxcfs.enable "lxcfs.service")
-      ];
+      after = [ "network-online.target" "lxcfs.service" ];
+      requires = [ "network-online.target" "lxd.socket"  "lxcfs.service" ];
       documentation = [ "man:lxd(1)" ];
 
-      path = [ pkgs.util-linux ]
-        ++ optional cfg.zfsSupport config.boot.zfs.package;
+      path = optional cfg.zfsSupport config.boot.zfs.package;
 
       serviceConfig = {
         ExecStart = "@${cfg.package}/bin/lxd lxd --group lxd";

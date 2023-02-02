@@ -12,9 +12,9 @@
 mkXfceDerivation {
   category = "apps";
   pname = "xfce4-notifyd";
-  version = "0.6.5";
+  version = "0.6.4";
 
-  sha256 = "sha256-NUEqQk9EcDl23twbo+DUt7QYZrPmWpsRzmi5wIdolqw=";
+  sha256 = "sha256-H/qAfgwM0qaIxpVlSAUJJ4/Z3WtvYxJb2TtjKHK6AjE=";
 
   buildInputs = [
     gtk3

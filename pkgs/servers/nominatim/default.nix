@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     psycopg2
     psutil
     jinja2
-    pyicu
+    PyICU
     datrie
   ];
 

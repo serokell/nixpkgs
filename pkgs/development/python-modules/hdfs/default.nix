@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ docopt requests six ];
 
-  nativeCheckInputs = [ fastavro nose pytestCheckHook ];
+  checkInputs = [ fastavro nose pytestCheckHook ];
 
   pythonImportsCheck = [ "hdfs" ];
 

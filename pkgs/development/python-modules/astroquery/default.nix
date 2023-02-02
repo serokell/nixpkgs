@@ -45,7 +45,7 @@ buildPythonPackage rec {
     substituteInPlace setup.cfg --replace "auto_use = True" "auto_use = False"
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     matplotlib
     pillow
     pytest

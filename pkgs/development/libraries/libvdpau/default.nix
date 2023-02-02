@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ xorg.libX11 ];
 
-  mesonFlags = lib.optionals stdenv.isLinux
+  mesonFlags = lib.optional stdenv.isLinux
     [ "-Dmoduledir=${mesa.drivers.driverLink}/lib/vdpau" ];
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-lX11";

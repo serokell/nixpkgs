@@ -15,7 +15,7 @@ buildDunePackage rec {
   pname = "tcpip";
   version = "7.1.2";
 
-  duneVersion = "3";
+  useDune2 = true;
 
   src = fetchurl {
     url = "https://github.com/mirage/mirage-${pname}/releases/download/v${version}/${pname}-${version}.tbz";
@@ -58,7 +58,7 @@ buildDunePackage rec {
   ];
 
   doCheck = false;
-  nativeCheckInputs = [
+  checkInputs = [
     alcotest
     mirage-flow
     mirage-vnetif

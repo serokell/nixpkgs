@@ -255,12 +255,12 @@ rec {
   cdt = buildEclipseUpdateSite rec {
     name = "cdt-${version}";
     # find current version at https://www.eclipse.org/cdt/downloads.php
-    version = "11.0.0";
+    version = "10.7.0";
 
     src = fetchzip {
       stripRoot = false;
       url = "https://www.eclipse.org/downloads/download.php?r=1&nf=1&file=/tools/cdt/releases/${lib.versions.majorMinor version}/${name}/${name}.zip";
-      hash = "sha256-2rt9crMqNFevIHFIdOGWDq+j0ZJPVt1a9Z7P9HG58Ks=";
+      hash = "sha256-/lQ3TLFQ1IgwYM540gxAFiEGOfHQIQQMf/pqCZ29ztQ=";
     };
 
     meta = with lib; {
@@ -433,26 +433,25 @@ rec {
     };
   };
 
-  embed-cdt = buildEclipseUpdateSite rec {
-    name = "embed-cdt-${version}";
-    version = "6.3.1";
+  gnuarmeclipse = buildEclipseUpdateSite rec {
+    name = "gnuarmeclipse-${version}";
+    version = "3.1.1-201606210758";
 
     src = fetchzip {
-      stripRoot = true;
-      url = "https://github.com/eclipse-embed-cdt/eclipse-plugins/archive/v${version}.zip";
-      sha256 = "sha256-0wHRIls48NGDQzD+wuX79Thgiax+VVYVPJw2Z6NEzsg=";
+      stripRoot = false;
+      url = "https://github.com/gnuarmeclipse/plug-ins/releases/download/v${version}/ilg.gnuarmeclipse.repository-${version}.zip";
+      sha256 = "1g77jlhfa3csaxxps1z5lasrd9l2p5ajnddnq9ra5syw8ggkdc2h";
     };
 
     meta = with lib; {
-      homepage = "https://github.com/eclipse-embed-cdt/eclipse-plugins";
-      description = "Embedded C/C++ Development Tools (formerly GNU MCU/ARM Eclipse)";
+      homepage = "http://gnuarmeclipse.livius.net/";
+      description = "GNU ARM Eclipse Plug-ins";
       sourceProvenance = with sourceTypes; [ binaryBytecode ];
-      license = licenses.epl20;
+      license = licenses.epl10;
       platforms = platforms.all;
       maintainers = [ maintainers.bjornfor ];
     };
   };
-  gnuarmeclipse = embed-cdt; # backward compat alias, added 2022-11-04
 
   jsonedit = buildEclipsePlugin rec {
     name = "jsonedit-${version}";

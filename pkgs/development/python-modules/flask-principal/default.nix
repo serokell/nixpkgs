@@ -11,7 +11,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ flask blinker ];
 
-  nativeCheckInputs = [ nose ];
+  checkInputs = [ nose ];
 
   meta = with lib; {
     homepage = "http://packages.python.org/Flask-Principal/";

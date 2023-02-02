@@ -14,16 +14,16 @@
 
 buildPythonPackage rec {
   pname = "pipdeptree";
-  version = "2.3.3";
+  version = "2.3.1";
   format = "pyproject";
 
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
-    owner = "tox-dev";
+    owner = "naiquevin";
     repo = "pipdeptree";
     rev = "refs/tags/${version}";
-    hash = "sha256-ivqu9b+4FhGa5y+WnKRk4nF6MR4Vj62pSs2d7ycIZMc=";
+    hash = "sha256-X3SVQzBg+QjBSewRsfiyLqIea0duhe1nUf8ancWLvcI=";
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
@@ -38,12 +38,10 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    graphviz = [
-      graphviz
-    ];
+    graphviz = [ graphviz ];
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     diff-cover
     pytest-mock
     pytestCheckHook
@@ -56,8 +54,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Command line utility to show dependency tree of packages";
-    homepage = "https://github.com/tox-dev/pipdeptree";
-    changelog = "https://github.com/tox-dev/pipdeptree/releases/tag/${version}";
+    homepage = "https://github.com/naiquevin/pipdeptree";
     license = licenses.mit;
     maintainers = with maintainers; [ charlesbaynham ];
   };

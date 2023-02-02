@@ -95,7 +95,7 @@ let
             }
           '';
           type = types.attrsOf (types.submodule rpcUserOpts);
-          description = lib.mdDoc "RPC user information for JSON-RPC connections.";
+          description = lib.mdDoc "RPC user information for JSON-RPC connnections.";
         };
       };
 
@@ -204,7 +204,7 @@ in
         '';
       in {
         description = "Bitcoin daemon";
-        after = [ "network-online.target" ];
+        after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
         serviceConfig = {
           User = cfg.user;

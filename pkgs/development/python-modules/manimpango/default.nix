@@ -13,7 +13,7 @@
 
 buildPythonPackage rec {
   pname = "manimpango";
-  version = "0.4.3";
+  version = "0.4.1";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -21,8 +21,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "ManimCommunity";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-FT3X6TmGfwd8kRPtuqy78ZCGeEGGg6IJEeEpB7ZbIsA=";
+    rev = "v${version}";
+    hash = "sha256-ourSUYBAFONdupdsjo/PtwRQpXS7HqLxrHj0Ejr/Wdw=";
   };
 
   nativeBuildInputs = [
@@ -39,7 +39,7 @@ buildPythonPackage rec {
     cython
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 
@@ -59,7 +59,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Binding for Pango";
     homepage = "https://github.com/ManimCommunity/ManimPango";
-    changelog = "https://github.com/ManimCommunity/ManimPango/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ emilytrau ];
   };

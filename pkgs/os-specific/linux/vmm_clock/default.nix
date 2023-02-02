@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/voutilad/vmm_clock";
     license = licenses.gpl2;
     maintainers = with maintainers; [ qbit ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = platforms.linux;
   };
 
   enableParallelBuilding = true;

@@ -9,17 +9,17 @@
 
 buildPythonPackage rec {
   pname = "openstep-plist";
-  version = "0.3.0.post1";
+  version = "0.3.0";
 
   src = fetchPypi {
     pname = "openstep_plist";
     inherit version;
-    sha256 = "sha256-GK/z1e3tnr++3+ukRKPASDJGl7+KObsENhwN1Tv+qws=";
+    sha256 = "sha256-KO4sGKjod5BwUFQ1MU2S1dG0DyiJ06mdroMbRDsugBk=";
     extension = "zip";
   };
 
   nativeBuildInputs = [ setuptools-scm cython ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
   pythonImportsCheck = [ "openstep_plist" ];
 
   meta = {

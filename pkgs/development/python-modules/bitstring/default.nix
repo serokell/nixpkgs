@@ -1,30 +1,32 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
-, pythonOlder
-, setuptools
+, fetchpatch
 , unittestCheckHook
 }:
 
 buildPythonPackage rec {
   pname = "bitstring";
-  version = "4.0.1";
-  format = "pyproject";
-
-  disabled = pythonOlder "3.7";
+  version = "3.1.9";
 
   src = fetchFromGitHub {
     owner = "scott-griffiths";
     repo = pname;
     rev = "bitstring-${version}";
-    hash = "sha256-eHP20F9PRe9ZNXjcDcsI3iFVswA6KtRWhBMAT7dkCv0=";
+    sha256 = "0y2kcq58psvl038r6dhahhlhp1wjgr5zsms45wyz1naq6ri8x9qa";
   };
 
-  nativeBuildInputs = [
-    setuptools
+  patches = [
+    (fetchpatch {
+      name = "fix-running-unit-tests-using-unittest-hook.patch";
+      url = "https://github.com/scott-griffiths/bitstring/commit/e5ee3fd41cad2ea761f4450b13b0424ae7262331.patch";
+      hash = "sha256-+ZGywIfQQcYXJlYZBi402ONnysYm66G5zE4duJE40h8=";
+    })
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  checkInputs = [ unittestCheckHook ];
+
+  unittestFlagsArray = [ "-s" "test" ];
 
   pythonImportsCheck = [ "bitstring" ];
 

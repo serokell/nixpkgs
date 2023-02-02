@@ -1,7 +1,4 @@
-{ lib
-, pythonPackages
-, git
-}:
+{ lib, pythonPackages, git }:
 
 pythonPackages.buildPythonApplication rec {
   pname = "git-up";
@@ -13,18 +10,9 @@ pythonPackages.buildPythonApplication rec {
   };
 
   # git should be on path for tool to work correctly
-  propagatedBuildInputs = [
-    git
-  ] ++ (with pythonPackages; [
-    click
-    colorama
-    docopt
-    gitpython
-    six
-    termcolor
-  ]);
+  propagatedBuildInputs = [ git ] ++ (with pythonPackages; [ click colorama docopt GitPython six termcolor ]);
 
-  nativeCheckInputs = [ git pythonPackages.nose ]; # git needs to be on path
+  checkInputs = [ git pythonPackages.nose ]; # git needs to be on path
   # 1. git fails to run as it cannot detect the email address, so we set it
   # 2. $HOME is by default not a valid dir, so we have to set that too
   # https://github.com/NixOS/nixpkgs/issues/12591

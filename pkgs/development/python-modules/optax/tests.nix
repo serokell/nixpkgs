@@ -18,7 +18,7 @@ buildPythonPackage rec {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [
+  checkInputs = [
     dm-haiku
     pytest-xdist
     pytestCheckHook

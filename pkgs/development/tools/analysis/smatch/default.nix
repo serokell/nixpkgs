@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation rec {
   pname = "smatch";
-  version = "1.73";
+  version = "1.72";
 
   src = fetchFromGitHub {
     owner = "error27";
     repo = "smatch";
     rev = version;
-    sha256 = "sha256-Pv3bd2cjnQKnhH7TrkYWfDEeaq6u/q/iK1ZErzn6bME=";
+    sha256 = "sha256-XVW4sAgIxaJjAk75bp/O286uddIfgfKtIA2LniUGWBM=";
   };
 
   nativeBuildInputs = [ pkg-config ];
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A semantic analysis tool for C";
-    homepage = "https://sparse.docs.kernel.org/";
+    homepage = "http://smatch.sourceforge.net/";
     maintainers = with maintainers; [ marsam ];
     license = licenses.gpl2Plus;
     platforms = platforms.all;

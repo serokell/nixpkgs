@@ -3,12 +3,14 @@
 , buildPythonApplication
 , fetchFromGitHub
 , python3
+, pythonOlder
 , html5lib
 , invoke
 , openpyxl
 , poetry-core
 , tidylib
 , beautifulsoup4
+, dataclasses
 , datauri
 , docutils
 , jinja2
@@ -71,9 +73,11 @@ buildPythonApplication rec {
     textx
     xlrd
     XlsxWriter
+  ] ++ lib.optionals (pythonOlder "3.7") [
+    dataclasses
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

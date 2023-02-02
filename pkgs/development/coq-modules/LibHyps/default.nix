@@ -1,10 +1,11 @@
 { lib, mkCoqDerivation, coq, version ? null }:
 
+with lib;
 mkCoqDerivation {
   pname = "LibHyps";
   owner = "Matafou";
   inherit version;
-  defaultVersion = if (lib.versions.range "8.11" "8.16") coq.version then "2.0.4.1" else null;
+  defaultVersion = if (versions.range "8.11" "8.16") coq.version then "2.0.4.1" else null;
   release = {
     "2.0.4.1".sha256 = "09p89701zhrfdmqlpxw3mziw8yylj1w1skb4b0xpbdwd1vsn4k3h";
   };
@@ -15,6 +16,6 @@ mkCoqDerivation {
 
   meta = {
     description = "Hypotheses manipulation library";
-    license = lib.licenses.mit;
+    license = licenses.mit;
   };
 }

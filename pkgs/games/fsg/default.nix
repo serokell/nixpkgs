@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchurl, gtk2, glib, pkg-config, libGLU, libGL, wxGTK32, libX11, xorgproto, runtimeShell }:
+{ lib, stdenv, fetchurl, gtk2, glib, pkg-config, libGLU, libGL, wxGTK, libX11, xorgproto
+, runtimeShell }:
 
 stdenv.mkDerivation rec {
   pname = "fsg";
@@ -10,13 +11,10 @@ stdenv.mkDerivation rec {
     sha256 = "1756y01rkvd3f1pkj88jqh83fqcfl2fy0c48mcq53pjzln9ycv8c";
   };
 
-  patches = [ ./wxgtk-3.2.patch ];
-
   hardeningDisable = [ "format" ];
 
   nativeBuildInputs = [ pkg-config ];
-
-  buildInputs = [ glib libGLU libGL wxGTK32 libX11 xorgproto ];
+  buildInputs = [ gtk2 glib libGLU libGL wxGTK libX11 xorgproto ];
 
   preBuild = ''
     sed -e '
@@ -34,7 +32,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Cellular automata engine tuned towards the likes of Falling Sand";
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
   };
 }

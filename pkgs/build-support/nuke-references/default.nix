@@ -32,10 +32,8 @@ stdenvNoCC.mkDerivation {
   '';
 
   # FIXME: get rid of perl dependency.
-  env = {
-    inherit perl;
-    inherit (builtins) storeDir;
-    shell = lib.getBin shell + (shell.shellPath or "");
-    signingUtils = if darwinCodeSign then signingUtils else "";
-  };
+  inherit perl;
+  inherit (builtins) storeDir;
+  shell = lib.getBin shell + (shell.shellPath or "");
+  signingUtils = if darwinCodeSign then signingUtils else null;
 }

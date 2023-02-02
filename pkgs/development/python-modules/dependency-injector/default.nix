@@ -7,75 +7,56 @@
 , httpx
 , mypy-boto3-s3
 , numpy
-, pydantic
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, pyyaml
 , scipy
+, pydantic
+, pytestCheckHook
+, pyyaml
 , six
 }:
 
 buildPythonPackage rec {
   pname = "dependency-injector";
-  version = "4.41.0";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "4.35.3";
 
   src = fetchFromGitHub {
     owner = "ets-labs";
     repo = "python-dependency-injector";
     rev = version;
-    hash = "sha256-U3U/L8UuYrfpm4KwVNmViTbam7QdZd2vp1p+ENtOJlw=";
+    sha256 = "sha256-2qe4A2T3EagNCh1zSbPWblVN7p9NH8rNwQQVyESJTdk=";
   };
 
   propagatedBuildInputs = [
     six
   ];
 
-  passthru.optional-dependencies = {
-    aiohttp = [
-      aiohttp
-    ];
-    pydantic = [
-      pydantic
-    ];
-    flask = [
-      flask
-    ];
-    yaml = [
-      pyyaml
-    ];
-  };
-
-  nativeCheckInputs = [
+  checkInputs = [
+    aiohttp
     fastapi
+    flask
     httpx
     mypy-boto3-s3
     numpy
-    pytest-asyncio
-    pytestCheckHook
+    pydantic
     scipy
-  ] ++ passthru.optional-dependencies.aiohttp
-  ++ passthru.optional-dependencies.pydantic
-  ++ passthru.optional-dependencies.yaml
-  ++ passthru.optional-dependencies.flask;
-
-  pythonImportsCheck = [
-    "dependency_injector"
+    pytestCheckHook
+    pyyaml
   ];
+
+  postPatch = ''
+    substituteInPlace requirements.txt \
+      --replace "six>=1.7.0,<=1.15.0" "six"
+  '';
 
   disabledTestPaths = [
-    # Exclude tests for EOL Python releases
+    # There is no unique identifier to disable the one failing test
     "tests/unit/ext/test_aiohttp_py35.py"
-    "tests/unit/wiring/test_*_py36.py"
   ];
+
+  pythonImportsCheck = [ "dependency_injector" ];
 
   meta = with lib; {
     description = "Dependency injection microframework for Python";
     homepage = "https://github.com/ets-labs/python-dependency-injector";
-    changelog = "https://github.com/ets-labs/python-dependency-injector/blob/${version}/docs/main/changelog.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ gerschtli ];
   };

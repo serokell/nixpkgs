@@ -71,7 +71,7 @@ in
       };
 
       upstreamPort = mkOption {
-        type = types.port;
+        type = types.int;
         default = 563;
         description = lib.mdDoc ''
           Upstream server port
@@ -112,7 +112,7 @@ in
       };
 
       port = mkOption {
-        type = types.port;
+        type = types.int;
         default = 5555;
         description = lib.mdDoc ''
           Proxy listen port

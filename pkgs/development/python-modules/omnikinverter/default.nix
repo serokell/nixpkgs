@@ -34,7 +34,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     aresponses
     asynctest
     pytest-asyncio

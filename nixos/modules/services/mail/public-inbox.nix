@@ -275,11 +275,7 @@ in
           default = {};
           description = lib.mdDoc "public inboxes";
           type = types.submodule {
-            # Keeping in line with the tradition of unnecessarily specific types, allow users to set
-            # freeform settings either globally under the `publicinbox` section, or for specific
-            # inboxes through additional nesting.
-            freeformType = with types; attrsOf (oneOf [ iniAtom (attrsOf iniAtom) ]);
-
+            freeformType = with types; /*inbox name*/attrsOf (/*inbox option name*/attrsOf /*inbox option value*/iniAtom);
             options.css = mkOption {
               type = with types; listOf str;
               default = [];

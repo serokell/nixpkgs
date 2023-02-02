@@ -13,7 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-OMWiJ1n8ynvIGcmotjuGGsRuAidYgVo5Y5JjrAw8fpc=";
 
-  nativeCheckInputs = [ gnupg ];
+  checkInputs = [ gnupg ];
   checkPhase = ''
     HOME=$TMPDIR go test .
   '';

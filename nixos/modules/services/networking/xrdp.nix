@@ -54,7 +54,7 @@ in
       };
 
       port = mkOption {
-        type = types.port;
+        type = types.int;
         default = 3389;
         description = lib.mdDoc ''
           Specifies on which port the xrdp daemon listens.

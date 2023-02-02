@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyparsing ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     (texlive.combine {
       inherit (texlive) scheme-small preview pstricks;
     })

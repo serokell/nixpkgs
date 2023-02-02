@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit ];
 
-  nativeCheckInputs = [ hypothesis pytestCheckHook ];
+  checkInputs = [ hypothesis pytestCheckHook ];
 
   pythonImportsCheck = [ "validobj" ];
 

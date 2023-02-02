@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ libtool libtommath ];
 
   postPatch = ''
-    substituteInPlace makefile.shared --replace "LIBTOOL:=glibtool" "LIBTOOL:=libtool"
+    substituteInPlace makefile.shared --replace "LT:=glibtool" "LT:=libtool"
   '';
 
   preBuild = ''
@@ -36,11 +36,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = "A fairly comprehensive, modular and portable cryptographic toolkit";
     homepage = "https://www.libtom.net/LibTomCrypt/";
-    changelog = "https://github.com/libtom/libtomcrypt/raw/v${version}/changes";
+    description = "A fairly comprehensive, modular and portable cryptographic toolkit";
     license = with licenses; [ publicDomain wtfpl ];
-    maintainers = with maintainers; [ ];
-    platforms = platforms.all;
+    platforms = platforms.linux;
   };
 }

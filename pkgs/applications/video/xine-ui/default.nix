@@ -12,6 +12,7 @@
 , readline
 , shared-mime-info
 , xine-lib
+, xlibsWrapper
 , xorg
 }:
 
@@ -46,6 +47,7 @@ stdenv.mkDerivation rec {
     ncurses
     readline
     xine-lib
+    xlibsWrapper
   ] ++ (with xorg; [
     libXext
     libXft
@@ -68,7 +70,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = "https://xine.sourceforge.net/";
+    homepage = "http://xine.sourceforge.net/";
     description = "Xlib-based frontend for Xine video player";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ AndersonTorres ];

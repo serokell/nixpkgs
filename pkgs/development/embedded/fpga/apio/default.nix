@@ -60,7 +60,7 @@ buildPythonApplication rec {
     tinyprog # needed for upload to TinyFPGA
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

@@ -2,23 +2,16 @@
 
 with lib;
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "b2sum";
-  version = "20190724";
+  version = "unstable-2018-06-11";
 
   src = fetchFromGitHub {
     owner = "BLAKE2";
     repo = "BLAKE2";
-    rev = finalAttrs.version;
-    sha256 = "sha256-6BVl3Rh+CRPQq3QxcUlk5ArvjIj/IcPCA2/Ok0Zu7UI=";
+    rev = "320c325437539ae91091ce62efec1913cd8093c2";
+    sha256 = "E60M9oP/Sdfg/L3ZxUcDtUXhFz9oP72IybdtVUJh9Sk=";
   };
-
-  # Use the generic C implementation rather than the SSE optimised version on non-x86 platforms
-  postPatch = lib.optionalString (!stdenv.hostPlatform.isx86) ''
-    substituteInPlace makefile \
-      --replace "#FILES=b2sum.c ../ref/" "FILES=b2sum.c ../ref/" \
-      --replace "FILES=b2sum.c ../sse/" "#FILES=b2sum.c ../sse/"
-  '';
 
   sourceRoot = "source/b2sum";
 
@@ -32,6 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://blake2.net";
     license = with licenses; [ asl20 cc0 openssl ];
     maintainers = with maintainers; [ kirelagin ];
-    platforms = platforms.unix;
+    # "This code requires at least SSE2."
+    platforms = [ "x86_64-linux" "i686-linux" ] ++ platforms.darwin;
   };
-})
+}

@@ -36,7 +36,7 @@ in
 fetchurl ((
   if (pname != "" && version != "") then
     {
-      name = "${pname}-${version}";
+      name = "${name}-${version}";
       inherit pname version;
     }
   else
@@ -63,12 +63,12 @@ fetchurl ((
       chmod -R +w "$unpackDir"
     ''
     + (if stripRoot then ''
-      if [ $(ls -A "$unpackDir" | wc -l) != 1 ]; then
+      if [ $(ls "$unpackDir" | wc -l) != 1 ]; then
         echo "error: zip file must contain a single file or directory."
         echo "hint: Pass stripRoot=false; to fetchzip to assume flat list of files."
         exit 1
       fi
-      fn=$(cd "$unpackDir" && ls -A)
+      fn=$(cd "$unpackDir" && echo *)
       if [ -f "$unpackDir/$fn" ]; then
         mkdir $out
       fi

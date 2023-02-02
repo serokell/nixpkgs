@@ -1,7 +1,10 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, pytestCheckHook
+, tox
+, pytest
+, coverage
+, pytest-cov
 }:
 
 buildPythonPackage rec {
@@ -14,9 +17,16 @@ buildPythonPackage rec {
     sha256 = "5008eeebdb236f6303dcd68f18b856d355f6197511d952ba74bc75e40e0c3414";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
+  checkInputs = [
+    tox
+    pytest
+    coverage
+    pytest-cov
   ];
+
+  checkPhase = ''
+    pytest
+  '';
 
   meta = with lib; {
     description = "Textwrap from Python 3.6 backport plus a few tweaks";

@@ -18,7 +18,7 @@ buildPythonPackage rec {
   # See: https://github.com/cgoldberg/xvfbwrapper/issues/30
   doCheck = false;
 
-  nativeCheckInputs = [ mock ];
+  checkInputs = [ mock ];
 
   meta = with lib; {
     description = "Run headless display inside X virtual framebuffer (Xvfb)";

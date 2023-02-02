@@ -42,7 +42,7 @@
 , attr ? null
 , audit ? null
 , dmidecode ? null
-, fuse3 ? null
+, fuse ? null
 , kmod ? null
 , libapparmor ? null
 , libcap_ng ? null
@@ -59,7 +59,6 @@
   # Darwin
 , gmp
 , libiconv
-, qemu
 , Carbon
 , AppKit
 
@@ -114,13 +113,13 @@ stdenv.mkDerivation rec {
   # NOTE: You must also bump:
   # <nixpkgs/pkgs/development/python-modules/libvirt/default.nix>
   # SysVirt in <nixpkgs/pkgs/top-level/perl-packages.nix>
-  version = "9.0.0";
+  version = "8.8.0";
 
   src = fetchFromGitLab {
     owner = pname;
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-YnkgTl6C3QkvMBGm95JgWmWaP4mAECe9B0wwjOx94p8=";
+    sha256 = "sha256-p7z+paiSeIm2cWnc6n9Hrd++BDmccGj+EOhqHNsJiXw=";
     fetchSubmodules = true;
   };
 
@@ -155,9 +154,6 @@ stdenv.mkDerivation rec {
   '' + optionalString isDarwin ''
     sed -i '/qemucapabilitiestest/d' tests/meson.build
     sed -i '/vircryptotest/d' tests/meson.build
-    sed -i '/domaincapstest/d' tests/meson.build
-    sed -i '/qemufirmwaretest/d' tests/meson.build
-    sed -i '/qemuvhostusertest/d' tests/meson.build
   '' + optionalString (isDarwin && isx86_64) ''
     sed -i '/qemucaps2xmltest/d' tests/meson.build
     sed -i '/qemuhotplugtest/d' tests/meson.build
@@ -201,7 +197,7 @@ stdenv.mkDerivation rec {
     acl
     attr
     audit
-    fuse3
+    fuse
     libapparmor
     libcap_ng
     libnl
@@ -271,7 +267,6 @@ stdenv.mkDerivation rec {
       (cfg "runstatedir" "/run")
 
       (cfg "init_script" (if isDarwin then "none" else "systemd"))
-      (cfg "qemu_datadir" (if isDarwin then "${qemu}/share/qemu" else ""))
 
       (feat "apparmor" isLinux)
       (feat "attr" isLinux)
@@ -341,7 +336,6 @@ stdenv.mkDerivation rec {
     substituteInPlace $out/libexec/libvirt-guests.sh \
       --replace 'ON_BOOT="start"'       'ON_BOOT=''${ON_BOOT:-start}' \
       --replace 'ON_SHUTDOWN="suspend"' 'ON_SHUTDOWN=''${ON_SHUTDOWN:-suspend}' \
-      --replace 'PARALLEL_SHUTDOWN=0'   'PARALLEL_SHUTDOWN=''${PARALLEL_SHUTDOWN:-0}' \
       --replace "$out/bin"              '${gettext}/bin' \
       --replace 'lock/subsys'           'lock' \
       --replace 'gettext.sh'            'gettext.sh
@@ -373,9 +367,8 @@ stdenv.mkDerivation rec {
   passthru.tests.libvirtd = nixosTests.libvirtd;
 
   meta = {
-    description = "A toolkit to interact with the virtualization capabilities of recent versions of Linux and other OSes";
     homepage = "https://libvirt.org/";
-    changelog = "https://gitlab.com/libvirt/libvirt/-/raw/v${version}/NEWS.rst";
+    description = "A toolkit to interact with the virtualization capabilities of recent versions of Linux and other OSes";
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ fpletz globin lovesegfault ];

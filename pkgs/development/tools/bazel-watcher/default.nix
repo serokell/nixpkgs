@@ -10,7 +10,6 @@
 let
   patches = [
     ./use-go-in-path.patch
-    ./fix-rules-go-3408.patch
   ];
 
   # Patch the protoc alias so that it always builds from source.
@@ -30,13 +29,13 @@ let
 in
 buildBazelPackage rec {
   pname = "bazel-watcher";
-  version = "0.21.2";
+  version = "0.17.0";
 
   src = fetchFromGitHub {
     owner = "bazelbuild";
     repo = "bazel-watcher";
     rev = "v${version}";
-    sha256 = "sha256-wigrE9u1VuFnqLWyVJK3M7xsjyme2dDG6YTcD9whKnw=";
+    sha256 = "sha256-aK18Q2nYxYajk9f/EEmtV7YJ8cYqbamR7vh3BTgu53Q=";
   };
 
   nativeBuildInputs = [ go git python3 ];
@@ -45,7 +44,7 @@ buildBazelPackage rec {
   bazel = bazel_5;
   bazelFlags = [ "--override_repository=rules_proto=${rulesProto}" ];
   bazelBuildFlags = lib.optionals stdenv.cc.isClang [ "--cxxopt=-x" "--cxxopt=c++" "--host_cxxopt=-x" "--host_cxxopt=c++" ];
-  bazelTarget = "//cmd/ibazel";
+  bazelTarget = "//ibazel";
 
   fetchConfigured = false; # we want to fetch all dependencies, regardless of the current system
   fetchAttrs = {
@@ -82,7 +81,7 @@ buildBazelPackage rec {
       rm -rf $bazelOut/external/com_google_protobuf
     '';
 
-    sha256 = "sha256-le8IepS+IGVX45Gj1aicPjYOkuUA+VVUy/PEeKLNYss=";
+    sha256 = "sha256-R+Hc9ldYcKgAXETKr2+Hk7IrjJ93WkrjyJ1SQRoM9V4=";
   };
 
   buildAttrs = {
@@ -91,12 +90,12 @@ buildBazelPackage rec {
     preBuild = ''
       patchShebangs .
 
-      substituteInPlace cmd/ibazel/BUILD.bazel --replace '{STABLE_GIT_VERSION}' ${version}
+      substituteInPlace ibazel/BUILD --replace '{STABLE_GIT_VERSION}' ${version}
       echo ${bazel_5.version} > .bazelversion
     '';
 
     installPhase = ''
-      install -Dm755 bazel-bin/cmd/ibazel/ibazel_/ibazel $out/bin/ibazel
+      install -Dm755 bazel-bin/ibazel/ibazel_/ibazel $out/bin/ibazel
     '';
   };
 

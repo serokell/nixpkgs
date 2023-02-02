@@ -1,5 +1,5 @@
 { lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, file, libuv
-, raft-canonical, sqlite }:
+, raft-canonical, sqlite-replication }:
 
 stdenv.mkDerivation rec {
   pname = "dqlite";
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     libuv
     raft-canonical.dev
-    sqlite
+    sqlite-replication
   ];
 
   enableParallelBuilding = true;

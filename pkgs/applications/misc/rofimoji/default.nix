@@ -2,7 +2,6 @@
 , fetchFromGitHub
 , lib
 , python3
-, installShellFiles
 
 , waylandSupport ? true
 , x11Support ? true
@@ -17,19 +16,18 @@
 
 buildPythonApplication rec {
   pname = "rofimoji";
-  version = "6.1.0";
+  version = "5.6.0";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "fdw";
     repo = "rofimoji";
     rev = "refs/tags/${version}";
-    sha256 = "sha256-eyzdTMLW9nk0x74T/AhvoVSrxXugc1HgNJy8EB5BApE=";
+    sha256 = "sha256-6W/59DjxrgejHSkNxpruDAws812Vjyf+GePDPbXzVbc=";
   };
 
   nativeBuildInputs = [
-    python3.pkgs.poetry-core
-    installShellFiles
+    python3.pkgs.setuptools
   ];
 
   # `rofi` and the `waylandSupport` and `x11Support` dependencies
@@ -44,9 +42,8 @@ buildPythonApplication rec {
     rm -rf extractors
   '';
 
-  postInstall = ''
-    installManPage src/picker/docs/rofimoji.1
-  '';
+  # no tests executed
+  doCheck = false;
 
   meta = with lib; {
     description = "A simple emoji and character picker for rofi";

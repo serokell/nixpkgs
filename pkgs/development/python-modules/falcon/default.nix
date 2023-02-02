@@ -28,15 +28,15 @@
 
 buildPythonPackage rec {
   pname = "falcon";
-  version = "3.1.1";
+  version = "3.1.0";
   format = "pyproject";
   disabled = pythonOlder "3.5";
 
   src = fetchFromGitHub {
     owner = "falconry";
     repo = pname;
-    rev = "refs/tags/${version}";
-    hash = "sha256-5Lhz4qI/x7yK9tqQg4CvYNug+fp9l6ErNGH1pVybZ6c=";
+    rev = version;
+    hash = "sha256-Y6bD0GCXhqpvMV+/i1v59p2qWZ91f2ey7sPQrVALY54=";
   };
 
   nativeBuildInputs = [
@@ -55,7 +55,7 @@ buildPythonPackage rec {
     popd
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     # https://github.com/falconry/falcon/blob/master/requirements/tests
     pytestCheckHook
     pyyaml

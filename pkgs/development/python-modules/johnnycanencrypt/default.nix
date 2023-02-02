@@ -1,42 +1,48 @@
 { lib
 , stdenv
-, fetchPypi
+, fetchFromGitHub
 , buildPythonPackage
 , rustPlatform
 , llvmPackages
 , pkg-config
 , pcsclite
 , nettle
-, httpx
+, requests
+, vcrpy
+, numpy
 , pytestCheckHook
 , pythonOlder
-, vcrpy
 , PCSC
 , libiconv
 }:
 
 buildPythonPackage rec {
   pname = "johnnycanencrypt";
-  version = "0.12.0";
-  disabled = pythonOlder "3.8";
+  version = "0.6.0";
+  disabled = pythonOlder "3.7";
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-aGhM/uyYE7l0h6L00qp+HRUVaj7s/tnHWIHJpLAkmR4=";
+  src = fetchFromGitHub {
+    owner = "kushaldas";
+    repo = "johnnycanencrypt";
+    rev = "v${version}";
+    sha256 = "0b1yfddf38dicmjgnw9mk5g0iisa5yq6l9cj6kfskhyrznasvz3g";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
-    inherit src;
+    inherit patches src;
     name = "${pname}-${version}";
-    hash = "sha256-fcwDxkUFtA6LS77xdLktNnZJXmyl/ZzArvIW69SPpmI=";
+    hash = "sha256-1dRFC59GY7M99LvQWy2eXPesmLX5k46rN8l4suLYkQY=";
   };
 
   format = "pyproject";
 
+  patches = [ ./Cargo.lock.patch ];
+
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 
   propagatedBuildInputs = [
-    httpx
+    requests
+    vcrpy
   ];
 
   nativeBuildInputs = [
@@ -48,31 +54,47 @@ buildPythonPackage rec {
   ]);
 
   buildInputs = [
-    nettle
-  ] ++ lib.optionals stdenv.isLinux [
     pcsclite
+    nettle
   ] ++ lib.optionals stdenv.isDarwin [
     PCSC
     libiconv
   ];
 
-  nativeCheckInputs = [
+  # Needed b/c need to check AFTER python wheel is installed (using Rust Build, not buildPythonPackage)
+  doCheck = false;
+  doInstallCheck = true;
+
+  installCheckInputs = [
     pytestCheckHook
-    vcrpy
+    numpy
   ];
 
+  # Remove with the next release after 0.5.0. This change is required
+  # for compatibility with maturin 0.9.0.
+  postPatch = ''
+    sed '/project-url = /d' -i Cargo.toml
+    substituteInPlace pyproject.toml \
+      --replace 'manylinux = "off"' 'skip-auditwheel = true'
+  '';
+
   preCheck = ''
-    # import from $out
-    rm -r johnnycanencrypt
+    export TESTDIR=$(mktemp -d)
+    cp -r tests/ $TESTDIR
+    pushd $TESTDIR
+  '';
+
+  postCheck = ''
+    popd
   '';
 
   pythonImportsCheck = [ "johnnycanencrypt" ];
 
   meta = with lib; {
+    broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;
     homepage = "https://github.com/kushaldas/johnnycanencrypt";
-    changelog = "https://github.com/kushaldas/johnnycanencrypt/blob/v${version}/changelog.md";
     description = "Python module for OpenPGP written in Rust";
-    license = licenses.lgpl3Plus;
+    license = licenses.gpl3Plus;
     maintainers = with maintainers; [ _0x4A6F ];
   };
 }

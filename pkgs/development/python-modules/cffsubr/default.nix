@@ -26,7 +26,7 @@ buildPythonPackage rec {
     fonttools
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

@@ -1,5 +1,5 @@
 { stdenv, lib, python3, fetchFromGitHub, which, coreutils
-, perl, installShellFiles, gnumake42
+, perl, installShellFiles
 , doCheck ? true
 }: stdenv.mkDerivation rec {
 
@@ -53,7 +53,6 @@
     (with python3.pkgs; [ beautifulsoup4 markdown ])
     which
     installShellFiles
-    gnumake42 # fails with make 4.4
   ];
 
   postInstall = ''

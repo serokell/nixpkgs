@@ -20,7 +20,7 @@ buildPythonPackage rec {
     zope_deprecation
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nose
     coverage
     beautifulsoup4

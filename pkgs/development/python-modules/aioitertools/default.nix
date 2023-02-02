@@ -34,7 +34,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     unittestCheckHook
   ];
 

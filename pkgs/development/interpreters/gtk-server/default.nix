@@ -1,6 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
+{ lib, stdenv, fetchurl
 , glib
 , gtk3
 , libffcall
@@ -27,10 +25,10 @@ stdenv.mkDerivation rec {
   configureOptions = [ "--with-gtk3" ];
 
   meta = with lib; {
-    homepage = "http://www.gtk-server.org/";
     description = "gtk-server for interpreted GUI programming";
+    homepage = "http://www.gtk-server.org/";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [ maintainers.tohl ];
     platforms = platforms.linux;
   };
 }

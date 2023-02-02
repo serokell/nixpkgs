@@ -1,33 +1,24 @@
-{ lib, rustPlatform, fetchFromGitHub, installShellFiles }:
+{ lib, fetchFromGitHub, rustPlatform, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "fd";
-  version = "8.6.0";
+  version = "8.4.0";
 
   src = fetchFromGitHub {
     owner = "sharkdp";
     repo = "fd";
     rev = "v${version}";
-    sha256 = "sha256-RVGCSUYyWo2wKRIrnci+aWEAPW9jHhMfYkYJkCgd7f8=";
+    sha256 = "sha256-Vy5ERc4GZVEjNP0z2zZJeNwfhoL0nnOeii+TjRszrFw=";
   };
 
-  cargoSha256 = "sha256-PT95U1l+BVX7sby3GKktZMmbNNQoPYR8nL+H90EnqZY=";
-
-  auditable = true; # TODO: remove when this is the default
+  cargoSha256 = "sha256-Iz8QP9NdjbBL8j/iUV6iS3U1ErPHuC5NYFHUMtR8MZg=";
 
   nativeBuildInputs = [ installShellFiles ];
 
-  # skip flaky test
-  checkFlags = [
-    "--skip=test_owner_current_group"
-  ];
-
-  postInstall = ''
+  preFixup = ''
     installManPage doc/fd.1
 
-    installShellCompletion --cmd fd \
-      --bash <($out/bin/fd --gen-completions bash) \
-      --fish <($out/bin/fd --gen-completions fish)
+    installShellCompletion $releaseDir/build/fd-find-*/out/fd.{bash,fish}
     installShellCompletion --zsh contrib/completion/_fd
   '';
 
@@ -40,8 +31,7 @@ rustPlatform.buildRustPackage rec {
       it provides sensible (opinionated) defaults for 80% of the use cases.
     '';
     homepage = "https://github.com/sharkdp/fd";
-    changelog = "https://github.com/sharkdp/fd/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ asl20 /* or */ mit ];
-    maintainers = with maintainers; [ dywedir figsoda globin ma27 zowoq ];
+    maintainers = with maintainers; [ dywedir globin ma27 zowoq ];
   };
 }

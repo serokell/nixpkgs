@@ -6,14 +6,14 @@
 
 stdenv.mkDerivation rec {
   pname = "sagetex";
-  version = "3.6.1";
+  version = "3.6";
   passthru.tlType = "run";
 
   src = fetchFromGitHub {
     owner = "sagemath";
     repo = "sagetex";
     rev = "v${version}";
-    sha256 = "sha256-OfhbXHbGI+DaDHqZCOGiSHJPHjGuT7ZqSEjKweloW38=";
+    sha256 = "8iHcJbaY/dh0vmvYyd6zj1ZbuJRaJGb6bUBK1v4gXWU=";
   };
 
   buildInputs = [

@@ -38,7 +38,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     blinker
     mock
     nose

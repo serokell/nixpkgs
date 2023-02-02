@@ -10,14 +10,14 @@
 
 buildPythonPackage rec {
   pname = "pytest-remotedata";
-  version = "0.4.0";
+  version = "0.3.3";
   format = "setuptools";
 
-  disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-viHFWONNfBGw9q61CVbAlSC//NArf86cb46FMaQBocg=";
+    sha256 = "66920bf1c62928b079d0e611379111a0d49f10a9509ced54c8269514ccce6ee3";
   };
 
   nativeBuildInputs = [
@@ -32,7 +32,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 
@@ -48,7 +48,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Pytest plugin for controlling remote data access";
     homepage = "https://github.com/astropy/pytest-remotedata";
-    changelog = "https://github.com/astropy/pytest-remotedata/blob/v${version}/CHANGES.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ costrouc ];
   };

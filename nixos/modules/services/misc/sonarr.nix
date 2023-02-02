@@ -35,15 +35,6 @@ in
         default = "sonarr";
         description = lib.mdDoc "Group under which Sonaar runs.";
       };
-
-      package = mkOption {
-        type = types.package;
-        default = pkgs.sonarr;
-        defaultText = literalExpression "pkgs.sonarr";
-        description = lib.mdDoc ''
-          Sonarr package to use.
-        '';
-      };
     };
   };
 
@@ -61,7 +52,7 @@ in
         Type = "simple";
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = "${cfg.package}/bin/NzbDrone -nobrowser -data='${cfg.dataDir}'";
+        ExecStart = "${pkgs.sonarr}/bin/NzbDrone -nobrowser -data='${cfg.dataDir}'";
         Restart = "on-failure";
       };
     };

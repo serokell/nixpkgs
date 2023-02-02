@@ -38,8 +38,11 @@ let
     perl  # used by openssl-sys to configure
     protobuf
     rustfmt
-    rustPlatform.bindgenHook
+    llvmPackages.clang
   ];
+
+
+  LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 in
 {
   teos = rustPlatform.buildRustPackage {
@@ -47,7 +50,7 @@ in
     cargoSha256 = "sha256-7VYYYSMJ2JP1KuA8sD0X3wInubH/jbA/sgzsTsomyEc=";
     buildAndTestSubdir = "teos";
 
-    inherit version src cargoPatches buildInputs nativeBuildInputs;
+    inherit version src cargoPatches buildInputs nativeBuildInputs LIBCLANG_PATH;
 
     meta = common.meta // {
       description = "A Lightning watchtower compliant with BOLT13, written in Rust";
@@ -63,7 +66,7 @@ in
     cargoSha256 = "sha256-xL+DiEfgBYJQ1UJm7LAr1/f34pkU8FRl4Seic8MFAlM=";
     buildAndTestSubdir = "watchtower-plugin";
 
-    inherit version src cargoPatches buildInputs nativeBuildInputs;
+    inherit version src cargoPatches buildInputs nativeBuildInputs LIBCLANG_PATH;
 
     meta = common.meta // {
       description = "A Lightning watchtower plugin for clightning";

@@ -8,7 +8,7 @@
 
 buildPythonPackage rec {
   pname = "yappi";
-  version = "1.4.0";
+  version = "1.3.6";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -16,15 +16,15 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "sumerc";
     repo = pname;
-    rev = "refs/tags/${version}";
-    hash = "sha256-AogBnqhLcwsyTHLP+Uxc+EOgYzhdwX5rbi9RMCuC2IU=";
+    rev = version;
+    hash = "sha256-MfvaLWw7EhfzFx4aZdRWvQVOOcvZ1Mt7EgxyB2nDB2c=";
   };
 
   patches = [
     ./tests.patch
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     gevent
   ];
 

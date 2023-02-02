@@ -12,14 +12,14 @@
 
 buildPythonPackage rec {
   pname = "cocotb";
-  version = "1.7.2";
+  version = "1.7.1";
 
   # pypi source doesn't include tests
   src = fetchFromGitHub {
     owner = "cocotb";
     repo = "cocotb";
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-gLOYwljqnYkGsdbny7+f93QgroLBaLLnDBRpoCe8uEg=";
+    rev = "v${version}";
+    sha256 = "sha256-wACgT5r0YmSYvLhTsuFhTcJqeCtGGLifOmr7/Lz2Vug=";
   };
 
   nativeBuildInputs = [ setuptools-scm ];
@@ -50,7 +50,7 @@ buildPythonPackage rec {
     ./0001-Patch-LDCXXSHARED-for-macOS-along-with-LDSHARED.patch
   ];
 
-  nativeCheckInputs = [ cocotb-bus pytestCheckHook swig verilog ];
+  checkInputs = [ cocotb-bus pytestCheckHook swig verilog ];
   preCheck = ''
     export PATH=$out/bin:$PATH
     mv cocotb cocotb.hidden

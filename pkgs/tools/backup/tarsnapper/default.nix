@@ -21,7 +21,7 @@ python3Packages.buildPythonApplication rec {
     pexpect
   ];
 
-  nativeCheckInputs = with python3Packages; [
+  checkInputs = with python3Packages; [
     nose
   ];
 

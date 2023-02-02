@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, pkgs, python3, wrapGAppsHook, gobject-introspection }:
+{ lib, fetchFromGitHub, pkgs, python3, wrapGAppsHook}:
 
 python3.pkgs.buildPythonApplication {
   pname = "pdf-quench";
@@ -11,9 +11,10 @@ python3.pkgs.buildPythonApplication {
     sha256 = "1rp9rlwr6rarcsxygv5x2c5psgwl6r69k0lsgribgyyla9cf2m7n";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
+  nativeBuildInputs = [ wrapGAppsHook ];
   buildInputs = with pkgs; [
     gtk3
+    gobject-introspection
     goocanvas2
     poppler_gi
   ];

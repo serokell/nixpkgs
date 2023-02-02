@@ -35,7 +35,7 @@ buildPythonPackage rec {
     "pysigma"
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

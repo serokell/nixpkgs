@@ -1,20 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, zlib
-, libjpeg
-, imake
-, gccmakedep
-, libXaw
-, libXext
-, libXmu
-, libXp
-, libXpm
-, perl
-, xauth
-, fontDirectories
-, openssh
-}:
+{ lib, stdenv, fetchurl, xlibsWrapper, zlib, libjpeg, imake, gccmakedep, libXmu
+, libXaw, libXpm, libXp , perl, xauth, fontDirectories, openssh }:
 
 stdenv.mkDerivation rec {
   pname = "tightvnc";
@@ -37,19 +22,8 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  buildInputs = [
-    zlib
-    libjpeg
-    imake
-    gccmakedep
-    libXaw
-    libXext
-    libXmu
-    libXp
-    libXpm
-    xauth
-    openssh
-  ];
+  buildInputs = [ xlibsWrapper zlib libjpeg imake gccmakedep libXmu libXaw
+                  libXpm libXp xauth openssh ];
 
   postPatch = ''
     fontPath=
@@ -96,7 +70,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     license = lib.licenses.gpl2Plus;
-    homepage = "https://vnc-tight.sourceforge.net/";
+    homepage = "http://vnc-tight.sourceforge.net/";
     description = "Improved version of VNC";
 
     longDescription = ''

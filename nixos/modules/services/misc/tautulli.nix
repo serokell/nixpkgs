@@ -27,7 +27,7 @@ in
       };
 
       port = mkOption {
-        type = types.port;
+        type = types.int;
         default = 8181;
         description = lib.mdDoc "TCP port where Tautulli listens.";
       };

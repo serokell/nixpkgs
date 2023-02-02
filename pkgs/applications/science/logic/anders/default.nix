@@ -4,7 +4,7 @@ ocamlPackages.buildDunePackage rec {
   pname = "anders";
   version = "1.1.1";
 
-  duneVersion = "3";
+  useDune2 = true;
 
   src = fetchFromGitHub {
     owner = "groupoid";

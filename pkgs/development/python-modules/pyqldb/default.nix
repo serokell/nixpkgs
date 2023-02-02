@@ -13,7 +13,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ boto3 amazon-ion ionhash ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   preCheck = ''
     export AWS_DEFAULT_REGION=us-east-1

@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "partclone";
-  version = "0.3.22";
+  version = "0.3.20";
 
   src = fetchFromGitHub {
     owner = "Thomas-Tsai";
     repo = "partclone";
     rev = version;
-    sha256 = "sha256-NSIWuzgv3dQ2Kpl1HOoghrOaKztDjZs8NjF9k41kZQY=";
+    sha256 = "sha256-LuAK3atyu9olsrSw25Y7aKBiOpEV709nu+pZhVAjGfY=";
   };
 
   nativeBuildInputs = [ autoreconfHook pkg-config ];

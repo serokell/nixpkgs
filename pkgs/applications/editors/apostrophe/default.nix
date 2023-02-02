@@ -7,7 +7,7 @@
 
 let
   pythonEnv = pythonPackages.python.withPackages(p: with p; [
-    regex setuptools levenshtein pyenchant
+    regex setuptools python-Levenshtein pyenchant
     pygobject3 pycairo pypandoc chardet
   ]);
 

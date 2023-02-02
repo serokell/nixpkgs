@@ -52,7 +52,7 @@ buildPythonPackage rec {
     zopfli
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pillow
     six
     bash

@@ -7,14 +7,14 @@
 
 buildPythonPackage rec {
   pname = "aliyun-python-sdk-cdn";
-  version = "3.8.0";
+  version = "3.7.5";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-UOakkvWyWT50lVazEivF5TtAR/E3JpKdT6KNb7YJDBs=";
+    hash = "sha256-XeS/ufl+cRW3aqm/1dJ0Crq/pT3Mp0eh02vTm2rCWuI=";
   };
 
   propagatedBuildInputs = [
@@ -31,7 +31,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "CDN module of Aliyun Python SDK";
     homepage = "https://github.com/aliyun/aliyun-openapi-python-sdk";
-    changelog = "https://github.com/aliyun/aliyun-openapi-python-sdk/blob/master/aliyun-python-sdk-cdn/ChangeLog.txt";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

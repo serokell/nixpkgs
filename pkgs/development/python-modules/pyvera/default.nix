@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytest-timeout
     pytest-cov

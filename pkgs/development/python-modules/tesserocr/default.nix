@@ -42,7 +42,7 @@ buildPythonPackage rec {
     "tesserocr"
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     unittestCheckHook
   ];
 

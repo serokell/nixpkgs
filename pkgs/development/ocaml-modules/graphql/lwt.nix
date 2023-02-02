@@ -5,11 +5,9 @@ buildDunePackage rec {
 
   inherit (graphql) version src;
 
-  duneVersion = "3";
-
   propagatedBuildInputs = [ graphql ocaml_lwt ];
 
-  nativeCheckInputs = [ alcotest ];
+  checkInputs = [ alcotest ];
 
   doCheck = true;
 

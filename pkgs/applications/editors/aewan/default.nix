@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Ascii-art Editor Without A Name";
-    homepage = "https://aewan.sourceforge.net/";
+    homepage = "http://aewan.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
   };

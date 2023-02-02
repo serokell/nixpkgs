@@ -1,9 +1,7 @@
 { lib, stdenv, fetchFromGitLab, fetchFromGitHub
 , file, libxslt, docbook_xml_dtd_412, docbook_xsl, xmlto
 , w3m, gnugrep, gnused, coreutils, xset, perlPackages
-, mimiSupport ? false, gawk
-, glib
-, withXdgOpenUsePortalPatch ? true }:
+, mimiSupport ? false, gawk }:
 
 let
   # A much better xdg-open
@@ -32,12 +30,6 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8PtXfI8hRneEpnUvIV3M+6ACjlkx0w/NEiJFdGbbHnQ=";
   };
 
-  patches = lib.optionals withXdgOpenUsePortalPatch [
-    # Allow forcing the use of XDG portals using NIXOS_XDG_OPEN_USE_PORTAL environment variable.
-    # Upstream PR: https://github.com/freedesktop/xdg-utils/pull/12
-    ./allow-forcing-portal-use.patch
-  ];
-
   # just needed when built from git
   nativeBuildInputs = [ libxslt docbook_xml_dtd_412 docbook_xsl xmlto w3m ];
 
@@ -57,15 +49,13 @@ stdenv.mkDerivation rec {
     &#' -i "$out"/bin/*
 
     substituteInPlace $out/bin/xdg-open \
-      --replace "/usr/bin/printf" "${coreutils}/bin/printf" \
-      --replace "gdbus" "${glib}/bin/gdbus"
+      --replace "/usr/bin/printf" "${coreutils}/bin/printf"
 
     substituteInPlace $out/bin/xdg-mime \
       --replace "/usr/bin/file" "${file}/bin/file"
 
     substituteInPlace $out/bin/xdg-email \
-      --replace "/bin/echo" "${coreutils}/bin/echo" \
-      --replace "gdbus" "${glib}/bin/gdbus"
+      --replace "/bin/echo" "${coreutils}/bin/echo"
 
     sed 's|\bwhich\b|type -P|g' -i "$out"/bin/*
   '';

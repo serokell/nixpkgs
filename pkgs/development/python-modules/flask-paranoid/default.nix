@@ -25,7 +25,7 @@ buildPythonPackage rec {
     flask
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

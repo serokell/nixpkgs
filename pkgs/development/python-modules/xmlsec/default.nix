@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ lxml ];
 
-  nativeCheckInputs = [ pytestCheckHook hypothesis ];
+  checkInputs = [ pytestCheckHook hypothesis ];
 
   disabledTestPaths = [
     # Full git clone required for test_doc_examples

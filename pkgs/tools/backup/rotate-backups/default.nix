@@ -20,7 +20,7 @@ python3.pkgs.buildPythonApplication rec {
     update-dotdee
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = with python3.pkgs; [
     pytestCheckHook
   ];
 

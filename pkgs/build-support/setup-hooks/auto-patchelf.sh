@@ -1,4 +1,4 @@
-# shellcheck shell=bash
+#!/usr/bin/env bash
 
 declare -a autoPatchelfLibs
 declare -a extraAutoPatchelfLibs
@@ -53,7 +53,7 @@ autoPatchelf() {
         esac
     done
 
-    readarray -td' ' ignoreMissingDepsArray < <(echo -n "$autoPatchelfIgnoreMissingDeps")
+    local ignoreMissingDepsArray=($autoPatchelfIgnoreMissingDeps)
     if [ "$autoPatchelfIgnoreMissingDeps" == "1" ]; then
         echo "autoPatchelf: WARNING: setting 'autoPatchelfIgnoreMissingDeps" \
              "= true;' is deprecated and will be removed in a future release." \
@@ -84,7 +84,7 @@ autoPatchelf() {
 # (Expressions don't expand in single quotes, use double quotes for that.)
 postFixupHooks+=('
     if [ -z "${dontAutoPatchelf-}" ]; then
-        autoPatchelf -- $(for output in $(getAllOutputNames); do
+        autoPatchelf -- $(for output in $outputs; do
             [ -e "${!output}" ] || continue
             echo "${!output}"
         done)

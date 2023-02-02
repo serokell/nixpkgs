@@ -68,9 +68,12 @@ rustPlatform.buildRustPackage rec {
   cargoBuildFlags = builtins.map (n: "--bin=${n}") solanaPkgs;
 
   # weird errors. see https://github.com/NixOS/nixpkgs/issues/52447#issuecomment-852079285
-  # LLVM_CONFIG_PATH = "${llvm}/bin/llvm-config";
+  LIBCLANG_PATH = "${libclang.lib}/lib";
+  BINDGEN_EXTRA_CLANG_ARGS =
+    "-isystem ${libclang.lib}/lib/clang/${lib.getVersion clang}/include";
+  LLVM_CONFIG_PATH = "${llvm}/bin/llvm-config";
 
-  nativeBuildInputs = [ pkg-config protobuf rustfmt perl rustPlatform.bindgenHook ];
+  nativeBuildInputs = [ clang llvm pkg-config protobuf rustfmt perl ];
   buildInputs =
     [ openssl zlib libclang hidapi ] ++ (lib.optionals stdenv.isLinux [ udev ]);
   strictDeps = true;
@@ -83,8 +86,6 @@ rustPlatform.buildRustPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ adjacentresearch ];
     platforms = platforms.unix;
-    # never built on aarch64-darwin, x86_64-darwin since first introduction in nixpkgs
-    broken = stdenv.isDarwin;
   };
   passthru.updateScript = ./update.sh;
 }

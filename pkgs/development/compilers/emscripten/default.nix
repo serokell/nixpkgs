@@ -1,38 +1,32 @@
 { lib, stdenv, fetchFromGitHub, python3, nodejs, closurecompiler
 , jre, binaryen
 , llvmPackages
-, symlinkJoin, makeWrapper, substituteAll, fetchpatch
-, buildNpmPackage
-, emscripten
+, symlinkJoin, makeWrapper, substituteAll
+, mkYarnModules
 }:
 
 stdenv.mkDerivation rec {
   pname = "emscripten";
-  version = "3.1.24";
+  version = "3.1.17";
 
   llvmEnv = symlinkJoin {
     name = "emscripten-llvm-${version}";
     paths = with llvmPackages; [ clang-unwrapped clang-unwrapped.lib lld llvm ];
   };
 
-  nodeModules = buildNpmPackage {
+  nodeModules = mkYarnModules {
     name = "emscripten-node-modules-${version}";
-    inherit pname version src;
-
-    npmDepsHash = "sha256-ejuHR2BpAUStWjuvQuGE6ko4byF4GBl6FJBshxlknQk=";
-
-    dontBuild = true;
-
-    # Copy node_modules directly.
-    installPhase = ''
-      cp -r node_modules $out/
-    '';
+    inherit pname version;
+    # it is vitally important the the package.json has name and version fields
+    packageJSON = ./package.json;
+    yarnLock = ./yarn.lock;
+    yarnNix = ./yarn.nix;
   };
 
   src = fetchFromGitHub {
     owner = "emscripten-core";
     repo = "emscripten";
-    sha256 = "sha256-1jW6ThxK6dThOO90l4Mc5yehVF3tI4HWipBWZAOztrk=";
+    sha256 = "sha256-xOt9Znn5kCcieRHnXk794rMpgTzoR8pIKBXv/GeKcuw=";
     rev = version;
   };
 
@@ -43,16 +37,6 @@ stdenv.mkDerivation rec {
     (substituteAll {
       src = ./0001-emulate-clang-sysroot-include-logic.patch;
       resourceDir = "${llvmEnv}/lib/clang/${llvmPackages.release_version}/";
-    })
-    # https://github.com/emscripten-core/emscripten/pull/18219
-    (fetchpatch {
-      url = "https://github.com/emscripten-core/emscripten/commit/afbc14950f021513c59cbeaced8807ef8253530a.patch";
-      sha256 = "sha256-+gJNTQJng9rWcGN3GAcMBB0YopKPnRp/r8CN9RSTClU=";
-    })
-    # https://github.com/emscripten-core/emscripten/pull/18220
-    (fetchpatch {
-      url = "https://github.com/emscripten-core/emscripten/commit/852982318f9fb692ba1dd1173f62e1eb21ae61ca.patch";
-      sha256 = "sha256-hmIOtpRx3PD3sDAahUcreSydydqcdSqArYvyLGgUgd8=";
     })
   ];
 
@@ -69,7 +53,7 @@ stdenv.mkDerivation rec {
     sed -i "/^def check_sanity/a\\  return" tools/shared.py
 
     # required for wasm2c
-    ln -s ${nodeModules} node_modules
+    ln -s ${nodeModules}/node_modules .
 
     echo "EMSCRIPTEN_ROOT = '$out/share/emscripten'" > .emscripten
     echo "LLVM_ROOT = '${llvmEnv}/bin'" >> .emscripten
@@ -101,7 +85,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     for b in em++ em-config emar embuilder.py emcc emcmake emconfigure emmake emranlib emrun emscons emsize; do
       makeWrapper $appdir/$b $out/bin/$b \
-        --set NODE_PATH ${nodeModules} \
+        --set NODE_PATH ${nodeModules}/node_modules \
         --set EM_EXCLUSIVE_CACHE_ACCESS 1 \
         --set PYTHON ${python3}/bin/python
     done
@@ -124,26 +108,19 @@ stdenv.mkDerivation rec {
     popd
 
     export PYTHON=${python3}/bin/python
-    export NODE_PATH=${nodeModules}
+    export NODE_PATH=${nodeModules}/node_modules
     pushd $appdir
-    python test/runner.py test_hello_world
+    python tests/runner.py test_hello_world
     popd
 
     runHook postInstall
   '';
 
-  passthru = {
-    # HACK: Make emscripten look more like a cc-wrapper to GHC
-    # when building the javascript backend.
-    targetPrefix = "em";
-    bintools = emscripten;
-  };
-
   meta = with lib; {
     homepage = "https://github.com/emscripten-core/emscripten";
     description = "An LLVM-to-JavaScript Compiler";
     platforms = platforms.all;
-    maintainers = with maintainers; [ qknight matthewbauer raitobezarius ];
+    maintainers = with maintainers; [ qknight matthewbauer ];
     license = licenses.ncsa;
   };
 }

@@ -16,24 +16,23 @@
 , qtsvg
 , fftw
 , vid-stab
-, opencv4
+, opencv3
 , ladspa-sdk
 , gitUpdater
 , ladspaPlugins
-, rubberband
 , mkDerivation
 , which
 }:
 
 mkDerivation rec {
   pname = "mlt";
-  version = "7.12.0";
+  version = "7.8.0";
 
   src = fetchFromGitHub {
     owner = "mltframework";
     repo = "mlt";
     rev = "v${version}";
-    sha256 = "sha256-Y7lbfwA0lkQB3PjYQIQaQ0BeXGcgyCmMnDqqZJ8zUaA=";
+    sha256 = "sha256-r8lvzz083WWlDtjvlsPwvOgplx2lPPkDDf3t0G9PqAQ=";
   };
 
   buildInputs = [
@@ -51,10 +50,9 @@ mkDerivation rec {
     sox
     fftw
     vid-stab
-    opencv4
+    opencv3
     ladspa-sdk
     ladspaPlugins
-    rubberband
   ];
 
   nativeBuildInputs = [ cmake which pkg-config ];
@@ -64,7 +62,6 @@ mkDerivation rec {
   cmakeFlags = [
     # RPATH of binary /nix/store/.../bin/... contains a forbidden reference to /build/
     "-DCMAKE_SKIP_BUILD_RPATH=ON"
-    "-DMOD_OPENCV=ON"
   ];
 
   qtWrapperArgs = [

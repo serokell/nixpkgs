@@ -3,7 +3,6 @@
 , buildGoPackage
 , makeWrapper
 , fetchFromGitHub
-, fetchpatch
 , coreutils
 , nettools
 , dmidecode
@@ -48,12 +47,6 @@ buildGoPackage rec {
     # They used constants from another package that I couldn't figure
     # out how to resolve, so hardcoded the constants.
     ./0002-version-gen-don-t-use-unnecessary-constants.patch
-
-    (fetchpatch {
-      name = "CVE-2022-29527.patch";
-      url = "https://github.com/aws/amazon-ssm-agent/commit/0fe8ae99b2ff25649c7b86d3bc05fc037400aca7.patch";
-      sha256 = "sha256-5g14CxhsHLIgs1Vkfw8FCKEJ4AebNqZKf3ZzoAN/T9U=";
-    })
   ];
 
   preConfigure = ''

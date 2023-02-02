@@ -1,29 +1,25 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pipInstallHook
-, writeText
+{ stdenv, lib, buildPythonPackage, fetchPypi, pythonOlder
+, pipInstallHook, writeText
 , blessed
 , docutils
 , libcxx
 , llvm
 , pytestCheckHook
 , typesentry
+, isPy310
 }:
 
 buildPythonPackage rec {
   pname = "datatable";
-  # python 3.10+ support is not in the 1.0.0 release
-  version = "unstable-2022-12-15";
-  format = "pyproject";
+  version = "0.11.0";
+  disabled = pythonOlder "3.5";
 
-  src = fetchFromGitHub {
-    owner = "h2oai";
-    repo = pname;
-    rev = "9522f0833d3e965656396de4fffebd882d39c25d";
-    hash = "sha256-lEXQwhx2msnJkkRrTkAwYttlYTISyH/Z7dSalqRrOhI=";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "19c602711e00f72e9ae296d8fa742d46da037c2d3a2d254bdf68f817a8da76bb";
   };
+  # authors seem to have created their own build system
+  format = "other";
 
   postPatch = ''
     # tarball doesn't appear to have been shipped totally ready-to-build
@@ -31,17 +27,20 @@ buildPythonPackage rec {
       --replace \
         'shell_cmd(["git"' \
         '"0000000000000000000000000000000000000000" or shell_cmd(["git"'
-    # TODO revert back to use ${version} when bumping to the next stable release
-    echo '1.0' > VERSION.txt
+    echo '${version}' > VERSION.txt
 
     # don't make assumptions about architecture
     sed -i '/-m64/d' ci/ext.py
   '';
   DT_RELEASE = "1";
 
+  buildPhase = ''
+    python ci/ext.py wheel
+  '';
+
   propagatedBuildInputs = [ typesentry blessed ];
   buildInputs = [ llvm pipInstallHook ];
-  nativeCheckInputs = [ docutils pytestCheckHook ];
+  checkInputs = [ docutils pytestCheckHook ];
 
   LLVM = llvm;
   NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-isystem ${lib.getDev libcxx}/include/c++/v1";
@@ -63,5 +62,8 @@ buildPythonPackage rec {
     homepage = "https://github.com/h2oai/datatable";
     license = licenses.mpl20;
     maintainers = with maintainers; [ abbradar ];
+    # uses custom build system and adds -Wunused-variable -Werror
+    # warning: ‘dt::expr::doc_first’ defined but not used [-Wunused-variable]
+    broken = isPy310;
   };
 }

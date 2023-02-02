@@ -3,9 +3,8 @@
 , fetchurl
 , perl
 , expat
-, fontconfig
+, xlibsWrapper
 , freetype
-, xorg
 }:
 
 # !!! assert freetype == xorg.freetype
@@ -19,17 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-8pZ/HAVV341K6QRDUC0UzzO2rGW2AvSZ++Pp445V27w=";
   };
 
-  buildInputs = [
-    perl
-    expat
-    fontconfig
-    freetype
-    xorg.libICE
-    xorg.libSM
-    xorg.libX11
-    xorg.libXext
-    xorg.libXrender
-  ];
+  buildInputs = [ perl expat xlibsWrapper freetype ];
 
   NIX_CFLAGS_COMPILE = "-I${freetype}/include/freetype2 -fgnu89-inline";
 

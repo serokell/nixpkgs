@@ -55,7 +55,7 @@ buildPythonPackage rec {
     jaraco_collections
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     objgraph
     path
     pytest-forked
@@ -78,9 +78,6 @@ buildPythonPackage rec {
 
     "test_antistampede"
     "test_file_stream"
-    "test_basic_request"
-    "test_3_Redirect"
-    "test_4_File_deletion"
   ] ++ lib.optionals stdenv.isDarwin [
     "test_block"
   ];
@@ -105,7 +102,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Object-oriented HTTP framework";
-    homepage = "https://cherrypy.dev/";
+    homepage = "https://www.cherrypy.org";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

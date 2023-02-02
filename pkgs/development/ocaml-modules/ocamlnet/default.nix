@@ -2,8 +2,9 @@
 , gnutls, nettle
 }:
 
-lib.throwIf (lib.versionOlder ocaml.version "4.02" || lib.versionAtLeast ocaml.version "5.0")
-  "ocamlnet is not available for OCaml ${ocaml.version}"
+if lib.versionOlder ocaml.version "4.02"
+then throw "ocamlnet is not available for OCaml ${ocaml.version}"
+else
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-ocamlnet";

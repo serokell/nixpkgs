@@ -36,7 +36,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-mock
     pytestCheckHook
     responses

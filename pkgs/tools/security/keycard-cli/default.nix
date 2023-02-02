@@ -1,22 +1,25 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, pkg-config, pcsclite }:
+{ lib, stdenv, buildGoPackage, fetchFromGitHub, pkg-config, pcsclite }:
 
-buildGoModule rec {
+buildGoPackage rec {
   pname = "keycard-cli";
-  version = "0.7.0";
+  version = "0.6.0";
+
+  goPackagePath = "github.com/status-im/keycard-cli";
+  subPackages = [ "." ];
+
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ pcsclite ];
 
   src = fetchFromGitHub {
     owner = "status-im";
     repo = pname;
     rev = version;
-    hash = "sha256-K2XxajprpPjfIs8rrnf2coIEQjPnir9/U0fTvqV2++g=";
+    sha256 = "sha256-ejFvduZs3eWc6efr9o4pXb6qw2QWWQTtkTxF80vOGNU=";
   };
 
-  vendorHash = "sha256-3XzWOiZF2WNs2pdumYN9bphvBKY+rrjuT+wWhB2pwT0=";
-
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ pcsclite ];
-
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-X main.version=${version}"
+  ];
 
   meta = with lib; {
     description = "A command line tool and shell to manage keycards";

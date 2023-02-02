@@ -16,13 +16,13 @@ buildDunePackage rec {
   useDune2 = true;
   minimalOCamlVersion = "4.08";
 
-  nativeCheckInputs = [ ppx_expect ];
+  checkInputs = [ ppx_expect ];
   doCheck = true;
 
   meta = with lib; {
     description = "A an alternative pretty printing library to the Format module of the OCaml standard library";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [ symphorien ];
   };
 }

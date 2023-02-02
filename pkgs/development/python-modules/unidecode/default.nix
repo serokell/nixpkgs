@@ -7,7 +7,7 @@
 
 buildPythonPackage rec {
   pname = "unidecode";
-  version = "1.3.6";
+  version = "1.3.4";
   format = "setuptools";
 
   disabled = pythonOlder "3.5";
@@ -16,10 +16,10 @@ buildPythonPackage rec {
     owner = "avian2";
     repo = pname;
     rev = "${pname}-${version}";
-    hash = "sha256-75E2OlrGIxvwR9MeZEB4bDLdFd1SdprCVcBIJCPS3hM=";
+    hash = "sha256-2LRV6Egst2bdxefEzfuA9Ef8zMSWvmlCEV/sIzezyPw=";
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 
@@ -29,8 +29,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "ASCII transliterations of Unicode text";
-    homepage = "https://github.com/avian2/unidecode";
-    changelog = "https://github.com/avian2/unidecode/blob/unidecode-${version}/ChangeLog";
+    homepage = "https://pypi.python.org/pypi/Unidecode/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ domenkozar ];
   };

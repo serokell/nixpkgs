@@ -22,7 +22,7 @@ buildPythonPackage rec {
     georss-client
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

@@ -18,7 +18,7 @@ buildPythonPackage rec {
     cython
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest
   ];
 

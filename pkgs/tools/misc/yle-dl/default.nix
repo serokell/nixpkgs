@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
   pythonPath = [ rtmpdump php wget ];
 
   doCheck = false; # tests require network access
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  checkInputs = with python3Packages; [ pytestCheckHook ];
 
   passthru.tests.version = testers.testVersion {
     package = yle-dl;

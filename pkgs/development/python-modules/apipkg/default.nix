@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

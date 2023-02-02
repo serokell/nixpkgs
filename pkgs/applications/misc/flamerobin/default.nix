@@ -1,40 +1,26 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, wxGTK32
-, boost
-, firebird
-}:
+{ lib, stdenv, fetchFromGitHub, wxGTK30, boost, firebird }:
 
 stdenv.mkDerivation rec {
-  version = "0.9.3.12";
+  version = "0.9.3.1";
   pname = "flamerobin";
 
   src = fetchFromGitHub {
     owner = "mariuz";
     repo = "flamerobin";
     rev = version;
-    sha256 = "sha256-uWx3riRc79VKh7qniWFjxxc7v6l6cW0i31HxoN1BSdA=";
+    sha256 = "1wwcsca01hpgi9z5flvbdhs9zv7jvahnbn97j6ymy0hdyb8lv6si";
   };
-
-  patches = [
-    # rely on compiler command line for __int128 and std::decimal::decimal128
-    (fetchpatch {
-      url = "https://github.com/mariuz/flamerobin/commit/8e0ea6d42aa28a4baeaa8c8b8b57c56eb9ae3540.patch";
-      sha256 = "sha256-l6LWXA/sRQGQKi798bzl0iIJ2vdvXHOjG7wdFSXv+NM=";
-    })
-  ];
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ cmake ];
+  buildInputs = [ wxGTK30 boost firebird ];
 
-  buildInputs = [
-    wxGTK32
-    boost
-    firebird
+  preBuild = ''
+    sed -i 's/CXXFLAGS = -g -O2/CXXFLAGS = -g -O2 -nostartfiles/' Makefile
+  '';
+
+  configureFlags = [
+    "--disable-debug"
   ];
 
   meta = with lib; {

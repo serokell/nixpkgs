@@ -1,44 +1,42 @@
 { lib
-, autopep8
 , buildPythonPackage
-, contextlib2
-, django
-, factory_boy
+, python
+, pythonAtLeast
 , fetchFromGitHub
 , fetchpatch
-, freezegun
-, gprof2dot
-, jinja2
-, mock
-, networkx
-, pillow
-, pydot
+, django
 , pygments
-, python
+, simplejson
 , python-dateutil
-, pythonOlder
-, pytz
 , requests
 , setuptools-scm
-, simplejson
 , sqlparse
+, jinja2
+, autopep8
+, pytz
+, pillow
+, mock
+, gprof2dot
+, freezegun
+, contextlib2
+, networkx
+, pydot
+, factory_boy
 }:
 
 buildPythonPackage rec {
   pname = "django-silk";
-  version = "5.0.2";
-  format = "setuptools";
+  version = "5.0.1";
 
-  disabled = pythonOlder "3.7";
-
+  # pypi tarball doesn't include test project
   src = fetchFromGitHub {
     owner = "jazzband";
     repo = "django-silk";
-    rev = "refs/tags/${version}";
-    hash = "sha256-LzcbRZ9NLTkDTZ2eW+uXYqPbWDSdLZAJcYdD8JLuiDc=";
+    rev = version;
+    hash = "sha256-U2lj0B85cf2xu0o7enuLJB5YKaIt6gMvn+TgxleLslk=";
   };
 
-  # "test_time_taken" tests aren't suitable for reproducible execution, but Django's
+  # "test_time_taken" tests aren't suitable for reproducible execution, but django's
   # test runner doesn't have an easy way to ignore tests - so instead prevent it from picking
   # them up as tests
   postPatch = ''
@@ -48,40 +46,14 @@ buildPythonPackage rec {
       --replace 'use_scm_version=True' 'version="${version}"'
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
-
-  buildInputs = [
-    mock
-  ];
-
+  nativeBuildInputs = [ setuptools-scm ];
+  buildInputs = [ mock ];
   propagatedBuildInputs = [
-    autopep8
-    django
-    gprof2dot
-    jinja2
-    pillow
-    pygments
-    python-dateutil
-    pytz
-    requests
-    simplejson
-    sqlparse
+    django pygments simplejson python-dateutil requests
+    sqlparse jinja2 autopep8 pytz pillow gprof2dot
   ];
 
-  nativeCheckInputs = [
-    freezegun
-    contextlib2
-    networkx
-    pydot
-    factory_boy
-  ];
-
-  pythonImportsCheck = [
-    "silk"
-  ];
-
+  checkInputs = [ freezegun contextlib2 networkx pydot factory_boy ];
   checkPhase = ''
     runHook preCheck
 
@@ -98,4 +70,5 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ ris ];
   };
+
 }

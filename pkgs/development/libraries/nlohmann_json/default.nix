@@ -7,25 +7,24 @@ let
   testData = fetchFromGitHub {
     owner = "nlohmann";
     repo = "json_test_data";
-    rev = "v3.1.0";
-    hash = "sha256-bG34W63ew7haLnC82A3lS7bviPDnApLipaBjJAjLcVk=";
+    rev = "v3.0.0";
+    sha256 = "O6p2PFB7c2KE9VqWvmTaFywbW1hSzAP5V42EuemX+ls=";
   };
 in stdenv.mkDerivation (finalAttrs: {
   pname = "nlohmann_json";
-  version = "3.11.2";
+  version = "3.10.5";
 
   src = fetchFromGitHub {
     owner = "nlohmann";
     repo = "json";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-SUdhIV7tjtacf5DkoWk9cnkfyMlrkg8ZU7XnPZd22Tw=";
+    sha256 = "DTsZrdB9GcaNkx7ZKxcgCA3A9ShM5icSF0xyGguJNbk=";
   };
 
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [
-    "-DJSON_BuildTests=${if finalAttrs.doCheck then "ON" else "OFF"}"
-    "-DJSON_FastTests=ON"
+    "-DBuildTests=${if finalAttrs.doCheck then "ON" else "OFF"}"
     "-DJSON_MultipleHeaders=ON"
   ] ++ lib.optional finalAttrs.doCheck "-DJSON_TestDataDirectory=${testData}";
 

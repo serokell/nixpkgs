@@ -18,13 +18,13 @@
 
 stdenv.mkDerivation rec {
   pname = "imgbrd-grabber";
-  version = "7.10.0";
+  version = "7.9.1";
 
   src = fetchFromGitHub {
     owner = "Bionus";
     repo = "imgbrd-grabber";
     rev = "v${version}";
-    sha256 = "sha256-AT6pN2do0LlH6xAXKcFQv+oderD88/EiG1JnCw6kOOg=";
+    sha256 = "sha256-0CceSXH1GJbWKOnxZkjmbuyj7NBOQ6tpCYrCl7z4Vrw=";
     fetchSubmodules = true;
   };
 
@@ -67,10 +67,8 @@ stdenv.mkDerivation rec {
 
     # link the catch2 sources from nixpkgs
     ln -sf ${catch2.src} tests/src/vendor/catch
-  '';
 
-  preBuild = ''
-    export HOME=$TMPDIR
+    sed "s|strict\": true|strict\": false|g" -i ./sites/tsconfig.json
   '';
 
   postInstall = ''

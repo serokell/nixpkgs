@@ -7,7 +7,6 @@
 , attrs
 , click
 , construct
-, construct-classes
 , ecdsa
 , hidapi
 , libusb1
@@ -25,13 +24,13 @@
 
 buildPythonPackage rec {
   pname = "trezor";
-  version = "0.13.5";
+  version = "0.13.3";
 
   disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-jhUBca/+rDge/bFHgpKQhNZBTsd8zNyHHW8NZE/1e9g=";
+    sha256 = "055d32174d4ecf2353f7622ee44b8e82e3bef78fe40ce5cdbeafc785b422a049";
   };
 
   nativeBuildInputs = [ installShellFiles ];
@@ -40,7 +39,6 @@ buildPythonPackage rec {
     attrs
     click
     construct
-    construct-classes
     ecdsa
     hidapi
     libusb1
@@ -56,11 +54,10 @@ buildPythonPackage rec {
     trezor-udev-rules
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   disabledTestPaths = [
     "tests/test_stellar.py" # requires stellar-sdk
-    "tests/test_firmware.py" # requires network downloads
   ];
 
   pythonImportsCheck = [ "trezorlib" ];

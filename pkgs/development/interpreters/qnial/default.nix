@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, unzip, pkg-config, makeWrapper, ncurses, libxcrypt }:
+{ lib, stdenv, fetchFromGitHub, unzip, pkg-config, makeWrapper, ncurses }:
 
 stdenv.mkDerivation {
   pname = "qnial";
@@ -26,7 +26,6 @@ stdenv.mkDerivation {
 
   buildInputs = [
      ncurses
-     libxcrypt
   ];
 
   meta = {

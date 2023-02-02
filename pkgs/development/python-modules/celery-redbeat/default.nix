@@ -29,7 +29,7 @@ buildPythonPackage rec {
     tenacity
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     fakeredis
     mock

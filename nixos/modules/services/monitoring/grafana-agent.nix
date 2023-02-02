@@ -16,7 +16,7 @@ in
     package = mkOption {
       type = types.package;
       default = pkgs.grafana-agent;
-      defaultText = lib.literalExpression "pkgs.grafana-agent";
+      defaultText = "pkgs.grafana-agent";
       description = lib.mdDoc "The grafana-agent package to use.";
     };
 
@@ -49,19 +49,17 @@ in
       };
 
       default = { };
-      defaultText = lib.literalExpression ''
-        {
-          metrics = {
-            wal_directory = "\''${STATE_DIRECTORY}";
-            global.scrape_interval = "5s";
-          };
-          integrations = {
-            agent.enabled = true;
-            agent.scrape_integration = true;
-            node_exporter.enabled = true;
-            replace_instance_label = true;
-          };
-        }
+      defaultText = ''
+        metrics = {
+          wal_directory = "\''${STATE_DIRECTORY}";
+          global.scrape_interval = "5s";
+        };
+        integrations = {
+          agent.enabled = true;
+          agent.scrape_integration = true;
+          node_exporter.enabled = true;
+          replace_instance_label = true;
+        };
       '';
       example = {
         metrics.global.remote_write = [{

@@ -21,7 +21,7 @@ buildPythonPackage rec {
         $'    @unittest.skip("")\n    def test_large_document(self):'
   '';
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  checkInputs = [ unittestCheckHook ];
 
   meta = with lib; {
     description = "Python wrapper for HTML Tidy (tidylib) on Python 2 and 3";

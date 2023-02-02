@@ -2,7 +2,6 @@
 , stdenv
 , symlinkJoin
 , fetchFromGitHub
-, libxcrypt
 }:
 
 let
@@ -36,9 +35,6 @@ let
     inherit mkSubProject;
     wiringPi = mkSubProject {
       subprj = "wiringPi";
-      buildInputs = [
-        libxcrypt
-      ];
     };
     devLib = mkSubProject {
       subprj = "devLib";
@@ -49,7 +45,6 @@ let
     wiringPiD = mkSubProject {
       subprj = "wiringPiD";
       buildInputs = [
-        libxcrypt
         passthru.wiringPi
         passthru.devLib
       ];
@@ -57,7 +52,6 @@ let
     gpio = mkSubProject {
       subprj = "gpio";
       buildInputs = [
-        libxcrypt
         passthru.wiringPi
         passthru.devLib
       ];

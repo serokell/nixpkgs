@@ -26,7 +26,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

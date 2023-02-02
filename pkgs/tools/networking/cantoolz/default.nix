@@ -36,7 +36,7 @@ python3.pkgs.buildPythonApplication rec {
     bitstring
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = with python3.pkgs; [
     pytestCheckHook
   ];
 

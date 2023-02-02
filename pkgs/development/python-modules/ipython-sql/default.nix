@@ -35,7 +35,7 @@ buildPythonPackage rec {
     sqlparse
   ];
 
-  nativeCheckInputs = [ ipython pandas pytest ];
+  checkInputs = [ ipython pandas pytest ];
 
   checkPhase = ''
     runHook preCheck

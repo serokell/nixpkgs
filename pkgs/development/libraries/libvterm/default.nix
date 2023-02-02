@@ -9,26 +9,17 @@ stdenv.mkDerivation rec {
     sha256 = "10gaqygmmwp0cwk3j8qflri5caf8vl3f7pwfl2svw5whv8wkn0k2";
   };
 
+  patchPhase = ''
+    sed -i -e s@/usr@$out@ -e /ldconfig/d Makefile
+  '';
+
   preInstall = ''
-    mkdir -p $out/include $out/lib
+    mkdir -p $out/include
+    mkdir -p $out/lib
   '';
-
-  postPatch = ''
-    substituteInPlace Makefile \
-      --replace "gcc" "${stdenv.cc.targetPrefix}cc" \
-      --replace "ldconfig" "" \
-      --replace "/usr" "$out"
-
-    makeFlagsArray+=("PKG_CFG=`${stdenv.cc.targetPrefix}pkg-config --cflags glib-2.0`")
-  '';
-
-  # For headers
-  propagatedBuildInputs = [ glib ];
-
-  strictDeps = true;
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ ncurses ];
+  buildInputs = [ glib ncurses ];
 
   meta = with lib; {
     homepage = "http://libvterm.sourceforge.net/";

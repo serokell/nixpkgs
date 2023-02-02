@@ -5,15 +5,12 @@
 , six
 , mock
 , isPyPy
-, pythonOlder
 , fetchpatch
 }:
 
 buildPythonPackage rec {
   pname = "sure";
   version = "2.0.0";
-  format = "setuptools";
-
   disabled = isPyPy;
 
   src = fetchPypi {
@@ -29,26 +26,13 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [
-    six
-    mock
-  ];
-
-  nativeCheckInputs = [
-    rednose
-  ];
-
-  doCheck = pythonOlder "3.11";
-
-  pythonImportsCheck = [
-    "sure"
-  ];
+  buildInputs = [ rednose ];
+  propagatedBuildInputs = [ six mock ];
 
   meta = with lib; {
     description = "Utility belt for automated testing";
-    homepage = "https://sure.readthedocs.io/";
-    changelog = "https://github.com/gabrielfalcao/sure/blob/${version}/CHANGELOG.md";
+    homepage = "https://sure.readthedocs.io/en/latest/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
   };
+
 }

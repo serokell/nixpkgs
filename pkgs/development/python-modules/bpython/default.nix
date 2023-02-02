@@ -3,6 +3,7 @@
 , fetchPypi
 , curtsies
 , cwcwidth
+, dataclasses
 , greenlet
 , jedi
 , pygments
@@ -19,14 +20,14 @@
 
 buildPythonPackage rec {
   pname = "bpython";
-  version = "0.24";
+  version = "0.23";
   format = "setuptools";
 
-  disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-mHNv/XqMSP0r+1PYmKR19CQb3gtnISVwavBNnQj9Pb0=";
+    hash = "sha256-nwB4q8iHxIrwiGkeL2R5fWyplKwPS8A8ONBvZX18BSo=";
   };
 
   propagatedBuildInputs = [
@@ -41,6 +42,8 @@ buildPythonPackage rec {
     typing-extensions
     urwid
     watchdog
+  ] ++ lib.optionals (pythonOlder "3.7") [
+    dataclasses
   ];
 
   postInstall = ''
@@ -48,7 +51,7 @@ buildPythonPackage rec {
       --replace "Exec=/usr/bin/bpython" "Exec=$out/bin/bpython"
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

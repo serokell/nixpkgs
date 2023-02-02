@@ -5,10 +5,6 @@ let
   cfg = config.services.lvm;
 in {
   options.services.lvm = {
-    enable = mkEnableOption (lib.mdDoc "lvm2") // {
-      default = true;
-    };
-
     package = mkOption {
       type = types.package;
       default = pkgs.lvm2;
@@ -34,7 +30,7 @@ in {
       # minimal configuration file to make lvmconfig/lvm2-activation-generator happy
       environment.etc."lvm/lvm.conf".text = "config {}";
     })
-    (mkIf cfg.enable {
+    (mkIf (!config.boot.isContainer) {
       systemd.tmpfiles.packages = [ cfg.package.out ];
       environment.systemPackages = [ cfg.package ];
       systemd.packages = [ cfg.package ];

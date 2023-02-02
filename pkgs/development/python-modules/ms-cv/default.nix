@@ -23,7 +23,7 @@ buildPythonPackage rec {
       --replace "pytest-runner" ""
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

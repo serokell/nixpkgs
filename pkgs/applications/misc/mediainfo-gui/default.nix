@@ -1,20 +1,16 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, libmediainfo, wxGTK32
-, desktop-file-utils, libSM, imagemagick, darwin }:
+{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, libmediainfo, wxGTK30-gtk3
+, desktop-file-utils, libSM, imagemagick }:
 
-let
-  inherit (darwin.apple_sdk.frameworks) Cocoa;
-in
 stdenv.mkDerivation rec {
-  version = "22.12";
+  version = "22.06";
   pname = "mediainfo-gui";
   src = fetchurl {
     url = "https://mediaarea.net/download/source/mediainfo/${version}/mediainfo_${version}.tar.xz";
-    sha256 = "sha256-kyuCc59zjn22A89bsXByBzGp58YdFFwqVKq7PNC3U7w=";
+    sha256 = "sha256-mGowC8wnNJij5dpOlwHX3m7uGZ7TbUInPdP+nsesi30=";
   };
 
   nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libmediainfo wxGTK32 desktop-file-utils libSM imagemagick ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs = [ libmediainfo wxGTK30-gtk3 desktop-file-utils libSM imagemagick ];
 
   sourceRoot = "./MediaInfo/Project/GNU/GUI/";
 
@@ -28,7 +24,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://mediaarea.net/";
     license = licenses.bsd2;
-    platforms = platforms.unix;
+    platforms = platforms.linux;
     maintainers = [ maintainers.devhell ];
   };
 }

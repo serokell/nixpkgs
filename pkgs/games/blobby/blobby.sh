@@ -7,4 +7,4 @@ test -d ~/.blobby || {
   ( cd ~/.blobby; for i in *.zip; do @unzip@/bin/unzip "$i"; done )
 }
 
-exec @out@/bin/blobby.bin "$@"
+@out@/bin/blobby.bin

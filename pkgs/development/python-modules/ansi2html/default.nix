@@ -16,7 +16,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ six setuptools ];
 
   preCheck = "export PATH=$PATH:$out/bin";
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  checkInputs = [ mock pytestCheckHook ];
 
   pythonImportsCheck = [ "ansi2html" ];
 

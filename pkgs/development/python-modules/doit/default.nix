@@ -34,7 +34,7 @@ let doit = buildPythonPackage rec {
   ] ++ lib.optional stdenv.isLinux pyinotify
     ++ lib.optional stdenv.isDarwin macfsevents;
 
-  nativeCheckInputs = [
+  checkInputs = [
     configclass
     doit-py
     mergedict

@@ -1,54 +1,35 @@
-{ lib
-, mkYarnPackage
-, fetchYarnDeps
-, fetchFromGitHub
-, srcOnly
-, makeWrapper
-, removeReferencesTo
-, python3
-, nodejs
-, matrix-sdk-crypto-nodejs
-}:
+{ lib, mkYarnPackage, fetchFromGitHub, runCommand, makeWrapper, python3, nodejs }:
+
+assert lib.versionAtLeast nodejs.version "12.0.0";
 
 let
-  pin = lib.importJSON ./pin.json;
-  nodeSources = srcOnly nodejs;
+  nodeSources = runCommand "node-sources" {} ''
+    tar --no-same-owner --no-same-permissions -xf ${nodejs.src}
+    mv node-* $out
+  '';
 
 in mkYarnPackage rec {
   pname = "matrix-appservice-discord";
-  inherit (pin) version;
+
+  # when updating, run `./generate.sh <git release tag>`
+  version = "1.0.0";
 
   src = fetchFromGitHub {
-    owner = "matrix-org";
+    owner = "Half-Shot";
     repo = "matrix-appservice-discord";
     rev = "v${version}";
-    sha256 = pin.srcSha256;
+    sha256 = "0pca4jxxl4b8irvb1bacsrzjg8m7frq9dnx1knnd2n6ia3f3x545";
   };
 
   packageJSON = ./package.json;
-  offlineCache = fetchYarnDeps {
-    yarnLock = "${src}/yarn.lock";
-    sha256 = pin.yarnSha256;
-  };
+  yarnNix = ./yarn-dependencies.nix;
 
   pkgConfig = {
-    "@matrix-org/matrix-sdk-crypto-nodejs" = {
-      postInstall = ''
-        # replace with the built package
-        cd ..
-        rm -r matrix-sdk-crypto-nodejs
-        ln -s ${matrix-sdk-crypto-nodejs}/lib/node_modules/@matrix-org/* ./
-      '';
-    };
-
     better-sqlite3 = {
-      nativeBuildInputs = [ python3 ];
+      buildInputs = [ python3 ];
       postInstall = ''
         # build native sqlite bindings
         npm run build-release --offline --nodedir="${nodeSources}"
-        find build -type f -exec \
-          ${removeReferencesTo}/bin/remove-references-to \
-          -t "${nodeSources}" {} \;
      '';
     };
   };
@@ -56,22 +37,14 @@ in mkYarnPackage rec {
   nativeBuildInputs = [ makeWrapper ];
 
   buildPhase = ''
-    runHook preBuild
-
     # compile TypeScript sources
     yarn --offline build
-
-    runHook postBuild
   '';
 
   doCheck = true;
   checkPhase = ''
-    runHook preCheck
-
     # the default 2000ms timeout is sometimes too short on our busy builders
     yarn --offline test --timeout 10000
-
-    runHook postCheck
   '';
 
   postInstall = ''
@@ -83,8 +56,7 @@ in mkYarnPackage rec {
 
     # admin tools wrappers
     for toolPath in $OUT_JS_DIR/tools/*; do
-      makeWrapper '${nodejs}/bin/node' \
-        "$out/bin/${pname}-$(basename $toolPath .js)" \
+      makeWrapper '${nodejs}/bin/node' "$out/bin/${pname}-$(basename $toolPath .js)" \
         --add-flags "$toolPath"
     done
   '';
@@ -94,7 +66,6 @@ in mkYarnPackage rec {
 
   passthru = {
     nodeAppDir = "libexec/${pname}/deps/${pname}";
-    updateScript = ./update.sh;
   };
 
   meta = {

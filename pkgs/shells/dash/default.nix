@@ -2,7 +2,6 @@
 , stdenv
 , buildPackages
 , autoreconfHook
-, pkg-config
 , fetchurl
 , fetchpatch
 , libedit
@@ -38,16 +37,12 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   # configure.ac patched; remove on next release
-  nativeBuildInputs = [ autoreconfHook ]
-    ++ lib.optionals stdenv.hostPlatform.isStatic [ pkg-config ];
+  nativeBuildInputs = [ autoreconfHook ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   buildInputs = [ libedit ];
 
   configureFlags = [ "--with-libedit" ];
-  preConfigure = lib.optional stdenv.hostPlatform.isStatic ''
-    export LIBS="$(''${PKG_CONFIG:-pkg-config} --libs --static libedit)"
-  '';
 
   enableParallelBuilding = true;
 

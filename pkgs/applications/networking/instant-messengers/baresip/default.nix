@@ -25,13 +25,13 @@
 , libvpx
 }:
 stdenv.mkDerivation rec {
-  version = "2.9.0";
+  version = "2.8.2";
   pname = "baresip";
   src = fetchFromGitHub {
     owner = "baresip";
     repo = "baresip";
     rev = "v${version}";
-    sha256 = "sha256-B4d8D4IfLYAIYVN80Lrh5bywD5iacSnUVwEzbc6Xq7g=";
+    sha256 = "sha256-+hkV9s4ORm4Kqu9zBmxtFZJFG3gh70OOxpjix052bM0=";
   };
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [

@@ -5,11 +5,11 @@
 
 stdenv.mkDerivation rec {
   pname = "cmt";
-  version = "1.18";
+  version = "1.17";
 
   src = fetchurl {
     url = "http://www.ladspa.org/download/cmt_${version}.tgz";
-    sha256 = "sha256-qC+GNt4fSto4ahmaAXqc13Wkm0nnFrEejdP3I8k99so=";
+    sha256 = "07xd0xmwpa0j12813jpf87fr9hwzihii5l35mp8ady7xxfmxfmpb";
   };
 
   buildInputs = [ ladspaH ];

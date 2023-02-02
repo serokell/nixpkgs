@@ -22,7 +22,7 @@ buildPythonPackage rec {
     ++ lib.optionals stdenv.isDarwin [ gcc ];
 
   # pytestCheckHook leads to a circular import issue
-  nativeCheckInputs = [ click ];
+  checkInputs = [ click ];
 
   pythonImportsCheck = [ "primer3" ];
 

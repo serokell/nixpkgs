@@ -6,7 +6,7 @@ buildDunePackage rec {
   pname = "ocsipersist-lib";
   version = "1.1.0";
 
-  duneVersion = "3";
+  useDune2 = true;
 
   src = fetchFromGitHub {
     owner = "ocsigen";

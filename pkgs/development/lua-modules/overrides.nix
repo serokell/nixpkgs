@@ -22,13 +22,11 @@
 , libmysqlclient
 , libuuid
 , libuv
-, libxcrypt
 , libyaml
 , mariadb
 , mpfr
 , neovim-unwrapped
-, openldap
-, openssl
+, openssl_1_1
 , pcre
 , pkg-config
 , postgresql
@@ -74,8 +72,8 @@ with prev;
 
   cqueues = (prev.luaLib.overrideLuarocks prev.cqueues (drv: {
     externalDeps = [
-      { name = "CRYPTO"; dep = openssl; }
-      { name = "OPENSSL"; dep = openssl; }
+      { name = "CRYPTO"; dep = openssl_1_1; }
+      { name = "OPENSSL"; dep = openssl_1_1; }
     ];
     disabled = luaOlder "5.1" || luaAtLeast "5.4";
   })).overrideAttrs (oa: rec {
@@ -330,28 +328,17 @@ with prev;
     disabled = luaOlder "5.1" || luaAtLeast "5.4" || isLuaJIT;
   });
 
-  lualdap = prev.luaLib.overrideLuarocks prev.lualdap (drv: {
-    externalDeps = [
-      { name = "LDAP"; dep = openldap; }
-    ];
-  });
-
   luaossl = prev.luaLib.overrideLuarocks prev.luaossl (drv: {
     externalDeps = [
-      { name = "CRYPTO"; dep = openssl; }
-      { name = "OPENSSL"; dep = openssl; }
-    ];
-  });
-
-  luaposix = prev.luaLib.overrideLuarocks prev.luaposix (drv: {
-    externalDeps = [
-      { name = "CRYPT"; dep = libxcrypt; }
+      # https://github.com/wahern/luaossl/pull/199
+      { name = "CRYPTO"; dep = openssl_1_1; }
+      { name = "OPENSSL"; dep = openssl_1_1; }
     ];
   });
 
   luasec = prev.luaLib.overrideLuarocks prev.luasec (drv: {
     externalDeps = [
-      { name = "OPENSSL"; dep = openssl; }
+      { name = "OPENSSL"; dep = openssl_1_1; }
     ];
   });
 
@@ -383,7 +370,7 @@ with prev;
     ];
   });
 
-  lush-nvim = prev.luaLib.overrideLuarocks prev.lush-nvim (drv: {
+  lush-nvim = prev.luaLib.overrideLuarocks prev.lush-nvim (drv: rec {
     doCheck = false;
   });
 
@@ -405,9 +392,10 @@ with prev;
     patches = [
       ./luuid.patch
     ];
-    postConfigure =  ''
-      sed -Ei ''${rockspecFilename} -e 's|lua >= 5.2|lua >= 5.1,|'
-    '';
+    postConfigure = let inherit (prev.luuid) version pname; in
+      ''
+        sed -Ei ''${rockspecFilename} -e 's|lua >= 5.2|lua >= 5.1,|'
+      '';
   });
 
 
@@ -498,11 +486,11 @@ with prev;
   sqlite = prev.luaLib.overrideLuarocks prev.sqlite (drv: {
 
     doCheck = true;
-    nativeCheckInputs = [ final.plenary-nvim neovim-unwrapped ];
+    checkInputs = [ final.plenary-nvim neovim-unwrapped ];
 
     # we override 'luarocks test' because otherwise neovim doesn't find/load the plenary plugin
     checkPhase = ''
-      export LIBSQLITE="${sqlite.out}/lib/libsqlite3${stdenv.hostPlatform.extensions.sharedLibrary}"
+      export LIBSQLITE="${sqlite.out}/lib/libsqlite3.so"
       export HOME="$TMPDIR";
 
       nvim --headless -i NONE \
@@ -525,6 +513,7 @@ with prev;
       make all
     '';
   });
+
   vusted = prev.vusted.overrideAttrs (_: {
     # make sure vusted_entry.vim doesn't get wrapped
     postInstall = ''
@@ -532,6 +521,11 @@ with prev;
     '';
   });
 
+  # TODO just while testing, remove afterwards
+  # toVimPlugin should do it instead
+  gitsigns-nvim = prev.gitsigns-nvim.overrideAttrs (oa: {
+    nativeBuildInputs = oa.nativeBuildInputs or [ ] ++ [ vimUtils.vimGenDocHook ];
+  });
 
   # aliases
   cjson = prev.lua-cjson;

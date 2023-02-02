@@ -25,7 +25,7 @@ buildPythonPackage rec {
     echo '__version__ = "${version}"' > ./src/hcl/version.py
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     coverage
     pytest
   ];

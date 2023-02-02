@@ -11,7 +11,7 @@ options = {
     type = type specification;
     default = default value;
     example = example value;
-    description = lib.mdDoc "Description for use in the NixOS manual.";
+    description = "Description for use in the NixOS manual.";
   };
 };
 ```
@@ -59,9 +59,8 @@ The function `mkOption` accepts the following arguments.
 :   A textual description of the option, in [Nixpkgs-flavored Markdown](
     https://nixos.org/nixpkgs/manual/#sec-contributing-markup) format, that will be
     included in the NixOS manual. During the migration process from DocBook
-    it is necessary to mark descriptions written in CommonMark with `lib.mdDoc`.
-    The description may still be written in DocBook (without any marker), but this
-    is discouraged and will be deprecated in the future.
+    to CommonMark the description may also be written in DocBook, but this is
+    discouraged.
 
 ## Utility functions for common option patterns {#sec-option-declarations-util}
 
@@ -78,17 +77,17 @@ For example:
 
 ::: {#ex-options-declarations-util-mkEnableOption-magic .example}
 ```nix
-lib.mkEnableOption (lib.mdDoc "magic")
+lib.mkEnableOption "magic"
 # is like
 lib.mkOption {
   type = lib.types.bool;
   default = false;
   example = true;
-  description = lib.mdDoc "Whether to enable magic.";
+  description = "Whether to enable magic.";
 }
 ```
 
-### `mkPackageOption`, `mkPackageOptionMD` {#sec-option-declarations-util-mkPackageOption}
+### `mkPackageOption` {#sec-option-declarations-util-mkPackageOption}
 
 Usage:
 
@@ -106,26 +105,24 @@ The second argument is the name of the option, used in the description "The \<na
 
 You can omit the default path if the name of the option is also attribute path in nixpkgs.
 
-During the transition to CommonMark documentation `mkPackageOption` creates an option with a DocBook description attribute, once the transition is completed it will create a CommonMark description instead. `mkPackageOptionMD` always creates an option with a CommonMark description attribute and will be removed some time after the transition is completed.
-
 ::: {#ex-options-declarations-util-mkPackageOption .title}
 Examples:
 
 ::: {#ex-options-declarations-util-mkPackageOption-hello .example}
 ```nix
-lib.mkPackageOptionMD pkgs "hello" { }
+lib.mkPackageOption pkgs "hello" { }
 # is like
 lib.mkOption {
   type = lib.types.package;
   default = pkgs.hello;
   defaultText = lib.literalExpression "pkgs.hello";
-  description = lib.mdDoc "The hello package to use.";
+  description = "The hello package to use.";
 }
 ```
 
 ::: {#ex-options-declarations-util-mkPackageOption-ghc .example}
 ```nix
-lib.mkPackageOptionMD pkgs "GHC" {
+lib.mkPackageOption pkgs "GHC" {
   default = [ "ghc" ];
   example = "pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])";
 }
@@ -135,7 +132,7 @@ lib.mkOption {
   default = pkgs.ghc;
   defaultText = lib.literalExpression "pkgs.ghc";
   example = lib.literalExpression "pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])";
-  description = lib.mdDoc "The GHC package to use.";
+  description = "The GHC package to use.";
 }
 ```
 
@@ -151,7 +148,7 @@ multiple modules, or as an alternative to related `enable` options.
 
 As an example, we will take the case of display managers. There is a
 central display manager module for generic display manager options and a
-module file per display manager backend (sddm, gdm ...).
+module file per display manager backend (sddm, gdm \...).
 
 There are two approaches we could take with this module structure:
 

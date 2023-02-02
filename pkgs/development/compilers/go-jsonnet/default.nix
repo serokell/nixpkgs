@@ -1,30 +1,37 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchpatch, testers, go-jsonnet }:
+{ lib
+, buildGoModule
+, fetchFromGitHub
+, fetchpatch
+, testers
+}:
 
-buildGoModule rec {
+let self = buildGoModule rec {
   pname = "go-jsonnet";
-  version = "0.19.1";
+  version = "0.18.0";
 
   src = fetchFromGitHub {
     owner = "google";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-FgQYnas0qkIedRAA8ApZXLzEylg6PS6+8zzl7j+yOeI=";
+    hash = "sha256-o/IjXskGaMhvQmTsAS745anGBMI2bwHf/EOEp57H8LU=";
   };
 
-  vendorSha256 = "sha256-j1fTOUpLx34TgzW94A/BctLrg9XoTtb3cBizhVJoEEI=";
-
   patches = [
-    # See https://github.com/google/go-jsonnet/issues/653.
     (fetchpatch {
-      url = "https://github.com/google/go-jsonnet/commit/5712f2ed2c8dfa685e4f1234eefc7690a580af6f.patch";
-      hash = "sha256-/+6BlAaul4FoD7pq7yAy1xG78apEBuH2LC4fsfbugFQ=";
+      name = "update-x-sys-for-go-1.18-on-aarch64-darwin.patch";
+      url = "https://github.com/google/go-jsonnet/commit/7032dd729f7e684dcfb2574f4fe99499165ef9cb.patch";
+      hash = "sha256-emUcuE9Q4qkXFXLyLvLHjzrKAaQhjcSWLNafABvHxhM=";
     })
   ];
+
+  vendorHash = "sha256-H4vLVXpuPkECB15LHoS9N9IwUD7Fzccshwbo5hjeXXc=";
+
+  doCheck = false;
 
   subPackages = [ "cmd/jsonnet*" ];
 
   passthru.tests.version = testers.testVersion {
-    package = go-jsonnet;
+    package = self;
     version = "v${version}";
   };
 
@@ -35,4 +42,5 @@ buildGoModule rec {
     maintainers = with maintainers; [ nshalman aaronjheng ];
     mainProgram = "jsonnet";
   };
-}
+};
+in self

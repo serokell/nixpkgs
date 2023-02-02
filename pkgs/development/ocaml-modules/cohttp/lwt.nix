@@ -7,8 +7,6 @@ buildDunePackage {
     src
     ;
 
-  duneVersion = "3";
-
   buildInputs = [ ppx_sexp_conv ];
 
   propagatedBuildInputs = [

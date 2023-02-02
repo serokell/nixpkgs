@@ -16,7 +16,7 @@ buildPythonPackage rec {
   '';
 
   nativeBuildInputs = [ zetup ];
-  nativeCheckInputs = [ six path pytest ];
+  checkInputs = [ six path pytest ];
   propagatedBuildInputs = [ decorator ];
 
   meta = with lib; {

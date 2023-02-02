@@ -1,4 +1,4 @@
-# NixOS module for Buildbot continuous integration server.
+# NixOS module for Buildbot continous integration server.
 
 { config, lib, options, pkgs, ... }:
 
@@ -10,7 +10,7 @@ let
 
   python = cfg.package.pythonModule;
 
-  escapeStr = escape [ "'" ];
+  escapeStr = s: escape ["'"] s;
 
   defaultMasterCfg = pkgs.writeText "master.cfg" ''
     from buildbot.plugins import *
@@ -206,7 +206,7 @@ in {
 
       port = mkOption {
         default = 8010;
-        type = types.port;
+        type = types.int;
         description = lib.mdDoc "Specifies port number on which the buildbot HTTP interface listens.";
       };
 
@@ -245,7 +245,9 @@ in {
         description = "Buildbot User.";
         isNormalUser = true;
         createHome = true;
-        inherit (cfg) home group extraGroups;
+        home = cfg.home;
+        group = cfg.group;
+        extraGroups = cfg.extraGroups;
         useDefaultShell = true;
       };
     };

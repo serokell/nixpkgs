@@ -33,7 +33,7 @@ buildPythonPackage rec {
     monotonic
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     nose
   ];

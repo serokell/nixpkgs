@@ -1,25 +1,26 @@
-{ lib, stdenv, fetchurl, ocaml, findlib, ocamlbuild, topkg, uutf }:
+{ lib, stdenv, fetchurl, ocaml, findlib, ocamlbuild, topkg, uutf, result }:
 
 let
   pname = "otfm";
-  version = "0.4.0";
+  version = "0.3.0";
   webpage = "https://erratique.ch/software/${pname}";
 in
 
+assert lib.versionAtLeast ocaml.version "4.01.0";
+
 stdenv.mkDerivation {
 
-  pname = "ocaml${ocaml.version}-${pname}";
-  inherit version;
+  name = "ocaml-${pname}-${version}";
 
   src = fetchurl {
     url = "${webpage}/releases/${pname}-${version}.tbz";
-    hash = "sha256-02U23mYTy0ZJgSObDoyygPTGEMC4/Zge5bux4wshaEE=";
+    sha256 = "054s82539k3kc9na6s47g3scsl04icjahpas7pv5351jmsgqcq3k";
   };
 
   nativeBuildInputs = [ ocaml findlib ocamlbuild topkg ];
   buildInputs = [ topkg ];
 
-  propagatedBuildInputs = [ uutf ];
+  propagatedBuildInputs = [ uutf result ];
 
   strictDeps = true;
 

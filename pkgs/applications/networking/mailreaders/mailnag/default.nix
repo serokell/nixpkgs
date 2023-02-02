@@ -12,7 +12,7 @@
 , gsettings-desktop-schemas
 , glib
 , gobject-introspection
-# Available plugins (can be overridden)
+# Available plugins (can be overriden)
 , availablePlugins
 # Used in the withPlugins interface at passthru, can be overrided directly, or
 # prefarably via e.g: `mailnag.withPlugins([mailnag.availablePlugins.goa])`

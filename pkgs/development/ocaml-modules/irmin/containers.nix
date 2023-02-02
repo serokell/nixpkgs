@@ -17,7 +17,7 @@ buildDunePackage {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [
+  checkInputs = [
     alcotest alcotest-lwt cacert
   ];
 

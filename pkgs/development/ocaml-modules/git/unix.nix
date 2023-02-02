@@ -15,7 +15,6 @@ buildDunePackage {
   inherit (git) version src;
 
   minimalOCamlVersion = "4.08";
-  duneVersion = "3";
 
   buildInputs = [
     awa awa-mirage cmdliner
@@ -30,7 +29,7 @@ buildDunePackage {
     tls tls-mirage git happy-eyeballs-lwt
     git-mirage mirage-clock-unix
   ];
-  nativeCheckInputs = [
+  checkInputs = [
     alcotest alcotest-lwt base64 ke
     mirage-crypto-rng git-binary
     uri mtime

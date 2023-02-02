@@ -1,5 +1,4 @@
 { lib
-, stdenv
 , buildPythonPackage
 , debugger
 , fetchPypi
@@ -28,12 +27,12 @@ let
   debuggerName = lib.strings.getName debugger;
 in
 buildPythonPackage rec {
-  version = "4.9.0";
+  version = "4.8.0";
   pname = "pwntools";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-7qZ9GC+RcEiDkpmNmy8d67dYiTgFBVAfB3B2RfrH5xI=";
+    sha256 = "sha256-QgUuLYg3EOTh2gQekWdabXGftOXvLdJFyyhT2hEmkpA=";
   };
 
   postPatch = ''
@@ -78,13 +77,13 @@ buildPythonPackage rec {
     installShellCompletion --bash extra/bash_completion.d/shellcraft
   '';
 
-  postFixup = lib.optionalString (!stdenv.isDarwin) ''
+  postFixup = ''
     mkdir -p "$out/bin"
     makeWrapper "${debugger}/bin/${debuggerName}" "$out/bin/pwntools-gdb"
   '';
 
   meta = with lib; {
-    homepage = "https://pwntools.com";
+    homepage = "http://pwntools.com";
     description = "CTF framework and exploit development library";
     license = licenses.mit;
     maintainers = with maintainers; [ bennofs kristoff3r pamplemousse ];

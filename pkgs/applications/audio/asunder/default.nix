@@ -9,6 +9,8 @@
 #, aacSupport ? false, TODO: neroAacEnc
 }:
 
+with lib;
+
 stdenv.mkDerivation rec {
   version = "2.9.7";
   pname = "asunder";
@@ -21,20 +23,20 @@ stdenv.mkDerivation rec {
   buildInputs = [ gtk2 libcddb ];
 
   runtimeDeps =
-    lib.optional mp3Support lame ++
-    lib.optional oggSupport vorbis-tools ++
-    lib.optional flacSupport flac ++
-    lib.optional opusSupport opusTools ++
-    lib.optional wavpackSupport wavpack ++
-    lib.optional monkeysAudioSupport monkeysAudio ++
+    optional mp3Support lame ++
+    optional oggSupport vorbis-tools ++
+    optional flacSupport flac ++
+    optional opusSupport opusTools ++
+    optional wavpackSupport wavpack ++
+    optional monkeysAudioSupport monkeysAudio ++
     [ cdparanoia ];
 
   postInstall = ''
     wrapProgram "$out/bin/asunder" \
-      --prefix PATH : "${lib.makeBinPath runtimeDeps}"
+      --prefix PATH : "${makeBinPath runtimeDeps}"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A graphical Audio CD ripper and encoder for Linux";
     homepage = "http://littlesvr.ca/asunder/index.php";
     license = licenses.gpl2;

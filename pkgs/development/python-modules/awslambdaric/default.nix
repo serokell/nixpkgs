@@ -47,7 +47,7 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # Test fails with: Assertion error

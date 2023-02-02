@@ -5,7 +5,7 @@
 , pkg-config
 , scdoc
 , stdenv
-, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd
+, systemdSupport ? stdenv.isLinux, systemd
 }:
 
 stdenv.mkDerivation rec {
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     changelog   = "https://git.sr.ht/~kennylevinsen/seatd/refs/${version}";
     homepage    = "https://sr.ht/~kennylevinsen/seatd/";
     license     = licenses.mit;
-    platforms   = with platforms; freebsd ++ linux ++ netbsd;
+    platforms   = platforms.linux;
     maintainers = with maintainers; [ emantor ];
   };
 }

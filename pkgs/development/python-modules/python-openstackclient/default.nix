@@ -42,7 +42,7 @@ buildPythonPackage rec {
     installManPage doc/build/man/openstack.1
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     ddt
     stestr
     requests-mock

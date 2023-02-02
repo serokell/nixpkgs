@@ -15,7 +15,7 @@ buildDunePackage rec {
   propagatedBuildInputs = [ menhirLib ];
 
   doCheck = true;
-  nativeCheckInputs = [ ounit ];
+  checkInputs = [ ounit ];
 
   meta = {
     description = "Mustache logic-less templates in OCaml";

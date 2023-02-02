@@ -1,4 +1,5 @@
 { buildPackages
+, buildPlatform
 , fetchzip
 , javaOpts ? "-XX:+UseZGC"
 , jdk
@@ -22,7 +23,7 @@ stdenvNoCC.mkDerivation rec {
   nativeBuildInputs = [ jdk makeWrapper ];
 
   LANG = "en_US.UTF-8";
-  LOCALE_ARCHIVE = lib.optionalString (stdenvNoCC.buildPlatform.libc == "glibc")
+  LOCALE_ARCHIVE = lib.optionalString (buildPlatform.libc == "glibc")
     "${buildPackages.glibcLocales}/lib/locale/locale-archive";
 
   buildPhase = ''

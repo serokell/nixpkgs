@@ -16,8 +16,7 @@ in
     enable = mkEnableOption (lib.mdDoc "VMWare Guest Support");
     headless = mkOption {
       type = types.bool;
-      default = !config.services.xserver.enable;
-      defaultText = "!config.services.xserver.enable";
+      default = false;
       description = lib.mdDoc "Whether to disable X11-related features.";
     };
   };

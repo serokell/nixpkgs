@@ -1,24 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{ lib, buildPythonPackage, fetchPypi, isPy27
 , azure-common
 , azure-mgmt-core
 , msrest
 , msrestazure
-, pythonOlder
-, typing-extensions
 }:
 
 buildPythonPackage rec {
+  version = "2.0.0";
   pname = "azure-mgmt-security";
-  version = "3.0.0";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  disabled = isPy27;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-vLp874V/awKi2Yr+sH+YcbFij6M9iGGrE4fnMufbP4Q=";
+    sha256 = "sha256-2sr3clHf5EvbXAx5FH3d3ab1/Y48r6Ojww3p9WX35aM=";
     extension = "zip";
   };
 
@@ -27,17 +21,12 @@ buildPythonPackage rec {
     azure-mgmt-core
     msrest
     msrestazure
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
   ];
 
   # no tests included
   doCheck = false;
 
-  pythonImportsCheck = [
-    "azure.common"
-    "azure.mgmt.security"
-  ];
+  pythonImportsCheck = [ "azure.common" "azure.mgmt.security" ];
 
   meta = with lib; {
     description = "Microsoft Azure Security Center Management Client Library for Python";

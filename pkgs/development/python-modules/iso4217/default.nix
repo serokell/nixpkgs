@@ -32,7 +32,7 @@ buildPythonPackage rec {
     importlib-resources
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

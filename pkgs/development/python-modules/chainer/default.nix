@@ -1,51 +1,33 @@
-{ lib
-, buildPythonPackage
-, config
-, cudaSupport ? config.cudaSupport or false
-, cupy
-, fetchFromGitHub
-, filelock
-, mock
-, numpy
-, protobuf
-, pytestCheckHook
-, pythonOlder
-, six
-, typing-extensions
+{ config, lib, buildPythonPackage, fetchFromGitHub, isPy3k
+, filelock, protobuf, numpy, pytestCheckHook, mock, typing-extensions
+, cupy, cudaSupport ? config.cudaSupport or false
 }:
 
 buildPythonPackage rec {
   pname = "chainer";
   version = "7.8.1.post1";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  disabled = !isPy3k; # python2.7 abandoned upstream
 
   src = fetchFromGitHub {
     owner = "chainer";
     repo = "chainer";
     rev = "refs/tags/v${version}";
-    hash = "sha256-epwnExmyCWmwaOz+mJnAl1peEeHLBdQGC62BlLfSTQQ=";
+    sha256 = "sha256-epwnExmyCWmwaOz+mJnAl1peEeHLBdQGC62BlLfSTQQ=";
   };
 
   propagatedBuildInputs = [
     filelock
-    numpy
     protobuf
-    six
+    numpy
     typing-extensions
-  ] ++ lib.optionals cudaSupport [
-    cupy
-  ];
+  ] ++ lib.optionals cudaSupport [ cupy ];
 
-  nativeCheckInputs = [
-    mock
+  checkInputs = [
     pytestCheckHook
+    mock
   ];
 
-  pytestFlagsArray = [
-    "tests/chainer_tests/utils_tests"
-  ];
+  pytestFlagsArray = [ "tests/chainer_tests/utils_tests" ];
 
   preCheck = ''
     # cf. https://github.com/chainer/chainer/issues/8621
@@ -59,10 +41,6 @@ buildPythonPackage rec {
     "gpu"
     "cupy"
     "ideep"
-  ];
-
-  pythonImportsCheck = [
-    "chainer"
   ];
 
   meta = with lib; {

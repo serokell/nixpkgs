@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "memtest86+";
-  version = "6.01";
+  version = "6.00-beta2";
 
   src = fetchFromGitHub {
     owner = "memtest86plus";
     repo = "memtest86plus";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-BAY8hR8Sl9Hp9Zps0INL43cNqJwXX689m9rfa4dHrqs=";
+    hash = "sha256-U3++iJa0Zj3g2SZTJ0jom7raAu+LGqiOKZEputs/YfM=";
   };
 
   # Binaries are booted directly by BIOS/UEFI or bootloader
@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    homepage = "https://www.memtest.org/";
+    homepage = "http://www.memtest.org/";
     description = "A tool to detect memory errors";
     license = lib.licenses.gpl2;
     platforms = [ "x86_64-linux" "i686-linux" ];

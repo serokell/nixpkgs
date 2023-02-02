@@ -33,7 +33,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pyaudio
     numpy
     libsndfile

@@ -17,7 +17,6 @@
 , glib
 , networkmanager
 , libpulseaudio
-, pipewire
 }:
 
 stdenv.mkDerivation rec {
@@ -60,8 +59,6 @@ stdenv.mkDerivation rec {
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-ugly
     gst_all_1.gst-rtsp-server
-    gst_all_1.gst-vaapi
-    pipewire
     networkmanager
     libpulseaudio
   ];

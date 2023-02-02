@@ -23,7 +23,7 @@ buildPythonApplication rec {
     deeptoolsintervals
   ];
 
-  nativeCheckInputs = [ nose ];
+  checkInputs = [ nose ];
 
   meta = with lib; {
     homepage = "https://deeptools.readthedocs.io/en/develop";

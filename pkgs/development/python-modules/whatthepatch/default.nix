@@ -2,26 +2,20 @@
 , buildPythonPackage
 , fetchFromGitHub
 , pytestCheckHook
-, setuptools
 }:
 
 buildPythonPackage rec {
   pname = "whatthepatch";
-  version = "1.0.3";
-  format = "pyproject";
+  version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "cscorley";
     repo = pname;
-    rev = "refs/tags/${version}";
-    hash = "sha256-P4SYSMdDjwXOmre3hXKS4gQ0OS9pz0SWqBeD/WQMQFw=";
+    rev = version;
+    hash = "sha256-0l/Ebq7Js9sKFJ/RzkQ1aWEDCxt+COVd2qVnLSWwFx0=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
-
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 
@@ -31,6 +25,6 @@ buildPythonPackage rec {
     description = "Python library for both parsing and applying patch files";
     homepage = "https://github.com/cscorley/whatthepatch";
     license = licenses.mit;
-    maintainers = with maintainers; [ joelkoen ];
+    maintainers = with maintainers; [ jyooru ];
   };
 }

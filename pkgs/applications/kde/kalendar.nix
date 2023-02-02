@@ -35,10 +35,6 @@
 , akonadi-contacts
 , akonadi-calendar-tools
 , kdepim-runtime
-, gpgme
-, pimcommon
-, mailcommon
-, messagelib
 }:
 
 mkDerivation rec {
@@ -80,11 +76,6 @@ mkDerivation rec {
     akonadi-contacts
     akonadi-calendar-tools
     kdepim-runtime
-
-    gpgme
-    pimcommon
-    mailcommon
-    messagelib
   ];
 
   propagatedUserEnvPkgs = [ akonadi kdepim-runtime akonadi-search ];

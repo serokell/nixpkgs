@@ -21,7 +21,7 @@ with lib;
     # Allow root logins
     services.openssh = {
       enable = true;
-      settings.PermitRootLogin = "prohibit-password";
+      permitRootLogin = "prohibit-password";
     };
 
     # Cloud-init configuration.

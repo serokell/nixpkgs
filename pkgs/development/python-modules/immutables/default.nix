@@ -25,7 +25,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mypy
     pytestCheckHook
   ];

@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ nbconvert requests ];
 
-  nativeCheckInputs = [ pytestCheckHook responses ];
+  checkInputs = [ pytestCheckHook responses ];
 
   JUPYTER_PATH="${nbconvert}/share/jupyter";
   disabledTests = [

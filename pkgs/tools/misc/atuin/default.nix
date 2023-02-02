@@ -6,21 +6,20 @@
 , libiconv
 , Security
 , SystemConfiguration
-, nixosTests
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "atuin";
-  version = "12.0.0";
+  version = "11.0.0";
 
   src = fetchFromGitHub {
     owner = "ellie";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-kt0Xu95E3MayUybSh1mU5frJoU7BF41Hnjqqrz/cVHE=";
+    sha256 = "sha256-fHqZkFWueC2jr86kR3T1qcFaMMhEqfu2pzt8VfqmBnE=";
   };
 
-  cargoSha256 = "sha256-WAAelEFtHlFGDk0AI381OS5bxN58Z46kyMAuL+XX/Ac=";
+  cargoSha256 = "sha256-BkrrVlqEtQWjc+jaKilAtf9xyaENAuvqCxIrxxmglOY=";
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -32,10 +31,6 @@ rustPlatform.buildRustPackage rec {
       --fish <($out/bin/atuin gen-completions -s fish) \
       --zsh <($out/bin/atuin gen-completions -s zsh)
   '';
-
-  passthru.tests = {
-    inherit (nixosTests) atuin;
-  };
 
   meta = with lib; {
     description = "Replacement for a shell history which records additional commands context with optional encrypted synchronization between machines";

@@ -6,7 +6,6 @@
 , inetutils
 , wget
 , openssl
-, libxcrypt
 , minimal ? false
 , userSupport ? !minimal
 , cgiSupport ? !minimal
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
   ];
   patchFlags = [ "-p3" ];
 
-  buildInputs = [ openssl libxcrypt ] ++ optional (luaSupport) lua;
+  buildInputs = [ openssl ] ++ optional (luaSupport) lua;
   nativeBuildInputs = [ bmake groff ];
 
   COPTS = [
@@ -72,7 +71,7 @@ stdenv.mkDerivation rec {
   makeFlags = [ "LDADD=$(_LDADD)" ];
 
   doCheck = true;
-  nativeCheckInputs = [ inetutils wget ];
+  checkInputs = [ inetutils wget ];
   checkFlags = optional (!cgiSupport) "CGITESTS=";
 
   meta = with lib; {

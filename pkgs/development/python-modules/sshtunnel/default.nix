@@ -15,7 +15,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ paramiko ];
 
-  nativeCheckInputs = [ pytestCheckHook mock ];
+  checkInputs = [ pytestCheckHook mock ];
 
   # disable impure tests
   disabledTests = [

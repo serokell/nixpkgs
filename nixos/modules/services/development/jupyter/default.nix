@@ -57,7 +57,7 @@ in {
     };
 
     port = mkOption {
-      type = types.port;
+      type = types.int;
       default = 8888;
       description = lib.mdDoc ''
         Port number Jupyter will be listening on.
@@ -119,7 +119,7 @@ in {
 
     kernels = mkOption {
       type = types.nullOr (types.attrsOf(types.submodule (import ./kernel-options.nix {
-        inherit lib pkgs;
+        inherit lib;
       })));
 
       default = null;

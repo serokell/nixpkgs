@@ -11,7 +11,7 @@ buildPythonApplication rec {
 
   propagatedBuildInputs = [ dnspython ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   postCheck = ''
     echo example.org > simple.list

@@ -29,7 +29,7 @@ buildPythonPackage rec {
     pexpect
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     nose
     pytestCheckHook

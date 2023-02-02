@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl }:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "tipa";
@@ -23,7 +23,6 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Phonetic font for TeX";
-    license = lib.licenses.lppl13c;
   };
 }
 

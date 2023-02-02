@@ -3,7 +3,6 @@
 , libxml2, python3, isl, fetchFromGitHub, overrideCC, wrapCCWith, wrapBintoolsWith
 , buildLlvmTools # tools, but from the previous stage, for cross
 , targetLlvmLibraries # libraries, but from the next stage, for cross
-, targetLlvm
 # This is the default binutils, but with *this* version of LLD rather
 # than the default LLVM verion's, if LLD is the choice. We use these for
 # the `useLLVM` bootstrapping below.
@@ -36,7 +35,7 @@ let
 
   llvm_meta = {
     license     = lib.licenses.ncsa;
-    maintainers = lib.teams.llvm.members;
+    maintainers = with lib.maintainers; [ lovek323 raskin dtzWill primeos ];
     platforms   = lib.platforms.all;
   };
 
@@ -167,7 +166,7 @@ let
         ]
         ++ lib.optional (!stdenv.targetPlatform.isWasm) "--unwindlib=libunwind"
         ++ lib.optional
-          (!stdenv.targetPlatform.isWasm && !stdenv.targetPlatform.isFreeBSD && stdenv.targetPlatform.useLLVM or false)
+          (!stdenv.targetPlatform.isWasm && stdenv.targetPlatform.useLLVM or false)
           "-lunwind"
         ++ lib.optional stdenv.targetPlatform.isWasm "-fno-exceptions";
     };
@@ -274,7 +273,7 @@ let
     };
 
     openmp = callPackage ./openmp {
-      inherit llvm_meta targetLlvm;
+      inherit llvm_meta;
     };
   });
 

@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pybind11 ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

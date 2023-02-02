@@ -35,7 +35,7 @@ buildPythonPackage rec {
   # requires postgres database
   doCheck = false;
 
-  nativeCheckInputs = [
+  checkInputs = [
     freezegun
     psycopg2
     pytest-django

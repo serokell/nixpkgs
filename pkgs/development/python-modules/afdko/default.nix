@@ -1,27 +1,8 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, pythonOlder
-, fonttools
-, defcon
-, lxml
-, fs
-, unicodedata2
-, zopfli
-, brotlipy
-, fontpens
-, brotli
-, fontmath
-, mutatormath
-, booleanoperations
-, ufoprocessor
-, ufonormalizer
-, psautohint
-, tqdm
-, setuptools-scm
-, scikit-build
+{ lib, stdenv, buildPythonPackage, fetchPypi, fetchpatch, pythonOlder
+, fonttools, defcon, lxml, fs, unicodedata2, zopfli, brotlipy, fontpens
+, brotli, fontmath, mutatormath, booleanoperations
+, ufoprocessor, ufonormalizer, psautohint, tqdm
+, setuptools-scm, scikit-build
 , cmake
 , antlr4_9
 , libxml2
@@ -33,15 +14,16 @@
 
 buildPythonPackage rec {
   pname = "afdko";
-  version = "3.9.2";
-  format = "pyproject";
+  version = "3.9.0";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-3JEnQbS4CtZEqAb+/ngqkO+nv9SZ0Zi8sPJLyW+tQ9w=";
+    sha256 = "1fjsaz6bp028fbmry6fzfcih78mdzycqmky1wsz5y0bg4kfk4shh";
   };
+
+  format = "pyproject";
 
   nativeBuildInputs = [
     setuptools-scm
@@ -60,6 +42,8 @@ buildPythonPackage rec {
 
     # Use antlr4 runtime from nixpkgs and link it dynamically
     ./use-dynamic-system-antlr4-runtime.patch
+
+    ./libxml2-cmake-find-package.patch
   ];
 
   # setup.py will always (re-)execute cmake in buildPhase
@@ -84,15 +68,14 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  # Use system libxml2
-  FORCE_SYSTEM_LIBXML2 = true;
-
-  nativeCheckInputs = [ pytestCheckHook ];
-
+  checkInputs = [ pytestCheckHook ];
   preCheck = ''
     export PATH=$PATH:$out/bin
-  '';
 
+    # Update tests to match ufinormalizer-0.6.1 expectations:
+    #   https://github.com/adobe-type-tools/afdko/issues/1418
+    find tests -name layerinfo.plist -delete
+  '';
   disabledTests = lib.optionals (!runAllTests) [
     # Disable slow tests, reduces test time ~25 %
     "test_report"
@@ -115,9 +98,8 @@ buildPythonPackage rec {
   };
 
   meta = with lib; {
-    changelog = "https://github.com/adobe-type-tools/afdko/blob/${version}/NEWS.md";
     description = "Adobe Font Development Kit for OpenType";
-    homepage = "https://adobe-type-tools.github.io/afdko";
+    homepage = "https://adobe-type-tools.github.io/afdko/";
     license = licenses.asl20;
     maintainers = [ maintainers.sternenseemann ];
   };

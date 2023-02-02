@@ -1,17 +1,7 @@
-{ mkDerivation
-, lib
-, extra-cmake-modules
-, kdoctools
-, kio
-, kparts
-, kxmlgui
-, qtbase
-, qtscript
-, solid
-, qtquickcontrols2
-, kdeclarative
-, kirigami2
-, kquickcharts
+{
+  mkDerivation, lib,
+  extra-cmake-modules, kdoctools,
+  kio, kparts, kxmlgui, qtbase, qtscript, solid, qtquickcontrols2, kdeclarative
 }:
 
 mkDerivation {
@@ -25,15 +15,7 @@ mkDerivation {
   };
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   propagatedBuildInputs = [
-    kio
-    kparts
-    kxmlgui
-    qtscript
-    solid
-    qtquickcontrols2
-    kdeclarative
-    kirigami2
-    kquickcharts
+    kio kparts kxmlgui qtscript solid qtquickcontrols2 kdeclarative
   ];
   outputs = [ "out" "dev" ];
 }

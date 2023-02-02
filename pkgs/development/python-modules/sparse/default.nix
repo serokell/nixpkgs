@@ -27,7 +27,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     dask
     pytestCheckHook
   ];

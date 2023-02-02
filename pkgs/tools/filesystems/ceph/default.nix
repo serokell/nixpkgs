@@ -98,7 +98,7 @@ let
 
     sourceRoot = "ceph-${version}/src/python-common";
 
-    nativeCheckInputs = [ python.pkgs.pytest ];
+    checkInputs = [ python.pkgs.pytest ];
     propagatedBuildInputs = with python.pkgs; [ pyyaml six ];
 
     meta = getMeta "Ceph common module for code shared by manager modules";
@@ -113,10 +113,8 @@ let
   };
 
   ceph-python-env = python.withPackages (ps: [
-    # Check .requires files below https://github.com/ceph/ceph/tree/main/debian for dependencies
     ps.sphinx
     ps.flask
-    ps.routes
     ps.cython
     ps.setuptools
     ps.virtualenv

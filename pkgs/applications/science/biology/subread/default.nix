@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3;
     maintainers = with maintainers; [ jbedo ];
     platforms = [ "x86_64-darwin" "x86_64-linux" ];
-    homepage = "https://subread.sourceforge.net/";
+    homepage = "http://subread.sourceforge.net/";
   };
 
 }

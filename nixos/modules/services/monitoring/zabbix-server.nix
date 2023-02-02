@@ -94,7 +94,7 @@ in
         };
 
         port = mkOption {
-          type = types.port;
+          type = types.int;
           default = if cfg.database.type == "mysql" then mysql.port else pgsql.port;
           defaultText = literalExpression ''
             if config.${opt.database.type} == "mysql"

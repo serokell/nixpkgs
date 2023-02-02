@@ -3,7 +3,6 @@
 , sslSupport ? true, openssl ? null
 , static ? stdenv.hostPlatform.isStatic
 , shared ? !stdenv.hostPlatform.isStatic
-, bash
 }:
 
 assert compressionSupport -> zlib != null;
@@ -26,10 +25,8 @@ stdenv.mkDerivation rec {
   patches = optionals stdenv.isDarwin [ ./darwin-fix-configure.patch ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [libxml2 openssl bash]
+  buildInputs = [libxml2 openssl]
     ++ lib.optional compressionSupport zlib;
-
-  strictDeps = true;
 
   configureFlags = [
     (lib.enableFeature shared "shared")

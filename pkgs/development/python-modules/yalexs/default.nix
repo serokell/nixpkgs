@@ -38,7 +38,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     aioresponses
     aiounittest
     asynctest

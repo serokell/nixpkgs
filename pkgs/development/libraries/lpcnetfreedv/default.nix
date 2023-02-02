@@ -4,21 +4,21 @@ let
   dataVersion = "191005_v1.0";
   data = fetchurl {
     url = "http://rowetel.com/downloads/deep/lpcnet_${dataVersion}.tgz";
-    sha256 = "sha256-UJRAkkdR/dh/+qVoPuPd3ZN69cgzuRBMzOZdUWFJJsg=";
+    sha256 = "1j1695hm2pg6ri611f9kr3spm4yxvpikws55z9zxizai8y94152h";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "lpcnetfreedv";
-  version = "unstable-2022-08-22";
+  version = "unstable-2021-06-29";
 
   src = fetchFromGitHub {
     owner = "drowe67";
     repo = "LPCNet";
-    rev = "67a6eb74d0c07faddcdce199856862cc45779d25";
-    sha256 = "sha256-eHYZoDgoZBuuLvQn9X7H/zmK5onOAniOgY1/8RVn8gk=";
+    rev = "0dc5935bbf49ff3ba3c9654cc2f802838ebbaead";
+    sha256 = "0r6488z40fkar11ync8achpg5l6qz7y7cbh7cs3b3w4fsxn58q9i";
   };
 
   nativeBuildInputs = [ cmake ];
+  buildInputs = [ codec2 ];
 
   postPatch = ''
     mkdir build

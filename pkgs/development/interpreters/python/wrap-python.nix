@@ -1,11 +1,11 @@
 { lib
 , python
-, makePythonHook
+, makeSetupHook
 , makeWrapper }:
 
 with lib;
 
-makePythonHook {
+makeSetupHook {
       deps = makeWrapper;
       substitutions.sitePackages = python.sitePackages;
       substitutions.executable = python.interpreter;

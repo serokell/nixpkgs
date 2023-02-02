@@ -24,7 +24,7 @@ buildPythonPackage rec {
     jsonpointer
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

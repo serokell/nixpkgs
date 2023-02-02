@@ -72,7 +72,7 @@ in stdenv.mkDerivation rec {
       ./makeconf.sh
     '');
 
-  nativeCheckInputs = [ which ] ++ (with python3Packages; [ python pytest ]);
+  checkInputs = [ which ] ++ (with python3Packages; [ python pytest ]);
 
   checkPhase = ''
     python3 -m pytest test/

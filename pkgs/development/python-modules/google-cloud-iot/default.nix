@@ -1,41 +1,39 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, google-api-core
 , grpc-google-iam-v1
+, google-api-core
 , libcst
-, mock
 , proto-plus
-, protobuf
-, pytest-asyncio
 , pytestCheckHook
+, pytest-asyncio
 , pythonOlder
+, mock
 }:
 
 buildPythonPackage rec {
   pname = "google-cloud-iot";
-  version = "2.8.0";
+  version = "2.6.4";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-YckGLp3A4rngs/KXOg3/AE4RyboUIoy0NGf44unn/ns=";
+    hash = "sha256-d3RRVqgetOS3sAT6UkV5DB/NZMjeZd5tBtd9ME8Wvs4=";
   };
 
   propagatedBuildInputs = [
-    google-api-core
     grpc-google-iam-v1
+    google-api-core
     libcst
     proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
-    pytest-asyncio
     pytestCheckHook
+    pytest-asyncio
   ];
 
   disabledTests = [
@@ -51,7 +49,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Cloud IoT API API client library";
     homepage = "https://github.com/googleapis/python-iot";
-    changelog = "https://github.com/googleapis/python-iot/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

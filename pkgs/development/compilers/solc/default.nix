@@ -84,7 +84,7 @@ let
     buildInputs = [ boost ]
       ++ lib.optionals z3Support [ z3 ]
       ++ lib.optionals cvc4Support [ cvc4 cln gmp ];
-    nativeCheckInputs = [ ncurses python3 ];
+    checkInputs = [ ncurses python3 ];
 
     # tests take 60+ minutes to complete, only run as part of passthru tests
     doCheck = false;

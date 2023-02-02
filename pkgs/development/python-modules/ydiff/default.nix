@@ -25,7 +25,7 @@ buildPythonPackage rec {
     patchShebangs tests/*.sh
   '';
 
-  nativeCheckInputs = [ docutils pygments ];
+  checkInputs = [ docutils pygments ];
 
   checkPhase = ''
     runHook preCheck

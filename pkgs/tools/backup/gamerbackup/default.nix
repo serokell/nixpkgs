@@ -15,7 +15,7 @@ buildGoModule {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  nativeCheckInputs = [ lepton ];
+  checkInputs = [ lepton ];
 
   postFixup = ''
     wrapProgram $out/bin/gb --prefix PATH : ${lib.makeBinPath [ lepton ]}

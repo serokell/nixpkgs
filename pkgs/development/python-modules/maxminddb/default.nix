@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   buildInputs = [ libmaxminddb ];
 
-  nativeCheckInputs = [ nose mock ];
+  checkInputs = [ nose mock ];
 
   # Tests are broken for macOS on python38
   doCheck = !(stdenv.isDarwin && pythonAtLeast "3.8");

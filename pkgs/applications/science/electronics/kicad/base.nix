@@ -5,7 +5,6 @@
 , libGL
 , zlib
 , wxGTK
-, gtk3
 , libX11
 , gettext
 , glew
@@ -33,7 +32,6 @@
 , dbus
 , at-spi2-core
 , libXtst
-, pcre2
 
 , swig4
 , python
@@ -67,11 +65,6 @@ stdenv.mkDerivation rec {
   version = if (stable) then kicadVersion else builtins.substring 0 10 src.rev;
 
   src = kicadSrc;
-
-  patches = [
-    # upstream issue 12941 (attempted to upstream, but appreciably unacceptable)
-    ./writable.patch
-  ];
 
   # tagged releases don't have "unknown"
   # kicad nightlies use git describe --dirty
@@ -120,9 +113,6 @@ stdenv.mkDerivation rec {
   ]
   ++ optionals (!withPCM && stable) [
     "-DKICAD_PCM=OFF"
-  ]
-  ++ optionals (!stable) [ # upstream issue 12491
-    "-DCMAKE_CTEST_ARGUMENTS='--exclude-regex;qa_eeschema'"
   ];
 
   nativeBuildInputs = [
@@ -142,10 +132,9 @@ stdenv.mkDerivation rec {
     libdatrie
     libxkbcommon
     libepoxy
-    dbus
+    dbus.daemon
     at-spi2-core
     libXtst
-    pcre2
   ];
 
   buildInputs = [
@@ -154,7 +143,7 @@ stdenv.mkDerivation rec {
     zlib
     libX11
     wxGTK
-    gtk3
+    wxGTK.gtk
     pcre
     libXdmcp
     gettext
@@ -172,10 +161,14 @@ stdenv.mkDerivation rec {
   ++ optional (withScripting) wxPython
   ++ optional (withNgspice) libngspice
   ++ optional (withOCC) opencascade-occt
-  ++ optional (debug) valgrind;
+  ++ optional (debug) valgrind
+  ;
+
+  # started becoming necessary halfway into 2022, not sure what changed to break a test...
+  preInstallCheck = optionals (withNgspice) [ "export LD_LIBRARY_PATH=${libngspice}/lib" ];
 
   # debug builds fail all but the python test
-  doInstallCheck = !(debug);
+  doInstallCheck = !debug;
   installCheckTarget = "test";
 
   dontStrip = debug;

@@ -26,7 +26,8 @@ import ../make-test-python.nix ({ pkgs, ... }:
         # test rebinding encrypted pool
         machine.succeed("stratis pool rebind keyring  testpool testkey2")
         # test restarting encrypted pool
-        machine.succeed("stratis pool stop   testpool")
-        machine.succeed("stratis pool start  --name testpool --unlock-method keyring")
+        uuid = machine.succeed("stratis pool list | grep -oE '[0-9a-fA-F-]{36}'").rstrip('\n')
+        machine.succeed(" stratis pool stop   testpool")
+        machine.succeed(f"stratis pool start  {uuid}   --unlock-method keyring")
       '';
   })

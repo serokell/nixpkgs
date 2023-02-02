@@ -1,41 +1,38 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, fetchpatch
+, six
+, statistics
 , pythonOlder
+, nose
 , psutil
-, unittestCheckHook
+, contextlib2
+, mock
+, unittest2
+, isPy27
+, python
 }:
 
 buildPythonPackage rec {
   pname = "pyperf";
-  version = "2.5.0";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "2.4.1";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-n9m+W1ciTmi1pbiPcSbxW2yGZ1c/YqCjn68U1v3ROQk=";
+    sha256 = "sha256-OM9ekMVvkGqDIM6CpQv6kskCuTr/1y5NyBWAEV81WFM=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "fix-pythonpath-in-tests.patch";
-      url = "https://github.com/psf/pyperf/commit/d373c5e56c0257d2d7abd705b676bea25cf66566.patch";
-      hash = "sha256-2q1fTf+uU3qj3BG8P5otX4f7mSTnQxm4sfmmgIUuszA=";
-    })
-  ];
+  checkInputs = [ nose psutil ] ++
+    lib.optionals isPy27 [ contextlib2 mock unittest2 ];
+  propagatedBuildInputs = [ six ] ++
+    lib.optionals (pythonOlder "3.4") [ statistics ];
 
-  propagatedBuildInputs = [
-    psutil
-  ];
+  # tests not included in pypi repository
+  doCheck = false;
 
-  nativeCheckInputs = [
-    unittestCheckHook
-  ];
-
-  unittestFlagsArray = [ "-s" "pyperf/tests/" "-v" ];
+  checkPhase = ''
+    ${python.interpreter} -m nose
+  '';
 
   meta = with lib; {
     description = "Python module to generate and modify perf";

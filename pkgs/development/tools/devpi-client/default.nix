@@ -13,6 +13,7 @@
 , pluggy
 , py
 , pytestCheckHook
+, pytest-flake8
 , setuptools
 , sphinx
 , tox
@@ -29,11 +30,6 @@ buildPythonApplication rec {
     hash = "sha256-Ni6ybpUTankkkYYcwnKNFKYwmp1MTxOnucPm/TneWOw=";
   };
 
-  postPatch = ''
-    substituteInPlace tox.ini \
-      --replace "--flake8" ""
-  '';
-
   buildInputs = [
     glibcLocales
   ];
@@ -48,12 +44,13 @@ buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     devpi-server
     git
     mercurial
     mock
     pytestCheckHook
+    pytest-flake8
     sphinx
     tox
     webtest

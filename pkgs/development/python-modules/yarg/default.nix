@@ -13,7 +13,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ nose mock ];
+  checkInputs = [ nose mock ];
   checkPhase = ''
     nosetests
   '';

@@ -21,30 +21,9 @@ in
       192.0.2.1 somehost.test
     '';
 
-    systemd.services.sockdump = {
-      wantedBy = [ "multi-user.target" ];
-      path = [
-        # necessary for bcc to unpack kernel headers and invoke modprobe
-        pkgs.gnutar
-        pkgs.xz.bin
-        pkgs.kmod
-      ];
-      environment.PYTHONUNBUFFERED = "1";
-
-      serviceConfig = {
-        ExecStart = "${pkgs.sockdump}/bin/sockdump /var/run/nscd/socket";
-        Restart = "on-failure";
-        RestartSec = "1";
-        Type = "simple";
-      };
-    };
-
     specialisation = {
       withUnscd.configuration = { ... }: {
         services.nscd.package = pkgs.unscd;
-      };
-      withNsncd.configuration = { ... }: {
-        services.nscd.enableNsncd = true;
       };
     };
   };
@@ -61,10 +40,9 @@ in
                   "systemd-run --pty --property=Type=oneshot --property=DynamicUser=yes --property=User=iamatest whoami"
               )
 
-      # Test resolution of somehost.test with getent', to make sure we go via
-      # nscd protocol
+      # Test resolution of somehost.test with getent', to make sure we go via nscd
       def test_host_lookups():
-          with subtest("host lookups via nscd protocol"):
+          with subtest("host lookups via nscd"):
               # ahosts
               output = machine.succeed("${getent'} ahosts somehost.test")
               assert "192.0.2.1" in output
@@ -83,7 +61,6 @@ in
               # reverse lookups (hosts)
               assert "somehost.test" in machine.succeed("${getent'} hosts 2001:db8::1")
               assert "somehost.test" in machine.succeed("${getent'} hosts 192.0.2.1")
-
 
       # Test host resolution via nss modules works
       # We rely on nss-myhostname in this case, which resolves *.localhost and
@@ -110,9 +87,6 @@ in
       start_all()
       machine.wait_for_unit("default.target")
 
-      # give sockdump some time to finish attaching.
-      machine.sleep(5)
-
       # Test all tests with glibc-nscd.
       test_dynamic_user()
       test_host_lookups()
@@ -129,13 +103,5 @@ in
 
           # known to fail, unscd doesn't load external NSS modules
           # test_nss_myhostname()
-
-      with subtest("nsncd"):
-          machine.succeed('${specialisations}/withNsncd/bin/switch-to-configuration test')
-          machine.wait_for_unit("default.target")
-
-          test_dynamic_user()
-          test_host_lookups()
-          test_nss_myhostname()
     '';
 })

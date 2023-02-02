@@ -37,7 +37,7 @@ buildPythonPackage rec {
         "ctypes.cdll.LoadLibrary('${libsodium}/lib/libsodium${soext}')"
     '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "libnacl" ];
 

@@ -137,7 +137,7 @@ in {
           RestrictNamespaces = true;
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
-          SystemCallFilter = [ "@system-service" "~@privileged" ];
+          SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
           UMask = "0077";
         }
       ];

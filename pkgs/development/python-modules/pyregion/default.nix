@@ -45,7 +45,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ astropy-helpers cython ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-astropy ];
+  checkInputs = [ pytestCheckHook pytest-astropy ];
 
   # Disable automatic update of the astropy-helper module
   postPatch = ''

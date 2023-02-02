@@ -8,11 +8,8 @@
 , click
 , fetchFromGitHub
 , h2
-, hatch-fancy-pypi-readme
-, hatchling
 , httpcore
 , isPyPy
-, multipart
 , pygments
 , python
 , pythonOlder
@@ -29,8 +26,8 @@
 
 buildPythonPackage rec {
   pname = "httpx";
-  version = "0.23.1";
-  format = "pyproject";
+  version = "0.23.0";
+  format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
@@ -38,13 +35,8 @@ buildPythonPackage rec {
     owner = "encode";
     repo = pname;
     rev = version;
-    hash = "sha256-1gRBHbGFUkaFvVgHHoXfpo9j0L074SyevFwMY202+uk=";
+    hash = "sha256-s11Yeizm3y3w5D6ACQ2wp/KJ0+1ALY/R71IlTP2pMC4=";
   };
-
-  nativeBuildInputs = [
-    hatch-fancy-pypi-readme
-    hatchling
-  ];
 
   propagatedBuildInputs = [
     certifi
@@ -75,9 +67,8 @@ buildPythonPackage rec {
   # trustme uses pyopenssl
   doCheck = !(stdenv.isDarwin && stdenv.isAarch64);
 
-  nativeCheckInputs = [
+  checkInputs = [
     chardet
-    multipart
     pytestCheckHook
     pytest-asyncio
     pytest-trio
@@ -88,7 +79,7 @@ buildPythonPackage rec {
     ++ passthru.optional-dependencies.socks;
 
   postPatch = ''
-    substituteInPlace pyproject.toml \
+    substituteInPlace setup.py \
       --replace "rfc3986[idna2008]>=1.3,<2" "rfc3986>=1.3"
   '';
 
@@ -121,7 +112,6 @@ buildPythonPackage rec {
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {
-    changelog = "https://github.com/encode/httpx/blob/${src.rev}/CHANGELOG.md";
     description = "The next generation HTTP client";
     homepage = "https://github.com/encode/httpx";
     license = licenses.bsd3;

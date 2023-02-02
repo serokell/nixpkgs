@@ -5,7 +5,6 @@ path: runCommand "closure-paths"
 {
   exportReferencesGraph.graph = path;
   __structuredAttrs = true;
-  preferLocalBuild = true;
   PATH = "${coreutils}/bin:${python3}/bin";
   builder = builtins.toFile "builder"
     ''

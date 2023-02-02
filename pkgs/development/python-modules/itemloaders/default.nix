@@ -30,7 +30,7 @@ buildPythonPackage rec {
     itemadapter
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

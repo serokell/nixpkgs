@@ -20,7 +20,7 @@ buildPythonPackage rec {
     pyserial
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

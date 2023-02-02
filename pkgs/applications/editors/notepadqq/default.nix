@@ -1,40 +1,22 @@
-{ mkDerivation
-, lib
-, fetchFromGitHub
-, pkg-config
-, which
-, libuchardet
-, qtbase
-, qtsvg
-, qttools
-, qtwebengine
-, qtwebsockets
-}:
+{ mkDerivation, lib, fetchFromGitHub, pkg-config, which, qtbase, qtsvg, qttools, qtwebkit }:
 
 mkDerivation rec {
   pname = "notepadqq";
-  # shipping a beta build as there's no proper release which supports qtwebengine
-  version = "2.0.0-beta";
+  version = "1.4.8";
 
   src = fetchFromGitHub {
     owner = "notepadqq";
     repo = "notepadqq";
     rev = "v${version}";
-    sha256 = "sha256-XA9Ay9kJApY+bDeOf0iPv+BWYFuTmIuqsLEPgRTCZCE=";
+    sha256 = "0lbv4s7ng31dkznzbkmp2cvkqglmfj6lv4mbg3r410fif2nrva7k";
   };
 
   nativeBuildInputs = [
-    pkg-config
-    which
-    qttools
+    pkg-config which qttools
   ];
 
   buildInputs = [
-    libuchardet
-    qtbase
-    qtsvg
-    qtwebengine
-    qtwebsockets
+    qtbase qtsvg qtwebkit
   ];
 
   preConfigure = ''

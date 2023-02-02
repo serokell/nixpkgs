@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "0fr21a7vprdyy1bq6s99m0x420c9jm5fipsd63pqv8qyfkhhxkim";
   };
 
-  buildInputs = [ libiconv ];
+  buildInputs = lib.optional stdenv.isDarwin libiconv;
 
   configureFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "ac_cv_func_malloc_0_nonnull=yes"
@@ -20,9 +20,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "C library to access data on a CDDB server (freedb.org)";
-    homepage = "https://libcddb.sourceforge.net/";
+    homepage = "http://libcddb.sourceforge.net/";
     license = licenses.lgpl2Plus;
     mainProgram = "cddb_query";
-    platforms = platforms.unix;
+    platforms = platforms.linux ++ platforms.darwin;
   };
 }

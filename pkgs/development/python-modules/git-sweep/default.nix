@@ -1,32 +1,24 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, gitpython
-, pythonOlder
+, GitPython
 }:
 
 buildPythonPackage rec {
   pname = "git-sweep";
   version = "0.1.1";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-zSnxw3JHsFru9fOZSJZX+XOu144uJ0DaIKYlAtoHV7M=";
+    sha256 = "1csp0zd049d643d409rfivbswwzrayb4i6gkypp5mc27fb1z2afd";
   };
 
-  propagatedBuildInputs = [
-    gitpython
-  ];
+  propagatedBuildInputs = [ GitPython ];
 
-  # Module has no tests
+  # no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "gitsweep"
-  ];
+  pythonImportsCheck = [ "gitsweep" ];
 
   meta = with lib; {
     description = "A command-line tool that helps you clean up Git branches";
@@ -34,4 +26,5 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ pSub ];
   };
+
 }

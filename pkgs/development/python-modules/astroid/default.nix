@@ -1,10 +1,12 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
+, pythonAtLeast
 , pythonOlder
 , isPyPy
 , lazy-object-proxy
 , setuptools
+, setuptools-scm
 , typing-extensions
 , typed-ast
 , pylint
@@ -14,24 +16,26 @@
 
 buildPythonPackage rec {
   pname = "astroid";
-  version = "2.12.13"; # Check whether the version is compatible with pylint
-  format = "pyproject";
+  version = "2.11.7"; # Check whether the version is compatible with pylint
 
-  disabled = pythonOlder "3.7.2";
+  disabled = pythonOlder "3.6.2";
 
   src = fetchFromGitHub {
     owner = "PyCQA";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-C4A/JOFdIRgaZuV/YOLc4nC05XTtRCC1i0BcGBEG5ps=";
+    rev = "v${version}";
+    sha256 = "sha256-HpniGxKf+daMh/sxP9T9UriYRrUFWqk7kDa8r+EqtVI=";
   };
 
+  SETUPTOOLS_SCM_PRETEND_VERSION = version;
+
   nativeBuildInputs = [
-    setuptools
+    setuptools-scm
   ];
 
   propagatedBuildInputs = [
     lazy-object-proxy
+    setuptools
     wrapt
   ] ++ lib.optionals (pythonOlder "3.10") [
     typing-extensions
@@ -39,9 +43,13 @@ buildPythonPackage rec {
     typed-ast
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
-    typing-extensions
+  ];
+
+  disabledTests = [
+    # AssertionError: Lists differ: ['ABC[16 chars]yBase', 'Final', 'Generic', 'MyProtocol', 'Protocol', 'object'] != ['ABC[16 chars]yBase', 'Final', 'Generic', 'MyProtocol', 'object']
+    "test_mro_typing_extensions"
   ];
 
   passthru.tests = {

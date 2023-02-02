@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ nose ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     nose
     parameterized

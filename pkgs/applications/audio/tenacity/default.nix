@@ -1,10 +1,8 @@
 { stdenv
 , lib
-, fetchFromGitHub
-, fetchpatch
+, fetchFromSourcehut
 , cmake
-, wxGTK32
-, gtk3
+, wxGTK
 , pkg-config
 , python3
 , gettext
@@ -49,22 +47,14 @@
 
 stdenv.mkDerivation rec {
   pname = "tenacity";
-  version = "unstable-2022-06-30";
+  version = "unstable-2021-10-18";
 
-  src = fetchFromGitHub {
-    owner = "tenacityteam";
-    repo = pname;
-    rev = "91f8b4340b159af551fff94a284c6b0f704a7932";
-    sha256 = "sha256-4VWckXzqo2xspw9eUloDvjxQYbsHn6ghEDw+hYqJcCE=";
+  src = fetchFromSourcehut {
+    owner = "~tenacity";
+    repo = "tenacity";
+    rev = "697c0e764ccb19c1e2f3073ae08ecdac7aa710e4";
+    sha256 = "1fc9xz8lyl8si08wkzncpxq92vizan60c3640qr4kbnxg7vi2iy4";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/wxwidgets-gtk3-3.1.6-plus.patch?h=tenacity-wxgtk3-git&id=c2503538fa7d7001181905988179952d09f69659";
-      postFetch = "echo >> $out";
-      sha256 = "sha256-xRY1tizBJ9CBY6e9oZVz4CWx7DWPGD9A9Ysol4prBww=";
-    })
-  ];
 
   postPatch = ''
     touch src/RevisionIdent.h
@@ -133,8 +123,8 @@ stdenv.mkDerivation rec {
     sratom
     suil
     twolame
-    wxGTK32
-    gtk3
+    wxGTK
+    wxGTK.gtk
   ] ++ lib.optionals stdenv.isLinux [
     at-spi2-core
     dbus

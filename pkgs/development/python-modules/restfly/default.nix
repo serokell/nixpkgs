@@ -13,7 +13,7 @@
 
 buildPythonPackage rec {
   pname = "restfly";
-  version = "1.4.7";
+  version = "1.4.6";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -22,7 +22,7 @@ buildPythonPackage rec {
     owner = "stevemcgrath";
     repo = pname;
     rev = version;
-    hash = "sha256-PPXJHatJKve9fIjveVYRnTSIDHFmnSDWTnkgO91twJs=";
+    hash = "sha256-nCubAn9AASnCsvlYdk4gmkoORRlsYEbJ8JmlT11xYWU=";
   };
 
   propagatedBuildInputs = [
@@ -31,7 +31,7 @@ buildPythonPackage rec {
     python-box
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-datafiles
     pytest-vcr
     pytestCheckHook

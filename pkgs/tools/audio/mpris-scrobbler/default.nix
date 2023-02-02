@@ -1,5 +1,4 @@
-{ lib
-, stdenv
+{ lib, stdenv
 , fetchFromGitHub
 , nix-update-script
 , curl
@@ -16,22 +15,18 @@
 
 stdenv.mkDerivation rec {
   pname = "mpris-scrobbler";
-  version = "0.5.0";
+  version = "0.4.95";
 
   src = fetchFromGitHub {
-    owner = "mariusor";
-    repo = "mpris-scrobbler";
-    rev = "v${version}";
-    sha256 = "sha256-HUEUkVL5d6FD698k8iSCJMNeSo8vGJCsExJW/E0EWpQ=";
+    owner  = "mariusor";
+    repo   = "mpris-scrobbler";
+    rev    = "v${version}";
+    sha256 = "sha256-Cqf0egS4XSDiKLdizNHPdS0Zt3jQxw9e78S7n23CuKI=";
   };
 
   postPatch = ''
     substituteInPlace src/signon.c \
       --replace "/usr/bin/xdg-open" "${xdg-utils}/bin/xdg-open"
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace meson.build \
-      --replace "-Werror=format-truncation=0" "" \
-      --replace "-Wno-stringop-overflow" ""
   '';
 
   nativeBuildInputs = [
@@ -49,21 +44,10 @@ stdenv.mkDerivation rec {
     libevent
   ];
 
-  mesonFlags = [
-    "-Dversion=${version}"
-  ];
-
-  NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.isDarwin [
-    "-Wno-sometimes-uninitialized"
-    "-Wno-tautological-pointer-compare"
-  ] ++ lib.optionals stdenv.isLinux [
-    "-Wno-array-bounds"
-    "-Wno-free-nonheap-object"
-    "-Wno-stringop-truncation"
-  ]);
-
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      attrPath = pname;
+    };
   };
 
   meta = with lib; {
@@ -72,5 +56,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = with maintainers; [ emantor ];
     platforms = platforms.unix;
+    broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/mpris-scrobbler.x86_64-darwin
   };
 }

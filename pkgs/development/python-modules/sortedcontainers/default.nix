@@ -18,7 +18,7 @@ let
 
     doCheck = false;
 
-    nativeCheckInputs = [
+    checkInputs = [
       pytestCheckHook
     ];
 

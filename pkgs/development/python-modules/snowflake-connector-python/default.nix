@@ -20,21 +20,15 @@
 
 buildPythonPackage rec {
   pname = "snowflake-connector-python";
-  version = "2.9.0";
-  format = "pyproject";
+  version = "2.8.0";
+  format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-dVGyQEsmhQ+xLGIy0BW6XRCtsTsJHjef6Lg2ZJL2JLg=";
+    hash = "sha256-gvZ+Nuf+Ns1XIYpsBHdegzA9sjFxT9+Qm6kbsJR8JLY=";
   };
-
-  postPatch = ''
-    substituteInPlace setup.cfg \
-      --replace "charset_normalizer>=2,<3" "charset_normalizer" \
-      --replace "pyOpenSSL>=16.2.0,<23.0.0" "pyOpenSSL"
-  '';
 
   propagatedBuildInputs = [
     asn1crypto
@@ -53,6 +47,13 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
+  postPatch = ''
+    substituteInPlace setup.cfg \
+      --replace "pyOpenSSL>=16.2.0,<23.0.0" "pyOpenSSL" \
+      --replace "cryptography>=3.1.0,<37.0.0" "cryptography" \
+      --replace "charset-normalizer~=2.0.0" "charset_normalizer>=2"
+  '';
+
   # Tests require encrypted secrets, see
   # https://github.com/snowflakedb/snowflake-connector-python/tree/master/.github/workflows/parameters
   doCheck = false;
@@ -63,7 +64,6 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog = "https://github.com/snowflakedb/snowflake-connector-python/blob/v${version}/DESCRIPTION.md";
     description = "Snowflake Connector for Python";
     homepage = "https://github.com/snowflakedb/snowflake-connector-python";
     license = licenses.asl20;

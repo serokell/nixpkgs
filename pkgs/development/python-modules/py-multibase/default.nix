@@ -33,7 +33,7 @@ buildPythonPackage rec {
     python-baseconv
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest
   ];
 

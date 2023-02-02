@@ -10,17 +10,14 @@
 , protobuf
 , rustPlatform
 , Security
-, CoreFoundation
 , stdenv
 , testers
 , unzip
-, nix-update-script
-, SystemConfiguration
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "lighthouse";
-  version = "3.4.0";
+  version = "3.1.2";
 
   # lighthouse/common/deposit_contract/build.rs
   depositContractSpecVersion = "0.12.1";
@@ -30,20 +27,20 @@ rustPlatform.buildRustPackage rec {
     owner = "sigp";
     repo = "lighthouse";
     rev = "v${version}";
-    hash = "sha256-4auiM5+kj/HjZKu2YP7JEnwDNxHuL39XCfmV/dc5jLE=";
+    hash = "sha256-EJFg6ZjxxijxJNMwKRh0cYeqwujUV3OJgXBvBRsnbVI=";
   };
 
-  cargoHash = "sha256-ihfGwdxL7Ttw86dhaVBp5meb0caXjzgbbP27Io8zv/c=";
+  cargoHash = "sha256-iXqRtBqvM9URQsL8qGmpr3CNX2fpbtDOaluibAX/lWo=";
 
   buildFeatures = [ "modern" "gnosis" ];
 
-  nativeBuildInputs = [ rustPlatform.bindgenHook cmake perl protobuf ];
+  nativeBuildInputs = [ clang cmake perl protobuf ];
 
   buildInputs = lib.optionals stdenv.isDarwin [
     Security
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
-    CoreFoundation SystemConfiguration
   ];
+
+  LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 
   depositContractSpec = fetchurl {
     url = "https://raw.githubusercontent.com/ethereum/eth2.0-specs/v${depositContractSpecVersion}/deposit_contract/contracts/validator_registration.json";
@@ -87,17 +84,14 @@ rustPlatform.buildRustPackage rec {
     "--skip subnet_service::tests::sync_committee_service::subscribe_and_unsubscribe"
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nodePackages.ganache
   ];
 
-  passthru = {
-    tests.version = testers.testVersion {
-      package = lighthouse;
-      command = "lighthouse --version";
-      version = "v${lighthouse.version}";
-    };
-    updateScript = nix-update-script { };
+  passthru.tests.version = testers.testVersion {
+    package = lighthouse;
+    command = "lighthouse --version";
+    version = "v${lighthouse.version}";
   };
 
   meta = with lib; {

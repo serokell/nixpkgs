@@ -6,7 +6,7 @@
 , urllib3
 , six
 , setuptools
-, gitpython
+, GitPython
 , pythonRelaxDepsHook
 }:
 
@@ -20,16 +20,11 @@ buildPythonApplication rec {
   };
 
   # https://github.com/transifex/transifex-client/issues/323
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
-
-  pythonRelaxDeps = [
-    "python-slugify"
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  pythonRelaxDeps = [ "python-slugify" ];
 
   propagatedBuildInputs = [
-    gitpython
+    GitPython
     python-slugify
     requests
     setuptools
@@ -41,9 +36,9 @@ buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Transifex translation service client";
     homepage = "https://www.transifex.com/";
     license = licenses.gpl2Only;
+    description = "Transifex translation service client";
     maintainers = with maintainers; [ sikmir ];
   };
 }

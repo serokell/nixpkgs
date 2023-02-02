@@ -16,7 +16,6 @@
 , kconfig
 , krunner
 , kinit
-, kirigami-addons
 , kwayland
 , kwin
 , plasma-framework
@@ -51,7 +50,6 @@ mkDerivation {
     kconfig
     krunner
     kinit
-    kirigami-addons
     kwayland
     kwin
     plasma-framework

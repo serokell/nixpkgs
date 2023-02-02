@@ -23,7 +23,7 @@ buildPythonPackage rec {
     tldextract
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-cov
   ];

@@ -5,7 +5,6 @@
 , makeWrapper
 , jre_headless
 , util-linux, gnugrep, coreutils
-, libxcrypt
 , autoPatchelfHook
 , zlib
 }:
@@ -38,7 +37,7 @@ stdenv.mkDerivation (rec {
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ jre_headless util-linux ]
-             ++ optionals enableUnfree [ zlib libxcrypt ];
+             ++ optional enableUnfree zlib;
 
   installPhase = ''
     mkdir -p $out

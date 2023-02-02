@@ -37,7 +37,7 @@ buildPythonPackage rec {
     morphys
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

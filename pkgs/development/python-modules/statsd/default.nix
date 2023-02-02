@@ -1,26 +1,20 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, setuptools
 , nose
 , mock
 }:
 
 buildPythonPackage rec {
   pname = "statsd";
-  version = "4.0.1";
-  format = "pyproject";
+  version = "3.3.0";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-mXY9qBv+qNr2s9ItEarMsBqND1LqUh2qs351ikyn0Sg=";
+    sha256 = "07yxnlalvcglgwa9pjs1clwrmwx7a4575jai7q05jz3g4i6dprp3";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
-
-  nativeCheckInputs = [ nose mock ];
+  checkInputs = [ nose mock ];
 
   patchPhase = ''
     # Failing test: ERROR: statsd.tests.test_ipv6_resolution_udp

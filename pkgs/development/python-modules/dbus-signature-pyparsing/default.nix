@@ -19,7 +19,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ pyparsing ];
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     hypothesis
     hs-dbus-signature

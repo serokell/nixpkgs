@@ -1,38 +1,35 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, pythonOlder
-, setuptools
+, six
 , attrs
 , pytestCheckHook
 , hypothesis
 , pretend
 , arpeggio
-, typing-extensions
 }:
 
 buildPythonPackage rec {
   pname = "parver";
-  version = "0.4";
-  format = "pyproject";
+  version = "0.3.1";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-1KPbuTxTNz7poLoFXkhYxEFpsgS5EuSdAD6tlduam8o=";
+    sha256 = "c902e0653bcce927cc156a7fd9b3a51924cbce3bf3d0bfd49fc282bfd0c5dfd3";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace "arpeggio ~= 1.7" "arpeggio"
+  '';
 
   propagatedBuildInputs = [
+    six
     attrs
     arpeggio
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    typing-extensions
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     hypothesis
     pretend

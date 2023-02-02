@@ -18,7 +18,7 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ pytest setuptools-scm ];
-  nativeCheckInputs = [ pytest django-configurations pytest-xdist six ];
+  checkInputs = [ pytest django-configurations pytest-xdist six ];
   propagatedBuildInputs = [ django ];
 
   # Complicated. Requires Django setup.

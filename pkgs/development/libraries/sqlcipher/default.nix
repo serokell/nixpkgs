@@ -1,42 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, openssl
-, tcl
-, installShellFiles
-, buildPackages
-, readline
-, ncurses
-, zlib
-, sqlite
-}:
+{ stdenv, lib, fetchFromGitHub, openssl, tcl, installShellFiles, buildPackages, readline, ncurses, zlib, sqlite }:
 
 stdenv.mkDerivation rec {
   pname = "sqlcipher";
-  version = "4.5.3";
+  version = "4.5.2";
 
   src = fetchFromGitHub {
     owner = "sqlcipher";
     repo = "sqlcipher";
     rev = "v${version}";
-    hash = "sha256-yo7bB6xgF23Hdur25fprSFgbuxNclseUCdq3DFAfIK8=";
+    sha256 = "sha256-EUm4akVWUiK8U6Je1uWMo8KLQLsk57kOFCCU5Uajjt8=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-    tcl
-  ];
-
-  buildInputs = [
-    readline
-    ncurses
-    openssl
-    zlib
-  ];
-
-  depsBuildBuild = [
-    buildPackages.stdenv.cc
-  ];
+  nativeBuildInputs = [ installShellFiles tcl ];
+  buildInputs = [ readline ncurses openssl zlib ];
+  depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   configureFlags = [
     "--enable-threadsafe"
@@ -58,11 +35,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    changelog = "https://github.com/sqlcipher/sqlcipher/blob/v${version}/CHANGELOG.md";
-    description = "SQLite extension that provides 256 bit AES encryption of database files";
     homepage = "https://www.zetetic.net/sqlcipher/";
-    license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    description = "SQLite extension that provides 256 bit AES encryption of database files";
     platforms = platforms.unix;
+    license = licenses.bsd3;
   };
 }

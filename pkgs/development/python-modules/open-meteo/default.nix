@@ -34,7 +34,7 @@ buildPythonPackage rec {
     pydantic
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytestCheckHook
   ];

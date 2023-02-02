@@ -1,15 +1,14 @@
-{ lib, stdenv, kernel, fetchFromGitea }:
+{ lib, stdenv, kernel, fetchFromGitHub, fetchpatch }:
 
 stdenv.mkDerivation rec {
   pname = "zenpower";
-  version = "unstable-2022-11-04";
+  version = "unstable-2022-04-13";
 
-  src = fetchFromGitea {
-    domain = "git.exozy.me";
-    owner = "a";
+  src = fetchFromGitHub {
+    owner = "Ta180m";
     repo = "zenpower3";
-    rev = "c176fdb0d5bcba6ba2aba99ea36812e40f47751f";
-    sha256 = "sha256-d2WH8Zv7F0phZmEKcDiaak9On+Mo9bAFhMulT/N5FWI=";
+    rev = "c36a86c64b802e9b90b5166caee6a8e8eddaeb56";
+    sha256 = "1i9ap7xgab421f3c68mcmad25xs4h8pfz0g0f9yzg7hxpmb0npxi";
   };
 
   hardeningDisable = [ "pic" ];

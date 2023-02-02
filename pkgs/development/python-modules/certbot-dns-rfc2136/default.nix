@@ -18,7 +18,7 @@ buildPythonPackage rec {
     dnspython
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

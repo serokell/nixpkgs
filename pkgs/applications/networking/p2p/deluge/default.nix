@@ -57,7 +57,7 @@ let
         wrapGAppsHook
       ];
 
-      nativeCheckInputs = with pypkgs; [
+      checkInputs = with pypkgs; [
         pytestCheckHook
         pytest-twisted
         pytest-cov

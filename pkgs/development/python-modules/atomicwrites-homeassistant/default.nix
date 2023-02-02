@@ -22,7 +22,7 @@ buildPythonPackage {
     "atomicwrites"
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

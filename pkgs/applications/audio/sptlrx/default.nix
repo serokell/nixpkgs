@@ -16,7 +16,7 @@ buildGoModule rec {
   ldflags = [ "-s" "-w" ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script { attrPath = pname; };
     tests.version = testers.testVersion {
       package = sptlrx;
       version = "v${version}"; # needed because testVersion uses grep -Fw

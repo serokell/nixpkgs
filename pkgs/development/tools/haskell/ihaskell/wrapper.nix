@@ -3,9 +3,7 @@ let
   ihaskellEnv = ghcWithPackages (self: [
     self.ihaskell
     self.ihaskell-blaze
-    # Doesn't work with latest ihaskell versions missing an unrelated change
-    # https://github.com/IHaskell/IHaskell/issues/1378
-    # self.ihaskell-diagrams
+    self.ihaskell-diagrams
   ] ++ packages self);
   ihaskellSh = writeScriptBin "ihaskell-notebook" ''
     #! ${stdenv.shell}
@@ -26,4 +24,9 @@ buildEnv {
       fi
     done
   '';
+  meta = {
+    # ihaskell has an indirect dependency on the Python package mistune, which
+    # is marked insecure.
+    hydraPlatforms = lib.platforms.none;
+  };
 }

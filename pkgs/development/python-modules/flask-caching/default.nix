@@ -1,5 +1,4 @@
 { lib
-, stdenv
 , buildPythonPackage
 , pythonOlder
 , fetchPypi
@@ -12,21 +11,26 @@
 
 buildPythonPackage rec {
   pname = "Flask-Caching";
-  version = "2.0.2";
+  version = "2.0.1";
   format = "setuptools";
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-JLYMVS1ZqWBcwbakLFbNs5qCoo2rRTK77bkiKuVOy04=";
+    sha256 = "sha256-EN8gCgPwMq9gB3vv5Bd53ZSJi2fIIEDTTochC3G6Jjg=";
   };
+
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace "Flask <= 2.1.2" "Flask <= 2.2"
+  '';
 
   propagatedBuildInputs = [
     cachelib
     flask
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytest-xprocess
     pytestCheckHook
@@ -38,16 +42,11 @@ buildPythonPackage rec {
     # optional backends
     "Redis"
     "Memcache"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # ignore flaky test
-    "test_cached_view_class"
   ];
 
   meta = with lib; {
-    description = "A caching extension for Flask";
-    homepage = "https://github.com/pallets-eco/flask-caching";
-    changelog = "https://github.com/pallets-eco/flask-caching/blob/v${version}/CHANGES.rst";
-    maintainers = with maintainers; [ ];
+    description = "Adds caching support to your Flask application";
+    homepage = "https://github.com/sh4nks/flask-caching";
     license = licenses.bsd3;
   };
 }

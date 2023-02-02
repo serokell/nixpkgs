@@ -8,7 +8,7 @@
 
 buildPythonPackage rec {
   pname = "frozenlist";
-  version = "1.3.3";
+  version = "1.3.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -17,14 +17,14 @@ buildPythonPackage rec {
     owner = "aio-libs";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-lJWRdXvuzyvJwNSpv0+ojY4rwws3jwDtlLOqYyLPrZc=";
+    hash = "sha256-cHKqkvsBUN7If+8swbd6aafFrSgnop3YlweBLPOHzyU=";
   };
 
   nativeBuildInputs = [
     cython
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

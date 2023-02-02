@@ -11,7 +11,6 @@
 , enableE57 ? lib.meta.availableOn stdenv.hostPlatform libe57format
 , libe57format
 , libgeotiff
-, libtiff
 , libxml2
 , postgresql
 , tiledb
@@ -22,13 +21,13 @@
 
 stdenv.mkDerivation rec {
   pname = "pdal";
-  version = "2.4.3";
+  version = "2.4.0";
 
   src = fetchFromGitHub {
     owner = "PDAL";
     repo = "PDAL";
     rev = version;
-    sha256 = "sha256-9TQlhuGSTnHsTlJos9Hwnyl1CxI0tXLZdqsaGdp6WIE=";
+    sha256 = "sha256-w9Fu4Op6OdaxdvOUM+glpJUEZq//EwRD2lqzYrMXk8w=";
   };
 
   nativeBuildInputs = [
@@ -43,7 +42,6 @@ stdenv.mkDerivation rec {
     hdf5-cpp
     LASzip
     libgeotiff
-    libtiff
     libxml2
     postgresql
     tiledb

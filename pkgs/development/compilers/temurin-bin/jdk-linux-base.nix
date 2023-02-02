@@ -20,9 +20,7 @@
 # runtime dependencies
 , cups
 # runtime dependencies for GTK+ Look and Feel
-# TODO(@sternenseemann): gtk3 fails to evaluate in pkgsCross.ghcjs.buildPackages
-# which should be fixable, this is a no-rebuild workaround for GHC.
-, gtkSupport ? !stdenv.targetPlatform.isGhcjs
+, gtkSupport ? true
 , cairo
 , glib
 , gtk3

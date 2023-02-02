@@ -11,7 +11,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ pytest pytest-runner ];
+  checkInputs = [ pytest pytest-runner ];
 
   meta = with lib; {
     description = "Python-Tools to implement Secure Remote Password (SRP) authentication";

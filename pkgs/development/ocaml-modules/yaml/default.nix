@@ -19,7 +19,7 @@ buildDunePackage rec {
   propagatedBuildInputs = [ bos ctypes ];
 
   doCheck = true;
-  nativeCheckInputs = [ fmt logs mdx.bin alcotest crowbar junit_alcotest ezjsonm ];
+  checkInputs = [ fmt logs mdx.bin alcotest crowbar junit_alcotest ezjsonm ];
 
   meta = {
     description = "Parse and generate YAML 1.1 files";

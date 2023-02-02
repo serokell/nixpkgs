@@ -39,12 +39,12 @@
 
 buildPythonPackage rec {
   pname = "SQLAlchemy";
-  version = "1.4.46";
+  version = "1.4.41";
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
+    hash = "sha256-ApL3DReX48VOhi5vMK5HQBRki8nHI+FKL9pzCtsKl5E=";
   };
 
   nativeBuildInputs = lib.optionals (!isPyPy) [
@@ -125,7 +125,7 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     mock
   ];

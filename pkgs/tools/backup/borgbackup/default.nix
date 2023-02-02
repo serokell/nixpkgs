@@ -7,31 +7,20 @@
 , openssh
 , openssl
 , python3
-, xxHash
 , zstd
 , installShellFiles
 , nixosTests
-, fetchpatch
 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "borgbackup";
-  version = "1.2.3";
+  version = "1.2.2";
   format = "pyproject";
 
   src = python3.pkgs.fetchPypi {
     inherit pname version;
-    hash = "sha256-4yQY+GM8lvqWgTUqVutjuY4pQgNHLBFKUkJwnTaWZ4U=";
+    sha256 = "sha256-1zBodEPxvrYCsdcrrjYxj2+WVIGPzcUEWFQOxXnlcmA=";
   };
-
-  patches = [
-    (fetchpatch {
-      # Fix HashIndexSizeTestCase.test_size_on_disk_accurate problems on ZFS,
-      # see https://github.com/borgbackup/borg/issues/7250
-      url = "https://github.com/borgbackup/borg/pull/7252/commits/fe3775cf8078c18d8fe39a7f42e52e96d3ecd054.patch";
-      hash = "sha256-gdssHfhdkmRfSAOeXsq9Afg7xqGM3NLIq4QnzmPBhw4=";
-    })
-  ];
 
   postPatch = ''
     # sandbox does not support setuid/setgid/sticky bits
@@ -42,7 +31,6 @@ python3.pkgs.buildPythonApplication rec {
   nativeBuildInputs = with python3.pkgs; [
     cython
     setuptools-scm
-    pkgconfig
 
     # docs
     sphinxHook
@@ -57,7 +45,6 @@ python3.pkgs.buildPythonApplication rec {
   buildInputs = [
     libb2
     lz4
-    xxHash
     zstd
     openssl
   ] ++ lib.optionals stdenv.isLinux [
@@ -70,6 +57,13 @@ python3.pkgs.buildPythonApplication rec {
     (if stdenv.isLinux then pyfuse3 else llfuse)
   ];
 
+  preConfigure = ''
+    export BORG_OPENSSL_PREFIX="${openssl.dev}"
+    export BORG_LZ4_PREFIX="${lz4.dev}"
+    export BORG_LIBB2_PREFIX="${libb2}"
+    export BORG_LIBZSTD_PREFIX="${zstd.dev}"
+  '';
+
   makeWrapperArgs = [
     ''--prefix PATH ':' "${openssh}/bin"''
   ];
@@ -81,9 +75,8 @@ python3.pkgs.buildPythonApplication rec {
       --zsh scripts/shell_completions/zsh/_borg
   '';
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = with python3.pkgs; [
     e2fsprogs
-    py
     python-dateutil
     pytest-benchmark
     pytest-xdist

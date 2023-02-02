@@ -13,5 +13,5 @@ buildPythonPackage rec {
 
   # ldaptor is not ready for py3 yet
   doCheck = !isPy3k;
-  nativeCheckInputs = [ ldaptor mock ];
+  checkInputs = [ ldaptor mock ];
 }

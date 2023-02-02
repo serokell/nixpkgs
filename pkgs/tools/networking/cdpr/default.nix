@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Cisco Discovery Protocol Reporter";
-    homepage = "https://cdpr.sourceforge.net/";
+    homepage = "http://cdpr.sourceforge.net/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     maintainers = [ maintainers.sgo ];

@@ -31,7 +31,7 @@ buildPythonPackage rec {
     zope_deprecation
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     webtest
     pytestCheckHook
   ];

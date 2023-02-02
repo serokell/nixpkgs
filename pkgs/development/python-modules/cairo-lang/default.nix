@@ -84,7 +84,7 @@ buildPythonPackage rec {
     pyyaml
   ] ++ eth-hash.optional-dependencies.pycryptodome;
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytestCheckHook
   ];

@@ -21,8 +21,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Paperspace";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-swnl0phdOsBSP8AX/OySI/aYI9z60Ss3SsJox/mb9KY=";
+    rev = "v${version}";
+    sha256 = "19plkgwwfs6298vjplgsvhirixi3jbngq5y07x9c0fjxk39fa2dk";
   };
 
   nativeBuildInputs = [
@@ -35,19 +35,16 @@ buildPythonPackage rec {
     numpy
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     requests
     pytestCheckHook
   ];
 
   postPatch = ''
-    # https://github.com/Paperspace/gradient-utils/issues/68
-    # https://github.com/Paperspace/gradient-utils/issues/72
     substituteInPlace pyproject.toml \
       --replace 'wheel = "^0.35.1"' 'wheel = "*"' \
-      --replace 'prometheus-client = ">=0.8,<0.10"' 'prometheus-client = "*"' \
-      --replace 'pymongo = "^3.11.0"' 'pymongo = ">=3.11.0"'
+      --replace 'prometheus-client = ">=0.8,<0.10"' 'prometheus-client = "*"'
   '';
 
   preCheck = ''
@@ -67,7 +64,7 @@ buildPythonPackage rec {
     description = "Python utils and helpers library for Gradient";
     homepage = "https://github.com/Paperspace/gradient-utils";
     license = licenses.mit;
-    maintainers = with maintainers; [ freezeboy ];
     platforms = platforms.unix;
+    maintainers = with maintainers; [ freezeboy ];
   };
 }

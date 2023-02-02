@@ -4,25 +4,25 @@
 
 stdenv.mkDerivation rec {
   pname = "binaryen";
-  version = "111";
+  version = "109";
 
   src = fetchFromGitHub {
     owner = "WebAssembly";
     repo = "binaryen";
     rev = "version_${version}";
-    sha256 = "sha256-wSwLs/YvrH7nswDSbtR6onOMArCdPE2zi6G7oA10U4Y=";
+    sha256 = "sha256-HMPoiuTvYhTDaBUfSOfh/Dt4FdO9jGqUaFpi92pnscI=";
   };
 
   patches = [
-    # https://github.com/WebAssembly/binaryen/pull/5378
+    # https://github.com/WebAssembly/binaryen/pull/4321
     (fetchpatch {
-      url = "https://github.com/WebAssembly/binaryen/commit/a96fe1a8422140072db7ad7db421378b87898a0d.patch";
-      sha256 = "sha256-Wred1IoRxcQBi0nLBWpiUSgt2ApGoGsq9GkoO3mSS6o=";
+      url = "https://github.com/WebAssembly/binaryen/commit/93b8849d9f98ef7ed812938ff0b3219819c2be77.patch";
+      sha256 = "sha256-Duan/B9A+occ5Lj2SbRX793xIfhzHbdYPI5PyTNCZoU=";
     })
-    # https://github.com/WebAssembly/binaryen/pull/5391
+    # https://github.com/WebAssembly/binaryen/pull/4913
     (fetchpatch {
-      url = "https://github.com/WebAssembly/binaryen/commit/f92350d2949934c0e0ce4a27ec8b799ac2a85e45.patch";
-      sha256 = "sha256-fBwdGSIPjF2WKNnD8I0/2hnQvqevdk3NS9fAxutkZG0=";
+      url = "https://github.com/WebAssembly/binaryen/commit/b70fe755aa4c90727edfd91dc0a9a51febf0239d.patch";
+      sha256 = "sha256-kjPLbdiMVQepSJ7J1gK6dRSMI/2SsH39k7W5AMOIrkM=";
     })
   ];
 
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     fi
   '';
 
-  nativeCheckInputs = [ gtest lit nodejs filecheck ];
+  checkInputs = [ gtest lit nodejs filecheck ];
   checkPhase = ''
     LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/lib python3 ../check.py $tests
   '';

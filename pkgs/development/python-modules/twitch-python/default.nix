@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests rx ];
 
-  nativeCheckInputs = [ pytestCheckHook responses ];
+  checkInputs = [ pytestCheckHook responses ];
 
   pythonImportsCheck = [ "twitch" ];
 

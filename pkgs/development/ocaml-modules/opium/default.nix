@@ -1,62 +1,32 @@
 { buildDunePackage
-, lib
-, fetchurl
-, astring
-, base64
+
+, ppx_sexp_conv
+, ppx_fields_conv
+
 , cmdliner
-, fmt
-, httpaf
-, httpaf-lwt-unix
+, cohttp-lwt-unix
 , logs
 , magic-mime
-, mirage-crypto
-, mtime
-, multipart-form-data
-, ptime
-, re
-, rock
-, tyxml
-, uri
-, yojson
-, alcotest-lwt
+, opium_kernel
+, stringext
+
+, alcotest
 }:
 
-buildDunePackage rec {
+buildDunePackage {
   pname = "opium";
-  minimalOCamlVersion = "4.08";
-  duneVersion = "3";
+  inherit (opium_kernel) version src meta minimumOCamlVersion;
 
-  inherit (rock) src version;
-
-  propagatedBuildInputs = [
-    astring
-    base64
-    cmdliner
-    fmt
-    httpaf
-    httpaf-lwt-unix
-    logs
-    magic-mime
-    mirage-crypto
-    mtime
-    multipart-form-data
-    ptime
-    re
-    rock
-    tyxml
-    uri
-    yojson
-  ];
+  useDune2 = true;
 
   doCheck = true;
-  nativeCheckInputs = [
-    alcotest-lwt
+
+  buildInputs = [
+    ppx_sexp_conv ppx_fields_conv
+    alcotest
   ];
 
-  meta = {
-    description = "OCaml web framework";
-    homepage = "https://github.com/rgrinberg/opium";
-    license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.pmahoney ];
-  };
+  propagatedBuildInputs = [
+    opium_kernel cmdliner cohttp-lwt-unix magic-mime logs stringext
+  ];
 }

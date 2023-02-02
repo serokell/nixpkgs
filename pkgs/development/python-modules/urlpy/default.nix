@@ -22,7 +22,7 @@ buildPythonPackage rec {
     publicsuffix2
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

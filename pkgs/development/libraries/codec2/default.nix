@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, freedvSupport ? false
-, lpcnetfreedv
-, codec2
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "codec2";
@@ -20,10 +13,6 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = lib.optionals freedvSupport [
-    lpcnetfreedv
-  ];
-
   # Install a binary that is used by openwebrx
   postInstall = ''
     install -Dm0755 src/freedv_rx -t $out/bin/
@@ -37,8 +26,6 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     # RPATH of binary /nix/store/.../bin/freedv_rx contains a forbidden reference to /build/
     "-DCMAKE_SKIP_BUILD_RPATH=ON"
-  ] ++ lib.optionals freedvSupport [
-    "-DLPCNET=ON"
   ];
 
   meta = with lib; {

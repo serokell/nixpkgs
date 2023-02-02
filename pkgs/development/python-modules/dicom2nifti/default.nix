@@ -34,7 +34,7 @@ buildPythonPackage rec {
     substituteInPlace tests/test_generic.py --replace "from common" "from dicom2nifti.common"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "dicom2nifti" ];
 

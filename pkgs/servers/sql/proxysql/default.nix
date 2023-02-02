@@ -1,6 +1,5 @@
 { stdenv
 , lib
-, applyPatches
 , fetchFromGitHub
 , autoconf
 , automake
@@ -24,21 +23,20 @@
 , openssl
 , pcre
 , perl
-, python3
+, python2
 , re2
 , zlib
-, texinfo
 }:
 
 stdenv.mkDerivation rec {
   pname = "proxysql";
-  version = "2.4.5";
+  version = "2.4.4";
 
   src = fetchFromGitHub {
     owner = "sysown";
     repo = pname;
     rev = version;
-    hash = "sha256-JWrll6VF0Ss1DlPNrh+xd3sGMclMeb6dlVgHd/UaNs0=";
+    hash = "sha256-S0Oy0uQPbAn52KM0r7yxLvVl1DKQwRW3QYVHtJ20CnM=";
   };
 
   patches = [
@@ -52,8 +50,7 @@ stdenv.mkDerivation rec {
     cmake
     libtool
     perl
-    python3
-    texinfo  # for makeinfo
+    python2
   ];
 
   buildInputs = [
@@ -67,10 +64,6 @@ stdenv.mkDerivation rec {
   ];
 
   enableParallelBuilding = true;
-
-  # otherwise, it looks for …-1.15
-  ACLOCAL = "aclocal";
-  AUTOMAKE = "automake";
 
   GIT_VERSION = version;
 
@@ -101,27 +94,18 @@ stdenv.mkDerivation rec {
     }
 
     ${lib.concatMapStringsSep "\n"
-      (x: ''replace_dep "${x.f}" "${x.p.src}" "${x.p.pname or (builtins.parseDrvName x.p.name).name}" "${x.p.name}"'') (
-        map (x: {
-          inherit (x) f;
-          p = x.p // {
-            src = applyPatches {
-              inherit (x.p) src patches;
-            };
-          };
-        }) [
-          { f = "curl"; p = curl; }
-          { f = "libconfig"; p = libconfig; }
-          { f = "libdaemon"; p = libdaemon; }
-          { f = "libev"; p = libev; }
-          { f = "libinjection"; p = libinjection; }
-          { f = "libmicrohttpd"; p = libmicrohttpd_0_9_69; }
-          { f = "libssl"; p = openssl; }
-          { f = "lz4"; p = lz4; }
-          { f = "pcre"; p = pcre; }
-          { f = "re2"; p = re2; }
-        ]
-      )}
+      (x: ''replace_dep "${x.f}" "${x.p.src}" "${x.p.pname or (builtins.parseDrvName x.p.name).name}" "${x.p.name}"'') [
+        { f = "curl"; p = curl; }
+        { f = "libconfig"; p = libconfig; }
+        { f = "libdaemon"; p = libdaemon; }
+        { f = "libev"; p = libev; }
+        { f = "libinjection"; p = libinjection; }
+        { f = "libmicrohttpd"; p = libmicrohttpd_0_9_69; }
+        { f = "libssl"; p = openssl; }
+        { f = "lz4"; p = lz4; }
+        { f = "pcre"; p = pcre; }
+        { f = "re2"; p = re2; }
+    ]}
 
     pushd libhttpserver
     tar xf libhttpserver-0.18.1.tar.gz

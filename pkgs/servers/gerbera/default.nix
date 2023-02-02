@@ -65,13 +65,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "gerbera";
-  version = "1.12.1";
+  version = "1.11.0";
 
   src = fetchFromGitHub {
     repo = "gerbera";
     owner = "gerbera";
     rev = "v${version}";
-    sha256 = "sha256-j5J0u0zIjHY2kP5P8IzN2h+QQSCwsel/iTspad6V48s=";
+    sha256 = "sha256-pikzgbm962C7yFM67Z/LayLf4mpLV4HfqZJlBfebL8U=";
   };
 
   postPatch = lib.optionalString enableMysql ''

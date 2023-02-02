@@ -17,11 +17,12 @@
 , libGL ? null
 , libGLU ? null
 , wxGTK ? null
+, wxmac ? null
 , xorg ? null
 , parallelBuild ? false
 , systemd
 , wxSupport ? true
-, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd # systemd support in epmd
+, systemdSupport ? stdenv.isLinux # systemd support in epmd
   # updateScript deps
 , writeScript
 , common-updater-scripts
@@ -71,7 +72,7 @@
 }:
 
 assert wxSupport -> (if stdenv.isDarwin
-then wxGTK != null
+then wxmac != null
 else libGL != null && libGLU != null && wxGTK != null && xorg != null);
 
 assert odbcSupport -> unixODBC != null;
@@ -79,7 +80,7 @@ assert javacSupport -> openjdk11 != null;
 
 let
   inherit (lib) optional optionals optionalAttrs optionalString;
-  wxPackages2 = if stdenv.isDarwin then [ wxGTK ] else wxPackages;
+  wxPackages2 = if stdenv.isDarwin then [ wxmac ] else wxPackages;
 
 in
 stdenv.mkDerivation ({
@@ -128,8 +129,6 @@ stdenv.mkDerivation ({
     ++ optional wxSupport "--enable-wx"
     ++ optional systemdSupport "--enable-systemd"
     ++ optional stdenv.isDarwin "--enable-darwin-64bit"
-    # make[3]: *** [yecc.beam] Segmentation fault: 11
-    ++ optional (stdenv.isDarwin && stdenv.isx86_64) "--disable-jit"
     ++ configureFlags;
 
   # install-docs will generate and install manpages and html docs

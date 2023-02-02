@@ -22,7 +22,7 @@ buildPythonPackage rec {
     h5py
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nose
   ];
 

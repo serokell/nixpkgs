@@ -1,6 +1,6 @@
 { lib
 , buildPythonPackage
-, fetchFromGitHub
+, fetchFromGitLab
 , pythonOlder
 , typing-extensions
 , wsproto
@@ -10,26 +10,24 @@
 , mock
 , poetry-core
 , pytest-asyncio
+, pytest-cov
+, pytest-sugar
 , pytest-trio
 , pytestCheckHook
 }:
 
 buildPythonPackage rec {
   pname = "Hypercorn";
-  version = "0.14.3";
+  version = "0.13.2";
   disabled = pythonOlder "3.7";
   format = "pyproject";
 
-  src = fetchFromGitHub {
+  src = fetchFromGitLab {
     owner = "pgjones";
     repo = pname;
     rev = version;
-    hash = "sha256-ECREs8UwqTWUweUrwnUwpVotCII2v4Bz7ZCk3DSAd8I=";
+    sha256 = "sha256-fIjw5A6SvFUv8cU7xunVlPYphv+glypY4pzvHNifYLQ=";
   };
-
-  postPatch = ''
-    sed -i "/^addopts/d" pyproject.toml
-  '';
 
   nativeBuildInputs = [
     poetry-core
@@ -38,16 +36,22 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ wsproto toml h2 priority ]
     ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
+    pytest-cov
+    pytest-sugar
     pytest-trio
     pytestCheckHook
   ] ++ lib.optionals (pythonOlder "3.8") [ mock ];
 
+  pytestFlagsArray = [
+    "--asyncio-mode=legacy"
+  ];
+
   pythonImportsCheck = [ "hypercorn" ];
 
   meta = with lib; {
-    homepage = "https://github.com/pgjones/hypercorn";
+    homepage = "https://pgjones.gitlab.io/hypercorn/";
     description = "The ASGI web server inspired by Gunicorn";
     license = licenses.mit;
     maintainers = with maintainers; [ dgliwka ];

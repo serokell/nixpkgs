@@ -8,7 +8,11 @@ let
 in {
   options = {
     services.cadvisor = {
-      enable = mkEnableOption (lib.mdDoc "Cadvisor service");
+      enable = mkOption {
+        default = false;
+        type = types.bool;
+        description = lib.mdDoc "Whether to enable cadvisor service.";
+      };
 
       listenAddress = mkOption {
         default = "127.0.0.1";
@@ -18,7 +22,7 @@ in {
 
       port = mkOption {
         default = 8080;
-        type = types.port;
+        type = types.int;
         description = lib.mdDoc "Cadvisor listening port";
       };
 

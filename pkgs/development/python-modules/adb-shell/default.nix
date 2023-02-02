@@ -42,7 +42,7 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     pycryptodome
     pytestCheckHook

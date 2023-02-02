@@ -71,7 +71,7 @@
   ++ lib.optionals enableRDW [ "install-rdw" "install-man-rdw" ];
 
   doCheck = true;
-  nativeCheckInputs = [ checkbashisms perlcritic shellcheck ];
+  checkInputs = [ checkbashisms perlcritic shellcheck ];
   checkTarget = [ "checkall" ];
 
   # TODO: Consider using resholve here

@@ -72,7 +72,7 @@ buildPythonPackage rec {
     mono
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     psutil # needed for memory leak tests
   ];

@@ -1,11 +1,11 @@
 { lib, mkCoqDerivation, coq, version ? null }:
 
-mkCoqDerivation rec {
+with lib; mkCoqDerivation rec {
   pname = "stdpp";
   inherit version;
   domain = "gitlab.mpi-sws.org";
   owner = "iris";
-  defaultVersion = with lib.versions; lib.switch coq.coq-version [
+  defaultVersion = with versions; switch coq.coq-version [
     { case = range "8.13" "8.16"; out = "1.8.0"; }
     { case = range "8.12" "8.14"; out = "1.6.0"; }
     { case = range "8.11" "8.13"; out = "1.5.0"; }
@@ -24,7 +24,7 @@ mkCoqDerivation rec {
     fi
   '';
 
-  meta = with lib; {
+  meta = {
     description = "An extended “Standard Library” for Coq";
     license = licenses.bsd3;
     maintainers = [ maintainers.vbgl ];

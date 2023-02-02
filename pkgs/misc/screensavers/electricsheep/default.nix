@@ -1,23 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, wxGTK32
-, ffmpeg
-, lua5_1
-, curl
-, libpng
-, xorg
-, pkg-config
-, flam3
-, libgtop
-, boost
-, tinyxml
-, freeglut
-, libGLU
-, libGL
-, glee
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, wxGTK30, ffmpeg, lua5_1, curl
+, libpng, xorg, pkg-config, flam3, libgtop, boost, tinyxml, freeglut, libGLU, libGL
+, glee }:
 
 stdenv.mkDerivation rec {
   pname = "electricsheep";
@@ -33,20 +16,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   buildInputs = [
-    wxGTK32
-    ffmpeg
-    lua5_1
-    curl
-    libpng
-    xorg.libXrender
-    flam3
-    libgtop
-    boost
-    tinyxml
-    freeglut
-    libGLU
-    libGL
-    glee
+    wxGTK30 ffmpeg lua5_1 curl libpng xorg.libXrender
+    flam3 libgtop boost tinyxml freeglut libGLU libGL glee
   ];
 
   preAutoreconf = ''

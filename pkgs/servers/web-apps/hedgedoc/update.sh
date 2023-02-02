@@ -16,16 +16,11 @@ if [ -z "$version" ]; then
 fi
 
 src="https://raw.githubusercontent.com/hedgedoc/hedgedoc/$version"
-
 wget "$src/package.json" -O package.json
-wget "$src/yarn.lock" -O yarn.lock
 
-src_old_hash=$(nix-prefetch-url --unpack "https://github.com/hedgedoc/hedgedoc/releases/download/$version/hedgedoc-$version.tar.gz")
-src_hash=$(nix hash to-sri --type sha256 $src_old_hash)
+src_hash=$(nix-prefetch-github hedgedoc hedgedoc --rev "${version}" | jq -r .sha256)
 yarn_hash=$(prefetch-yarn-deps yarn.lock)
 
-sed -i "s|version = \".*\"|version = \"$version\"|" default.nix
-sed -i "s|hash = \".*\"|hash = \"$src_hash\"|" default.nix
-sed -i "s|sha256 = \".*\"|sha256 = \"$yarn_hash\"|" default.nix
-
-rm yarn.lock
+sed -i "s/version = \".*\"/version = \"$version\"/" default.nix
+sed -i "s/hash = \".*\"/hash = \"$src_hash\"/" default.nix
+sed -i "s/sha256 = \".*\"/sha256 = \"$yarn_hash\"/" default.nix

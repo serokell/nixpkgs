@@ -1,76 +1,69 @@
 { lib
 , stdenv
-, expat
 , fetchFromGitHub
 , gst_all_1
+, gtk2
 , gtk3
 , libGL
 , libGLU
 , libSM
 , libXinerama
 , libXxf86vm
-, libpng
-, libtiff
-, libjpeg_turbo
-, zlib
 , pkg-config
 , xorgproto
+, withMesa ? lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms
 , compat26 ? false
 , compat28 ? true
 , unicode ? true
-, withMesa ? lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms
-, withWebKit ? false
-, webkitgtk
-, setfile
+, withGtk2 ? true
+, withWebKit ? false, webkitgtk
 , AGL
+, AVFoundation
 , Carbon
 , Cocoa
 , Kernel
 , QTKit
-, AVFoundation
-, AVKit
-, WebKit
+, setfile
 }:
 
+assert withGtk2 -> (!withWebKit);
+
+let
+  gtk = if withGtk2 then gtk2 else gtk3;
+in
 stdenv.mkDerivation rec {
   pname = "wxwidgets";
-  version = "3.0.5.1";
+  version = "3.0.5";
 
   src = fetchFromGitHub {
     owner = "wxWidgets";
     repo = "wxWidgets";
     rev = "v${version}";
-    hash = "sha256-I91douzXDAfDgm4Pplf17iepv4vIRhXZDRFl9keJJq0=";
+    hash = "sha256-p69nNCg552j+nldGY0oL65uFRVu4xXCkoE10F5MwY9A=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [
+    pkg-config
+  ];
 
   buildInputs = [
-    gst_all_1.gst-plugins-base
     gst_all_1.gstreamer
-    libpng
-    libtiff
-    libjpeg_turbo
-    zlib
-  ] ++ lib.optionals stdenv.isLinux [
-    gtk3
+    gst_all_1.gst-plugins-base
+    gtk
     libSM
     libXinerama
     libXxf86vm
     xorgproto
   ]
   ++ lib.optional withMesa libGLU
-  ++ lib.optional (withWebKit && stdenv.isLinux) webkitgtk
-  ++ lib.optional (withWebKit && stdenv.isDarwin) WebKit
+  ++ lib.optional withWebKit webkitgtk
   ++ lib.optionals stdenv.isDarwin [
-    expat
-    setfile
+    AVFoundation
     Carbon
     Cocoa
     Kernel
     QTKit
-    AVFoundation
-    AVKit
+    setfile
   ];
 
   propagatedBuildInputs = lib.optional stdenv.isDarwin AGL;
@@ -85,20 +78,20 @@ stdenv.mkDerivation rec {
     "--enable-mediactrl"
     (if compat26 then "--enable-compat26" else "--disable-compat26")
     (if compat28 then "--enable-compat28" else "--disable-compat28")
-  ] ++ lib.optional unicode "--enable-unicode"
+  ]
+  ++ lib.optional unicode "--enable-unicode"
   ++ lib.optional withMesa "--with-opengl"
-  ++ lib.optionals stdenv.isDarwin [
-    # allow building on 64-bit
+  ++ lib.optionals stdenv.isDarwin [ # allow building on 64-bit
     "--enable-universal-binaries"
+    "--with-cocoa"
     "--with-macosx-version-min=10.7"
-    "--with-osx_cocoa"
-    "--with-libiconv"
-  ] ++ lib.optionals withWebKit [
+  ]
+  ++ lib.optionals withWebKit [
     "--enable-webview"
-    "--enable-webviewwebkit"
+    "--enable-webview-webkit"
   ];
 
-  SEARCH_LIB = "${libGLU.out}/lib ${libGL.out}/lib";
+  SEARCH_LIB = "${libGLU.out}/lib ${libGL.out}/lib ";
 
   preConfigure = ''
     substituteInPlace configure --replace \
@@ -108,10 +101,11 @@ stdenv.mkDerivation rec {
     substituteInPlace configure --replace \
       /usr /no-such-path
   '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace configure \
-      --replace 'ac_cv_prog_SETFILE="/Developer/Tools/SetFile"' 'ac_cv_prog_SETFILE="${setfile}/bin/SetFile"'
-    substituteInPlace configure \
-      --replace "-framework System" "-lSystem"
+    substituteInPlace configure --replace \
+      'ac_cv_prog_SETFILE="/Developer/Tools/SetFile"' \
+      'ac_cv_prog_SETFILE="${setfile}/bin/SetFile"'
+    substituteInPlace configure --replace \
+      "-framework System" "-lSystem"
   '';
 
   postInstall = ''
@@ -136,11 +130,12 @@ stdenv.mkDerivation rec {
       database support, HTML viewing and printing, and much more.
     '';
     license = licenses.wxWindows;
-    maintainers = with maintainers; [ wegank ];
-    platforms = platforms.unix;
+    maintainers = with maintainers; [ ];
+    platforms = platforms.linux ++ platforms.darwin;
   };
 
   passthru = {
+    inherit gtk;
     inherit compat26 compat28 unicode;
   };
 }

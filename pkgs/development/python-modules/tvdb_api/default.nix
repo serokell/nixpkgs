@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests-cache ];
 
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
 
   # requires network access
   doCheck = false;

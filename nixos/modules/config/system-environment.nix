@@ -1,6 +1,6 @@
 # This module defines a system-wide environment that will be
 # initialised by pam_env (that is, not only in shells).
-{ config, lib, options, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -32,7 +32,8 @@ in
         therefore not possible to use PAM style variables such as
         `@{HOME}`.
       '';
-      inherit (options.environment.variables) type apply;
+      type = with types; attrsOf (either str (listOf str));
+      apply = mapAttrs (n: v: if isList v then concatStringsSep ":" v else v);
     };
 
     environment.profileRelativeSessionVariables = mkOption {

@@ -8,7 +8,7 @@
 , email-validator
 , flask
 , flask-babel
-, flask-login
+, flask_login
 , flask-openid
 , flask-sqlalchemy
 , flask-wtf
@@ -59,7 +59,7 @@ buildPythonPackage rec {
     email-validator
     flask
     flask-babel
-    flask-login
+    flask_login
     flask-openid
     flask-sqlalchemy
     flask-wtf

@@ -22,16 +22,16 @@
 , flake8
 
   # python dependencies
-, certifi
 , dbus-python
 , distro
 , evdev
 , lxml
 , pillow
 , pygobject3
-, pypresence
 , pyyaml
 , requests
+, keyring
+, python-magic
 
   # commands that lutris needs
 , xrandr
@@ -48,7 +48,6 @@
 , fluidsynth
 , xorgserver
 , xorg
-, util-linux
 }:
 
 let
@@ -69,19 +68,29 @@ let
     xorgserver
     xorg.setxkbmap
     xorg.xkbcomp
-    # bypass mount suid wrapper which does not work in fhsenv
-    util-linux
   ];
+
+  binPath = lib.makeBinPath requiredTools;
+
+  gstDeps = with gst_all_1; [
+    gst-libav
+    gst-plugins-bad
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-ugly
+    gstreamer
+  ];
+
 in
 buildPythonApplication rec {
-  pname = "lutris-unwrapped";
-  version = "0.5.12";
+  pname = "lutris-original";
+  version = "0.5.11";
 
   src = fetchFromGitHub {
     owner = "lutris";
     repo = "lutris";
     rev = "refs/tags/v${version}";
-    sha256 = "sha256-rsiXm7L/M85ot6NrTyy//lMRFlLPJYve9y6Erg9Ugxg=";
+    sha256 = "sha256-D2qMKYmi5TC8jEAECcz2V0rUrmp5kjXJ5qyW6C4re3w=";
   };
 
   nativeBuildInputs = [ wrapGAppsHook ];
@@ -95,27 +104,20 @@ buildPythonApplication rec {
     libnotify
     pango
     webkitgtk
-  ] ++ (with gst_all_1; [
-    gst-libav
-    gst-plugins-bad
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-ugly
-    gstreamer
-  ]);
+    python-magic
+  ] ++ gstDeps;
 
-  # See `install_requires` in https://github.com/lutris/lutris/blob/master/setup.py
   propagatedBuildInputs = [
-    certifi
-    dbus-python
-    distro
     evdev
+    distro
     lxml
-    pillow
-    pygobject3
-    pypresence
     pyyaml
+    pygobject3
     requests
+    pillow
+    dbus-python
+    keyring
+    python-magic
   ];
 
   postPatch = ''
@@ -123,20 +125,19 @@ buildPythonApplication rec {
       --replace "'libmagic.so.1'" "'${lib.getLib file}/lib/libmagic.so.1'"
   '';
 
-  nativeCheckInputs = [ xvfb-run nose2 flake8 ] ++ requiredTools;
+
+  checkInputs = [ xvfb-run nose2 flake8 ] ++ requiredTools;
+  preCheck = "export HOME=$PWD";
   checkPhase = ''
     runHook preCheck
-
-    export HOME=$PWD
     xvfb-run -s '-screen 0 800x600x24' make test
-
     runHook postCheck
   '';
 
   # avoid double wrapping
   dontWrapGApps = true;
   makeWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath requiredTools}"
+    "--prefix PATH : ${binPath}"
     "\${gappsWrapperArgs[@]}"
   ];
   # needed for glib-schemas to work correctly (will crash on dialogues otherwise)

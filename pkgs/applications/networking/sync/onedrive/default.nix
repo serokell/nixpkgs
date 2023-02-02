@@ -8,19 +8,19 @@
 , curl
 , sqlite
 , libnotify
-, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
+, withSystemd ? stdenv.isLinux
 , systemd
 }:
 
 stdenv.mkDerivation rec {
   pname = "onedrive";
-  version = "2.4.23";
+  version = "2.4.21";
 
   src = fetchFromGitHub {
     owner = "abraunegg";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-yHpjutZV2u1VhnLxsQIu0NtKnqwtoRn4TM+8tXJ4RNo=";
+    hash = "sha256-KZVRLXXaJYMqHzjxTfQaD0u7n3ACBEk3fLOmqwybNhM=";
   };
 
   nativeBuildInputs = [ autoreconfHook ldc installShellFiles pkg-config ];

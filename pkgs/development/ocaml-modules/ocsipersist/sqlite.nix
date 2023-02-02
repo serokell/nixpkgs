@@ -7,8 +7,7 @@
 
 buildDunePackage {
   pname = "ocsipersist-sqlite";
-  inherit (ocsipersist-lib) version src;
-  duneVersion = "3";
+  inherit (ocsipersist-lib) version src useDune2;
 
   propagatedBuildInputs = [
     lwt_log

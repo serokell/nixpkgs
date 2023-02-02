@@ -12,18 +12,17 @@
 , sqlite
 , tinyxml
 , wrapGAppsHook
-, wxGTK30
-, gtk3
+, wxGTK30-gtk3
 , xdg-utils
 }:
 
 stdenv.mkDerivation rec {
   pname = "filezilla";
-  version = "3.62.2";
+  version = "3.60.2";
 
   src = fetchurl {
     url = "https://download.filezilla-project.org/client/FileZilla_${version}_src.tar.bz2";
-    hash = "sha256-p2cJY1yg6kdPaR9sYLGRM0rzB57xksB8NGUEuqtzjBI=";
+    hash = "sha256-5AfbrRaZU/+VFFK8vxONlTo6MCNfirsD0nHHEsx+V5I=";
   };
 
   configureFlags = [
@@ -43,8 +42,8 @@ stdenv.mkDerivation rec {
     pugixml
     sqlite
     tinyxml
-    wxGTK30
-    gtk3
+    wxGTK30-gtk3
+    wxGTK30-gtk3.gtk
     xdg-utils
   ];
 

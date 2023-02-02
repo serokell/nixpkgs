@@ -2,8 +2,10 @@
 , stdenv
 , fetchFromGitHub
 , buildPackages
+, isStable
+, hash
+, rev
 , version
-, src
 , extraMeta ? { }
 , callPackage
 , self
@@ -13,6 +15,7 @@
 , pkgsBuildTarget
 , pkgsHostHost
 , pkgsTargetTarget
+, sourceVersion
 , passthruFun
 , enableFFI ? true
 , enableJIT ? true
@@ -25,13 +28,7 @@
 , enableAPICheck ? false
 , enableVMAssertions ? false
 , useSystemMalloc ? false
-# Upstream generates randomized string id's by default for security reasons
-# https://github.com/LuaJIT/LuaJIT/issues/626. Deterministic string id's should
-# never be needed for correctness (that should be fixed in the lua code),
-# but may be helpful when you want to embed jit-compiled raw lua blobs in
-# binaries that you want to be reproducible.
-, deterministicStringIds ? false
-, luaAttr ? "luajit_${lib.versions.major version}_${lib.versions.minor version}"
+, luaAttr ? "luajit_${sourceVersion.major}_${sourceVersion.minor}"
 } @ inputs:
 assert enableJITDebugModule -> enableJIT;
 assert enableGDBJITSupport -> enableJIT;
@@ -50,12 +47,16 @@ let
     ++ optional enableGDBJITSupport "-DLUAJIT_USE_GDBJIT"
     ++ optional enableAPICheck "-DLUAJIT_USE_APICHECK"
     ++ optional enableVMAssertions "-DLUAJIT_USE_ASSERT"
-    ++ optional deterministicStringIds "-DLUAJIT_SECURITY_STRID=0"
   ;
 in
 stdenv.mkDerivation rec {
   pname = "luajit";
-  inherit version src;
+  inherit version;
+  src = fetchFromGitHub {
+    owner = "LuaJIT";
+    repo = "LuaJIT";
+    inherit hash rev;
+  };
 
   luaversion = "5.1";
 
@@ -77,7 +78,7 @@ stdenv.mkDerivation rec {
     } >> src/luaconf.h
   '';
 
-  dontConfigure = true;
+  configurePhase = false;
 
   buildInputs = lib.optional enableValgrindSupport valgrind;
 
@@ -97,9 +98,8 @@ stdenv.mkDerivation rec {
   postInstall = ''
     ( cd "$out/include"; ln -s luajit-*/* . )
     ln -s "$out"/bin/luajit-* "$out"/bin/lua
-    if [[ ! -e "$out"/bin/luajit ]]; then
-      ln -s "$out"/bin/luajit* "$out"/bin/luajit
-    fi
+  '' + lib.optionalString (!isStable) ''
+    ln -s "$out"/bin/luajit-* "$out"/bin/luajit
   '';
 
   LuaPathSearchPaths    = luaPackages.luaLib.luaPathList;
@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
     inputs' = lib.filterAttrs (n: v: ! lib.isDerivation v && n != "passthruFun") inputs;
     override = attr: let lua = attr.override (inputs' // { self = lua; }); in lua;
   in passthruFun rec {
-    inherit self luaversion packageOverrides luaAttr;
+    inherit self luaversion packageOverrides luaAttr sourceVersion;
     executable = "lua";
     luaOnBuildForBuild = override pkgsBuildBuild.${luaAttr};
     luaOnBuildForHost = override pkgsBuildHost.${luaAttr};
@@ -124,13 +124,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "High-performance JIT compiler for Lua 5.1";
-    homepage = "https://luajit.org/";
+    homepage = "http://luajit.org";
     license = licenses.mit;
     platforms = platforms.linux ++ platforms.darwin;
-    badPlatforms = [
-      "riscv64-linux" "riscv64-linux" # See https://github.com/LuaJIT/LuaJIT/issues/628
-      "powerpc64le-linux"             # `#error "No support for PPC64"`
-    ];
     maintainers = with maintainers; [ thoughtpolice smironov vcunat lblasc ];
   } // extraMeta;
 }

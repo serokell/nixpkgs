@@ -15,7 +15,7 @@
 
 buildPythonPackage rec {
   pname = "devolo-plc-api";
-  version = "0.9.0";
+  version = "0.8.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.8";
@@ -24,7 +24,7 @@ buildPythonPackage rec {
     owner = "2Fake";
     repo = "devolo_plc_api";
     rev = "v${version}";
-    sha256 = "sha256-FBcDEEWgfV+OgHriSOZKWZPt0O89nDe2CsY3oqX/6zo=";
+    sha256 = "sha256-LMwvIwbP/nRFby295ur6QTgyXLLJ8ip30V9bti27qKQ=";
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
@@ -39,7 +39,7 @@ buildPythonPackage rec {
     zeroconf
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytest-httpx
     pytest-mock

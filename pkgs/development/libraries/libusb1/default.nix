@@ -1,5 +1,4 @@
-{ lib
-, stdenv
+{ lib, stdenv
 , fetchFromGitHub
 , fetchpatch
 , autoreconfHook
@@ -9,7 +8,6 @@
 , libobjc
 , IOKit
 , Security
-, withExamples ? false
 , withStatic ? false
 }:
 
@@ -33,18 +31,10 @@ stdenv.mkDerivation rec {
 
   dontDisableStatic = withStatic;
 
-  configureFlags =
-    lib.optional (!enableUdev) "--disable-udev"
-    ++ lib.optional (withExamples) "--enable-examples-build";
+  configureFlags = lib.optional (!enableUdev) "--disable-udev";
 
   preFixup = lib.optionalString enableUdev ''
     sed 's,-ludev,-L${lib.getLib udev}/lib -ludev,' -i $out/lib/libusb-1.0.la
-  '';
-
-  postInstall = lib.optionalString withExamples ''
-    mkdir -p $out/{bin,sbin,examples/bin}
-    cp -r examples/.libs/* $out/examples/bin
-    ln -s $out/examples/bin/fxload $out/sbin/fxload
   '';
 
   meta = with lib; {
@@ -55,6 +45,6 @@ stdenv.mkDerivation rec {
     '';
     platforms = platforms.all;
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ prusnak realsnick ];
+    maintainers = with maintainers; [ prusnak ];
   };
 }

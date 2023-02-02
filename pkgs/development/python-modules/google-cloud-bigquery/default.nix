@@ -1,85 +1,58 @@
 { lib
 , buildPythonPackage
-, db-dtypes
 , fetchPypi
+, pytestCheckHook
+, db-dtypes
 , freezegun
-, google-api-core
 , google-cloud-bigquery-storage
 , google-cloud-core
 , google-cloud-datacatalog
 , google-cloud-storage
 , google-cloud-testutils
 , google-resumable-media
-, grpcio
 , ipython
 , mock
 , pandas
 , proto-plus
-, protobuf
 , psutil
 , pyarrow
 , pytest-xdist
-, pytestCheckHook
-, python-dateutil
 , pythonOlder
-, requests
-, tqdm
 }:
 
 buildPythonPackage rec {
   pname = "google-cloud-bigquery";
-  version = "3.4.2";
+  version = "3.3.5";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-Ik3DKbxa0J1hTbdlyV8LuLJPCIGz0qSFQGLKNG+IlvA=";
+    hash = "sha256-+7ZXmcAnVN3K7ZgfSotrAhtpzADUzZw1yh1swnLq2dE=";
   };
 
   propagatedBuildInputs = [
-    grpcio
-    google-api-core
     google-cloud-core
     google-cloud-bigquery-storage
     google-resumable-media
     proto-plus
-    protobuf
-    requests
-    python-dateutil
-  ] ++ google-api-core.optional-dependencies.grpc;
+    pyarrow
+  ];
 
-  passthru.optional-dependencies = {
-    bqstorage = [
-      google-cloud-bigquery-storage
-      grpcio
-      pyarrow
-    ];
-    pandas = [
-      db-dtypes
-      pandas
-      pyarrow
-    ];
-    tqdm = [
-      tqdm
-    ];
-    ipython = [
-      ipython
-    ];
-  };
-
-  nativeCheckInputs = [
+  checkInputs = [
+    db-dtypes
     freezegun
     google-cloud-testutils
+    ipython
     mock
+    pandas
     psutil
     google-cloud-datacatalog
     google-cloud-storage
     pytestCheckHook
     pytest-xdist
-  ] ++ passthru.optional-dependencies.pandas
-  ++ passthru.optional-dependencies.ipython;
+  ];
 
   # prevent google directory from shadowing google imports
   preCheck = ''
@@ -110,12 +83,10 @@ buildPythonPackage rec {
     "test__initiate_resumable_upload_mtls"
     "test__initiate_resumable_upload_with_retry"
     "test_table_clones"
-    "test_context_with_default_connection"
-    "test_context_with_custom_connection"
   ];
 
   disabledTestPaths = [
-    # Tests require credentials
+    # requires credentials
     "tests/system/test_query.py"
     "tests/system/test_job_retry.py"
     "tests/system/test_pandas.py"
@@ -129,7 +100,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Google BigQuery API client library";
     homepage = "https://github.com/googleapis/python-bigquery";
-    changelog = "https://github.com/googleapis/python-bigquery/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

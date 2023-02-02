@@ -1,35 +1,18 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, requests
-, pytestCheckHook
-, tzlocal
-, pytest-mock
-, pytest-freezegun
-, pytest-raisin
-, pytest-socket
-, requests-mock
-, pebble
-, python-dateutil
-, termcolor
-, beautifulsoup4
-, setuptools
-, pythonOlder
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, requests
+, pytestCheckHook, tzlocal, pytest-mock, pytest-freezegun, pytest-raisin
+, pytest-socket, requests-mock, pebble, python-dateutil, termcolor
+, beautifulsoup4, setuptools
 }:
 
 buildPythonPackage rec {
   pname = "aocd";
-  version = "1.3.2";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "1.1.3";
 
   src = fetchFromGitHub {
     owner = "wimglenn";
     repo = "advent-of-code-data";
     rev = "refs/tags/v${version}";
-    hash = "sha256-yY8ItXZZp0yVs4viJzduMPq8Q8NKd34uvlGaVUE2GjQ=";
+    sha256 = "sha256-V6byleGCgXc2xfceb+aO0sYwGD6uThE6/8s5NDEjerw=";
   };
 
   propagatedBuildInputs = [
@@ -54,7 +37,7 @@ buildPythonPackage rec {
     "test_load_input_from_file"
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-mock
     pytest-freezegun
@@ -63,14 +46,11 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [
-    "aocd"
-  ];
+  pythonImportsCheck = [ "aocd" ];
 
   meta = with lib; {
-    description = "Get your Advent of Code data with a single import statement";
     homepage = "https://github.com/wimglenn/advent-of-code-data";
-    changelog = "https://github.com/wimglenn/advent-of-code-data/releases/tag/v${version}";
+    description = "Get your Advent of Code data with a single import statement";
     license = licenses.mit;
     maintainers = with maintainers; [ aadibajpai ];
     platforms = platforms.unix;

@@ -16,7 +16,7 @@ buildPythonPackage rec {
     defusedxml
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  checkInputs = [ unittestCheckHook ];
 
   unittestFlagsArray = [ "-s" "tests" ];
 

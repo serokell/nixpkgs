@@ -33,7 +33,7 @@ buildPythonPackage rec {
     scikit-learn
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

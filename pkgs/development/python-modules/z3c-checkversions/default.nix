@@ -18,7 +18,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ zc-buildout ];
-  nativeCheckInputs = [ zope_testrunner ];
+  checkInputs = [ zope_testrunner ];
   doCheck = !python.pkgs.isPy27;
   checkPhase = ''
     ${python.interpreter} -m zope.testrunner --test-path=src []

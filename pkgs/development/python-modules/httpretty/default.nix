@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     sure
     freezegun
     pytestCheckHook

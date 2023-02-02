@@ -5,7 +5,7 @@ buildPythonPackage rec {
   pname = "GeoIP";
   version = "1.3.2";
 
-  nativeCheckInputs = [ nose ];
+  checkInputs = [ nose ];
   propagatedBuildInputs = [
     geoip
   ];

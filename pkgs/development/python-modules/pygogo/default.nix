@@ -25,7 +25,7 @@ buildPythonPackage rec {
     pkutils
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nose
   ];
 

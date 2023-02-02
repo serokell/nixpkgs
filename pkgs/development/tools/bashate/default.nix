@@ -26,7 +26,7 @@ buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     fixtures
     mock
     pytestCheckHook

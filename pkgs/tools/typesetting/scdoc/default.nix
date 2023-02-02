@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromSourcehut, buildPackages }:
+{ lib, stdenv, fetchFromSourcehut }:
 
 stdenv.mkDerivation rec {
   pname = "scdoc";
@@ -16,10 +16,6 @@ stdenv.mkDerivation rec {
       --replace "-static" "" \
       --replace "/usr/local" "$out"
   '';
-
-  makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-    "HOST_SCDOC=${buildPackages.scdoc}/bin/scdoc"
-  ];
 
   doCheck = true;
 

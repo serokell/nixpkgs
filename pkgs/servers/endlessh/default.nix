@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, testers
-, endlessh
-, nixosTests
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "endlessh";
@@ -14,25 +8,17 @@ stdenv.mkDerivation rec {
     owner = "skeeto";
     repo = pname;
     rev = version;
-    hash = "sha256-yHQzDrjZycDL/2oSQCJjxbZQJ30FoixVG1dnFyTKPH4=";
+    sha256 = "0ziwr8j1frsp3dajr8h5glkm1dn5cci404kazz5w1jfrp0736x68";
   };
 
   makeFlags = [ "PREFIX=$(out)" ];
-
-  passthru.tests = {
-    inherit (nixosTests) endlessh;
-    version = testers.testVersion {
-      package = endlessh;
-      command = "endlessh -V";
-    };
-  };
 
   meta = with lib; {
     description = "SSH tarpit that slowly sends an endless banner";
     homepage = "https://github.com/skeeto/endlessh";
     changelog = "https://github.com/skeeto/endlessh/releases/tag/${version}";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ azahi marsam ];
+    maintainers = [ maintainers.marsam ];
     platforms = platforms.unix;
   };
 }

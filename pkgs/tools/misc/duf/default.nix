@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, buildGoModule, installShellFiles }:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "duf";
@@ -14,12 +14,6 @@ buildGoModule rec {
   vendorSha256 = "sha256-oihi7E67VQmym9U1gdD802AYxWRrSowhzBiKg0CBDPc=";
 
   ldflags = [ "-s" "-w" "-X=main.Version=${version}" ];
-
-  nativeBuildInputs = [ installShellFiles ];
-
-  postInstall = ''
-    installManPage duf.1
-  '';
 
   meta = with lib; {
     homepage = "https://github.com/muesli/duf/";

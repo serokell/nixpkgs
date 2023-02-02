@@ -11,13 +11,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ readline libxml2 ];
 
-  enableParallelBuilding = true;
-
   meta = with lib; {
     description = "Configuration editing tool";
-    license = licenses.lgpl21Only;
-    homepage = "https://augeas.net/";
-    changelog = "https://augeas.net/news.html";
+    license = licenses.lgpl2;
+    homepage = "http://augeas.net/";
     maintainers = with maintainers; [ offline ];
     platforms = platforms.unix;
   };

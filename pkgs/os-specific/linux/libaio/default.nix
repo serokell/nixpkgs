@@ -1,12 +1,12 @@
 { lib, stdenv, fetchurl, fetchpatch }:
 
 stdenv.mkDerivation rec {
-  version = "0.3.113";
+  version = "0.3.112";
   pname = "libaio";
 
   src = fetchurl {
     url = "https://pagure.io/libaio/archive/${pname}-${version}/${pname}-${pname}-${version}.tar.gz";
-    sha256 = "sha256-cWxwWXAyRzROsGa1TsvDyiE08BAzBxkubCt9q1+VKKs=";
+    sha256 = "0wi2myh191sja13qj3claxhpfkngvy10x30f78hm9cxzkfr97kxp";
   };
 
   postPatch = ''
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Library for asynchronous I/O in Linux";
-    homepage = "https://lse.sourceforge.net/io/aio.html";
+    homepage = "http://lse.sourceforge.net/io/aio.html";
     platforms = lib.platforms.linux;
     license = lib.licenses.lgpl21;
     maintainers = with lib.maintainers; [ ];

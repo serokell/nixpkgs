@@ -26,8 +26,8 @@ python3.pkgs.buildPythonApplication rec {
     sympy
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    gitpython
+  checkInputs = with python3.pkgs; [
+    GitPython
     psutil
     pytestCheckHook
   ];

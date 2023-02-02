@@ -34,7 +34,7 @@ buildPythonPackage rec {
     libversion
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

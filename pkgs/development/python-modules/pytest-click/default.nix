@@ -25,7 +25,7 @@ buildPythonPackage rec {
     click
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "pytest plugin for click";

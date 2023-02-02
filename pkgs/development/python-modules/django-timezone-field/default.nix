@@ -44,7 +44,7 @@ buildPythonPackage rec {
 
   DJANGO_SETTINGS_MODULE = "tests.settings";
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest
     pytest-lazy-fixture
   ];

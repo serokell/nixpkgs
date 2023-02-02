@@ -21,47 +21,46 @@ let
 
   # Darwin is pinned to 2019.3 because the DMG does not unpack; see here for details:
   # https://github.com/matthewbauer/undmg/issues/4
-  mklVersion = if stdenvNoCC.isDarwin then "2019.3" else "2023.0.0";
-  rel = if stdenvNoCC.isDarwin then "199" else "25398";
+  mklVersion = if stdenvNoCC.isDarwin then "2019.3" else "2021.1.1";
+  rel = if stdenvNoCC.isDarwin then "199" else "52";
 
   # Intel openmp uses its own versioning.
-  openmpVersion = if stdenvNoCC.isDarwin then "19.0.3" else "2023.0.0";
-  openmpRel = "25370";
+  openmpVersion = if stdenvNoCC.isDarwin then "19.0.3" else "19.1.3";
+  openmpRel = "189";
 
   # Thread Building Blocks release.
-  tbbVersion = if stdenvNoCC.isDarwin then "2019.3" else "2021.8.0";
-  tbbRel = "25334";
+  tbbRel = "119";
 
   shlibExt = stdenvNoCC.hostPlatform.extensions.sharedLibrary;
 
   oneapi-mkl = fetchurl {
     url = "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-${mklVersion}-${mklVersion}-${rel}.x86_64.rpm";
-    hash = "sha256-fiL5TDmQHB+OQb1ERcoDQFpUutpsPe+AqIbMoa85nEk=";
+    hash = "sha256-G2Y7iX3UN2YUJhxcMM2KmhONf0ls9owpGlOo8hHOfqA=";
   };
 
   oneapi-mkl-common = fetchurl {
     url = "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-common-${mklVersion}-${mklVersion}-${rel}.noarch.rpm";
-    hash = "sha256-AFayUxybi48SgR2mX6mxkNECconIXm1/TWelvE4aqX0=";
+    hash = "sha256-HrMt2OcPIRxM8EL8SPjYTyuHJnC7RhPFUrvLhRH+7vc=";
   };
 
   oneapi-mkl-common-devel = fetchurl {
     url = "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-common-devel-${mklVersion}-${mklVersion}-${rel}.noarch.rpm";
-    hash = "sha256-riyIO2xWuvTSzfXgB+K6NSKqWLRmxKSnGZaH5nYTYPk=";
+    hash = "sha256-XDE2WFJzEcpujFmO2AvqQdipZMvKB6/G+ksBe2sE438=";
   };
 
   oneapi-mkl-devel = fetchurl {
     url = "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-devel-${mklVersion}-${mklVersion}-${rel}.x86_64.rpm";
-    hash = "sha256-2IK0t47FaPNp7Oq9LJ5ZdLmlFFjQluWrh+nhvi8MCd8=";
+    hash = "sha256-GhUJZ0Vr/ZXp10maie29/5ryU7zzX3F++wRCuuFcE0s=";
   };
 
   oneapi-openmp = fetchurl {
     url = "https://yum.repos.intel.com/oneapi/intel-oneapi-openmp-${mklVersion}-${mklVersion}-${openmpRel}.x86_64.rpm";
-    hash = "sha256-grzVFWqt3Vpwb5K3Bur+sJz8pdKxZ4ISJXF5YAPrwmk=";
+    hash = "sha256-yP2c4aQAFNRffjLoIZgWXLcNXbiez8smsgu2wXitefU=";
   };
 
   oneapi-tbb = fetchurl {
-    url = "https://yum.repos.intel.com/oneapi/intel-oneapi-tbb-${tbbVersion}-${tbbVersion}-${tbbRel}.x86_64.rpm";
-    hash = "sha256-8hIoRfV36XVElKCqP9UmCkjLCs3l0ZKCHxg+yxNIHc0=";
+    url = "https://yum.repos.intel.com/oneapi/intel-oneapi-tbb-${mklVersion}-${mklVersion}-${tbbRel}.x86_64.rpm";
+    hash = "sha256-K1BvhGoGVU2Zwy5vg2ZvJWBrSdh5uQwo0znt5039X0A=";
   };
 
 in stdenvNoCC.mkDerivation ({
@@ -129,23 +128,23 @@ in stdenvNoCC.mkDerivation ({
     done
 
     # License
-    install -Dm0655 -t $out/share/doc/mkl opt/intel/oneapi/mkl/${mklVersion}/licensing/license.txt
+    install -Dm0655 -t $out/share/doc/mkl opt/intel/oneapi/mkl/2021.1.1/licensing/en/license.txt
 
     # Dynamic libraries
     mkdir -p $out/lib
     cp -a opt/intel/oneapi/mkl/${mklVersion}/lib/intel64/*.so* $out/lib
-    cp -a opt/intel/oneapi/compiler/${mklVersion}/linux/compiler/lib/intel64_lin/*.so* $out/lib
-    cp -a opt/intel/oneapi/tbb/${tbbVersion}/lib/intel64/gcc4.8/*.so* $out/lib
+    cp -a opt/intel/oneapi/compiler/2021.1.1/linux/compiler/lib/intel64_lin/*.so* $out/lib
+    cp -a opt/intel/oneapi/tbb/2021.1.1/lib/intel64/gcc4.8/*.so* $out/lib
 
     # Headers
     cp -r opt/intel/oneapi/mkl/${mklVersion}/include $out/
   '' +
     (if enableStatic then ''
       install -Dm0644 -t $out/lib opt/intel/oneapi/mkl/${mklVersion}/lib/intel64/*.a
-      install -Dm0644 -t $out/lib/pkgconfig opt/intel/oneapi/mkl/${mklVersion}/tools/pkgconfig/*.pc
+      install -Dm0644 -t $out/lib/pkgconfig opt/intel/oneapi/mkl/2021.1.1/tools/pkgconfig/*.pc
     '' else ''
       cp opt/intel/oneapi/mkl/${mklVersion}/lib/intel64/*.so* $out/lib
-      install -Dm0644 -t $out/lib/pkgconfig opt/intel/oneapi/mkl/${mklVersion}/lib/pkgconfig/*dynamic*.pc
+      install -Dm0644 -t $out/lib/pkgconfig opt/intel/oneapi/mkl/2021.1.1/tools/pkgconfig/*dynamic*.pc
     '') + ''
     # Setup symlinks for blas / lapack
     ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/libblas${shlibExt}

@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, makeWrapper, cmake, expat, openssl, zlib, db, curl, wxGTK32 }:
+{ lib, stdenv, fetchurl, makeWrapper, cmake, expat, openssl, zlib, db, curl, wxGTK }:
 
 stdenv.mkDerivation rec {
   pname = "tqsl";
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     zlib
     db
     (curl.override { inherit openssl; })
-    wxGTK32
+    wxGTK
   ];
 
   meta = with lib; {

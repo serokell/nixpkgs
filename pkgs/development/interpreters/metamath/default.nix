@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
       ASCII databases (set.mm and others) are also included in this derivation.
     '';
     homepage = "http://us.metamath.org";
-    downloadPage = "https://us.metamath.org/#downloads";
+    downloadPage = "http://us.metamath.org/#downloads";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.taneb ];
     platforms = platforms.all;

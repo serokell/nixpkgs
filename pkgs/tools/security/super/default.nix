@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, fetchpatch, libxcrypt }:
+{ lib, stdenv, fetchurl, fetchpatch }:
 
 stdenv.mkDerivation rec {
   pname = "super";
@@ -36,8 +36,6 @@ stdenv.mkDerivation rec {
     "--sysconfdir=/etc"
     "--localstatedir=/var"
   ];
-
-  buildInputs = [ libxcrypt ];
 
   installFlags = [ "sysconfdir=$(out)/etc" "localstatedir=$(TMPDIR)" ];
 

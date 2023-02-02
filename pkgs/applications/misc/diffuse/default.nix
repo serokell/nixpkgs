@@ -9,18 +9,17 @@
 , gdk-pixbuf
 , python3
 , atk
-, gtk3
 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "diffuse";
-  version = "0.7.7";
+  version = "0.7.5";
 
   src = fetchFromGitHub {
     owner = "MightyCreak";
     repo = "diffuse";
     rev = "v${version}";
-    sha256 = "7tidv01znXYYSOKe3cH2+gSBF00aneL9nealcE5avcE=";
+    sha256 = "0nd1fyl40wyc98jclcxv8zlnm744lrr51fahh5h9v4ksk184h4z8";
   };
 
   format = "other";
@@ -34,10 +33,10 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   buildInputs = [
+    gobject-introspection
     pango
     gdk-pixbuf
     atk
-    gtk3
   ];
 
   propagatedBuildInputs = with python3.pkgs; [

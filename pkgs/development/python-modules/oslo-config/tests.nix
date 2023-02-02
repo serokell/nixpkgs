@@ -24,7 +24,7 @@ buildPythonPackage rec {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [
+  checkInputs = [
     oslo-config
     docutils
     oslo-log

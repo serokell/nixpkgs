@@ -102,7 +102,7 @@ in {
           Extra directives added to to the end of MPD's configuration file,
           mpd.conf. Basic configuration like file location and uid/gid
           is added automatically to the beginning of the file. For available
-          options see {manpage}`mpd.conf(5)`.
+          options see `man 5 mpd.conf`'.
         '';
       };
 
@@ -142,7 +142,7 @@ in {
         };
 
         port = mkOption {
-          type = types.port;
+          type = types.int;
           default = 6600;
           description = lib.mdDoc ''
             This setting is the TCP port that is desired for the daemon to get assigned

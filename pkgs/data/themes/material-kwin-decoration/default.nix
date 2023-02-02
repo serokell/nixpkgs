@@ -26,12 +26,6 @@ mkDerivation rec {
     sha256 = "sha256-n+yUmBUrkS+06qLnzl2P6CTQZZbDtJLy+2mDPCcQz9M=";
   };
 
-  # Remove -Werror since it uses deprecated methods
-  postPatch = ''
-    substituteInPlace ./CMakeLists.txt \
-      --replace "add_definitions (-Wall -Werror)" "add_definitions (-Wall)"
-  '';
-
   nativeBuildInputs = [ cmake extra-cmake-modules ];
 
   buildInputs = [

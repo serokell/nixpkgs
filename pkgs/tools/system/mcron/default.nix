@@ -1,21 +1,22 @@
-{ fetchurl, lib, stdenv, guile, pkg-config }:
+{ fetchurl, lib, stdenv, guile, which, ed, libtool }:
 
 stdenv.mkDerivation rec {
   pname = "mcron";
-  version = "1.2.1";
+  version = "1.0.6";
 
   src = fetchurl {
     url = "mirror://gnu/mcron/mcron-${version}.tar.gz";
-    sha256 = "0bkn235g2ia4f7ispr9d55c7bc18282r3qd8ldhh5q2kiin75zi0";
+    sha256 = "0yvrfzzdy2m7fbqkr61fw01wd9r2jpnbyabxhcsfivgxywknl0fy";
   };
+
+  patches = [ ./install-vixie-programs.patch ];
 
   # don't attempt to chmod +s files in the nix store
   postPatch = ''
-    sed -E -i '/chmod u\+s/d' Makefile.in
+    substituteInPlace makefile.in --replace "rwxs" "rwx"
   '';
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ guile ];
+  buildInputs = [ guile which ed libtool ];
 
   doCheck = true;
 

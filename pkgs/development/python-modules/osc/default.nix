@@ -14,7 +14,7 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ bashInteractive ]; # needed for bash-completion helper
-  nativeCheckInputs = [ rpm diffstat ];
+  checkInputs = [ rpm diffstat ];
   propagatedBuildInputs = [ urllib3 cryptography ];
 
   postInstall = ''

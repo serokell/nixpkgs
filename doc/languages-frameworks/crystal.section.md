@@ -27,7 +27,7 @@ crystal.buildCrystalPackage rec {
     owner = "mint-lang";
     repo = "mint";
     rev = version;
-    hash = "sha256-dFN9l5fgrM/TtOPqlQvUYgixE4KPr629aBmkwdDoq28=";
+    sha256 = "0vxbx38c390rd2ysvbwgh89v2232sh5rbsp3nk9wzb70jybpslvl";
   };
 
   # Insert the path to your shards.nix file here
@@ -62,7 +62,7 @@ crystal.buildCrystalPackage rec {
     owner = "mint-lang";
     repo = "mint";
     rev = version;
-    hash = "sha256-dFN9l5fgrM/TtOPqlQvUYgixE4KPr629aBmkwdDoq28=";
+    sha256 = "0vxbx38c390rd2ysvbwgh89v2232sh5rbsp3nk9wzb70jybpslvl";
   };
 
   shardsFile = ./shards.nix;

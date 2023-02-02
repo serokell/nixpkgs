@@ -6,7 +6,7 @@
 , withMediaPlayback  ? true
 , backend            ? "webengine"
 , pipewireSupport    ? stdenv.isLinux
-, pipewire
+, pipewire_0_2
 , qtwayland
 , mkDerivationWith ? null
 , qtbase ? null
@@ -135,7 +135,7 @@ buildPythonApplication {
   '';
 
   preFixup = let
-    libPath = lib.makeLibraryPath [ pipewire ];
+    libPath = lib.makeLibraryPath [ pipewire_0_2 ];
   in
     ''
     makeWrapperArgs+=(

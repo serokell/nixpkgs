@@ -20,7 +20,7 @@ buildDunePackage rec {
 
   propagatedBuildInputs = [ eqaf ];
 
-  nativeCheckInputs = [ alcotest astring bos fpath ];
+  checkInputs = [ alcotest astring bos fpath ];
   doCheck = true;
 
   postCheck = ''

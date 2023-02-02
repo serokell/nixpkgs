@@ -11,10 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "1rgpsh70manr2dydna9da4x7p8ahii7dgdgwir5fka340n1wrcws";
   };
 
-  buildInputs = [ python3 ];
-  nativeBuildInputs = [ python3 ];
+  buildInputs = [ python3 bash ];
   dontBuild = true;
-  strictDeps = true;
 
   installPhase = ''
     python ./install.py -d "$out" -p "" -z "$out/share/zsh/site-functions/"

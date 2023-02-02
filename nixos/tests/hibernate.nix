@@ -26,9 +26,8 @@ let
 
     powerManagement.resumeCommands = "systemctl --no-block restart backdoor.service";
 
-    fileSystems."/" = {
-      device = "/dev/vda2";
-      fsType = "ext3";
+    fileSystems = {
+      "/".device = "/dev/vda2";
     };
     swapDevices = mkOverride 0 [ { device = "/dev/vda1"; } ];
     boot.resumeDevice = mkIf systemdStage1 "/dev/vda1";

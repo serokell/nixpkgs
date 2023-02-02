@@ -1,41 +1,23 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, dnspython
-, future
-, ldap3
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, dnspython, future, ldap3 }:
 
 buildPythonPackage rec {
   pname = "ldapdomaindump";
-  version = "0.9.4";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "0.9.3";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-mdzaFwUKllSZZuU7yJ5x2mcAlNU9lUKzsNAZfQNeb1I=";
+    sha256 = "10cis8cllpa9qi5qil9k7521ag3921mxwg2wj9nyn0lk41rkjagc";
   };
 
-  propagatedBuildInputs = [
-    dnspython
-    future
-    ldap3
-  ];
+  propagatedBuildInputs = [ dnspython future ldap3 ];
 
   # requires ldap server
   doCheck = false;
-
-  pythonImportsCheck = [
-    "ldapdomaindump"
-  ];
+  pythonImportsCheck = [ "ldapdomaindump" ];
 
   meta = with lib; {
     description = "Active Directory information dumper via LDAP";
     homepage = "https://github.com/dirkjanm/ldapdomaindump/";
-    changelog = "https://github.com/dirkjanm/ldapdomaindump/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

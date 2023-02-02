@@ -68,7 +68,7 @@ in
         The port youtrack will listen on.
       '';
       default = 8080;
-      type = types.port;
+      type = types.int;
     };
 
     statePath = mkOption {

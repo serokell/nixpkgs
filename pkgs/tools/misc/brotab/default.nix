@@ -25,7 +25,7 @@ python.pkgs.buildPythonApplication rec {
       --replace "requests==2.24.0" "requests>=2.24.0"
   '';
 
-  nativeCheckInputs = with python.pkgs; [
+  checkInputs = with python.pkgs; [
     pytestCheckHook
   ];
 

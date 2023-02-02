@@ -3,7 +3,7 @@
 ocamlPackages.buildDunePackage {
   pname = "opam-installer";
 
-  duneVersion = "3";
+  useDune2 = true;
 
   inherit (opam) version src;
   nativeBuildInputs = [ unzip ];

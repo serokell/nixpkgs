@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://qqwing.com";
     description = "Sudoku generating and solving software";
     license = licenses.gpl2;
-    platforms = platforms.unix;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ ];
   };
 }

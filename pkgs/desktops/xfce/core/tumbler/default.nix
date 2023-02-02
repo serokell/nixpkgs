@@ -7,7 +7,6 @@
 , libgsf
 , poppler
 , gst_all_1
-, libxfce4util
 }:
 
 # TODO: add libopenraw
@@ -15,12 +14,11 @@
 mkXfceDerivation {
   category = "xfce";
   pname = "tumbler";
-  version = "4.18.0";
+  version = "4.16.1";
 
-  sha256 = "sha256-qxbS0PMhwVk2I3fbblJEeIuI72xSWVsQx5SslhOvg+c=";
+  sha256 = "sha256-f2pCItNHTB0ggovIddpwNWEhaohfxD2otN8x9VfwR4k=";
 
   buildInputs = [
-    libxfce4util
     ffmpegthumbnailer
     freetype
     gdk-pixbuf

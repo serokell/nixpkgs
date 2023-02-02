@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, libxcrypt }:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "srelay";
@@ -11,8 +11,6 @@ stdenv.mkDerivation rec {
 
   patches = [ ./arm.patch ];
 
-  buildInputs = [ libxcrypt ];
-
   installPhase = "install -D srelay $out/bin/srelay";
 
   meta = {
@@ -20,7 +18,5 @@ stdenv.mkDerivation rec {
     homepage = "http://socks-relay.sourceforge.net/";
     platforms = lib.platforms.unix;
     license = lib.licenses.bsd3;
-    # never built on aarch64-linux since first introduction in nixpkgs
-    broken = stdenv.isLinux && stdenv.isAarch64;
   };
 }

@@ -11,7 +11,7 @@ buildPythonPackage rec {
     sha256 = "1xx7wd8bnswxa1fv3bfim2gcamii79k7qmwg7dbxbjvrhbcjjc0l";
   };
 
-  nativeCheckInputs = [ pytest which lrzsz ];
+  checkInputs = [ pytest which lrzsz ];
 
   checkPhase = ''
     pytest

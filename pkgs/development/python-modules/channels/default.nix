@@ -1,54 +1,47 @@
 { lib
-, asgiref
 , buildPythonPackage
-, daphne
-, django
 , fetchFromGitHub
+, asgiref
+, django
+, daphne
 , pytest-asyncio
 , pytest-django
 , pytestCheckHook
-, pythonOlder
 }:
 
 buildPythonPackage rec {
   pname = "channels";
-  version = "4.0.0";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "3.0.5";
 
   src = fetchFromGitHub {
     owner = "django";
     repo = pname;
     rev = version;
-    hash = "sha256-n88MxwYQ4O2kBy/W0Zvi3FtIlhZQQRCssB/lYrFNvps=";
+    sha256 = "sha256-bKrPLbD9zG7DwIYBst1cb+zkDsM8B02wh3D80iortpw=";
   };
 
   propagatedBuildInputs = [
     asgiref
     django
+    daphne
   ];
 
-  passthru.optional-dependencies = {
-    daphne = [
-      daphne
-    ];
-  };
-
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytest-django
     pytestCheckHook
-  ] ++ passthru.optional-dependencies.daphne;
-
-  pythonImportsCheck = [
-    "channels"
   ];
+
+  pytestFlagsArray = [
+    "--asyncio-mode=legacy"
+  ];
+
+  pythonImportsCheck = [ "channels" ];
 
   meta = with lib; {
     description = "Brings event-driven capabilities to Django with a channel system";
-    homepage = "https://github.com/django/channels";
     license = licenses.bsd3;
+    homepage = "https://github.com/django/channels";
     maintainers = with maintainers; [ fab ];
   };
 }

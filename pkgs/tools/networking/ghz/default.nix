@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "ghz";
-  version = "0.111.0";
+  version = "0.110.0";
 
   src = fetchFromGitHub {
     owner = "bojand";
     repo = "ghz";
     rev = "v${version}";
-    sha256 = "sha256-FXehWUdFHsWYF/WXrJtmoDIb0Smh3D4aSJS8aOpvoxg=";
+    sha256 = "sha256-lAQGog45COrS2a5ZmFZEDERdZt24DnVSkPz49txqFmo=";
   };
 
   vendorSha256 = "sha256-VjrSUP0SwE5iOTevqIGlnSjH+TV4Ajx/PKuco9etkSc=";

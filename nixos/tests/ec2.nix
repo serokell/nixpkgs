@@ -16,6 +16,8 @@ let
       ../modules/testing/test-instrumentation.nix
       ../modules/profiles/qemu-guest.nix
       {
+        ec2.hvm = true;
+
         # Hack to make the partition resizing work in QEMU.
         boot.initrd.postDeviceCommands = mkBefore ''
           ln -s vda /dev/xvda

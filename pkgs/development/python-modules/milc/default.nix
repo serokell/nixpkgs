@@ -27,7 +27,7 @@ buildPythonPackage rec {
     halo
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nose2
     semver
   ];

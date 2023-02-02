@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , fetchurl
-, fetchpatch
 }:
 
 # Point the environment variable $WALLABAG_DATA to a data directory
@@ -16,30 +15,19 @@
 
 let
   pname = "wallabag";
-  version = "2.5.2";
+  version = "2.5.1";
 in
 stdenv.mkDerivation {
   inherit pname version;
 
-  # Release tarball includes vendored files
+  # GitHub distribution does not include vendored files
   src = fetchurl {
-    urls = [
-      "https://static.wallabag.org/releases/wallabag-release-${version}.tar.gz"
-      "https://github.com/wallabag/wallabag/releases/download/${version}/wallabag-${version}.tar.gz"
-    ];
-    hash = "sha256-Q989SorGPm3KBuQhGAinYU6HGIa9RrhtRPvwGALU6jk=";
+    url = "https://static.wallabag.org/releases/wallabag-release-${version}.tar.gz";
+    hash = "sha256-vurjWI5Sh/SFPtxd5cHaaw7edcAzNub/duhOUF+Wshk=";
   };
 
   patches = [
     ./wallabag-data.patch # exposes $WALLABAG_DATA
-
-    # Use sendmail from php.ini instead of FHS path.
-    (fetchpatch {
-      url = "https://github.com/symfony/swiftmailer-bundle/commit/31a4fed8f621f141ba70cb42ffb8f73184995f4c.patch";
-      stripLen = 1;
-      extraPrefix = "vendor/symfony/swiftmailer-bundle/";
-      sha256 = "rxHiGhKFd/ZWnIfTt6omFLLoNFlyxOYNCHIv/UtxCho=";
-    })
   ];
 
   dontBuild = true;

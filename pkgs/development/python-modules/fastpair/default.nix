@@ -13,7 +13,7 @@ buildPythonPackage {
 
   nativeBuildInputs = [ pytest-runner ];
 
-  nativeCheckInputs = [ pytest pytestCheckHook ];
+  checkInputs = [ pytest pytestCheckHook ];
 
   propagatedBuildInputs = [
     scipy

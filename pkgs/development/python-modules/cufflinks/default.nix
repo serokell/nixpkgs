@@ -31,7 +31,7 @@ buildPythonPackage rec {
     statsmodels
   ];
 
-  nativeCheckInputs = [ pytest nose ];
+  checkInputs = [ pytest nose ];
 
   # ignore tests which are incompatible with pandas>=1.0
   # https://github.com/santosjorge/cufflinks/issues/236

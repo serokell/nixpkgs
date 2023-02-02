@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Car racing game";
-    homepage = "https://torcs.sourceforge.net/";
+    homepage = "http://torcs.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [viric];
     platforms = lib.platforms.linux;

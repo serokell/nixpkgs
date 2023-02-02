@@ -4,6 +4,7 @@
 , lib
 , stdenv
 , extraPackages ? []
+, buildah
 , runc # Default container runtime
 , crun # Container runtime (default with cgroups v2 for podman/buildah)
 , conmon # Container runtime monitor
@@ -14,6 +15,10 @@
 }:
 
 let
+  buildah = buildah-unwrapped;
+
+  preferLocalBuild = true;
+
   binPath = lib.makeBinPath ([
   ] ++ lib.optionals stdenv.isLinux [
     runc
@@ -25,13 +30,11 @@ let
     iptables
   ] ++ extraPackages);
 
-in runCommand buildah-unwrapped.name {
-  name = "${buildah-unwrapped.pname}-wrapper-${buildah-unwrapped.version}";
-  inherit (buildah-unwrapped) pname version;
+in runCommand buildah.name {
+  name = "${buildah.pname}-wrapper-${buildah.version}";
+  inherit (buildah) pname version;
 
-  preferLocalBuild = true;
-
-  meta = builtins.removeAttrs buildah-unwrapped.meta [ "outputsToInstall" ];
+  meta = builtins.removeAttrs buildah.meta [ "outputsToInstall" ];
 
   outputs = [
     "out"
@@ -43,7 +46,7 @@ in runCommand buildah-unwrapped.name {
   ];
 
 } ''
-  ln -s ${buildah-unwrapped.man} $man
+  ln -s ${buildah.man} $man
 
   mkdir -p $out/bin
   ln -s ${buildah-unwrapped}/share $out/share

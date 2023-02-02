@@ -17,13 +17,13 @@ let
 
   aliceUsername = "alice";
   aliceUserId = "2";
-  alicePassword = "R5twyCgU0uXC71wT9BBTCqLs6HFZ7h3L";
+  alicePassword = "alicepassword";
   aliceProjectId = "2";
   aliceProjectName = "test-alice";
 
   bobUsername = "bob";
   bobUserId = "3";
-  bobPassword = "XwkkBbl2SiIwabQzgcoaTbhsotijEEtF";
+  bobPassword = "bobpassword";
   bobProjectId = "3";
 in {
   name = "gitlab";

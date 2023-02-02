@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   meta = {
-    homepage = "https://gmetadom.sourceforge.net/";
+    homepage = "http://gmetadom.sourceforge.net/";
     description = "A collection of librares, each library providing a DOM implementation";
     license = lib.licenses.lgpl21Plus;
     maintainers = [ lib.maintainers.roconnor ];

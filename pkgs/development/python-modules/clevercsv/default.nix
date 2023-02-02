@@ -3,6 +3,8 @@
 , fetchFromGitHub
 , cchardet
 , chardet
+, cleo
+, clikit
 , pandas
 , regex
 , tabview
@@ -12,32 +14,27 @@
 
 buildPythonPackage rec {
   pname = "clevercsv";
-  version = "0.7.5";
+  version = "0.7.4";
   format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "alan-turing-institute";
     repo = "CleverCSV";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-zpnUw0ThYbbYS7CYgsi0ZL1qxbY4B1cy2NhrUU9uzig=";
+    rev = "v${version}";
+    sha256 = "sha256-2OLvVJbqV/wR+Quq0cAlR/vCUe1/Km/nALwfoHD9B+U=";
   };
-
-  postPatch = ''
-    substituteInPlace setup.py \
-      --replace "packaging>=23.0" "packaging"
-  '';
 
   propagatedBuildInputs = [
     cchardet
     chardet
+    cleo
+    clikit
     pandas
     regex
     tabview
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [
     "clevercsv"

@@ -7,6 +7,8 @@
 , desktop-file-utils, xprop, xsel
 }:
 
+with lib;
+
 let
   # https://docs.microsoft.com/en-us/visualstudio/liveshare/reference/linux#install-prerequisites-manually
   libs = [
@@ -116,12 +118,12 @@ in ((vscode-utils.override { stdenv = gccStdenv; }).buildVscodeMarketplaceExtens
     # which will break when copying over the files.
     mv dotnet_modules/vsls-agent{,-wrapped}
     makeWrapper $PWD/dotnet_modules/vsls-agent{-wrapped,} \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libs}" \
+      --prefix LD_LIBRARY_PATH : "${makeLibraryPath libs}" \
       --set LD_PRELOAD $PWD/dotnet_modules/noop-syslog.so \
       --set DOTNET_ROOT ${dotnet-sdk_3}
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Live Share lets you achieve greater confidence at speed by streamlining collaborative editing, debugging, and more in real-time during development";
     homepage = "https://aka.ms/vsls-docs";
     license = licenses.unfree;

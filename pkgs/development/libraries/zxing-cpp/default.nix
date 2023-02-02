@@ -3,7 +3,6 @@
 , fetchFromGitHub
 , pkg-config
 , cmake
-, python3
 }:
 
 stdenv.mkDerivation rec {
@@ -37,10 +36,6 @@ stdenv.mkDerivation rec {
       --replace '$'{exec_prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@ \
       --replace '$'{prefix}/@CMAKE_INSTALL_INCLUDEDIR@ @CMAKE_INSTALL_FULL_INCLUDEDIR@
   '';
-
-  passthru.tests = {
-    inherit (python3.pkgs) zxing_cpp;
-  };
 
   meta = with lib; {
     homepage = "https://github.com/nu-book/zxing-cpp";

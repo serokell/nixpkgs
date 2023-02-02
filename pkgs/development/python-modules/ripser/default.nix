@@ -36,7 +36,7 @@ buildPythonPackage rec {
     persim
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

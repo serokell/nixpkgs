@@ -43,7 +43,7 @@ let
     mit
     gpl2Plus
     gpl3Plus
-    fdl12Plus
+    fdl12
   ];
 
   srcs = import ./srcs.nix {

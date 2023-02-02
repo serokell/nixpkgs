@@ -6,7 +6,6 @@
 , pkg-config
 , gobject-introspection
 , vala
-, pandoc
 , gi-docgen
 , python3
 , libsoup_3
@@ -17,14 +16,14 @@
 
 stdenv.mkDerivation rec {
   pname = "gssdp";
-  version = "1.6.2";
+  version = "1.6.0";
 
   outputs = [ "out" "dev" ]
     ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gssdp/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-    sha256 = "QQs3be7O2YNrV/SI+ABS/koU+J4HWxzszyjlH0kPn7k=";
+    sha256 = "FI7UFijI8XM2osj6SxSrD7rpi2Amvi2s/d6nv0OGZok=";
   };
 
   nativeBuildInputs = [
@@ -33,7 +32,6 @@ stdenv.mkDerivation rec {
     pkg-config
     gobject-introspection
     vala
-    pandoc
     gi-docgen
     python3
   ];

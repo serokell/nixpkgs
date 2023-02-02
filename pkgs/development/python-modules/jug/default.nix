@@ -26,7 +26,7 @@ buildPythonPackage rec {
     bottle
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     numpy
     pytestCheckHook
     pyyaml

@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     autoPatchelfHook
     cairo
     cups.lib
-    dbus.lib
+    dbus.daemon.lib
     expat
     gcc-unwrapped
     gdk-pixbuf

@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "LAStools";
-  version = "2.0.2";
+  version = "2.0.1";
 
   src = fetchFromGitHub {
     owner = "LAStools";
     repo = "LAStools";
     rev = "v${version}";
-    sha256 = "sha256-HL64koe0GNzJzyA0QP4I0M1y2HSxigsZTqOw67RCwNc=";
+    sha256 = "sha256-Mxic/zLk/qkB/rSlvkLZPgtNscrTrzSzrxiqXAMeDVU=";
   };
 
   patches = [

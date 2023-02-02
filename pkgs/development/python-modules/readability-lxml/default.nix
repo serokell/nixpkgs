@@ -26,7 +26,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace 'sys.platform == "darwin"' "False"
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     timeout-decorator
   ];

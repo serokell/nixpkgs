@@ -32,7 +32,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     mock
     requests-mock

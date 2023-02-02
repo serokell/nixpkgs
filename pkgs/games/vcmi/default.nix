@@ -24,14 +24,14 @@
 
 stdenv.mkDerivation rec {
   pname = "vcmi";
-  version = "1.1.0";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "vcmi";
     repo = "vcmi";
     rev = version;
     fetchSubmodules = true;
-    hash = "sha256-Ah+aAuU2ioUfvtxfcSb4GNqriqY71ee5RhW2L9UMYFY=";
+    hash = "sha256-5PuFq6wDSj5Ye2fUjqcr/VRU0ocus6h2nn+myQTOrhU=";
   };
 
   postPatch = ''

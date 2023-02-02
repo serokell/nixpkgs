@@ -13,7 +13,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "'pytest-runner'" ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook numpy ];
+  checkInputs = [ pytestCheckHook numpy ];
 
   pythonImportsCheck = [ "jsonconversion" ];
 

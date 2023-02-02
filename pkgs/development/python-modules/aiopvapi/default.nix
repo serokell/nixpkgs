@@ -9,7 +9,7 @@
 
 buildPythonPackage rec {
   pname = "aiopvapi";
-  version = "2.0.4";
+  version = "2.0.3";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -18,7 +18,7 @@ buildPythonPackage rec {
     owner = "sander76";
     repo = "aio-powerview-api";
     rev = "refs/tags/v${version}";
-    hash = "sha256-cghfNi5T343/7GxNLDrE0iAewMlRMycQTP7SvDVpU2M=";
+    hash = "sha256-RBZuYgTySVL1YtyZ4ZJZly2zvWt/5pZ99/aPCwZ91xQ=";
   };
 
   propagatedBuildInputs = [
@@ -26,7 +26,7 @@ buildPythonPackage rec {
     async-timeout
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

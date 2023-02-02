@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ kazoo six ];
   buildInputs = [ testtools ];
-  nativeCheckInputs = [ unittestCheckHook ];
+  checkInputs = [ unittestCheckHook ];
   preCheck = ''
     # Skip test - fails with our new kazoo version
     substituteInPlace zake/tests/test_client.py \

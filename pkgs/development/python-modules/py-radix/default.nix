@@ -20,7 +20,7 @@ buildPythonPackage rec {
   };
 
   doCheck = true;
-  nativeCheckInputs = [ coverage nose ];
+  checkInputs = [ coverage nose ];
 
   meta = with lib; {
     description = "Python radix tree for IPv4 and IPv6 prefix matching";

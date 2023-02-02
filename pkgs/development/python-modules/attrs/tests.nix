@@ -7,14 +7,13 @@
 buildPythonPackage {
   pname = "attrs-tests";
   inherit (attrs) version;
-  format = "other";
 
   srcs = attrs.testout;
 
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [
+  checkInputs = [
     attrs
     hypothesis
     pytestCheckHook

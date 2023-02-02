@@ -33,7 +33,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

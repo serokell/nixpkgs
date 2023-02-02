@@ -4,28 +4,23 @@
 , cmake
 , libelf
 , libpcap
-, nix-update-script
 }:
 
 stdenv.mkDerivation rec {
   pname = "dynamips";
-  version = "0.2.23";
+  version = "0.2.22";
 
   src = fetchFromGitHub {
     owner = "GNS3";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-+h+WsZ/QrDd+dNrR6CJb2uMG+vbUvK8GTxFJZOxknL0=";
+    sha256 = "1fjjjdaxlw1k95kyq73fndn21qfhrm4cn79av0i4sn7anhg8m83f";
   };
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ libelf libpcap ];
 
   cmakeFlags = [ "-DDYNAMIPS_CODE=stable" ];
-
-  passthru = {
-    updateScript = nix-update-script { };
-  };
 
   meta = with lib; {
     inherit (src.meta) homepage;

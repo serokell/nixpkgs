@@ -23,7 +23,7 @@ buildPythonPackage rec {
     odfpy
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nose
     pyexcel
     pyexcel-xls

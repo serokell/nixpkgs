@@ -6,16 +6,14 @@
 
 stdenv.mkDerivation rec {
   pname = "geos";
-  version = "3.11.1";
+  version = "3.11.0";
 
   src = fetchurl {
     url = "https://download.osgeo.org/geos/${pname}-${version}.tar.bz2";
-    hash = "sha256-bQ6zz6n5LZR3Mcx18XUDVrO9/AfqAgVT2vavHHaOC+I=";
+    sha256 = "sha256-eauMq/SqhgTRYVV7UuPk2EV1rNwNCMsJqz96rvpNhYo=";
   };
 
   nativeBuildInputs = [ cmake ];
-
-  doCheck = true;
 
   meta = with lib; {
     description = "C++ port of the Java Topology Suite (JTS)";

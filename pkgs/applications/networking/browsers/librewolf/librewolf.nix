@@ -6,7 +6,7 @@ rec {
 
   inherit (src) packageVersion firefox source;
 
-  extraPatches = [ ];
+  extraPatches = [ ./verify-telemetry-macros.patch ];
 
   extraConfigureFlags = [
     "--with-app-name=librewolf"

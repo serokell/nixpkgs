@@ -1,4 +1,4 @@
-# shellcheck shell=bash
+#!/usr/bin/env bash
 
 # This setup hook, for each output, moves everything in
 # $output/lib/systemd/user to $output/share/systemd/user, and replaces

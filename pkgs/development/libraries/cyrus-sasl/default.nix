@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchurl, fetchpatch, openssl, openldap, libkrb5, db, gettext
-, pam, libxcrypt, fixDarwinDylibNames, autoreconfHook, enableLdap ? false
+{ lib, stdenv, fetchurl, openssl, openldap, libkrb5, db, gettext
+, pam, fixDarwinDylibNames, autoreconfHook, enableLdap ? false
 , buildPackages, pruneLibtoolFiles, nixosTests }:
 
 with lib;
@@ -19,11 +19,6 @@ stdenv.mkDerivation rec {
   patches = [
     # Fix cross-compilation
     ./cyrus-sasl-ac-try-run-fix.patch
-    # make compatible with openssl3. can probably be dropped with any release after 2.1.28
-    (fetchpatch {
-      url = "https://github.com/cyrusimap/cyrus-sasl/compare/cb549ef71c5bb646fe583697ebdcaba93267a237...c2bd3afbca57f176d8c650670ce371444bb7fcc0.patch";
-      hash = "sha256-bYeIkvle1Ms7Lnoob4eLd4RbPFHtPkKRZvfHNCBJY/s=";
-    })
   ];
 
   outputs = [ "bin" "dev" "out" "man" "devdoc" ];
@@ -32,7 +27,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook pruneLibtoolFiles ]
     ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
   buildInputs =
-    [ openssl db gettext libkrb5 libxcrypt ]
+    [ openssl db gettext libkrb5 ]
     ++ lib.optional enableLdap openldap
     ++ lib.optional stdenv.isLinux pam;
 
@@ -44,7 +39,7 @@ stdenv.mkDerivation rec {
     "--enable-shared"
   ] ++ lib.optional enableLdap "--with-ldap=${openldap.dev}";
 
-  installFlags = lib.optionals stdenv.isDarwin [ "framedir=$(out)/Library/Frameworks/SASL2.framework" ];
+  installFlags = lib.optional stdenv.isDarwin [ "framedir=$(out)/Library/Frameworks/SASL2.framework" ];
 
   passthru.tests = {
     inherit (nixosTests) parsedmarc postfix;

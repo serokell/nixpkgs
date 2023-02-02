@@ -1,14 +1,13 @@
 { lib
 , fetchFromGitHub
-, buildPythonPackage
+, buildPythonApplication
 , python
 , graphviz
 }:
 
-buildPythonPackage rec {
+buildPythonApplication rec {
   pname = "gprof2dot";
   version = "2021.02.21";
-  format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "jrfonseca";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
   ];
 
   # Needed so dot is on path of the test script
-  nativeCheckInputs = [ graphviz ];
+  checkInputs = [ graphviz ];
 
   checkPhase = ''
     runHook preCheck
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jrfonseca/gprof2dot";
     description = "Python script to convert the output from many profilers into a dot graph";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ pmiddend ];
+    maintainers = [ maintainers.pmiddend ];
   };
 }

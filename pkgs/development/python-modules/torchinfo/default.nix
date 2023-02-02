@@ -26,7 +26,7 @@ buildPythonPackage rec {
     torchvision
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

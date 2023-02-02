@@ -24,8 +24,6 @@ buildDunePackage {
     src
   ;
 
-  duneVersion = "3";
-
   propagatedBuildInputs = [
     paf
     cohttp-lwt
@@ -35,7 +33,7 @@ buildDunePackage {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [
+  checkInputs = [
     alcotest-lwt
     fmt
     logs
@@ -46,8 +44,6 @@ buildDunePackage {
     lwt
     astring
   ];
-
-  __darwinAllowLocalNetworking = true;
 
   meta = paf.meta // {
     description = "A CoHTTP client with its HTTP/AF implementation";

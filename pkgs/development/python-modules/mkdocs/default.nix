@@ -4,11 +4,7 @@
 , buildPythonPackage
 , fetchFromGitHub
 , pythonOlder
-
-# buildtime
-, hatchling
-
-# runtime deps
+  # runtime deps
 , click
 , ghp-import
 , importlib-metadata
@@ -19,8 +15,7 @@
 , pyyaml
 , pyyaml-env-tag
 , watchdog
-
-# testing deps
+  # testing deps
 , babel
 , mock
 , unittestCheckHook
@@ -28,25 +23,15 @@
 
 buildPythonPackage rec {
   pname = "mkdocs";
-  version = "1.4.2";
-  format = "pyproject";
+  version = "1.3.0";
   disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "refs/tags/${version}";
-    hash = "sha256-/NxiKbCd2acYcNe5ww3voM9SGVE2IDqknngqApkDbNs=";
+    rev = version;
+    sha256 = "sha256-S4xkr3jS5GvkMu8JnEGfqhmkxy3FtZZb7Rbuniltudg=";
   };
-
-  postPatch = ''
-    substituteInPlace pyproject.toml \
-      --replace "Markdown >=3.2.1, <3.4" "Markdown"
-  '';
-
-  nativeBuildInputs = [
-    hatchling
-  ];
 
   propagatedBuildInputs = [
     click
@@ -61,7 +46,7 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     unittestCheckHook
     babel
     mock

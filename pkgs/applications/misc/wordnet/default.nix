@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, tcl, tk, Cocoa, makeWrapper }:
+{ lib, stdenv, fetchurl, tcl, tk, Cocoa, xlibsWrapper, makeWrapper }:
 
 stdenv.mkDerivation rec {
   version = "3.0";
@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ tcl tk ]
+  buildInputs = [ tcl tk xlibsWrapper ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   hardeningDisable = [ "format" ];

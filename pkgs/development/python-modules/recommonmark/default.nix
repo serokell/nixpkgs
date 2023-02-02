@@ -19,7 +19,7 @@ buildPythonPackage rec {
     sha256 = "0kwm4smxbgq0c0ybkxfvlgrfb3gq9amdw94141jyykk9mmz38379";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
   propagatedBuildInputs = [ CommonMark docutils sphinx ];
 
   dontUseSetuptoolsCheck = true;

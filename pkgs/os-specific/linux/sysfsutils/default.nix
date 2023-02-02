@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    homepage = "https://linux-diag.sourceforge.net/Sysfsutils.html";
+    homepage = "http://linux-diag.sourceforge.net/Sysfsutils.html";
     longDescription =
       ''
         These are a set of utilites built upon sysfs, a new virtual

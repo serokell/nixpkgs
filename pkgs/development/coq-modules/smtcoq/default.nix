@@ -1,4 +1,5 @@
 { lib, stdenv, gcc10StdenvCompat, pkgs, mkCoqDerivation, coq, trakt, veriT, zchaff, fetchurl, version ? null }:
+with lib;
 
 let
   # version of veriT that works with SMTCoq
@@ -22,18 +23,15 @@ mkCoqDerivation {
   release."2021-09-17".sha256 = "sha256-bF7ES+tXraaAJwVEwAMx3CUESpNlAUerQjr4d2eaGJQ=";
 
   inherit version;
-  defaultVersion = with lib.versions; lib.switch coq.version [
+  defaultVersion = with versions; switch coq.version [
     { case = isEq "8.13"; out = "2021-09-17"; }
   ] null;
 
   propagatedBuildInputs = [ trakt cvc4 veriT' zchaff ] ++ (with coq.ocamlPackages; [ num zarith ]);
   mlPlugin = true;
-  nativeBuildInputs = (with pkgs; [ gnumake42 ]) ++ (with coq.ocamlPackages; [ ocamlbuild ]);
+  nativeBuildInputs = with coq.ocamlPackages; [ ocamlbuild ];
 
-  # This is meant to ease future troubleshooting of cvc4 build failures
-  passthru = { inherit cvc4; };
-
-  meta = with lib; {
+  meta = {
     description = "Communication between Coq and SAT/SMT solvers ";
     maintainers = with maintainers; [ siraben ];
     license = licenses.cecill-b;

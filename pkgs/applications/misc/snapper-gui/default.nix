@@ -14,10 +14,11 @@ python3Packages.buildPythonApplication rec {
     sha256 = "13j4spbi9pxg69zifzai8ifk4207sn0vwh6vjqryi0snd5sylh7h";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
+  nativeBuildInputs = [ wrapGAppsHook ];
 
   buildInputs = [
     python3
+    gobject-introspection
     gnome.adwaita-icon-theme
   ];
 

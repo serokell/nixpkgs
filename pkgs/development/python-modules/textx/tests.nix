@@ -25,7 +25,7 @@ buildPythonPackage {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [
+  checkInputs = [
     click
     gprof2dot
     html5lib

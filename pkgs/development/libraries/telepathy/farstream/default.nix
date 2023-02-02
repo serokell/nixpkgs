@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "GObject-based C library that uses Telepathy GLib, Farstream and GStreamer to handle the media streaming part of channels of type Call";
     homepage = "https://telepathy.freedesktop.org/wiki/Components/Telepathy-Farstream/";
-    platforms = platforms.unix;
+    platforms = platforms.linux;
     license = licenses.lgpl21Only;
   };
 }

@@ -51,7 +51,6 @@ stdenv.mkDerivation {
     description = "An MPD client built on top of rofi";
     homepage = "https://github.com/carnager/clerk";
     license = licenses.mit;
-    broken = true; # not compatible with current version of rofi
     maintainers = with maintainers; [ anderspapitto ];
   };
 }

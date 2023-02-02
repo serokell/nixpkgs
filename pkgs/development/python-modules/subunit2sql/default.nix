@@ -24,7 +24,7 @@ buildPythonPackage rec {
     python-dateutil
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     oslo-concurrency
     stestr

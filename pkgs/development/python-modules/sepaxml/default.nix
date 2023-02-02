@@ -27,7 +27,7 @@ buildPythonPackage rec {
     xmlschema
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     lxml
     pytestCheckHook
   ];

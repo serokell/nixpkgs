@@ -3,7 +3,6 @@
 , fetchpatch
 , cups
 , python3Packages
-, patchPpdFilesHook
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -21,9 +20,9 @@ python3Packages.buildPythonApplication rec {
     })
   ];
   format = "other";
-  nativeBuildInputs = [ (lib.getBin cups) patchPpdFilesHook ];
+  nativeBuildInputs = [ (lib.getBin cups) ];
   # The source image also brings pre-built ppd files,
-  # but we prefer to generate from source where possible, so
+  # be we prefer to generate from source where possible, so
   # the following line generates ppd files from the drv file.
   postBuild = ''
     ppdc -v -d . -I "${cups}/share/cups/ppdc" rastertosag-gdi.drv
@@ -35,10 +34,6 @@ python3Packages.buildPythonApplication rec {
     install -vd "${placeholder "out"}/lib/cups/filter/"
     ln -vst "${placeholder "out"}/lib/cups/filter/" "${placeholder "out"}/bin/rastertosag-gdi"
     runHook postInstall
-  '';
-  ppdFileCommands = [ "rastertosag-gdi" ];
-  postFixup = ''
-    gzip -9nv "${placeholder "out"}/share/cups/model/rastertosag-gdi"/*.ppd
   '';
   meta = {
     description = "CUPS driver for Ricoh Aficio SP 1000S and SP 1100S printers";

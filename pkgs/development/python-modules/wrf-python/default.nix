@@ -39,7 +39,7 @@ buildPythonPackage rec {
     wrapt
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     netcdf4
   ];
 

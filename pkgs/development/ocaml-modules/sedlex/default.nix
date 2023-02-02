@@ -8,16 +8,6 @@
 , uchar
 }:
 
-let param =
-  if lib.versionAtLeast ppxlib.version "0.26.0" then {
-    version = "3.0";
-    sha256 = "sha256-+4ggynMznVfjviMBjXil8CXdMByq4kSmDz6P2PyEETA=";
-  } else {
-    version = "2.5";
-    sha256 = "sha256:062a5dvrzvb81l3a9phljrhxfw9nlb61q341q0a6xn65hll3z2wy";
-  }
-; in
-
 let
   unicodeVersion = "15.0.0";
   baseUrl = "https://www.unicode.org/Public/${unicodeVersion}";
@@ -37,7 +27,7 @@ let
 in
 buildDunePackage rec {
   pname = "sedlex";
-  inherit (param) version;
+  version = "2.5";
 
   minimalOCamlVersion = "4.08";
 
@@ -45,7 +35,7 @@ buildDunePackage rec {
     owner = "ocaml-community";
     repo = "sedlex";
     rev = "v${version}";
-    inherit (param) sha256;
+    sha256 = "sha256:062a5dvrzvb81l3a9phljrhxfw9nlb61q341q0a6xn65hll3z2wy";
   };
 
   propagatedBuildInputs = [

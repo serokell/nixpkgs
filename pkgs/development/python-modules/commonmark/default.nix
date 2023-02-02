@@ -16,7 +16,7 @@ buildPythonPackage rec {
   # UnicodeEncodeError on Python 2
   doCheck = isPy3k;
 
-  nativeCheckInputs = [  glibcLocales ];
+  checkInputs = [  glibcLocales ];
   propagatedBuildInputs = [ future ];
 
   meta = with lib; {

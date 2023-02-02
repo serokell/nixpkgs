@@ -9,11 +9,11 @@
 
 buildPythonPackage rec {
   pname = "python-vipaccess";
-  version = "0.14.1";
+  version = "0.14";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-vBFCRXwZ91C48GuOet2Obbo7gM02M2c9+7rhp0l6w54=";
+    sha256 = "d5013d306e5891ecfe523c9ef52d074fe8b6ca29ee259c0deeb8a83ae9884ce0";
   };
 
   propagatedBuildInputs = [
@@ -22,7 +22,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
   # test_check_token_detects_valid_hotp_token,
   # test_check_token_detects_valid_totp_token and
   # test_check_token_detects_invlaid_token require network

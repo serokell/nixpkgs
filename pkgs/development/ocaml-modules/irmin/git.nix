@@ -10,7 +10,6 @@ buildDunePackage {
   pname = "irmin-git";
 
   inherit (irmin) version src strictDeps;
-  duneVersion = "3";
 
   propagatedBuildInputs = [
     git
@@ -30,7 +29,7 @@ buildDunePackage {
     cohttp-lwt-unix
   ];
 
-  nativeCheckInputs = [ mtime alcotest irmin-test cacert ];
+  checkInputs = [ mtime alcotest irmin-test cacert ];
 
   doCheck = true;
 

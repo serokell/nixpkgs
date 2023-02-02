@@ -18,7 +18,7 @@ buildPythonPackage rec {
     certbot
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

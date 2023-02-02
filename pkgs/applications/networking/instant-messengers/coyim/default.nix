@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, buildGoPackage
-, fetchFromGitHub
-, pkg-config
-, cairo
-, gdk-pixbuf
-, glib
-, gnome
-, wrapGAppsHook
-, gtk3
-}:
+{ lib, buildGoPackage, fetchFromGitHub, pkg-config,
+  cairo, gdk-pixbuf, glib, gnome, wrapGAppsHook, gtk3 }:
 
 buildGoPackage rec {
   pname = "coyim";
@@ -32,7 +22,6 @@ buildGoPackage rec {
     description = "a safe and secure chat client";
     homepage = "https://coy.im/";
     license = licenses.gpl3;
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
-    broken = stdenv.isDarwin;
+    platforms = platforms.linux;
   };
 }

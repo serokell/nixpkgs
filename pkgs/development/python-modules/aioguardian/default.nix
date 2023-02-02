@@ -15,13 +15,13 @@
 
 buildPythonPackage rec {
   pname = "aioguardian";
-  version = "2022.10.0";
+  version = "2022.07.0";
 
   src = fetchFromGitHub {
     owner = "bachya";
     repo = pname;
     rev = "refs/tags/${version}";
-    sha256 = "sha256-plgO+pyKmG0mYnFZxDcrENcuEg5AG2Og2xWipzuzyHo=";
+    sha256 = "sha256-87MumQ6MuhRRDHrcH1nmOPviKDaT4crYnq5Pd26qsLw=";
   };
 
   format = "pyproject";
@@ -38,7 +38,7 @@ buildPythonPackage rec {
     voluptuous
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     asyncio-dgram
     asynctest
     pytest-aiohttp

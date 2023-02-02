@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation rec {
   pname = "haven-cli";
-  version = "3.0.3";
+  version = "2.2.3";
 
   src = fetchFromGitHub {
     owner = "haven-protocol-org";
     repo = "haven-main";
     rev = "v${version}";
-    sha256 = "sha256-JbNk1TF0N3tRYGfZfSBFk+t/8GA4yjqP9G6S0ktdur8=";
+    sha256 = "sha256-nBVLNT0jWIewr6MPDGwDqXoVtyFLyls1IEQraVoWDQ4=";
     fetchSubmodules = true;
   };
 
@@ -29,8 +29,6 @@ stdenv.mkDerivation rec {
     rm -r external/{miniupnp,randomx,rapidjson,unbound}
     # export patched source for haven-gui
     cp -r . $source
-    # fix build on aarch64-darwin
-    substituteInPlace CMakeLists.txt --replace "-march=x86-64" ""
   '';
 
   nativeBuildInputs = [ cmake pkg-config ];

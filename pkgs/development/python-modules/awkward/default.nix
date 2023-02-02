@@ -1,47 +1,52 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, pythonOlder
-, awkward-cpp
-, hatch-fancy-pypi-readme
-, hatchling
+, cmake
 , numba
 , numpy
-, packaging
-, typing-extensions
 , pytestCheckHook
+, pythonOlder
+, pyyaml
+, rapidjson
+, setuptools
 }:
 
 buildPythonPackage rec {
   pname = "awkward";
-  version = "2.0.5";
-  format = "pyproject";
+  version = "1.10.1";
+  format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-Kge7BAlBF4L+oibeXIF+tuSNsG1kMjl3WB5PME+RECk=";
+    hash = "sha256-xjlO0l+xSghtY2IdnYT9wij11CpkWG8hVzGzb94XA0s=";
   };
 
   nativeBuildInputs = [
-    hatch-fancy-pypi-readme
-    hatchling
+    cmake
+  ];
+
+  buildInputs = [
+    pyyaml
+    rapidjson
   ];
 
   propagatedBuildInputs = [
-    awkward-cpp
     numpy
-    packaging
-  ]  ++ lib.optionals (pythonOlder "3.11") [
-    typing-extensions
+    setuptools
   ];
 
   dontUseCmakeConfigure = true;
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     numba
+  ];
+
+  disabledTests = [
+    # incomatible with numpy 1.23
+    "test_numpyarray"
   ];
 
   disabledTestPaths = [

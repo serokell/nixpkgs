@@ -27,7 +27,7 @@ buildDunePackage rec {
 
   strictDeps = !doCheck;
 
-  nativeCheckInputs = [ re ];
+  checkInputs = [ re ];
   doCheck = true;
 
   meta = {

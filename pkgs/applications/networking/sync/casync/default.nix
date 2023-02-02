@@ -36,7 +36,7 @@ stdenv.mkDerivation {
     ++ lib.optionals (selinuxSupport) [ libselinux ]
     ++ lib.optionals (udevSupport) [ udev ];
   nativeBuildInputs = [ meson ninja pkg-config python3 sphinx ];
-  nativeCheckInputs = [ glibcLocales rsync ];
+  checkInputs = [ glibcLocales rsync ];
 
   postPatch = ''
     for f in test/test-*.sh.in; do

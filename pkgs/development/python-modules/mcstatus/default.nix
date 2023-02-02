@@ -13,7 +13,7 @@
 
 buildPythonPackage rec {
   pname = "mcstatus";
-  version = "10.0.1";
+  version = "9.3.0";
   format = "pyproject";
 
   disabled = pythonOlder "3.7";
@@ -21,8 +21,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "py-mine";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-rwEZhN/CbIw5lZ1AGorsagr4RlvCMlCK/M0XzQBCvh8=";
+    rev = "v${version}";
+    hash = "sha256-kNThVElEDqhbCitktBv5tQkjMaU4IsX0dJk63hvLhb0=";
   };
 
   nativeBuildInputs = [
@@ -35,7 +35,7 @@ buildPythonPackage rec {
     dnspython
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     pytest-asyncio
     pytestCheckHook

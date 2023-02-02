@@ -13,7 +13,6 @@
 let
   mostOfVersion = builtins.concatStringsSep "."
     (lib.take 3 (lib.versions.splitVersion version));
-  platform = "${stdenv.hostPlatform.parsed.kernel.name}-${stdenv.hostPlatform.parsed.cpu.name}";
 in
 
 stdenv.mkDerivation {
@@ -21,9 +20,7 @@ stdenv.mkDerivation {
   inherit version;
 
   src = fetchurl {
-    url = if lib.versionOlder mostOfVersion "1.3.3"
-      then "https://developer.download.nvidia.com/compute/cutensor/${mostOfVersion}/local_installers/libcutensor-${platform}-${version}.tar.gz"
-      else "https://developer.download.nvidia.com/compute/cutensor/redist/libcutensor/${platform}/libcutensor-${platform}-${version}-archive.tar.xz";
+    url = "https://developer.download.nvidia.com/compute/cutensor/${mostOfVersion}/local_installers/libcutensor-${stdenv.hostPlatform.parsed.kernel.name}-${stdenv.hostPlatform.parsed.cpu.name}-${version}.tar.gz";
     inherit hash;
   };
 

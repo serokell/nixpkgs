@@ -11,7 +11,7 @@ python3Packages.buildPythonApplication {
     sha256 = "Bl5o492BUAn1KsscnlMIXCzJuy7xWUsdnxIKZKaRM3M=";
   };
 
-  nativeCheckInputs = [ python3Packages.coverage ];
+  checkInputs = [ python3Packages.coverage ];
   buildInputs = [ zlib libjpeg ];
   propagatedBuildInputs = with python3Packages; [ ffmpeg pillow requests x256 ];
 

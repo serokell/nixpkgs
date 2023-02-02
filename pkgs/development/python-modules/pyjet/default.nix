@@ -19,7 +19,7 @@ buildPythonPackage rec {
     importlib-resources
   ];
 
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
   checkPhase = ''
     mv pyjet _pyjet
     pytest tests/

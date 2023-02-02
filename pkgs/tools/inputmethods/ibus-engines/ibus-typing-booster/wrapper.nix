@@ -1,10 +1,14 @@
 { typing-booster, symlinkJoin, hunspellDicts, lib, makeWrapper
-, langs ? [ "de-de" "en-gb-ise" "en-us" "es-es" "fr-moderne" "it-it" "sv-se" "sv-fi" ]
+, langs ? [ "de-de" "en-us" "es-es" "fr-moderne" "it-it" "sv-se" "sv-fi" ]
 }:
 
 let
 
-  hunspellDirs = lib.makeSearchPath "share/hunspell" (lib.attrVals langs hunspellDicts);
+  hunspellDirs = with lib; makeSearchPath ":" (flatten (forEach langs (lang: [
+    "${hunspellDicts.${lang}}/share/hunspell"
+    "${hunspellDicts.${lang}}/share/myspell"
+    "${hunspellDicts.${lang}}/share/myspell/dicts"
+  ])));
 
 in
 
@@ -16,7 +20,7 @@ symlinkJoin {
   postBuild = ''
     for i in bin/emoji-picker libexec/ibus-{setup,engine}-typing-booster; do
       wrapProgram "$out/$i" \
-        --prefix DICPATH : ${lib.escapeShellArg hunspellDirs}
+        --prefix NIX_HUNSPELL_DIRS : ${lib.escapeShellArg hunspellDirs}
     done
 
     sed -i -e "s,${typing-booster},$out," $out/share/ibus/component/typing-booster.xml

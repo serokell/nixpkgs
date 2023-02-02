@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mutest
   ];
 
@@ -100,7 +100,9 @@ stdenv.mkDerivation rec {
       installedTests = nixosTests.installed-tests.graphene;
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      attrPath = pname;
+    };
   };
 
   meta = with lib; {

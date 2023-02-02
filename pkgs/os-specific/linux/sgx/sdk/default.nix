@@ -16,7 +16,7 @@
 , nasm
 , ocaml
 , ocamlPackages
-, openssl_1_1
+, openssl
 , perl
 , python3
 , texinfo
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     libtool
-    openssl_1_1
+    openssl
   ];
 
   BINUTILS_DIR = "${binutils}/bin";

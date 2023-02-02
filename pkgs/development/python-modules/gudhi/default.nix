@@ -35,7 +35,7 @@ buildPythonPackage rec {
   buildInputs = [ boost eigen gmp cgal_5 mpfr ]
     ++ lib.optionals enableTBB [ tbb ];
   propagatedBuildInputs = [ numpy scipy ];
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"

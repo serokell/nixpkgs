@@ -20,7 +20,7 @@ buildGoModule rec {
 
   propagatedBuildInputs = [ git ];
 
-  nativeCheckInputs = [ git ];
+  checkInputs = [ git ];
 
   doCheck = !stdenv.isDarwin;
 

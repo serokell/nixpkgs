@@ -5,6 +5,7 @@
 , cmake
 , extra-cmake-modules
 , cairo
+, cldr-annotations
 , pango
 , fribidi
 , fmt
@@ -40,13 +41,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "fcitx5";
-  version = "5.0.21";
+  version = "5.0.19";
 
   src = fetchFromGitHub {
     owner = "fcitx";
     repo = pname;
     rev = version;
-    sha256 = "sha256-O2ozMSNo07TWw7Se4CCo95OM/paG7TSVVG6SqHoYiBE=";
+    sha256 = "sha256-hgg7Sbe5/tAWWq2to9PceBQeUdV3UWENFgvuY0qCksM=";
   };
 
   prePatch = ''
@@ -72,6 +73,7 @@ stdenv.mkDerivation rec {
     gdk-pixbuf
     wayland
     wayland-protocols
+    cldr-annotations
     json_c
     libGL
     libevent
@@ -87,6 +89,8 @@ stdenv.mkDerivation rec {
     xkeyboard_config
     libxkbfile
   ];
+
+  cmakeFlags = [ "-DCLDR_DIR=${cldr-annotations}/share/unicode/cldr" ];
 
   passthru.updateScript = ./update.py;
 

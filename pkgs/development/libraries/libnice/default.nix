@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       It provides a GLib-based library, libnice and a Glib-free library,
       libstun as well as GStreamer elements.'';
     homepage = "https://libnice.freedesktop.org/";
-    platforms = platforms.unix;
+    platforms = platforms.linux;
     license = with licenses; [ lgpl21 mpl11 ];
   };
 }

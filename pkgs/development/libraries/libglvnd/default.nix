@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     # https://gitlab.freedesktop.org/glvnd/libglvnd#libglvnd:
     changelog = "https://gitlab.freedesktop.org/glvnd/libglvnd/-/tags/v${version}";
     license = with licenses; [ mit bsd1 bsd3 gpl3Only asl20 ];
-    platforms = platforms.unix;
+    platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ primeos ];
   };
 }

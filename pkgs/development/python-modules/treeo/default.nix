@@ -43,7 +43,7 @@ buildPythonPackage rec {
     jax
   ];
 
-  nativeCheckInputs = [ jaxlib ];
+  checkInputs = [ jaxlib ];
   pythonImportsCheck = [
     "treeo"
   ];

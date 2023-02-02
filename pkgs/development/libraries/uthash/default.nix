@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   doCheck = true;
-  nativeCheckInputs = [ perl ];
+  checkInputs = [ perl ];
   checkTarget = "all";
   preCheck = "cd tests";
 

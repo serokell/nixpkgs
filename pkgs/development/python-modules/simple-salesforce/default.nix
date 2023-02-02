@@ -30,7 +30,7 @@ buildPythonPackage rec {
     zeep
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nose
     pytz
     responses

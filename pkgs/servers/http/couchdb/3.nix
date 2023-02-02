@@ -3,11 +3,14 @@
 
 stdenv.mkDerivation rec {
   pname = "couchdb";
-  version = "3.3.1";
+  version = "3.2.2";
 
+
+  # when updating this, please consider bumping the erlang/OTP version
+  # in all-packages.nix
   src = fetchurl {
     url = "mirror://apache/couchdb/source/${version}/apache-${pname}-${version}.tar.gz";
-    sha256 = "sha256-m4nXtU9+9StCvVGmoKLTsbBszjld8smdjx9H+TVeK+4=";
+    sha256 = "sha256-acn9b4ATNVf2igLpLdpypP1kbWRvQp9Fu4Mpow+C8g4=";
   };
 
   nativeBuildInputs = [

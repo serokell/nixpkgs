@@ -31,7 +31,7 @@ buildPythonPackage rec {
     export PATH=$out/bin:$PATH
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     coreutils
     jq

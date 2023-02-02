@@ -1,49 +1,48 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
+, execnet
+, glob2
 , Mako
+, mock
 , parse
 , parse-type
-, poetry-core
+, py
 , pytest
 , pytestCheckHook
 , pythonOlder
-, setuptools
-, typing-extensions
 }:
 
 buildPythonPackage rec {
   pname = "pytest-bdd";
-  version = "6.1.1";
-  format = "pyproject";
+  version = "6.0.0";
+  format = "setuptools";
 
-  disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "pytest-dev";
     repo = pname;
     rev = "refs/tags/${version}";
-    hash = "sha256-+76jIgfDQPdIoesTr1+QUu8wmOnrdf4KT+TJr9F2Hqk=";
+    sha256 = "sha256-1dyAhvEw8gUe78qDpgrcwl6grWKiwPgSe/QeFAjBzZg=";
   };
-
-  nativeBuildInputs = [
-    poetry-core
-  ];
 
   buildInputs = [
     pytest
   ];
 
   propagatedBuildInputs = [
+    glob2
     Mako
     parse
     parse-type
-    typing-extensions
+    py
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
-    setuptools
+    execnet
+    mock
   ];
 
   preCheck = ''

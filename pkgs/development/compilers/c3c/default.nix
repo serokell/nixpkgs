@@ -23,7 +23,7 @@ llvmPackages.stdenv.mkDerivation rec {
     llvmPackages.lld
   ];
 
-  nativeCheckInputs = [ python3 ];
+  checkInputs = [ python3 ];
 
   doCheck = true;
 

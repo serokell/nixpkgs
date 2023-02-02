@@ -27,20 +27,20 @@ let
     ];
   });
 in buildPythonPackage rec {
-  version = "1.9";
+  version = "1.6";
   pname = "python-rapidjson";
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-vn01HHES2sYIEzoj9g6VOVZo0JgaB/QDf2Pg6Ir88Bo=";
+    sha256 = "sha256-GJzxqWv5/NhtADYPFa12qDzgiJuK6NHLD9srKZXlocg=";
   };
 
   setupPyBuildFlags = [
     "--rj-include-dir=${lib.getDev rapidjson'}/include"
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytz
   ];

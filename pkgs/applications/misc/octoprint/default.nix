@@ -74,16 +74,16 @@ let
           self: super: {
             octoprint = self.buildPythonPackage rec {
               pname = "OctoPrint";
-              version = "1.8.6";
+              version = "1.8.4";
 
               src = fetchFromGitHub {
                 owner = "OctoPrint";
                 repo = "OctoPrint";
                 rev = version;
-                hash = "sha256-DCUesPy4/g7DYN/9CDRvwAWHcv4dFsF+gsysg5UWThQ=";
+                hash = "sha256-oYP+K7WBkYP7gajXZdbZso17u+GeyrIgEbhNjwRXbAo=";
               };
 
-              propagatedBuildInputs = with self; [
+              propagatedBuildInputs = with super; [
                 argon2-cffi
                 blinker
                 cachelib
@@ -95,7 +95,7 @@ let
                 flask
                 flask-babel
                 flask_assets
-                flask-login
+                flask_login
                 flask-limiter
                 frozendict
                 future
@@ -136,7 +136,7 @@ let
                 py.pkgs.appdirs
               ];
 
-              nativeCheckInputs = with self; [
+              checkInputs = with super; [
                 ddt
                 mock
                 pytestCheckHook
@@ -146,7 +146,7 @@ let
                 # substitute pip and let it find out, that it can't write anywhere
                 (substituteAll {
                   src = ./pip-path.patch;
-                  pip = "${self.pip}/bin/pip";
+                  pip = "${super.pip}/bin/pip";
                 })
 
                 # hardcore path to ffmpeg and hide related settings
@@ -172,7 +172,6 @@ let
                     "Flask-Login"
                     "werkzeug"
                     "flask"
-                    "Flask-Limiter"
                   ];
                 in
                 ''
@@ -201,7 +200,7 @@ let
 
               passthru = {
                 python = self.python;
-                updateScript = nix-update-script { };
+                updateScript = nix-update-script { attrPath = "octoprint"; };
               };
 
               meta = with lib; {

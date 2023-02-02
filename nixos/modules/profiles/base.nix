@@ -20,13 +20,7 @@
     pkgs.mkpasswd # for generating password files
 
     # Some text editors.
-    (pkgs.vim.customize {
-      name = "vim";
-      vimrcConfig.packages.default = {
-        start = [ pkgs.vimPlugins.vim-nix ];
-      };
-      vimrcConfig.customRC = "syntax on";
-    })
+    pkgs.vim
 
     # Some networking tools.
     pkgs.fuse
@@ -35,7 +29,6 @@
     pkgs.rsync
     pkgs.socat
     pkgs.screen
-    pkgs.tcpdump
 
     # Hardware-related tools.
     pkgs.sdparm
@@ -43,7 +36,6 @@
     pkgs.smartmontools # for diagnosing hard disks
     pkgs.pciutils
     pkgs.usbutils
-    pkgs.nvme-cli
 
     # Tools to create / manipulate filesystems.
     pkgs.ntfsprogs # for resizing NTFS partitions

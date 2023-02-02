@@ -21,7 +21,7 @@ python3Packages.buildPythonPackage rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script { attrPath = pname; };
     tests = testers.testVersion { package = s-tui; };
   };
 

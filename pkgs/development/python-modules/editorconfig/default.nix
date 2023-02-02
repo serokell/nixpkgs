@@ -30,7 +30,7 @@ buildPythonPackage rec {
     chmod +w -R source/tests
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     cmake
   ];
 

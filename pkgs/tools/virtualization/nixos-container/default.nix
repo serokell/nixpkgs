@@ -25,7 +25,6 @@ substituteAll {
           containers-ip
           containers-tmpfs
           containers-ephemeral
-          containers-unified-hierarchy
           ;
       };
     };

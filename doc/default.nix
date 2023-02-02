@@ -36,5 +36,4 @@ in pkgs.stdenv.mkDerivation {
 
   # Environment variables
   PANDOC_LUA_FILTERS_DIR = "${pkgs.pandoc-lua-filters}/share/pandoc/filters";
-  PANDOC_LINK_MANPAGES_FILTER = import build-aux/pandoc-filters/link-manpages.nix { inherit pkgs; };
 }

@@ -72,17 +72,17 @@ python3.pkgs.buildPythonApplication rec {
     typing-extensions
     voluptuous
     zc_lockfile
-  ] ++ lib.optionals enableGoogle [
+  ] ++ lib.optional enableGoogle [
     gcsfs
     google-cloud-storage
-  ] ++ lib.optionals enableAWS [
+  ] ++ lib.optional enableAWS [
     aiobotocore
     boto3
     s3fs
-  ] ++ lib.optionals enableAzure [
+  ] ++ lib.optional enableAzure [
     azure-identity
     knack
-  ] ++ lib.optionals enableSSH [
+  ] ++ lib.optional enableSSH [
     bcrypt
   ] ++ lib.optionals (pythonOlder "3.8") [
     importlib-metadata
@@ -97,6 +97,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Version Control System for Machine Learning Projects";
     homepage = "https://dvc.org";
     license = licenses.asl20;
-    maintainers = with maintainers; [ cmcdragonkai fab ];
+    maintainers = with maintainers; [ cmcdragonkai fab anthonyroussel ];
   };
 }

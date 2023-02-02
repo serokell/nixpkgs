@@ -15,7 +15,7 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ cppo ];
   propagatedBuildInputs = [ logs ptime uri bigstringaf ];
-  nativeCheckInputs = [ re cmdliner alcotest ];
+  checkInputs = [ re cmdliner alcotest ];
 
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 

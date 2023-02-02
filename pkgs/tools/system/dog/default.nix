@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = "https://lwn.net/Articles/421072/";
+    homepage = "http://lwn.net/Articles/421072/";
     description = "cat replacement";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ qknight ];

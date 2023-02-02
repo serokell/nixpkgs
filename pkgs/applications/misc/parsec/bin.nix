@@ -67,10 +67,6 @@ stdenvNoCC.mkDerivation {
       --prefix LD_LIBRARY_PATH : "$runtimeDependenciesPath" \
       --run "$prepareParsec"
 
-    substituteInPlace $out/share/applications/parsecd.desktop \
-      --replace "/usr/bin/parsecd" "parsecd" \
-      --replace "/usr/share/icons" "${placeholder "out"}/share/icons"
-
     runHook postInstall
   '';
 

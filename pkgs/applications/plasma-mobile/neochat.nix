@@ -12,7 +12,6 @@
 , kdbusaddons
 , ki18n
 , kio
-, kirigami-addons
 , kirigami2
 , kitemmodels
 , knotifications
@@ -48,7 +47,6 @@ gcc11Stdenv.mkDerivation rec {
     kdbusaddons
     kio
     ki18n
-    kirigami-addons
     kirigami2
     kitemmodels
     knotifications

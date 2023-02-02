@@ -19,7 +19,7 @@
 , libcap
 , dqlite
 , raft-canonical
-, sqlite
+, sqlite-replication
 , udev
 , writeShellScriptBin
 , apparmor-profiles
@@ -32,14 +32,14 @@
 
 buildGoModule rec {
   pname = "lxd";
-  version = "5.9";
+  version = "5.6";
 
   src = fetchurl {
     urls = [
       "https://linuxcontainers.org/downloads/lxd/lxd-${version}.tar.gz"
       "https://github.com/lxc/lxd/releases/download/lxd-${version}/lxd-${version}.tar.gz"
     ];
-    sha256 = "sha256-okz3++PlUno03tp+jpLxfAWlFJhyOCH2mxRtHo5YEX8=";
+    sha256 = "sha256-bLKl9OpvxXozmqjX8hY2xIiVectBiohDxTzd5du5w+4=";
   };
 
   vendorSha256 = null;
@@ -58,7 +58,7 @@ buildGoModule rec {
     libcap
     dqlite.dev
     raft-canonical.dev
-    sqlite
+    sqlite-replication
     udev.dev
   ];
 

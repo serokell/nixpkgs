@@ -19,7 +19,7 @@ python3.pkgs.buildPythonApplication rec {
     six
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = with python3.pkgs; [
     mock
     pytestCheckHook
   ];

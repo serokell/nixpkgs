@@ -211,15 +211,19 @@ in
     ];
 
     systemd.services.paperless-scheduler = {
-      description = "Paperless Celery Beat";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "paperless-consumer.service" "paperless-web.service" "paperless-task-queue.service" ];
+      description = "Paperless scheduler";
       serviceConfig = defaultServiceConfig // {
         User = cfg.user;
-        ExecStart = "${pkg}/bin/celery --app paperless beat --loglevel INFO";
+        ExecStart = "${pkg}/bin/paperless-ngx qcluster";
         Restart = "on-failure";
+        # The `mbind` syscall is needed for running the classifier.
+        SystemCallFilter = defaultServiceConfig.SystemCallFilter ++ [ "mbind" ];
+        # Needs to talk to mail server for automated import rules
+        PrivateNetwork = false;
       };
       environment = env;
+      wantedBy = [ "multi-user.target" ];
+      wants = [ "paperless-consumer.service" "paperless-web.service" ];
 
       preStart = ''
         ln -sf ${manage} ${cfg.dataDir}/paperless-manage
@@ -246,21 +250,6 @@ in
       after = [ "redis-paperless.service" ];
     };
 
-    systemd.services.paperless-task-queue = {
-      description = "Paperless Celery Workers";
-      after = [ "paperless-scheduler.service" ];
-      serviceConfig = defaultServiceConfig // {
-        User = cfg.user;
-        ExecStart = "${pkg}/bin/celery --app paperless worker --loglevel INFO";
-        Restart = "on-failure";
-        # The `mbind` syscall is needed for running the classifier.
-        SystemCallFilter = defaultServiceConfig.SystemCallFilter ++ [ "mbind" ];
-        # Needs to talk to mail server for automated import rules
-        PrivateNetwork = false;
-      };
-      environment = env;
-    };
-
     # Reading the user-provided password file requires root access
     systemd.services.paperless-copy-password = mkIf (cfg.passwordFile != null) {
       requiredBy = [ "paperless-scheduler.service" ];
@@ -276,24 +265,20 @@ in
 
     systemd.services.paperless-consumer = {
       description = "Paperless document consumer";
-      # Bind to `paperless-scheduler` so that the consumer never runs
-      # during migrations
-      bindsTo = [ "paperless-scheduler.service" ];
-      after = [ "paperless-scheduler.service" ];
       serviceConfig = defaultServiceConfig // {
         User = cfg.user;
         ExecStart = "${pkg}/bin/paperless-ngx document_consumer";
         Restart = "on-failure";
       };
       environment = env;
+      # Bind to `paperless-scheduler` so that the consumer never runs
+      # during migrations
+      bindsTo = [ "paperless-scheduler.service" ];
+      after = [ "paperless-scheduler.service" ];
     };
 
     systemd.services.paperless-web = {
       description = "Paperless web server";
-      # Bind to `paperless-scheduler` so that the web server never runs
-      # during migrations
-      bindsTo = [ "paperless-scheduler.service" ];
-      after = [ "paperless-scheduler.service" ];
       serviceConfig = defaultServiceConfig // {
         User = cfg.user;
         ExecStart = ''
@@ -316,7 +301,11 @@ in
       };
       # Allow the web interface to access the private /tmp directory of the server.
       # This is required to support uploading files via the web interface.
-      unitConfig.JoinsNamespaceOf = "paperless-task-queue.service";
+      unitConfig.JoinsNamespaceOf = "paperless-scheduler.service";
+      # Bind to `paperless-scheduler` so that the web server never runs
+      # during migrations
+      bindsTo = [ "paperless-scheduler.service" ];
+      after = [ "paperless-scheduler.service" ];
     };
 
     users = optionalAttrs (cfg.user == defaultUser) {

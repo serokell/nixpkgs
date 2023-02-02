@@ -1,5 +1,7 @@
 { lib, stdenv, fetchurl, makeWrapper, pkg-config, gtk3, librsvg }:
 
+with lib;
+
 stdenv.mkDerivation rec {
   pname = "howl";
   version = "0.6";
@@ -25,7 +27,7 @@ stdenv.mkDerivation rec {
       --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE"
   '';
 
-  meta = with lib; {
+  meta = {
     homepage = "https://howl.io/";
     description = "A general purpose, fast and lightweight editor with a keyboard-centric minimalistic user interface";
     license = licenses.mit;

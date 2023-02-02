@@ -1,5 +1,4 @@
-{ lib
-, stdenv
+{ lib, stdenv
 , fetchurl
 , meson
 , ninja
@@ -53,7 +52,6 @@
 , writeText
 , xorg
 , zlib
-, directoryListingUpdater
 }:
 
 stdenv.mkDerivation rec {
@@ -147,7 +145,7 @@ stdenv.mkDerivation rec {
   mesonFlags = [
     "--buildtype=release"
     "-D build-tests=false" # disable build tests, which are not working
-    "-D ecore-imf-loaders-disabler=ibus,scim" # ibus is disabled by default, scim is not available in nixpkgs
+    "-D ecore-imf-loaders-disabler=ibus,scim" # ibus is disabled by default, scim is not availabe in nixpkgs
     "-D embedded-lz4=false"
     "-D fb=true"
     "-D network-backend=connman"
@@ -204,8 +202,6 @@ stdenv.mkDerivation rec {
     patchelf --add-needed ${libpulseaudio}/lib/libpulse.so $out/lib/libecore_audio.so
     patchelf --add-needed ${libsndfile.out}/lib/libsndfile.so $out/lib/libecore_audio.so
   '';
-
-  passthru.updateScript = directoryListingUpdater { };
 
   meta = with lib; {
     description = "Enlightenment foundation libraries";

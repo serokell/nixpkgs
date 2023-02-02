@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytest-cov
     pytestCheckHook

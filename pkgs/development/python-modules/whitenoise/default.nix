@@ -28,7 +28,7 @@ buildPythonPackage rec {
     brotli
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     django
     pytestCheckHook
     requests

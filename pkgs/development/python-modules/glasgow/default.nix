@@ -44,7 +44,7 @@ buildPythonPackage rec {
     crcmod
   ];
 
-  nativeCheckInputs = [ yosys icestorm nextpnr ];
+  checkInputs = [ yosys icestorm nextpnr ];
 
   enableParallelBuilding = true;
 

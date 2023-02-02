@@ -10,23 +10,22 @@
 
 buildPythonPackage rec {
   pname = "bite-parser";
-  version = "0.2.1";
+  version = "0.1.3";
 
-  disabled = pythonOlder "3.8";
+  disabled = pythonOlder "3.7";
 
   format = "pyproject";
 
   src = fetchPypi {
-    pname = "bite_parser";
-    inherit version;
-    hash = "sha256-PmZCCQzxCfCq6Mr1qn03tj/7/0we9Bfk5fj4K+wMhsk=";
+    inherit pname version;
+    sha256 = "0f246e98a5556d6ed9a33fda1e94c3ab906305729feb30d25e35344b3e1c1fd9";
   };
 
   nativeBuildInputs = [
     poetry-core
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-asyncio
     pytestCheckHook
     typing-extensions

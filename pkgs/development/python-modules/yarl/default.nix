@@ -1,7 +1,6 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, pythonAtLeast
 , pythonOlder
 , idna
 , multidict
@@ -11,15 +10,11 @@
 
 buildPythonPackage rec {
   pname = "yarl";
-  version = "1.8.2";
-
-  disabled = pythonOlder "3.7";
-
-  format = "setuptools";
+  version = "1.8.1";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-SdQ0AsbjATrQl4YCv2v1MoU1xI0ZIwS5G5ejxnkLFWI=";
+    sha256 = "sha256-r4h4RbjC4GDrVgX/crby3SqrenYTeTc/2J0xT0dSq78=";
   };
 
   postPatch = ''
@@ -38,12 +33,8 @@ buildPythonPackage rec {
     pushd tests
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
-  ];
-
-  disabledTests = lib.optionals (pythonAtLeast "3.11") [
-    "test_not_a_scheme2"
   ];
 
   postCheck = ''
@@ -53,7 +44,6 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "yarl" ];
 
   meta = with lib; {
-    changelog = "https://github.com/aio-libs/yarl/blob/v${version}/CHANGES.rst";
     description = "Yet another URL library";
     homepage = "https://github.com/aio-libs/yarl";
     license = licenses.asl20;

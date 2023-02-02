@@ -29,7 +29,7 @@ buildPythonPackage rec {
     flit-core
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     async-timeout
     dbus
     pytest

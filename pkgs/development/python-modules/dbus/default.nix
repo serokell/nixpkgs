@@ -33,7 +33,7 @@ buildPythonPackage rec {
     ++ lib.optional (! python ? modules) ncurses;
 
   doCheck = isPy3k;
-  nativeCheckInputs = [ dbus.out pygobject3 ];
+  checkInputs = [ dbus.out pygobject3 ];
 
   postInstall = ''
     cp -r dbus_python.egg-info $out/${python.sitePackages}/

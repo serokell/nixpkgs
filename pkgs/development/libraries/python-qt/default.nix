@@ -1,32 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, python, qmake,
+{ lib, stdenv, fetchurl, python, qmake,
   qtwebengine, qtxmlpatterns,
   qttools, unzip }:
 
 stdenv.mkDerivation rec {
+  version = "3.2";
   pname = "python-qt";
-  version = "3.3.0";
 
-  src = fetchFromGitHub {
-    owner = "MeVisLab";
-    repo = "pythonqt";
-    rev = "v${version}";
-    hash = "sha256-zbQ6X4Q2/QChaw3GAz/aVBj2JjWEz52YuPuHbBz935k=";
+  src = fetchurl {
+    url="mirror://sourceforge/pythonqt/PythonQt${version}.zip";
+    sha256="13hzprk58m3yj39sj0xn6acg8796lll1256mpd81kw0z3yykyl8c";
   };
-
-  patches = [
-    (fetchpatch {
-      name = "remove-unneeded-pydebug-include.patch";
-      url = "https://github.com/MeVisLab/pythonqt/commit/a93104dea4d9c79351276ec963e931ca617625ec.patch";
-      includes = [ "src/PythonQt.cpp" ];
-      hash = "sha256-Tc4+6dIdvrda/z3Nz1s9Xz+ZWJLV2BQh8i552UynSI0=";
-    })
-  ];
-
-  # https://github.com/CsoundQt/CsoundQt/blob/develop/BUILDING.md#pythonqt
-  postPatch = ''
-    substituteInPlace build/python.prf \
-      --replace "unix:PYTHON_VERSION=2.7" "unix:PYTHON_VERSION=${python.pythonVersion}"
-  '';
 
   hardeningDisable = [ "all" ];
 
@@ -34,10 +17,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ python ];
 
-  qmakeFlags = [
-    "PythonQt.pro"
-    "PYTHON_DIR=${python}"
-  ];
+  qmakeFlags = [ "PythonQt.pro"
+                 "INCLUDEPATH+=${python}/include/python3.6"
+                 "PYTHON_PATH=${python}/bin"
+                 "PYTHON_LIB=${python}/lib"];
 
   dontWrapQtApps = true;
 
@@ -53,7 +36,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "PythonQt is a dynamic Python binding for the Qt framework. It offers an easy way to embed the Python scripting language into your C++ Qt applications";
-    homepage = "https://pythonqt.sourceforge.net/";
+    homepage = "http://pythonqt.sourceforge.net/";
     license = licenses.lgpl21;
     platforms = platforms.all;
     maintainers = with maintainers; [ hlolli ];

@@ -1,59 +1,54 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, meson
-, pkg-config
-, ninja
-, perl
-, util-linux
-, open-isns
-, openssl
-, kmod
-, systemd
-, runtimeShell
-, nixosTests }:
+{ lib, stdenv, fetchFromGitHub, automake, autoconf, libtool, gettext
+, util-linux, open-isns, openssl, kmod, perl, systemd, pkgconf, nixosTests
+}:
 
 stdenv.mkDerivation rec {
   pname = "open-iscsi";
-  version = "2.1.8";
+  version = "2.1.7";
+
+  nativeBuildInputs = [ autoconf automake gettext libtool perl pkgconf ];
+  buildInputs = [ kmod open-isns.lib openssl systemd util-linux ];
 
   src = fetchFromGitHub {
     owner = "open-iscsi";
     repo = "open-iscsi";
     rev = version;
-    hash = "sha256-JzSyX9zvUkhCEpNwTMneTZpCRgaYxHZ1wP215YnMI78=";
+    sha256 = "sha256-R1ttHHxVSQ5TGtWVy4I9BAmEJfcRhKRD5jThoeddjUw=";
   };
 
-  nativeBuildInputs = [
-    meson
-    pkg-config
-    ninja
-    perl
-  ];
-  buildInputs = [
-    kmod
-    (lib.getLib open-isns)
-    openssl
-    systemd
-    util-linux
-  ];
+  DESTDIR = "$(out)";
+
+  NIX_LDFLAGS = "-lkmod -lsystemd";
+  NIX_CFLAGS_COMPILE = "-DUSE_KMOD";
 
   preConfigure = ''
-    patchShebangs .
+    # Remove blanket -Werror. Fails for minor error on gcc-11.
+    substituteInPlace usr/Makefile --replace ' -Werror ' ' '
   '';
 
-  prePatch = ''
-    substituteInPlace etc/systemd/iscsi-init.service.template \
-      --replace /usr/bin/sh ${runtimeShell}
-    sed -i '/install_dir: db_root/d' meson.build
-  '';
-
-  mesonFlags = [
-    "-Discsi_sbindir=${placeholder "out"}/sbin"
-    "-Drulesdir=${placeholder "out"}/etc/udev/rules.d"
-    "-Dsystemddir=${placeholder "out"}/lib/systemd"
-    "-Ddbroot=/etc/iscsi"
+  # avoid /usr/bin/install
+  makeFlags = [
+    "INSTALL=install"
+    "SED=sed"
+    "prefix=/"
+    "manprefix=/share"
   ];
+
+  installFlags = [
+    "install"
+  ];
+
+  postInstall = ''
+    cp usr/iscsistart $out/sbin/
+    for f in $out/lib/systemd/system/*; do
+      substituteInPlace $f --replace /sbin $out/bin
+    done
+    $out/sbin/iscsistart -v
+  '';
+
+  postFixup = ''
+    sed -i "s|/sbin/iscsiadm|$out/bin/iscsiadm|" $out/bin/iscsi_fw_login
+  '';
 
   passthru.tests = { inherit (nixosTests) iscsi-root iscsi-multipath-root; };
 

@@ -36,9 +36,7 @@ buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace "bitstring = '^3.1.9'" "bitstring = '>=3.1.9'" \
-      --replace 'cffi = "1.15.0"' 'cffi = ">=1.15.0"' \
-      --replace 'ecdsa = "^0.17.0"' 'ecdsa = ">=0.17.0"' \
+      --replace 'monero = "^0.99"' 'monero = ">=0.99"' \
       --replace 'pypng = "^0.0.20"' 'pypng = ">=0.0.20"' \
       --replace 'tzlocal = "2.1"' 'tzlocal = ">=2.1"'
   '';
@@ -64,7 +62,7 @@ buildPythonPackage rec {
     yoyo-migrations
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-cov
     webtest
@@ -72,26 +70,22 @@ buildPythonPackage rec {
 
   disabledTestPaths = [
     # performance test
-    "tests/unit/tools/pbkdf2_test.py"
+    "test/unit/tools/pbkdf2_test.py"
     # tests require network connection
-    "tests/network/explorers/bitcoin"
-    "tests/network/monero/monero_address_transactions_db_test.py"
-    "tests/network/net/http_client"
-    "tests/network/prices"
+    "test/network/explorers/bitcoin"
+    "test/network/net/http_client"
+    "test/network/prices"
     # tests require bitcoind running
-    "tests/network/full_node_clients"
+    "test/network/full_node_clients"
     # tests require lnd running
-    "tests/network/ln"
+    "test/network/ln"
     # tests require tor running
-    "tests/network/monero/monero_test.py"
-    "tests/network/net/tor_client"
-    "tests/network/usecases/calc_monero_address_credits_uc_test.py"
-    "tests/network/usecases/fetch_monero_txs_from_open_node_uc_test.py"
+    "test/network/net/tor_client"
     # tests require the full environment running
-    "tests/acceptance/views"
-    "tests/acceptance/views_admin"
-    "tests/acceptance/views_donations"
-    "tests/acceptance/views_dummystore"
+    "test/acceptance/views"
+    "test/acceptance/views_admin"
+    "test/acceptance/views_donations"
+    "test/acceptance/views_dummystore"
   ];
 
   meta = with lib; {

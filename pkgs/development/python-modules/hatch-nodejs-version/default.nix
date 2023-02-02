@@ -8,7 +8,7 @@
 
 buildPythonPackage rec {
   pname = "hatch-nodejs-version";
-  version = "0.3.1";
+  version = "0.3.0";
   format = "pyproject";
 
   disabled = pythonOlder "3.7";
@@ -16,15 +16,15 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "agoose77";
     repo = "hatch-nodejs-version";
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-txF392XiRqHndTEYw6QVk12Oqw9E6cOwF81hUyp2oh4=";
+    rev = "v${version}";
+    sha256 = "sha256-TBvqXjka8poQ8xxQ/H1hFYRLqnP1024uan1d9b95ags=";
   };
 
   propagatedBuildInputs = [
     hatchling
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

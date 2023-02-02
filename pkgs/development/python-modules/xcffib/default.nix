@@ -3,17 +3,17 @@
 , fetchPypi
 , xorg
 , cffi
+, nose
 , six
-, pytestCheckHook
 }:
 
 buildPythonPackage rec {
-  version = "1.1.2";
+  version = "0.11.1";
   pname = "xcffib";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-Wqc6wlUUUpfMeJmhEFmEf41TDz2zhLPeOqwT+GDgS6w=";
+    sha256 = "12949cfe2e68c806efd57596bb9bf3c151f399d4b53e15d1101b2e9baaa66f5a";
   };
 
   patchPhase = ''
@@ -25,11 +25,7 @@ buildPythonPackage rec {
 
   propagatedNativeBuildInputs = [ cffi ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    xorg.xeyes
-    xorg.xorgserver
-  ];
+  checkInputs = [ nose ];
 
   pythonImportsCheck = [ "xcffib" ];
 

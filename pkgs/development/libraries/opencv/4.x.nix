@@ -14,7 +14,6 @@
 , config
 , ocl-icd
 , buildPackages
-, qimgv
 
 , enableJPEG ? true
 , libjpeg
@@ -77,20 +76,20 @@
 }:
 
 let
-  version = "4.7.0";
+  version = "4.6.0";
 
   src = fetchFromGitHub {
     owner = "opencv";
     repo = "opencv";
     rev = version;
-    sha256 = "sha256-jUeGsu8+jzzCnIFbVMCW8DcUeGv/t1yCY/WXyW+uGDI=";
+    sha256 = "sha256-zPkMc6xEDZU5TlBH3LAzvB17XgocSPeHVMG/U6kfpxg=";
   };
 
   contribSrc = fetchFromGitHub {
     owner = "opencv";
     repo = "opencv_contrib";
     rev = version;
-    sha256 = "sha256-meya0J3RdOIeMM46e/6IOVwrKn3t/c0rhwP2WQaybkE=";
+    sha256 = "sha256-hjRqT7V4Sz7t4IEy89F5M+b0x2ObBbqF8GWLKhWFXtE=";
   };
 
   # Contrib must be built in order to enable Tesseract support:
@@ -366,12 +365,7 @@ stdenv.mkDerivation {
     popd
   '';
 
-  passthru = {
-    tests = {
-      inherit qimgv;
-      inherit (gst_all_1) gst-plugins-bad;
-    } // lib.optionalAttrs (!enablePython) { pythonEnabled = pythonPackages.opencv4; };
-  } // lib.optionalAttrs enablePython { pythonPath = [ ]; };
+  passthru = lib.optionalAttrs enablePython { pythonPath = [ ]; };
 
   meta = with lib; {
     description = "Open Computer Vision Library with more than 500 algorithms";

@@ -47,7 +47,7 @@ _overrideFirst outputInfo "info" "$outputBin"
 
 # Add standard flags to put files into the desired outputs.
 _multioutConfig() {
-    if [ "$(getAllOutputNames)" = "out" ] || [ -z "${setOutputFlags-1}" ]; then return; fi;
+    if [ "$outputs" = "out" ] || [ -z "${setOutputFlags-1}" ]; then return; fi;
 
     # try to detect share/doc/${shareDocName}
     # Note: sadly, $configureScript detection comes later in configurePhase,
@@ -66,17 +66,19 @@ _multioutConfig() {
         fi
     fi
 
-    prependToVar configureFlags \
-        --bindir="${!outputBin}"/bin --sbindir="${!outputBin}"/sbin \
-        --includedir="${!outputInclude}"/include --oldincludedir="${!outputInclude}"/include \
-        --mandir="${!outputMan}"/share/man --infodir="${!outputInfo}"/share/info \
-        --docdir="${!outputDoc}"/share/doc/"${shareDocName}" \
-        --libdir="${!outputLib}"/lib --libexecdir="${!outputLib}"/libexec \
-        --localedir="${!outputLib}"/share/locale
+    configureFlags="\
+        --bindir=${!outputBin}/bin --sbindir=${!outputBin}/sbin \
+        --includedir=${!outputInclude}/include --oldincludedir=${!outputInclude}/include \
+        --mandir=${!outputMan}/share/man --infodir=${!outputInfo}/share/info \
+        --docdir=${!outputDoc}/share/doc/${shareDocName} \
+        --libdir=${!outputLib}/lib --libexecdir=${!outputLib}/libexec \
+        --localedir=${!outputLib}/share/locale \
+        $configureFlags"
 
-    prependToVar installFlags \
-        pkgconfigdir="${!outputDev}"/lib/pkgconfig \
-        m4datadir="${!outputDev}"/share/aclocal aclocaldir="${!outputDev}"/share/aclocal
+    installFlags="\
+        pkgconfigdir=${!outputDev}/lib/pkgconfig \
+        m4datadir=${!outputDev}/share/aclocal aclocaldir=${!outputDev}/share/aclocal \
+        $installFlags"
 }
 
 
@@ -86,13 +88,13 @@ NIX_NO_SELF_RPATH=1
 
 
 # Move subpaths that match pattern $1 from under any output/ to the $2 output/
-# Beware: only globbing patterns are accepted, e.g.: * ? [abc]
+# Beware: only globbing patterns are accepted, e.g.: * ? {foo,bar}
 # A special target "REMOVE" is allowed: moveToOutput foo REMOVE
 moveToOutput() {
     local patt="$1"
     local dstOut="$2"
     local output
-    for output in $(getAllOutputNames); do
+    for output in $outputs; do
         if [ "${!output}" = "$dstOut" ]; then continue; fi
         local srcPath
         for srcPath in "${!output}"/$patt; do
@@ -147,7 +149,7 @@ _multioutDocs() {
 
 # Move development-only stuff to the desired outputs.
 _multioutDevs() {
-    if [ "$(getAllOutputNames)" = "out" ] || [ -z "${moveToDev-1}" ]; then return; fi;
+    if [ "$outputs" = "out" ] || [ -z "${moveToDev-1}" ]; then return; fi;
     moveToOutput include "${!outputInclude}"
     # these files are sometimes provided even without using the corresponding tool
     moveToOutput lib/pkgconfig "${!outputDev}"
@@ -164,10 +166,10 @@ _multioutDevs() {
 
 # Make the "dev" propagate other outputs needed for development.
 _multioutPropagateDev() {
-    if [ "$(getAllOutputNames)" = "out" ]; then return; fi;
+    if [ "$outputs" = "out" ]; then return; fi;
 
     local outputFirst
-    for outputFirst in $(getAllOutputNames); do
+    for outputFirst in $outputs; do
         break
     done
     local propagaterOutput="$outputDev"

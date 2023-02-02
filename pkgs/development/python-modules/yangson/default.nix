@@ -8,12 +8,12 @@
 
 buildPythonPackage rec {
   pname = "yangson";
-  version = "1.4.15";
+  version = "1.4.14";
   format = "setuptools";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-yw/LwWjHW4vgHp06E/DgqauTvdfLxerHw1avge91XLU=";
+    sha256 = "sha256-OMqtZ/kPj7ge235nuyrfCzawG6AOAqfJPzQHF8cW4Ok=";
   };
 
   nativeBuildInputs = [
@@ -24,7 +24,7 @@ buildPythonPackage rec {
     pyxb
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

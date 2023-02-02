@@ -25,7 +25,7 @@
 , blinker
 , email-validator
 , flask
-, flask-login
+, flask_login
 , flask_principal
 , flask-wtf
 , itsdangerous
@@ -57,7 +57,7 @@ buildPythonPackage rec {
     blinker
     email-validator
     flask
-    flask-login
+    flask_login
     flask_principal
     flask-wtf
     itsdangerous
@@ -86,7 +86,7 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     argon2-cffi
     flask-mongoengine
     mongoengine

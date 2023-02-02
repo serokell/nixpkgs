@@ -7,22 +7,21 @@
 , python3
 , w3m
 , dante
-, gawk
 }:
 
 buildGoModule rec {
   pname = "aerc";
-  version = "0.13.0";
+  version = "0.12.0";
 
   src = fetchFromSourcehut {
     owner = "~rjarry";
-    repo = "aerc";
+    repo = pname;
     rev = version;
-    hash = "sha256-pUp/hW4Kk3pixGfbQvphLJM9Dc/w01T1KPRewOicPqM=";
+    hash = "sha256-n5rRvLhCy2d8xUoTNyM5JYKGJWN0nEwkQeBCOpUrUrc=";
   };
 
   proxyVendor = true;
-  vendorHash = "sha256-Nx+k0PLPIx7Ia0LobXUOw7oOFVz1FXV49haAkRAVOcM=";
+  vendorHash = "sha256-Z1dW3cK3Anl8JpAfwppsSBRgV5SdRmQemOG+652z0KA=";
 
   doCheck = false;
 
@@ -47,7 +46,7 @@ buildGoModule rec {
     python3.pkgs.colorama
   ];
 
-  buildInputs = [ python3 notmuch gawk ];
+  buildInputs = [ python3 notmuch ];
 
   installPhase = ''
     runHook preInstall
@@ -58,13 +57,10 @@ buildGoModule rec {
   '';
 
   postFixup = ''
-    wrapProgram $out/bin/aerc \
-      --prefix PATH ":" "${lib.makeBinPath [ ncurses ]}"
-    wrapProgram $out/share/aerc/filters/html \
-      --prefix PATH ":"  ${lib.makeBinPath [ w3m dante ]}
-    wrapProgram $out/share/aerc/filters/html-unsafe \
-      --prefix PATH ":" ${lib.makeBinPath [ w3m dante ]}
-    patchShebangs $out/share/aerc/filters
+    wrapProgram $out/bin/aerc --prefix PATH ":" \
+      "$out/share/aerc/filters:${lib.makeBinPath [ ncurses ]}"
+    wrapProgram $out/share/aerc/filters/html --prefix PATH ":" \
+      ${lib.makeBinPath [ w3m dante ]}
   '';
 
   meta = with lib; {

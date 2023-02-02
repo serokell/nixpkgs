@@ -20,7 +20,7 @@ buildPythonPackage rec {
     rm setup.cfg
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     flake8
     pytestCheckHook
   ];

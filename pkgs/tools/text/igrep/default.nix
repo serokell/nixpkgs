@@ -9,16 +9,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "igrep";
-  version = "1.0.0";
+  version = "0.5.1";
 
   src = fetchFromGitHub {
     owner = "konradsz";
     repo = "igrep";
     rev = "v${version}";
-    sha256 = "sha256-pXgmbSmOLeAtI7pP0X9go4KnlLv4RChBQNCPYeG4Q84=";
+    sha256 = "sha256-Blfkis0Ix0qhSt83YxRqJQJ2oQQK9DGmI60OkyQN5CE=";
   };
 
-  cargoHash = "sha256-n1AVD6PuZFdZbTuGxNHvR6ngoVmSAixabcJl6nIcyP0=";
+  cargoSha256 = "sha256-wEprTtD9/kKtGsbpj7gR+PjsDSAdl39ZoeU5BAGERRQ=";
 
   buildInputs = lib.optionals stdenv.isDarwin [ Security ];
 

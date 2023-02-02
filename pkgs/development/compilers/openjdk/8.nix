@@ -20,7 +20,7 @@ let
     powerpc64le-linux = "ppc64le";
   }.${stdenv.system} or (throw "Unsupported platform ${stdenv.system}");
 
-  update = "352";
+  update = "322";
   build = "ga";
 
   openjdk8 = stdenv.mkDerivation rec {
@@ -31,7 +31,7 @@ let
       owner = "openjdk";
       repo = "jdk8u";
       rev = "jdk${version}";
-      sha256 = "sha256-xDiiALDjStD9IPhbBr997rm/v2Q/WdS10cILBCmdJIQ=";
+      sha256 = "sha256-e39Yv+NDQG7z6fGmpKEnkKd5MoHZ50SXlq/Q7lzWcDA=";
     };
     outputs = [ "out" "jre" ];
 
@@ -187,12 +187,12 @@ let
     postFixup = ''
       # Build the set of output library directories to rpath against
       LIBDIRS=""
-      for output in $(getAllOutputNames); do
+      for output in $outputs; do
         if [ "$output" = debug ]; then continue; fi
         LIBDIRS="$(find $(eval echo \$$output) -name \*.so\* -exec dirname {} \+ | sort | uniq | tr '\n' ':'):$LIBDIRS"
       done
       # Add the local library paths to remove dependencies on the bootstrap
-      for output in $(getAllOutputNames); do
+      for output in $outputs; do
         if [ "$output" = debug ]; then continue; fi
         OUTPUTDIR=$(eval echo \$$output)
         BINLIBS=$(find $OUTPUTDIR/bin/ -type f; find $OUTPUTDIR -name \*.so\*)

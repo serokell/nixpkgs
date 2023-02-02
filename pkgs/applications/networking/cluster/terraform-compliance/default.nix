@@ -1,31 +1,47 @@
 { lib
+, GitPython
+, buildPythonApplication
+, emoji
 , fetchFromGitHub
-, python3
+, filetype
+, ipython
+, junit-xml
+, lxml
+, mock
+, netaddr
+, pytestCheckHook
+, radish-bdd
+, semver
 }:
 
-python3.pkgs.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "terraform-compliance";
-  version = "1.3.34";
-  format = "setuptools";
+  version = "1.2.11";
 
+  # No tests in Pypi package
   src = fetchFromGitHub {
-    owner = "terraform-compliance";
-    repo = "cli";
-    rev = "refs/tags/${version}";
-    sha256 = "sha256-1TFLpBwkpMMdiJJfVvDXlJg4SXWQ8VV605wMFGU+InQ=";
+    owner = "eerkunt";
+    repo = pname;
+    rev = version;
+    sha256 = "161mszmxqp3wypnda48ama2mmq8yjilkxahwc1mxjwzy1n19sn7v";
   };
 
   postPatch = ''
     substituteInPlace setup.py \
-      --replace "IPython==7.16.1" "IPython" \
-      --replace "diskcache==5.1.0" "diskcache>=5.1.0"
+      --replace "IPython==7.16.1" "IPython"
   '';
 
-  propagatedBuildInputs = with python3.pkgs; [
-    diskcache
+  checkInputs = [ pytestCheckHook ];
+
+  disabledTests = [
+    "test_which_success"
+    "test_readable_plan_file_is_not_json"
+  ];
+
+  propagatedBuildInputs = [
+    GitPython
     emoji
     filetype
-    gitpython
     ipython
     junit-xml
     lxml
@@ -35,23 +51,9 @@ python3.pkgs.buildPythonApplication rec {
     semver
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    pytestCheckHook
-  ];
-
-  disabledTests = [
-    "test_which_success"
-    "test_readable_plan_file_is_not_json"
-  ];
-
-  pythonImportsCheck = [
-    "terraform_compliance"
-  ];
-
   meta = with lib; {
     description = "BDD test framework for terraform";
-    homepage = "https://github.com/terraform-compliance/cli";
-    changelog = "https://github.com/terraform-compliance/cli/releases/tag/${version}";
+    homepage = "https://github.com/eerkunt/terraform-compliance";
     license = licenses.mit;
     maintainers = with maintainers; [ kalbasit ];
   };

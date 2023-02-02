@@ -28,7 +28,7 @@ buildDunePackage rec {
   # and angstrom (fmt) are only available for >= 4.08. Disabling
   # tests for < 4.08 at least improves the error message
   doCheck = lib.versionAtLeast ocaml.version "4.08";
-  nativeCheckInputs = [ alcotest ];
+  checkInputs = [ alcotest ];
 
   meta = with lib; {
     description = "Parser of email address according RFC822";

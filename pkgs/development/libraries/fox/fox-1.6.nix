@@ -1,21 +1,6 @@
-{ lib
-, stdenv
-, fetchurl
-, libpng
-, libjpeg
-, libtiff
-, zlib
-, bzip2
-, libXcursor
-, libXrandr
-, libGLU
-, libGL
-, libXext
-, libXft
-, libXfixes
-, xinput
-, CoreServices
-}:
+{ lib, stdenv, fetchurl, xlibsWrapper, libpng, libjpeg, libtiff, zlib, bzip2, libXcursor
+, libXrandr, libGLU, libGL, libXft, libXfixes, xinput
+, CoreServices }:
 
 stdenv.mkDerivation rec {
   pname = "fox";
@@ -27,8 +12,8 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    libpng libjpeg libtiff zlib bzip2 libXcursor libXrandr
-    libXext libXft libGLU libGL libXfixes xinput
+    xlibsWrapper libpng libjpeg libtiff zlib bzip2 libXcursor libXrandr
+    libXft libGLU libGL libXfixes xinput
   ] ++ lib.optional stdenv.isDarwin CoreServices;
 
   doCheck = true;

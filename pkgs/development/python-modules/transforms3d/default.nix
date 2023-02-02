@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy sympy ];
 
-  nativeCheckInputs = [ pytest scipy ];
+  checkInputs = [ pytest scipy ];
   checkPhase = "pytest transforms3d";
 
   meta = with lib; {

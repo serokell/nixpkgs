@@ -18,17 +18,16 @@
 , writeShellScript
 , closureInfo
 , runCommand
-, libxcrypt
 }:
 
 let
-  apparmor-version = "3.1.2";
+  apparmor-version = "3.0.7";
 
   apparmor-meta = component: with lib; {
     homepage = "https://apparmor.net/";
     description = "A mandatory access control system - ${component}";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ julm thoughtpolice ];
+    maintainers = with maintainers; [ joachifm julm thoughtpolice ];
     platforms = platforms.linux;
   };
 
@@ -36,7 +35,7 @@ let
     owner = "apparmor";
     repo = "apparmor";
     rev = "v${apparmor-version}";
-    hash = "sha256-0csF6dPel1CxbvNkg7fIrdPpnCM+hqht2a5nwPlR58A=";
+    hash = "sha256-iLZY0wZQr+YvR8JCwTeECDuqFb1sQCQtkiUksiYCvWs=";
   };
 
   aa-teardown = writeShellScript "aa-teardown" ''
@@ -94,8 +93,7 @@ let
       perl
     ] ++ lib.optional withPython python;
 
-    buildInputs = [ libxcrypt ]
-      ++ lib.optional withPerl perl
+    buildInputs = lib.optional withPerl perl
       ++ lib.optional withPython python;
 
     # required to build apparmor-parser

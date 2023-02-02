@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   buildInputs = [ liberasurecode ];
 
-  nativeCheckInputs = [ six ];
+  checkInputs = [ six ];
 
   pythonImportsCheck = [ "pyeclib" ];
 

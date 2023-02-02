@@ -31,13 +31,13 @@
 
 stdenv.mkDerivation rec {
   pname = "elementary-photos";
-  version = "2.8.0";
+  version = "2.7.5";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = "photos";
     rev = version;
-    sha256 = "sha256-VhJggQMy1vk21zNA5pR4uAPGCwnIxLUHVO58AZs+h6s=";
+    sha256 = "sha256-zM32+bva+QD1Z/0vUD7K0/tnSzo+7GGLjJ1ytr64c0I=";
   };
 
   nativeBuildInputs = [
@@ -86,7 +86,9 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      attrPath = "pantheon.${pname}";
+    };
   };
 
   meta = with lib; {

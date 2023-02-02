@@ -3,16 +3,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "evcxr";
-  version = "0.14.2";
+  version = "0.14.0";
 
   src = fetchFromGitHub {
     owner = "google";
     repo = "evcxr";
     rev = "v${version}";
-    sha256 = "sha256-gREAtCh4jerqxhwNslXIXRMLkoj0RlhbIwQXbb8LVws=";
+    sha256 = "sha256-gB56fGjL/YtzQI+vr83URPhQ6qXrCn5IRPnIYBt8iHk=";
   };
 
-  cargoSha256 = "sha256-xuxWOVSUJVQvSDA5xhFBjdO/ODLA4fzEnzG9p0DRF2Q=";
+  cargoSha256 = "sha256-DAbg5G1oGnfBR1kIUt7ebYEx06b6sbexqLyFJ7zKhlk=";
 
   RUST_SRC_PATH = "${rustPlatform.rustLibSrc}";
 

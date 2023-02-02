@@ -144,11 +144,7 @@
 
 in {
   name = "acme";
-  meta = {
-    maintainers = lib.teams.acme.members;
-    # Hard timeout in seconds. Average run time is about 7 minutes.
-    timeout = 1800;
-  };
+  meta.maintainers = lib.teams.acme.members;
 
   nodes = {
     # The fake ACME server which will respond to client requests
@@ -281,7 +277,7 @@ in {
           };
         };
 
-      # Test compatibility with Caddy
+      # Test compatiblity with Caddy
       # It only supports useACMEHost, hence not using mkServerConfigs
       } // (let
         baseCaddyConfig = { nodes, config, ... }: {
@@ -361,30 +357,6 @@ in {
       import time
 
 
-      TOTAL_RETRIES = 20
-
-
-      class BackoffTracker(object):
-          delay = 1
-          increment = 1
-
-          def handle_fail(self, retries, message) -> int:
-              assert retries < TOTAL_RETRIES, message
-
-              print(f"Retrying in {self.delay}s, {retries + 1}/{TOTAL_RETRIES}")
-              time.sleep(self.delay)
-
-              # Only increment after the first try
-              if retries == 0:
-                  self.delay += self.increment
-                  self.increment *= 2
-
-              return retries + 1
-
-
-      backoff = BackoffTracker()
-
-
       def switch_to(node, name):
           # On first switch, this will create a symlink to the current system so that we can
           # quickly switch between derivations
@@ -432,7 +404,9 @@ in {
           assert False
 
 
-      def check_connection(node, domain, retries=0):
+      def check_connection(node, domain, retries=3):
+          assert retries >= 0, f"Failed to connect to https://{domain}"
+
           result = node.succeed(
               "openssl s_client -brief -verify 2 -CAfile /tmp/ca.crt"
               f" -servername {domain} -connect {domain}:443 < /dev/null 2>&1"
@@ -440,11 +414,13 @@ in {
 
           for line in result.lower().split("\n"):
               if "verification" in line and "error" in line:
-                  retries = backoff.handle_fail(retries, f"Failed to connect to https://{domain}")
-                  return check_connection(node, domain, retries)
+                  time.sleep(3)
+                  return check_connection(node, domain, retries - 1)
 
 
-      def check_connection_key_bits(node, domain, bits, retries=0):
+      def check_connection_key_bits(node, domain, bits, retries=3):
+          assert retries >= 0, f"Did not find expected number of bits ({bits}) in key"
+
           result = node.succeed(
               "openssl s_client -CAfile /tmp/ca.crt"
               f" -servername {domain} -connect {domain}:443 < /dev/null"
@@ -453,11 +429,13 @@ in {
           print("Key type:", result)
 
           if bits not in result:
-              retries = backoff.handle_fail(retries, f"Did not find expected number of bits ({bits}) in key")
-              return check_connection_key_bits(node, domain, bits, retries)
+              time.sleep(3)
+              return check_connection_key_bits(node, domain, bits, retries - 1)
 
 
-      def check_stapling(node, domain, retries=0):
+      def check_stapling(node, domain, retries=3):
+          assert retries >= 0, "OCSP Stapling check failed"
+
           # Pebble doesn't provide a full OCSP responder, so just check the URL
           result = node.succeed(
               "openssl s_client -CAfile /tmp/ca.crt"
@@ -467,19 +445,21 @@ in {
           print("OCSP Responder URL:", result)
 
           if "${caDomain}:4002" not in result.lower():
-              retries = backoff.handle_fail(retries, "OCSP Stapling check failed")
-              return check_stapling(node, domain, retries)
+              time.sleep(3)
+              return check_stapling(node, domain, retries - 1)
 
 
-      def download_ca_certs(node, retries=0):
+      def download_ca_certs(node, retries=5):
+          assert retries >= 0, "Failed to connect to pebble to download root CA certs"
+
           exit_code, _ = node.execute("curl https://${caDomain}:15000/roots/0 > /tmp/ca.crt")
           exit_code_2, _ = node.execute(
               "curl https://${caDomain}:15000/intermediate-keys/0 >> /tmp/ca.crt"
           )
 
           if exit_code + exit_code_2 > 0:
-              retries = backoff.handle_fail(retries, "Failed to connect to pebble to download root CA certs")
-              return download_ca_certs(node, retries)
+              time.sleep(3)
+              return download_ca_certs(node, retries - 1)
 
 
       start_all()

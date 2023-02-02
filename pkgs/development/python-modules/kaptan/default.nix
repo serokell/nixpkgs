@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyyaml ];
 
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
 
   meta = with lib; {
     description = "Configuration manager for python applications";

@@ -36,7 +36,7 @@ buildPythonPackage rec {
       "setup_requires=SETUP_REQUIRES + (zfg.SETUP_REQUIRES or [])," ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
   pytestFlagsArray = [ "test" ];
   pythonImportsCheck = [ "robottools" ];
 

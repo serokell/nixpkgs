@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, fetchpatch
 , SDL2
 , agg
 , alsa-lib
@@ -22,24 +21,16 @@
 , zlib
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation rec {
   pname = "desmume";
-  version = "0.9.13";
+  version = "0.9.11+unstable=2021-09-22";
 
   src = fetchFromGitHub {
     owner = "TASVideos";
-    repo = "desmume";
-    rev = "release_${lib.replaceStrings ["."] ["_"] finalAttrs.version}";
-    hash = "sha256-vmjKXa/iXLTwtqnG+ZUvOnOQPZROeMpfM5J3Jh/Ynfo=";
+    repo = pname;
+    rev = "7fc2e4b6b6a58420de65a4089d4df3934d7a46b1";
+    hash = "sha256-sTCyjQ31w1Lp+aa3VQ7/rdLbhjnqthce54mjKJZQIDM=";
   };
-
-  patches = [
-    # Fix compiling on GCC for AArch64
-    (fetchpatch {
-      url = "https://github.com/TASEmulators/desmume/commit/24eb5ed95c6cbdaba8b3c63a99e95e899e8a5061.patch";
-      hash = "sha256-J3ZRU1tPTl+4/jg0DBo6ro6DTUZkpQCey+QGF2EugCQ=";
-    })
-  ];
 
   nativeBuildInputs = [
     desktop-file-utils
@@ -91,4 +82,6 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = [ maintainers.AndersonTorres ];
     platforms = platforms.unix;
   };
-})
+}
+# TODO: investigate the patches
+# TODO: investigate other platforms

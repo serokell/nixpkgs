@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchzip, autoreconfHook, pkg-config, gnumake42, glib, pcre
+{ lib, stdenv, fetchzip, autoreconfHook, pkg-config, glib, pcre
 , json_c, flex, bison, dtc, pciutils, dmidecode, acpica-tools, libbsd }:
 
 stdenv.mkDerivation rec {
@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  # fails with make 4.4
-  nativeBuildInputs = [ autoreconfHook pkg-config gnumake42 ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
   buildInputs = [ glib pcre json_c flex bison dtc pciutils dmidecode acpica-tools libbsd ];
 
   postPatch = ''

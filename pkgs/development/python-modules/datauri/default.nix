@@ -19,7 +19,7 @@ buildPythonPackage rec {
     "datauri"
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

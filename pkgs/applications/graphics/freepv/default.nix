@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Open source panorama viewer using GL";
-    homepage = "https://freepv.sourceforge.net/";
+    homepage = "http://freepv.sourceforge.net/";
     license = [ lib.licenses.lgpl21 ];
   };
 }

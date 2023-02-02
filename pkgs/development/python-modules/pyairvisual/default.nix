@@ -15,16 +15,16 @@
 
 buildPythonPackage rec {
   pname = "pyairvisual";
-  version = "2022.12.1";
+  version = "2022.07.0";
   format = "pyproject";
 
-  disabled = pythonOlder "3.9";
+  disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "bachya";
     repo = pname;
     rev = version;
-    hash = "sha256-xzTho4HsIU2YLURz9DfFfaRL3tsrtVi8n5IA2bRkyzw=";
+    sha256 = "sha256-UzcKK0LJ/Xp5iVWsrDQ3nfhWgKAAxKmXrK1zPSoG/gY=";
   };
 
   nativeBuildInputs = [
@@ -37,7 +37,7 @@ buildPythonPackage rec {
     pysmb
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     aresponses
     asynctest
     pytest-aiohttp

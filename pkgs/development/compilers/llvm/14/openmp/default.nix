@@ -5,7 +5,6 @@
 , runCommand
 , cmake
 , llvm
-, targetLlvm
 , lit
 , clang-unwrapped
 , perl
@@ -33,9 +32,7 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ];
 
   nativeBuildInputs = [ cmake perl pkg-config lit ];
-  buildInputs = [
-    (if stdenv.buildPlatform == stdenv.hostPlatform then llvm else targetLlvm)
-  ];
+  buildInputs = [ llvm ];
 
   # Unsup:Pass:XFail:Fail
   # 26:267:16:8

@@ -1,17 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "tinyssh";
-  version = "20230101";
+  version = "20220801";
 
   src = fetchFromGitHub {
     owner = "janmojzis";
     repo = "tinyssh";
-    rev = "refs/tags/${version}";
-    hash = "sha256-yEqPrLp14AF0L1QLoIcBhTphmd6qVzOB9EVW0Miy8yM=";
+    rev = version;
+    sha256 = "sha256-y01Uq7SyIsFX3KL3V+fF6x3ukrUTuijxwwhPBE3ehI0=";
   };
 
   preConfigure = ''
@@ -22,11 +19,10 @@ stdenv.mkDerivation rec {
   DESTDIR = placeholder "out";
 
   meta = with lib; {
-    description = "Minimalistic SSH server";
+    description = "minimalistic SSH server";
     homepage = "https://tinyssh.org";
-    changelog = "https://github.com/janmojzis/tinyssh/releases/tag/${version}";
-    license = licenses.cc0;
+    license = licenses.publicDomain;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = [ maintainers.kaction ];
   };
 }

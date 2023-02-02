@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ inform ];
 
-  nativeCheckInputs = [ pytestCheckHook docopt natsort voluptuous ];
+  checkInputs = [ pytestCheckHook docopt natsort voluptuous ];
   pytestFlagsArray = [ "--ignore=build" ]; # Avoids an ImportMismatchError.
 
   meta = with lib; {

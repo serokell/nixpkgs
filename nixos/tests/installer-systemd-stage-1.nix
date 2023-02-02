@@ -8,10 +8,9 @@
   # them when fixed.
   inherit (import ./installer.nix { inherit system config pkgs; systemdStage1 = true; })
     # bcache
-    btrfsSimple
-    btrfsSubvolDefault
-    btrfsSubvolEscape
-    btrfsSubvols
+    # btrfsSimple
+    # btrfsSubvolDefault
+    # btrfsSubvols
     # encryptedFSWithKeyfile
     # grub1
     # luksroot

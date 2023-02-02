@@ -10,7 +10,7 @@
 , fastJson
 , withKrb5 ? true
 , libkrb5
-, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
+, withSystemd ? stdenv.isLinux
 , systemd
 , withJemalloc ? true
 , jemalloc
@@ -62,24 +62,20 @@
 
 stdenv.mkDerivation rec {
   pname = "rsyslog";
-  version = "8.2212.0";
+  version = "8.2208.0";
 
   src = fetchurl {
     url = "https://www.rsyslog.com/files/download/rsyslog/${pname}-${version}.tar.gz";
-    hash = "sha256-U7Wahy49xzhM3BSavpdEkWd29wV9kF899nItLrGwTzU=";
+    sha256 = "sha256-FN5o57jlqwxdc0+C4tyf/yLNf0cQrWkHJ+sQp7mz314=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-    docutils
-  ];
-
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
   buildInputs = [
     fastJson
     libestr
     json_c
     zlib
+    docutils
   ] ++ lib.optional withKrb5 libkrb5
   ++ lib.optional withJemalloc jemalloc
   ++ lib.optional withPostgres postgresql
@@ -187,7 +183,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.rsyslog.com/";
     description = "Enhanced syslog implementation";
     changelog = "https://raw.githubusercontent.com/rsyslog/rsyslog/v${version}/ChangeLog";
-    license = licenses.gpl3Only;
+    license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];
   };

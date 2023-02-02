@@ -5,8 +5,10 @@
 
 { pname, product, productShort ? product, version, src, wmClass, jdk, meta, extraLdPath ? [], extraWrapperArgs ? [] }@args:
 
-let loName = lib.toLower productShort;
-    hiName = lib.toUpper productShort;
+with lib;
+
+let loName = toLower productShort;
+    hiName = toUpper productShort;
     vmoptsName = loName
                + lib.optionalString stdenv.hostPlatform.is64bit "64"
                + ".vmoptions";
@@ -19,7 +21,7 @@ with stdenv; lib.makeOverridable mkDerivation (rec {
   desktopItem = makeDesktopItem {
     name = pname;
     exec = pname;
-    comment = lib.replaceStrings ["\n"] [" "] meta.longDescription;
+    comment = lib.replaceChars ["\n"] [" "] meta.longDescription;
     desktopName = product;
     genericName = meta.description;
     categories = [ "Development" ];
@@ -27,7 +29,7 @@ with stdenv; lib.makeOverridable mkDerivation (rec {
     startupWMClass = wmClass;
   };
 
-  vmoptsFile = lib.optionalString (vmopts != null) (writeText vmoptsName vmopts);
+  vmoptsFile = optionalString (vmopts != null) (writeText vmoptsName vmopts);
 
   nativeBuildInputs = [ makeWrapper patchelf unzip ];
 
@@ -43,8 +45,6 @@ with stdenv; lib.makeOverridable mkDerivation (rec {
         strip $fname
         truncate --size=$size $fname
       }
-
-      rm -rf jbr
 
       interpreter=$(echo ${stdenv.cc.libc}/lib/ld-linux*.so.2)
       if [[ "${stdenv.hostPlatform.system}" == "x86_64-linux" && -e bin/fsnotifier64 ]]; then
@@ -63,8 +63,7 @@ with stdenv; lib.makeOverridable mkDerivation (rec {
 
     mkdir -p $out/{bin,$pname,share/pixmaps,libexec/${pname}}
     cp -a . $out/$pname
-    [[ -f $out/$pname/bin/${loName}.png ]] && ln -s $out/$pname/bin/${loName}.png $out/share/pixmaps/${pname}.png
-    [[ -f $out/$pname/bin/${loName}.svg ]] && ln -s $out/$pname/bin/${loName}.svg $out/share/pixmaps/${pname}.svg
+    ln -s $out/$pname/bin/${loName}.png $out/share/pixmaps/${pname}.png
     mv bin/fsnotifier* $out/libexec/${pname}/.
 
     jdk=${jdk.home}

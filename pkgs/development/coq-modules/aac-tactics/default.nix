@@ -1,4 +1,5 @@
 { lib, mkCoqDerivation, coq, version ? null }:
+with lib;
 
 mkCoqDerivation {
   pname = "aac-tactics";
@@ -20,7 +21,7 @@ mkCoqDerivation {
   release."8.5.0".sha256 = "sha256-7yNxJn6CH5xS5w/zsXfcZYORa6e5/qS9v8PUq2o02h4=";
 
   inherit version;
-  defaultVersion = with lib.versions; lib.switch coq.coq-version [
+  defaultVersion = with versions; switch coq.coq-version [
     { case = "8.16"; out = "8.16.0"; }
     { case = "8.15"; out = "8.15.1"; }
     { case = "8.14"; out = "8.14.1"; }
@@ -36,7 +37,7 @@ mkCoqDerivation {
 
   mlPlugin = true;
 
-  meta = with lib; {
+  meta = {
     description = "Coq plugin providing tactics for rewriting universally quantified equations";
     longDescription = ''
       This Coq plugin provides tactics for rewriting universally quantified

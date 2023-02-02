@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   makeFlags = [ "CXX=${stdenv.cc.targetPrefix}c++" ];
 
   meta = {
-    homepage = "https://rig.sourceforge.net/";
+    homepage = "http://rig.sourceforge.net/";
     description = "Random identity generator";
     longDescription = ''
       RIG (Random Identity Generator) is a free replacement for a shareware

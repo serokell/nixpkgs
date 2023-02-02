@@ -12,27 +12,27 @@
 
 buildPythonPackage rec {
   pname = "readchar";
-  version = "4.0.3";
+  version = "3.0.5";
   format = "setuptools";
 
   # Don't use wheels on PyPI
   src = fetchFromGitHub {
     owner = "magmax";
     repo = "python-${pname}";
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-QMaTZRS9iOSuax706Es9WhkwU3vdcNb14dbiSt48aN0=";
+    rev = "v${version}";
+    sha256 = "sha256:01bjw3ipdzxq1ijn9354nlya625i26ri7jac1dnlj1d1gdd8m5lx";
   };
 
   postPatch = ''
     substituteInPlace setup.cfg \
-      --replace "--cov=readchar" ""
+      --replace "--cov readchar" ""
   '';
 
   nativeBuildInputs = [
     flake8
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pexpect
   ];

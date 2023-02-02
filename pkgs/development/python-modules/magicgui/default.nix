@@ -27,7 +27,7 @@
 
   nativeBuildInputs = [ setuptools-scm ];
   propagatedBuildInputs = [ typing-extensions qtpy pyside2 psygnal docstring-parser ];
-  nativeCheckInputs = [ pytestCheckHook pytest-mypy-plugins ];
+  checkInputs = [ pytestCheckHook pytest-mypy-plugins ];
 
   doCheck = false; # Reports "Fatal Python error"
 

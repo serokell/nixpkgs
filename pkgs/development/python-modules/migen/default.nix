@@ -7,13 +7,14 @@
 
 buildPythonPackage rec {
   pname = "migen";
-  version = "unstable-2022-09-02";
+  version = "unstable-2021-09-14";
+  disabled = pythonOlder "3.3";
 
   src = fetchFromGitHub {
     owner = "m-labs";
     repo = "migen";
-    rev = "639e66f4f453438e83d86dc13491b9403bbd8ec6";
-    hash = "sha256-IPyhoFZLhY8d3jHB8jyvGdbey7V+X5eCzBZYSrJ18ec=";
+    rev = "a5bc262560238f93ceaad423820eb06843326274";
+    sha256 = "32UjaIam/B7Gx6XbPcR067LcXfokJH2mATG9mU38a6o=";
   };
 
   propagatedBuildInputs = [

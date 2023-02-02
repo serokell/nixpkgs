@@ -4,7 +4,6 @@
 , pkg-config
 , autoreconfHook
 , makeWrapper
-, libxcrypt
 , ncurses
 , cpio
 , gperf
@@ -66,7 +65,6 @@ stdenv.mkDerivation rec {
   ] ++ (with perlPackages; [ perl libintl-perl GetoptLong ModuleBuild ])
   ++ (with ocamlPackages; [ ocaml findlib ]);
   buildInputs = [
-    libxcrypt
     ncurses
     jansson
     pcre2

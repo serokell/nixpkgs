@@ -19,7 +19,7 @@ python3.pkgs.buildPythonApplication rec {
     colorama
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = with python3.pkgs; [
     pytestCheckHook
   ];
 

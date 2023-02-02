@@ -1,11 +1,12 @@
 { lib
-, stdenvNoCC
+, bash
+, coreutils
 , fetchFromGitHub
-, patsh
+, resholve
 , xorg
 }:
 
-stdenvNoCC.mkDerivation rec {
+resholve.mkDerivation rec {
   pname = "sx";
   version = "2.1.7";
 
@@ -18,16 +19,20 @@ stdenvNoCC.mkDerivation rec {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  nativeBuildInputs = [ patsh ];
-
-  buildInputs = [
-    xorg.xauth
-    xorg.xorgserver
-  ];
-
-  postInstall = ''
-    patsh -f $out/bin/sx -s ${builtins.storeDir}
-  '';
+  solutions = {
+    sx = {
+      scripts = [ "bin/sx" ];
+      interpreter = "${bash}/bin/sh";
+      inputs = [
+        coreutils
+        xorg.xauth
+        xorg.xorgserver
+      ];
+      execer = [
+        "cannot:${xorg.xorgserver}/bin/Xorg"
+      ];
+    };
+  };
 
   meta = with lib; {
     description = "Simple alternative to both xinit and startx for starting a Xorg server";

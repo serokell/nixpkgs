@@ -32,12 +32,10 @@
       "args": {}
     }
   ],
-  "context.exec": [],
-  "pulse.cmd": [
+  "context.exec": [
     {
-      "cmd": "load-module",
-      "args": "module-always-sink",
-      "flags": []
+      "path": "pactl",
+      "args": "load-module module-always-sink"
     }
   ],
   "stream.properties": {},
@@ -91,14 +89,13 @@
     {
       "matches": [
         {
-          "application.name": "~speech-dispatcher.*"
+          "application.name": "~speech-dispatcher*"
         }
       ],
       "actions": {
         "update-props": {
-          "pulse.min.req": "512/48000",
-          "pulse.min.quantum": "512/48000",
-          "pulse.idle.timeout": 5
+          "pulse.min.req": "1024/48000",
+          "pulse.min.quantum": "1024/48000"
         }
       }
     }

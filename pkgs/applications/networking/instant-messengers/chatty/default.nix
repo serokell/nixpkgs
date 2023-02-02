@@ -29,15 +29,16 @@
 
 stdenv.mkDerivation rec {
   pname = "chatty";
-  version = "0.7.0_rc5";
+  version = "unstable-2022-09-20";
 
   src = fetchFromGitLab {
     domain = "source.puri.sm";
     owner = "Librem5";
     repo = "chatty";
-    rev = "v${version}";
+    # https://source.puri.sm/Librem5/chatty/-/tree/247c53fd990f7472ddd1a92c2f9e1299ae3ef4e4
+    rev = "247c53fd990f7472ddd1a92c2f9e1299ae3ef4e4";
     fetchSubmodules = true;
-    hash = "sha256-5V0ApHxsJaQ0MBhMlv1IxnD9Vq+Yw85jFvlvghhFxNI=";
+    hash = "sha256-9hgQC0vLmmJJxrBWTdTIrJbSSwLS23uVoJri2ieCj4E=";
   };
 
   postPatch = ''

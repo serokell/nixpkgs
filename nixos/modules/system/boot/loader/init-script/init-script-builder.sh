@@ -64,13 +64,13 @@ addEntry() {
 
 mkdir -p /boot /sbin
 
-addEntry "@distroName@ - Default" $defaultConfig ""
+addEntry "NixOS - Default" $defaultConfig ""
 
 # Add all generations of the system profile to the menu, in reverse
 # (most recent to least recent) order.
 for link in $((ls -d $defaultConfig/specialisation/* ) | sort -n); do
     date=$(stat --printf="%y\n" $link | sed 's/\..*//')
-    addEntry "@distroName@ - variation" $link ""
+    addEntry "NixOS - variation" $link ""
 done
 
 for generation in $(
@@ -85,7 +85,7 @@ for generation in $(
     else
       suffix="($date)"
     fi
-    addEntry "@distroName@ - Configuration $generation $suffix" $link "$generation ($date)"
+    addEntry "NixOS - Configuration $generation $suffix" $link "$generation ($date)"
 done
 
 mv $tmpOther $targetOther

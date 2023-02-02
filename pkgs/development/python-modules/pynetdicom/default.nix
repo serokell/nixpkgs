@@ -27,7 +27,7 @@ buildPythonPackage rec {
     pydicom
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pyfakefs
     pytestCheckHook
     sqlalchemy

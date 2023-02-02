@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, fetchpatch
 , alsa-lib
 , cmake
 , doxygen
@@ -20,19 +19,14 @@
 
 stdenv.mkDerivation rec {
   pname = "libopenshot-audio";
-  version = "0.3.0";
+  version = "0.2.2";
 
   src = fetchFromGitHub {
     owner = "OpenShot";
     repo = "libopenshot-audio";
     rev = "v${version}";
-    sha256 = "sha256-b3BZ275oJTxWfBWtdZetUQw0t7QznL0Q0lP7cKy/avg=";
+    sha256 = "sha256-XtwTZsj/L/sw/28E7Qr5UyghGlBFFXvbmZLGXBB8vg0=";
   };
-
-  patches = [
-    # https://forum.juce.com/t/juce-and-macos-11-arm/40285/24
-    ./undef-fpret-on-aarch64-darwin.patch
-  ];
 
   nativeBuildInputs = [
     cmake

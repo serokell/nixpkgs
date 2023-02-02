@@ -27,7 +27,7 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = [ makeWrapper python3Packages.setuptools-scm ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  checkInputs = with python3Packages; [ pytestCheckHook ];
 
   postInstall = ''
     wrapProgram $out/bin/sshuttle \

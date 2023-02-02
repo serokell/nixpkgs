@@ -27,7 +27,7 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     pygments
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     python3Packages.pytest
     #python3Packages.pytest-xvfb
     #python3Packages.pytest-qt

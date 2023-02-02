@@ -24,7 +24,7 @@ buildPythonPackage rec {
     pycodestyle
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

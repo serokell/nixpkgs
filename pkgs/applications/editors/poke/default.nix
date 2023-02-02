@@ -73,7 +73,7 @@ in stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   doCheck = !isCross;
-  nativeCheckInputs = lib.optionals (!isCross) [ dejagnu ];
+  checkInputs = lib.optionals (!isCross) [ dejagnu ];
 
   postInstall = ''
     moveToOutput share/emacs "$out"

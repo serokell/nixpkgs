@@ -12,7 +12,7 @@
 
 buildPythonPackage rec {
   pname = "led-ble";
-  version = "1.0.0";
+  version = "0.10.1";
   format = "pyproject";
 
   disabled = pythonOlder "3.9";
@@ -21,7 +21,7 @@ buildPythonPackage rec {
     owner = "Bluetooth-Devices";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-XAb/tJPUe/sNvcU7t63inMPBIz+AREioWXBuQa/c9T0=";
+    hash = "sha256-GyVj9g4tqPaR5Gd8N76TtkldaAATnEBsSs/F+2iQqGM=";
   };
 
   postPatch = ''
@@ -40,7 +40,7 @@ buildPythonPackage rec {
     flux-led
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    homepage = "https://dbacl.sourceforge.net/";
+    homepage = "http://dbacl.sourceforge.net/";
     longDescription = "a digramic Bayesian classifier for text recognition.";
     maintainers = [];
     license = lib.licenses.gpl3;

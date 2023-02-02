@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = lib.optionals isPy27 [ enum34 ];
 
-  nativeCheckInputs = [ attrs pytz ];
+  checkInputs = [ attrs pytz ];
   checkPhase = ''
     ${python.interpreter} setup.py test
   '';

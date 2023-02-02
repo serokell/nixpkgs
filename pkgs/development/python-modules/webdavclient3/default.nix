@@ -14,7 +14,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ python-dateutil lxml requests ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   # disable tests completely, as most of them fail due to urllib3 not being able to establish a http connection
   doCheck = false;

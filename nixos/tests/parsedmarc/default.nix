@@ -155,6 +155,7 @@ in
                   ssl = true;
                   user = "alice";
                   password = "${pkgs.writeText "imap-password" "foobar"}";
+                  watch = true;
                 };
               };
 

@@ -1,32 +1,20 @@
-{ lib, buildDunePackage, fetchFromGitHub, ocaml, cpu, domainslib }:
-
-let params =
-  if lib.versionAtLeast ocaml.version "5.00" then {
-    version = "13.0.1";
-    hash = "sha256-OYa0uLsDyzjmXZgWcYUxLhqco4Kp/icfDamNe3En5JQ=";
-    propagatedBuildInputs = [ domainslib ];
-  } else {
-    version = "12.2.2";
-    hash = "sha256-woZ4XJqqoRr/7mDurXYvTbSUUcLBEylzVYBQp1BAOqc=";
-    propagatedBuildInputs = [ cpu ];
-  }
-; in
+{ lib, buildDunePackage, fetchFromGitHub, ocamlnet, cpu }:
 
 buildDunePackage rec {
   pname = "parany";
-  inherit (params) version;
+  version = "12.1.2";
 
-  duneVersion = "3";
-  minimalOCamlVersion = "4.08";
+  useDune2 = true;
+  minimumOCamlVersion = "4.03.0";
 
   src = fetchFromGitHub {
     owner = "UnixJunkie";
     repo = pname;
     rev = "v${version}";
-    inherit (params) hash;
+    sha256 = "yOeJzb2Wr6jA4efI9/fuqDCl/Tza3zxT3YjAiJmhHHg=";
   };
 
-  inherit (params) propagatedBuildInputs;
+  propagatedBuildInputs = [ ocamlnet cpu ];
 
   meta = with lib; {
     inherit (src.meta) homepage;

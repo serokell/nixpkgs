@@ -17,7 +17,7 @@ buildPythonPackage rec {
   # https://github.com/defunkt/pystache/issues/181
   doCheck = !isPy3k;
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  checkInputs = [ unittestCheckHook ];
 
   meta = with lib; {
     description = "A framework-agnostic, logic-free templating system inspired by ctemplate and et";

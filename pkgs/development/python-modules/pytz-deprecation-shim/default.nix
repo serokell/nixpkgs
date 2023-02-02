@@ -34,16 +34,14 @@ buildPythonPackage rec {
     tzdata
   ]);
 
-  nativeCheckInputs = [
+  checkInputs = [
     hypothesis
     pytestCheckHook
     pytz
   ];
 
   # https://github.com/pganssle/pytz-deprecation-shim/issues/27
-  # https://github.com/pganssle/pytz-deprecation-shim/issues/30
-  # The test suite is just very flaky and breaks all the time
-  doCheck = false;
+  doCheck = pythonAtLeast "3.9";
 
   meta = with lib; {
     description = "Shims to make deprecation of pytz easier";

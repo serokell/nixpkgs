@@ -41,14 +41,14 @@ buildPythonPackage rec {
     tabulate
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     aioresponses
     pytest-asyncio
     pytestCheckHook
   ];
 
   pytestFlagsArray = [
-    "--asyncio-mode=auto"
+    "--asyncio-mode=legacy"
   ];
 
   pythonImportsCheck = [

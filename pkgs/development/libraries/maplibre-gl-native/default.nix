@@ -13,14 +13,14 @@
 
 mkDerivation rec {
   pname = "maplibre-gl-native";
-  version = "2.0.1";
+  version = "unstable-2022-04-07";
 
   src = fetchFromGitHub {
     owner = "maplibre";
     repo = "maplibre-gl-native";
-    rev = "qt-v${version}";
+    rev = "225f8a4bfe7ad30fd59d693c1fb3ca0ba70d2806";
     fetchSubmodules = true;
-    hash = "sha256-g5J873U/6mrl27iquPl3BdEGhMxkOdfP15dHr27wa48=";
+    hash = "sha256-NLtpi+bDLTHlnzMZ4YFQyF5B1xt9lzHyZPvEQLlBAnY=";
   };
 
   patches = [
@@ -61,5 +61,6 @@ mkDerivation rec {
     license = licenses.bsd2;
     maintainers = with maintainers; [ dotlambda ];
     platforms = platforms.linux;
+    broken = lib.versionOlder qtbase.version "5.15";
   };
 }

@@ -12,15 +12,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-
-  buildInputs = [ libpng ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv libobjc ];
+  buildInputs = [ SDL2 libpng ] ++ lib.optionals stdenv.isDarwin [ libiconv libobjc ];
 
   configureFlags = [
     "--with-tests"
   ];
-
-  nativeCheckInputs = [ SDL2 ];
 
   doCheck = true;
 
@@ -37,11 +33,13 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://fukuchi.org/works/qrencode/";
     description = "C library for encoding data in a QR Code symbol";
+
     longDescription = ''
       Libqrencode is a C library for encoding data in a QR Code symbol,
       a kind of 2D symbology that can be scanned by handy terminals
       such as a mobile phone with CCD.
     '';
+
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ adolfogc yana ];
     platforms = platforms.all;

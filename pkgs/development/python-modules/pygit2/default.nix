@@ -14,14 +14,14 @@
 
 buildPythonPackage rec {
   pname = "pygit2";
-  version = "1.11.1";
+  version = "1.10.1";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-eT9YP9M2IPCsODdtsPV3aO8pIribRZ51saxEA3frZOw=";
+    hash = "sha256-NUZRvwYsAtHwgEHW+/GptL96k6/OZZeb3Ai9xlZTqi4=";
   };
 
   preConfigure = lib.optionalString stdenv.isDarwin ''
@@ -35,15 +35,15 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     cached-property
     pycparser
-  ] ++ lib.optionals (!isPyPy) [
+  ] ++ lib.optional (!isPyPy) [
     cffi
   ];
 
-  propagatedNativeBuildInputs = lib.optionals (!isPyPy) [
+  propagatedNativeBuildInputs = lib.optional (!isPyPy) [
     cffi
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

@@ -31,7 +31,7 @@ buildPythonPackage rec {
   # See https://github.com/SethMMorton/fastnumbers/issues/28
   doCheck = !stdenv.hostPlatform.isAarch;
 
-  nativeCheckInputs = [
+  checkInputs = [
     hypothesis
     pytestCheckHook
   ];

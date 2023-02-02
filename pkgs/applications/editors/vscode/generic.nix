@@ -1,7 +1,7 @@
 { stdenv, lib, makeDesktopItem
-, unzip, libsecret, libXScrnSaver, libxshmfence, buildPackages
+, unzip, libsecret, libXScrnSaver, libxshmfence, wrapGAppsHook, makeWrapper
 , atomEnv, at-spi2-atk, autoPatchelfHook
-, systemd, fontconfig, libdbusmenu, glib, buildFHSUserEnvBubblewrap, wayland
+, systemd, fontconfig, libdbusmenu, glib, buildFHSUserEnvBubblewrap
 
 # Populate passthru.tests
 , tests
@@ -12,7 +12,6 @@
 # Attributes inherit from specific versions
 , version, src, meta, sourceRoot, commandLineArgs
 , executableName, longName, shortName, pname, updateScript
-, dontFixup ? false
 # sourceExecutableName is the name of the binary in the source archive, over
 # which we have no control
 , sourceExecutableName ? executableName
@@ -22,7 +21,7 @@ let
   inherit (stdenv.hostPlatform) system;
   unwrapped = stdenv.mkDerivation {
 
-    inherit pname version src sourceRoot dontFixup;
+    inherit pname version src sourceRoot;
 
     passthru = {
       inherit executableName longName tests updateScript;
@@ -66,14 +65,13 @@ let
     buildInputs = [ libsecret libXScrnSaver libxshmfence ]
       ++ lib.optionals (!stdenv.isDarwin) ([ at-spi2-atk ] ++ atomEnv.packages);
 
-    runtimeDependencies = lib.optionals stdenv.isLinux [ (lib.getLib systemd) fontconfig.lib libdbusmenu wayland ];
+    runtimeDependencies = lib.optional stdenv.isLinux [ (lib.getLib systemd) fontconfig.lib libdbusmenu ];
 
     nativeBuildInputs = [ unzip ]
       ++ lib.optionals stdenv.isLinux [
         autoPatchelfHook
         nodePackages.asar
-        # override doesn't preserve splicing https://github.com/NixOS/nixpkgs/issues/132651
-        (buildPackages.wrapGAppsHook.override { inherit (buildPackages) makeWrapper; })
+        (wrapGAppsHook.override { inherit makeWrapper; })
       ];
 
     dontBuild = true;
@@ -163,17 +161,12 @@ let
       icu
       libunwind
       libuuid
-      lttng-ust
       openssl
       zlib
 
       # mono
       krb5
     ]) ++ additionalPkgs pkgs;
-
-    extraBwrapArgs = [
-      "--bind-try /etc/nixos/ /etc/nixos/"
-    ];
 
     # symlink shared assets, including icons and desktop entries
     extraInstallCommands = ''

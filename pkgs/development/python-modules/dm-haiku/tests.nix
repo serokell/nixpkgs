@@ -27,7 +27,7 @@ buildPythonPackage rec {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [
+  checkInputs = [
     bsuite
     chex
     cloudpickle

@@ -9,7 +9,6 @@
 , kio
 , kitemmodels
 , kitemviews
-, kparts
 , kwindowsystem
 , libelf
 , qtbase
@@ -22,13 +21,13 @@
 
 mkDerivation rec {
   pname = "hotspot";
-  version = "1.4.0";
+  version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "KDAB";
     repo = "hotspot";
     rev = "v${version}";
-    hash = "sha256-7GuIe8F3QqosW/XaN3KC1WeWcI7woUiEc9Nw0b+fSk0=";
+    sha256 = "1f68bssh3p387hkavfjkqcf7qf7w5caznmjfjldicxphap4riqr5";
     fetchSubmodules = true;
   };
 
@@ -37,13 +36,12 @@ mkDerivation rec {
     extra-cmake-modules
   ];
   buildInputs = [
-    (elfutils.override { enableDebuginfod = true; }) # perfparser needs to find debuginfod.h
+    elfutils
     kconfigwidgets
     ki18n
     kio
     kitemmodels
     kitemviews
-    kparts
     kwindowsystem
     libelf
     qtbase
@@ -61,6 +59,11 @@ mkDerivation rec {
   postPatch = ''
     mkdir -p 3rdparty/{perfparser,PrefixTickLabels}/.git
   '';
+
+  cmakeFlags = [
+    "-DRUSTC_DEMANGLE_INCLUDE_DIR=${rustc-demangle}/include"
+    "-DRUSTC_DEMANGLE_LIBRARY=${rustc-demangle}/lib/librustc_demangle.so"
+  ];
 
   meta = {
     description = "A GUI for Linux perf";

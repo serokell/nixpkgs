@@ -1,58 +1,47 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, testers
-, datree
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "datree";
-  version = "1.8.14";
+  version = "1.6.37";
 
   src = fetchFromGitHub {
     owner = "datreeio";
     repo = "datree";
-    rev = "refs/tags/${version}";
-    hash = "sha256-VBFVoBPKT+yUELhKvMUvCAcjamhwvOAKYfO5iFnngjM=";
+    rev = version;
+    hash = "sha256-oDwI4rlpTkriPD2YC8AnlPYHUchC7btYyX/X8sxmvac=";
   };
 
-  vendorHash = "sha256-mkVguYzjNGgFUdATjGfenCx3h97LS3SEOkYo3CuP9fA=";
-
-  nativeBuildInputs = [ installShellFiles ];
+  vendorSha256 = "sha256-gjD24nyQ8U1WwhUbq8N4dvzFK74t3as7wWZK7rh9yiw=";
 
   ldflags = [
+    "-extldflags '-static'"
     "-s"
     "-w"
     "-X github.com/datreeio/datree/cmd.CliVersion=${version}"
   ];
 
-  tags = [ "main" ];
+  nativeBuildInputs = [ installShellFiles ];
 
-  postInstall = ''
-    installShellCompletion \
-      --cmd datree \
-      --bash <($out/bin/datree completion bash) \
-      --fish <($out/bin/datree completion fish) \
-      --zsh <($out/bin/datree completion zsh)
+  doInstallCheck = true;
+  installCheckPhase = ''
+    $out/bin/datree version | grep ${version} > /dev/null
   '';
 
-  passthru.tests.version = testers.testVersion {
-    package = datree;
-    command = "datree version";
-  };
+  postInstall = ''
+    for shell in bash fish zsh; do
+      $out/bin/datree completion $shell > datree.$shell
+      installShellCompletion datree.$shell
+    done
+  '';
+
+  doCheck = true;
 
   meta = with lib; {
-    description = "CLI tool to ensure K8s manifests and Helm charts follow best practices";
-    longDescription = ''
-      Datree provides an E2E policy enforcement solution to run automatic checks
-      for rule violations. Datree can be used on the command line, admission
-      webhook, or even as a kubectl plugin to run policies against Kubernetes
-      objects.
-    '';
+    description =
+      "CLI tool to ensure K8s manifests and Helm charts follow best practices as well as your organization’s policies";
     homepage = "https://datree.io/";
-    changelog = "https://github.com/datreeio/datree/releases/tag/${version}";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ azahi jceb ];
+    license = [ licenses.asl20 ];
+    maintainers = [ maintainers.jceb ];
+    mainProgram = "datree";
   };
 }

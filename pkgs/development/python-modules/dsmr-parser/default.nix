@@ -1,6 +1,5 @@
 { lib
 , buildPythonPackage
-, dlms-cosem
 , fetchFromGitHub
 , pyserial
 , pyserial-asyncio
@@ -12,7 +11,7 @@
 
 buildPythonPackage rec {
   pname = "dsmr-parser";
-  version = "1.0.0";
+  version = "0.33";
   format = "setuptools";
 
   disabled = pythonOlder "3.8";
@@ -20,19 +19,18 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "ndokter";
     repo = "dsmr_parser";
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-UjwrlNPnv/iBFiX65tcOZjkdC7gZsJzxxCtPdYTdl6Q=";
+    rev = "v${version}";
+    sha256 = "sha256-Phx8Yqx6beTzkQv0fU8Pfs2btPgKVARdO+nMcne1S+w=";
   };
 
   propagatedBuildInputs = [
-    dlms-cosem
     pyserial
     pyserial-asyncio
     pytz
     tailer
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

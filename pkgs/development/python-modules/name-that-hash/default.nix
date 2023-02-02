@@ -8,14 +8,14 @@
 
 buildPythonPackage rec {
   pname = "name-that-hash";
-  version = "1.11.0";
+  version = "1.10";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "HashPals";
     repo = pname;
     rev = version;
-    hash = "sha256-zOb4BS3zG1x8GLXAooqqvMOw0fNbw35JuRWOdGP26/8=";
+    hash = "sha256-3sddUPoC3NfKQzmNgqPf/uHaYN9VZBqsmV712uz1Phg=";
   };
 
   # TODO remove on next update which bumps rich

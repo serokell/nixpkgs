@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, ldc, curl, gnumake42 }:
+{stdenv, lib, fetchFromGitHub, fetchpatch, ldc, curl}:
 
 stdenv.mkDerivation rec {
   pname = "dtools";
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ ldc gnumake42 ]; # fails with make 4.4
+  nativeBuildInputs = [ ldc ];
   buildInputs = [ curl ];
 
   makeCmd = ''

@@ -16,7 +16,7 @@ perlPackages.buildPerlPackage rec {
   };
 
   nativeBuildInputs = [ makeWrapper ]
-    ++ optionals stdenv.isDarwin [ shortenPerlShebang ];
+    ++ optional stdenv.isDarwin [ shortenPerlShebang ];
 
   buildInputs = with perlPackages; [
     CryptPassphrase CryptPassphraseArgon2 CryptPassphraseBcrypt
@@ -29,7 +29,7 @@ perlPackages.buildPerlPackage rec {
 
   propagatedBuildInputs = [ openssl ];
 
-  nativeCheckInputs = with perlPackages; [ TestDeep ];
+  checkInputs = with perlPackages; [ TestDeep ];
 
   postPatch = ''
     patchShebangs script/convos

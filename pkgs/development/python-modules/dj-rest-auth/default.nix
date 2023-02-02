@@ -29,7 +29,7 @@ buildPythonPackage rec {
     djangorestframework
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     django-allauth
     djangorestframework-simplejwt
     responses

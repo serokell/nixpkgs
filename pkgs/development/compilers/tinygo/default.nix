@@ -28,17 +28,17 @@ in
 
 buildGoModule rec {
   pname = "tinygo";
-  version = "0.26.0";
+  version = "0.25.0";
 
   src = fetchFromGitHub {
     owner = "tinygo-org";
     repo = "tinygo";
     rev = "v${version}";
-    sha256 = "rI8CADPWKdNvfknEsrpp2pCeZobf9fAp0GDIWjupzZA=";
+    sha256 = "sha256-Rxdxum1UIaz8tpEAGqpLvKd25nHdj4Se+IoN29EJEHg=";
     fetchSubmodules = true;
   };
 
-  vendorSha256 = "sha256-ihQd/RAjAQhgQZHbNiWmAD0eOo1MvqAR/OwIOUWtdAM=";
+  vendorSha256 = "sha256-QxLY4KT05PtA/W7d1vKxsq5w35YZ6MJL3Lh726b+E9w=";
 
   patches = [
     ./0001-Makefile.patch
@@ -52,7 +52,7 @@ buildGoModule rec {
     ./0003-Use-out-path-as-build-id-on-darwin.patch
   ];
 
-  nativeCheckInputs = [ avrgcc binaryen ];
+  checkInputs = [ avrgcc binaryen ];
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ llvm clang.cc ]
     ++ lib.optionals stdenv.isDarwin [ zlib ncurses libffi libxml2 xar ];

@@ -1,22 +1,25 @@
-{ lib, fetchurl, buildDunePackage, stdlib-shims, ounit2 }:
+{ lib, fetchurl, buildDunePackage, stdlib-shims, dune-configurator, ounit }:
 
 buildDunePackage rec {
   pname = "sha";
-  version = "1.15.2";
-  duneVersion = "3";
+  version = "1.15.1";
 
   src = fetchurl {
-    url = "https://github.com/djs55/ocaml-${pname}/releases/download/${version}/${pname}-${version}.tbz";
-    hash = "sha256-P71Xs5p8QAaOtBrh7MuhQJOL6144BqTLvXlZOyGD/7c=";
+    url = "https://github.com/djs55/ocaml-${pname}/releases/download/v${version}/${pname}-v${version}.tbz";
+    sha256 = "sha256-cRtjydvwgXgimi6F3C48j7LrWgfMO6m9UJKjKlxvp0Q=";
   };
+
+  useDune2 = true;
+
+  buildInputs = [ dune-configurator ];
 
   propagatedBuildInputs = [
     stdlib-shims
   ];
 
   doCheck = true;
-  nativeCheckInputs = [
-    ounit2
+  checkInputs = [
+    ounit
   ];
 
   meta = with lib; {

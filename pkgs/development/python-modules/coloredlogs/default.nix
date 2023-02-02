@@ -25,7 +25,7 @@ buildPythonPackage rec {
     humanfriendly
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     mock
     util-linux

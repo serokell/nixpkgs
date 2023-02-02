@@ -26,25 +26,20 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [
-    boto3
     click
     click-default-group
+    boto3
   ];
 
-  nativeCheckInputs = [
-    hypothesis
-    moto
-    pytest-mock
+  checkInputs = [
     pytestCheckHook
+    hypothesis
+    pytest-mock
+    moto
   ];
 
   pythonImportsCheck = [
     "s3_credentials"
-  ];
-
-  disabledTests = [
-    # AssertionError: assert 'directory/th...ory/...
-    "test_put_objects"
   ];
 
   meta = with lib; {

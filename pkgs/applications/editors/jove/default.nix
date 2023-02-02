@@ -1,24 +1,21 @@
-{ lib
-, stdenv
-, fetchFromGitHub
+{ lib, stdenv, fetchFromGitHub
 , groff
-, makeWrapper
 , ncurses
-}:
+, makeWrapper
+} :
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation rec {
   pname = "jove";
-  version = "4.17.4.9";
+  version = "4.17.4.6";
 
   src = fetchFromGitHub {
     owner = "jonmacs";
     repo = "jove";
-    rev = finalAttrs.version;
-    sha256 = "sha256-Lo5S3t4vewkpoihVdxa3yRrEzNWeNLHCZHXiLCxOH5o=";
+    rev = version;
+    sha256 = "sha256-UCjqF0i43TSvtG5uxb2SA/F9oGBeo/WdEVJlrSSHV8g=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
-
   buildInputs = [
     groff
     ncurses
@@ -37,13 +34,11 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = with lib; {
-    homepage = "https://github.com/jonmacs/jove";
     description = "Jonathan's Own Version of Emacs";
-    changelog = "https://github.com/jonmacs/jove/releases/tag/${finalAttrs.version}";
+    homepage = "https://github.com/jonmacs/jove";
     license = licenses.bsd2;
     maintainers = with maintainers; [ AndersonTorres ];
     platforms = platforms.unix;
-    # never built on Hydra: https://hydra.nixos.org/job/nixpkgs/trunk/jove.x86_64-darwin
-    broken = stdenv.isDarwin;
+    broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/jove.x86_64-darwin
   };
-})
+}

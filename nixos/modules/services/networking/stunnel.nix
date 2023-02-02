@@ -78,7 +78,7 @@ in
 
       servers = mkOption {
         description = lib.mdDoc ''
-          Define the server configurations.
+          Define the server configuations.
 
           See "SERVICE-LEVEL OPTIONS" in {manpage}`stunnel(8)`.
         '';

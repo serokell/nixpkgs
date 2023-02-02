@@ -19,7 +19,7 @@ buildPythonPackage {
   };
 
   propagatedBuildInputs = [ colorama ];
-  nativeCheckInputs = [ pytest pytest-cov ];
+  checkInputs = [ pytest pytest-cov ];
   checkPhase = ''
     pytest
   '';

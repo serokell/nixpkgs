@@ -34,7 +34,7 @@ buildPythonPackage rec {
     asn1crypto
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

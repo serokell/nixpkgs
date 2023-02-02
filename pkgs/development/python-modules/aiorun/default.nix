@@ -9,7 +9,7 @@
 
 buildPythonPackage rec {
   pname = "aiorun";
-  version = "2022.11.1";
+  version = "2021.10.1";
   format = "flit";
 
   disabled = pythonOlder "3.5";
@@ -17,15 +17,15 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "cjrh";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-1qXt3HT/0sECOqPRwc0p+5+YZh1kyHSbkZHajcrjvZc=";
+    rev = "v${version}";
+    hash = "sha256-9e1vUWDBv3BYWuKR/rZUvaIxFFetzBQaygXKnl4PDd8=";
   };
 
   propagatedBuildInputs = [
     pygments
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     uvloop
   ];
@@ -42,7 +42,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Boilerplate for asyncio applications";
     homepage = "https://github.com/cjrh/aiorun";
-    changelog = "https://github.com/cjrh/aiorun/blob/v${version}/CHANGES";
     license = licenses.asl20;
     maintainers = with maintainers; [ costrouc ];
   };

@@ -63,7 +63,7 @@ let
 
 in stdenv.mkDerivation rec {
 
-  pname = "vim-full";
+  pname = "vim_configurable";
 
   inherit (common) version postPatch hardeningDisable enableParallelBuilding meta;
 
@@ -109,7 +109,7 @@ in stdenv.mkDerivation rec {
   ++ lib.optionals luaSupport [
     "--with-lua-prefix=${lua}"
     "--enable-luainterp"
-  ] ++ lib.optionals lua.pkgs.isLuaJIT [
+  ] ++ lib.optional lua.pkgs.isLuaJIT [
     "--with-luajit"
   ]
   ++ lib.optionals pythonSupport [

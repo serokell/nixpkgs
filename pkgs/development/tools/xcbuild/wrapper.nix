@@ -1,5 +1,6 @@
-{ lib, stdenv, makeWrapper, writeText, writeTextFile, runCommand, callPackage
+{ lib, stdenv, makeWrapper, writeText, writeShellScriptBin, runCommand
 , CoreServices, ImageIO, CoreGraphics
+, runtimeShell, callPackage
 , xcodePlatform ? stdenv.targetPlatform.xcodePlatform or "MacOSX"
 , xcodeVer ? stdenv.targetPlatform.xcodeVer or "9.4.1"
 , sdkVer ? stdenv.targetPlatform.darwinSdkVersion or "10.12" }:
@@ -36,7 +37,7 @@ let
   '';
 
   xcode-select = writeText "xcode-select" ''
-#!${stdenv.shell}
+#!${runtimeShell}
 while [ $# -gt 0 ]; do
    case "$1" in
          -h | --help) ;; # noop
@@ -50,12 +51,7 @@ while [ $# -gt 0 ]; do
 done
   '';
 
-  xcrun = writeTextFile {
-    name = "xcrun";
-    executable = true;
-    destination = "/bin/xcrun";
-    text = ''
-#!${stdenv.shell}
+  xcrun = writeShellScriptBin "xcrun" ''
 args=( "$@" )
 
 # If an SDK was requested, check that it matches.
@@ -98,11 +94,7 @@ done
 if ! [[ -z "$@" ]]; then
    exec "$@"
 fi
-    '';
-    checkPhase = ''
-      ${stdenv.shellDryRun} "$target"
-    '';
-  };
+  '';
 
 in
 

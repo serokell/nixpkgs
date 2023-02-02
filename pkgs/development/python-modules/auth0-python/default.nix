@@ -29,7 +29,7 @@ buildPythonPackage rec {
   ]
   ++ pyjwt.optional-dependencies.crypto;
 
-  nativeCheckInputs = [
+  checkInputs = [
     aiohttp
     aioresponses
     callee

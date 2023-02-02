@@ -7,19 +7,19 @@
 
 buildPythonPackage rec {
   pname = "ofxtools";
-  version = "0.9.5";
+  version = "0.8.20";
 
-  disabled = pythonOlder "3.8";
+  disabled = pythonOlder "3.7";
 
   # PyPI distribution does not include tests
   src = fetchFromGitHub {
     owner = "csingley";
     repo = pname;
     rev = version;
-    sha256 = "sha256-NsImnD+erhpakQnl1neuHfSKiV6ipNBMPGKMDM0gwWc=";
+    sha256 = "1s3fhhmj1acnmqglh39003db0bi451m4hcrkcpyrkqf5m32lslz8";
   };
 
-  nativeCheckInputs = [ nose ];
+  checkInputs = [ nose ];
   # override $HOME directory:
   #   error: [Errno 13] Permission denied: '/homeless-shelter'
   checkPhase = ''

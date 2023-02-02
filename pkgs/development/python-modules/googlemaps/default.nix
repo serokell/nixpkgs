@@ -10,23 +10,19 @@
 
 buildPythonPackage rec {
   pname = "googlemaps";
-  version = "4.7.3";
-  format = "setuptools";
-
+  version = "4.6.0";
   disabled = pythonOlder "3.5";
 
   src = fetchFromGitHub {
     owner = "googlemaps";
     repo = "google-maps-services-python";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-SwNUoC4x1Z+cqBvuBtDZNZMDcs4XwLj7LWntZ4gZ+vo=";
+    rev = "v${version}";
+    sha256 = "sha256-pzCM1uZupqJgoogwacuuy1P8I9LF65w7ZS6vY10VgeU=";
   };
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-cov
     pytestCheckHook
     responses
@@ -38,14 +34,11 @@ buildPythonPackage rec {
     "test_transit_without_time"
   ];
 
-  pythonImportsCheck = [
-    "googlemaps"
-  ];
+  pythonImportsCheck = [ "googlemaps" ];
 
   meta = with lib; {
-    description = "Python client library for Google Maps API Web Services";
     homepage = "https://github.com/googlemaps/google-maps-services-python";
-    changelog = "https://github.com/googlemaps/google-maps-services-python/releases/tag/v${version}";
+    description = "Python client library for Google Maps API Web Services";
     license = licenses.asl20;
     maintainers = with maintainers; [ Scriptkiddi ];
   };

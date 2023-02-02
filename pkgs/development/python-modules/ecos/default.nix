@@ -37,7 +37,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nose
   ];
 

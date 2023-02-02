@@ -10,15 +10,15 @@
 
 buildPythonPackage rec {
   pname = "PyWavelets";
-  version = "1.4.1";
+  version = "1.3.0";
   disabled = isPy27;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-ZDevPd8IMRjCbY+Xq0OwckuVbJ+Vjp6niGWfaig0upM=";
+    sha256 = "sha256-y6qdYgUtna+Np2X8jnwww46iuOnhwYhBkT37SuxnHuU=";
   };
 
-  nativeCheckInputs = [ nose pytest ];
+  checkInputs = [ nose pytest ];
 
   buildInputs = [ cython ];
 

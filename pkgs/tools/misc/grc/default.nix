@@ -1,7 +1,6 @@
 { lib
 , fetchFromGitHub
 , buildPythonApplication
-, installShellFiles
 }:
 
 buildPythonApplication rec {
@@ -23,14 +22,10 @@ buildPythonApplication rec {
     done
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
-
   installPhase = ''
     runHook preInstall
-
     ./install.sh "$out" "$out"
-    installShellCompletion --zsh --name _grc _grc
-
+    install -Dm444 -t $out/share/zsh/vendor-completions _grc
     runHook postInstall
   '';
 

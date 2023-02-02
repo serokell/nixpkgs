@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
   };
 
   doCheck = true;
-  makeFlags = [ "-e" "LIBS=-lgc" ];
+  makeFlags = [ "-e" ];
+  makeFlagsArray="LIBS=-lgc";
 
   meta = with lib ; {
     description = "Follow a symlink and print out its target file";

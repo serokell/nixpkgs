@@ -1,4 +1,4 @@
-{ lib, stdenv, runCommand, buildEnv, vscode, vscode-utils, makeWrapper, writeTextFile
+{ lib, stdenv, runCommand, buildEnv, vscode, makeWrapper
 , vscodeExtensions ? [] }:
 
 /*
@@ -46,22 +46,18 @@ let
   wrappedPkgVersion = lib.getVersion vscode;
   wrappedPkgName = lib.removeSuffix "-${wrappedPkgVersion}" vscode.name;
 
-  extensionJsonFile = writeTextFile {
-    name = "vscode-extensions-json";
-    destination = "/share/vscode/extensions/extensions.json";
-    text = vscode-utils.toExtensionJson vscodeExtensions;
-  };
-
   combinedExtensionsDrv = buildEnv {
     name = "vscode-extensions";
-    paths = vscodeExtensions ++ [ extensionJsonFile ];
+    paths = vscodeExtensions;
   };
 
-  extensionsFlag = ''
+  extensionsFlag = lib.optionalString (vscodeExtensions != []) ''
     --add-flags "--extensions-dir ${combinedExtensionsDrv}/share/vscode/extensions"
   '';
 in
 
+# When no extensions are requested, we simply redirect to the original
+# non-wrapped vscode executable.
 runCommand "${wrappedPkgName}-with-extensions-${wrappedPkgVersion}" {
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ vscode ];

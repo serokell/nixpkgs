@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     gbenchmark
     gtest
   ];

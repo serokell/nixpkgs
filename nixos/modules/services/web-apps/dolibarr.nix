@@ -1,11 +1,11 @@
 { config, pkgs, lib, ... }:
 let
-  inherit (lib) any boolToString concatStringsSep isBool isString mapAttrsToList mkDefault mkEnableOption mkIf mkMerge mkOption optionalAttrs types;
+  inherit (lib) any boolToString concatStringsSep isBool isString literalExpression mapAttrsToList mkDefault mkEnableOption mkIf mkOption optionalAttrs types;
 
   package = pkgs.dolibarr.override { inherit (cfg) stateDir; };
 
   cfg = config.services.dolibarr;
-  vhostCfg = lib.optionalAttr (cfg.nginx != null) config.services.nginx.virtualHosts."${cfg.domain}";
+  vhostCfg = config.services.nginx.virtualHosts."${cfg.domain}";
 
   mkConfigFile = filename: settings:
     let
@@ -38,7 +38,7 @@ let
     force_install_database = cfg.database.name;
     force_install_databaselogin = cfg.database.user;
 
-    force_install_mainforcehttps = vhostCfg.forceSSL or false;
+    force_install_mainforcehttps = vhostCfg.forceSSL;
     force_install_createuser = false;
     force_install_dolibarrlogin = null;
   } // optionalAttrs (cfg.database.passwordFile != null) {
@@ -183,8 +183,7 @@ in
   };
 
   # implementation
-  config = mkIf cfg.enable (mkMerge [
-    {
+  config = mkIf cfg.enable {
 
     assertions = [
       { assertion = cfg.database.createLocally -> cfg.database.user == cfg.user;
@@ -215,7 +214,7 @@ in
 
       # Security settings
       dolibarr_main_prod = true;
-      dolibarr_main_force_https = vhostCfg.forceSSL or false;
+      dolibarr_main_force_https = vhostCfg.forceSSL;
       dolibarr_main_restrict_os_commands = "${pkgs.mariadb}/bin/mysqldump, ${pkgs.mariadb}/bin/mysql";
       dolibarr_nocsrfcheck = false;
       dolibarr_main_instance_unique_id = ''
@@ -315,9 +314,7 @@ in
     users.groups = optionalAttrs (cfg.group == "dolibarr") {
       dolibarr = { };
     };
-  }
-  (mkIf (cfg.nginx != null) {
-    users.users."${config.services.nginx.group}".extraGroups = mkIf (cfg.nginx != null) [ cfg.group ];
-  })
-]);
+
+    users.users."${config.services.nginx.group}".extraGroups = [ cfg.group ];
+  };
 }

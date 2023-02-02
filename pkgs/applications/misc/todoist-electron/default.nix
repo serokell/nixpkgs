@@ -1,12 +1,12 @@
-{ lib, stdenv, fetchurl, appimageTools, makeWrapper, electron_21, libsecret }:
+{ lib, stdenv, fetchurl, appimageTools, makeWrapper, electron_15, libsecret }:
 
 stdenv.mkDerivation rec {
   pname = "todoist-electron";
-  version = "1.0.9";
+  version = "1.0.3";
 
   src = fetchurl {
     url = "https://electron-dl.todoist.com/linux/Todoist-${version}.AppImage";
-    sha256 = "sha256-DfNFDiGYTFGetVRlAjpV/cdWcGzRDEGZjR0Dc9aAtXc=";
+    sha256 = "sha256-bHX/RWDfe+ht66U7xg4HBZxeWlNBu4gYlIVd+9OuMNU=";
   };
 
   appimageContents = appimageTools.extractType2 {
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   '';
 
   postFixup = ''
-    makeWrapper ${electron_21}/bin/electron $out/bin/${pname} \
+    makeWrapper ${electron_15}/bin/electron $out/bin/${pname} \
       --add-flags $out/share/${pname}/resources/app.asar \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ stdenv.cc.cc libsecret ]}"
   '';

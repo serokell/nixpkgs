@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     sqlite
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     dbus
     (python3.withPackages (pp: with pp; [
       python-dbusmock
@@ -119,6 +119,6 @@ stdenv.mkDerivation rec {
     homepage = "https://wiki.gnome.org/Projects/Folks";
     license = licenses.lgpl2Plus;
     maintainers = teams.gnome.members;
-    platforms = platforms.unix;
+    platforms = platforms.gnu ++ platforms.linux; # arbitrary choice
   };
 }

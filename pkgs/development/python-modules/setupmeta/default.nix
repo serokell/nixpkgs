@@ -32,7 +32,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     git
     mock
     pep440

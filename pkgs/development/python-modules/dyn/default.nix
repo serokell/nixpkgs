@@ -12,7 +12,7 @@ buildPythonPackage rec {
 
   buildInputs = [ glibcLocales ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest
     pytest-cov
     mock

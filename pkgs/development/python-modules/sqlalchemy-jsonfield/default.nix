@@ -4,55 +4,41 @@
 , sqlalchemy
 , setuptools-scm
 , setuptools
+, tox
 , sphinx
-, pytestCheckHook
+, pytest
+, pytest-cov
+, pytest-html
 , pytest-sugar
+, coverage
 , pymysql
-, psycopg2
-, pythonOlder
-}:
+, psycopg2 }:
 
 buildPythonPackage rec {
   pname = "sqlalchemy-jsonfield";
-  version = "1.0.1.post0";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "penguinolog";
     repo = "sqlalchemy_jsonfield";
-    rev = "refs/tags/${version}";
-    sha256 = "sha256-dSvqUXZzr+s/v8QEtqrv6slI7p1akXwAxi68D9ctyuU=";
+    rev = version;
+    sha256 = "015pl4z84spfw8389hk1szlm37jgw2basvbmzmkacdqi0685zx24";
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = "v${version}";
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
+  propagatedBuildInputs = [ sqlalchemy setuptools ];
+  checkInputs = [ tox sphinx pytest pytest-cov pytest-html pytest-sugar coverage pymysql psycopg2 ];
 
-  propagatedBuildInputs = [
-    sqlalchemy
-    setuptools
-  ];
-
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-sugar
-    pymysql
-    psycopg2
-  ];
-
-  pythonImportsCheck = [
-    "sqlalchemy_jsonfield"
-  ];
+  checkPhase = ''
+    TOX_TESTENV_PASSENV="PYTHONPATH SETUPTOOLS_SCM_PRETEND_VERSION" tox -e functional
+  '';
 
   meta = with lib; {
-    description = "SQLALchemy JSONField implementation for storing dicts at SQL independently from JSON type support";
     homepage = "https://github.com/penguinolog/sqlalchemy_jsonfield";
-    changelog = "https://github.com/penguinolog/sqlalchemy_jsonfield/releases/tag/${version}";
+    description = "SQLALchemy JSONField implementation for storing dicts at SQL independently from JSON type support";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ivan-tkatchev ];
+    maintainers = [ maintainers.ivan-tkatchev ];
   };
 }

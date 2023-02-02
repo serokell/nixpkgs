@@ -1,51 +1,36 @@
 { lib
 , buildPythonPackage
-, fetchFromGitHub
-, poetry-core
+, fetchPypi
+, unittest2
 , pyasn1
-, pytestCheckHook
+, mock
+, isPy3k
 , pythonOlder
 }:
 
 buildPythonPackage rec {
   pname = "rsa";
   version = "4.9";
-  format = "pyproject";
 
-  disabled = pythonOlder "3.6";
-
-  src = fetchFromGitHub {
-    owner = "sybrenstuvel";
-    repo = "python-rsa";
-    rev = "version-${version}";
-    hash = "sha256-PwaRe+ICy0UoguXSMSh3PFl5R+YAhJwNdNN9isadlJY=";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "sha256-44RkpJxshdfxNRsBJmYUh6fgoUpQ8WdexQ6zTU8g7yE=";
   };
 
-  preConfigure = lib.optionalString (pythonOlder "3.7") ''
+  checkInputs = [ unittest2 mock ];
+  propagatedBuildInputs = [ pyasn1 ];
+
+  preConfigure = lib.optionalString (isPy3k && pythonOlder "3.7") ''
     substituteInPlace setup.py --replace "open('README.md')" "open('README.md',encoding='utf-8')"
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
-
-  propagatedBuildInputs = [ pyasn1 ];
-
-  preCheck = ''
-    sed -i '/addopts/d' tox.ini
-  '';
-
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
-
-  disabledTestPaths = [
-    "tests/test_mypy.py"
-  ];
+  # No tests in archive
+  doCheck = false;
 
   meta = with lib; {
     homepage = "https://stuvel.eu/rsa";
     license = licenses.asl20;
     description = "A pure-Python RSA implementation";
   };
+
 }

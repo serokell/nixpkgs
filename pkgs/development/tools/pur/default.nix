@@ -18,7 +18,7 @@ python3.pkgs.buildPythonApplication rec {
     python3.pkgs.click
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     python3.pkgs.pytestCheckHook
   ];
 

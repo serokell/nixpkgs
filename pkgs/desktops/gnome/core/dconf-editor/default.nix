@@ -73,6 +73,6 @@ stdenv.mkDerivation rec {
     homepage = "https://wiki.gnome.org/Apps/DconfEditor";
     license = licenses.gpl3Plus;
     maintainers = teams.gnome.members;
-    platforms = platforms.unix;
+    platforms = platforms.linux;
   };
 }

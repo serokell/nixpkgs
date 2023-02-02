@@ -17,7 +17,7 @@ in {
       default = null;
       example = "/root/wiki-js.env";
       description = lib.mdDoc ''
-        Environment file to inject e.g. secrets into the configuration.
+        Environment fiel to inject e.g. secrets into the configuration.
       '';
     };
 
@@ -113,13 +113,7 @@ in {
       documentation = [ "https://docs.requarks.io/" ];
       wantedBy = [ "multi-user.target" ];
 
-      path = with pkgs; [
-        # Needed for git storage.
-        git
-        # Needed for git+ssh storage.
-        openssh
-      ];
-
+      path = with pkgs; [ coreutils ];
       preStart = ''
         ln -sf ${configFile} /var/lib/${cfg.stateDirectoryName}/config.yml
         ln -sf ${pkgs.wiki-js}/server /var/lib/${cfg.stateDirectoryName}

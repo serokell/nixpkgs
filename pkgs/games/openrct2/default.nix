@@ -26,25 +26,25 @@
 }:
 
 let
-  openrct2-version = "0.4.3";
+  openrct2-version = "0.4.2";
 
   # Those versions MUST match the pinned versions within the CMakeLists.txt
   # file. The REPLAYS repository from the CMakeLists.txt is not necessary.
-  objects-version = "1.3.7";
+  objects-version = "1.3.5";
   title-sequences-version = "0.4.0";
 
   openrct2-src = fetchFromGitHub {
     owner = "OpenRCT2";
     repo = "OpenRCT2";
     rev = "v${openrct2-version}";
-    sha256 = "sha256-TAe9b7uqdC8XzwDWZkyYKFV+Rn2AeR3MMBZ1lo9pRis=";
+    sha256 = "sha256-38syOFZm0eGCI1vbJxG8truX5vuafwSG0lp2o499zUs=";
   };
 
   objects-src = fetchFromGitHub {
     owner = "OpenRCT2";
     repo = "objects";
     rev = "v${objects-version}";
-    sha256 = "sha256-6c6bbXFi6iqmOOfqggXv3DyYgo4+eiPUIDnkKAAhX5s=";
+    sha256 = "sha256-S9fjgtb45vhRTWnYEgmIlKej5fGBtnhKOn35npmX70U=";
   };
 
   title-sequences-src = fetchFromGitHub {

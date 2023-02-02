@@ -11,7 +11,7 @@
 
 buildPythonPackage rec {
   pname = "roonapi";
-  version = "0.1.3";
+  version = "0.1.1";
   format = "pyproject";
 
   disabled = pythonOlder "3.7";
@@ -20,7 +20,7 @@ buildPythonPackage rec {
     owner = "pavoni";
     repo = "pyroon";
     rev = version;
-    hash = "sha256-QOFBNTz8g3f6C8Vjkblrd3QFCRrA1WqOCv6xS4GbFC4=";
+    sha256 = "sha256-GEgm250uALTXIEMBWmluqGw/dw2TfGmUIcItfzonGkU=";
   };
 
   nativeBuildInputs = [
@@ -44,7 +44,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library to interface with the Roon API";
     homepage = "https://github.com/pavoni/pyroon";
-    changelog = "https://github.com/pavoni/pyroon/releases/tag/${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

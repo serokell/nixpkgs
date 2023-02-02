@@ -1,23 +1,22 @@
-{ lib, fetchFromGitHub, buildGoModule }:
+{ lib, fetchFromGitHub, buildGoPackage }:
 
-buildGoModule rec {
+buildGoPackage rec {
   pname = "lnch";
-  version = "unstable-2021-08-15";
+  version = "unstable-2021-02-10";
+
+  goPackagePath = "github.com/oem/${pname}";
 
   src = fetchFromGitHub {
     owner = "oem";
     repo = pname;
-    rev = "56b5e256b46c002821bef3b9c1b6f68b9dbb4207";
-    sha256 = "sha256-Iro/FjPFMqulcK90MbludnOXkMEHW0QSCoQRL01/LDE";
+    rev = "6ed336dd893afa071178b8ac6f6297d23fc55514";
+    sha256 = "K2TV+mx6C3/REJyDpC6a/Zn/ZZFxkDMC3EnkveH6YNQ=";
   };
-
-  vendorSha256 = "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo";
-
-  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
     homepage = "https://github.com/oem/lnch";
     description = "Launches a process and moves it out of the process group";
     license = licenses.mit;
+    platforms = with platforms; all;
   };
 }

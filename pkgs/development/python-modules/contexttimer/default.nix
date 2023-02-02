@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "contexttimer" ];
 
-  nativeCheckInputs = [ mock ];
+  checkInputs = [ mock ];
 
   checkPhase = ''
     ${python.interpreter} -m unittest tests/test_timer.py

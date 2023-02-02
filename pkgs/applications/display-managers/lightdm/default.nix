@@ -30,6 +30,8 @@
 , yelp-tools
 }:
 
+with lib;
+
 stdenv.mkDerivation rec {
   pname = "lightdm";
   version = "1.32.0";
@@ -67,7 +69,7 @@ stdenv.mkDerivation rec {
     libxklavier
     pam
     polkit
-  ] ++ lib.optional withQt5 qtbase;
+  ] ++ optional withQt5 qtbase;
 
   patches = [
     # Adds option to disable writing dmrc files
@@ -94,7 +96,7 @@ stdenv.mkDerivation rec {
     "--sysconfdir=/etc"
     "--disable-tests"
     "--disable-dmrc"
-  ] ++ lib.optional withQt5 "--enable-liblightdm-qt5";
+  ] ++ optional withQt5 "--enable-liblightdm-qt5";
 
   installFlags = [
     "sysconfdir=${placeholder "out"}/etc"
@@ -114,11 +116,13 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      attrPath = pname;
+    };
   };
 
 
-  meta = with lib; {
+  meta = {
     homepage = "https://github.com/canonical/lightdm";
     description = "A cross-desktop display manager";
     platforms = platforms.linux;

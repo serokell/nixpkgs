@@ -40,8 +40,4 @@ mkDerivation rec {
   homepage = "https://github.com/Synthetica9/nix-linter";
   license = lib.licenses.bsd3;
   maintainers = [ lib.maintainers.marsam ];
-
-  # doesn't build on ghc92
-  hydraPlatforms = lib.platforms.none;
-  broken = true;
 }

@@ -45,7 +45,7 @@ buildPythonPackage rec {
     future
   ];
 
-  nativeCheckInputs = with py.pkgs; [
+  checkInputs = with py.pkgs; [
     mock
     pytest
     coverage

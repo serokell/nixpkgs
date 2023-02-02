@@ -70,7 +70,7 @@ in
       };
 
       port = mkOption {
-        type = types.port;
+        type = types.int;
         default = 443;
         description = lib.mdDoc "Listening port.";
       };

@@ -120,7 +120,7 @@ in
     # Services
 
     systemd.services."vmware-authdlauncher" = {
-      description = "VMware Authentication Daemon";
+      description = "VMware Authentification Daemon";
       serviceConfig = {
         Type = "forking";
         ExecStart = [ "${cfg.package}/bin/vmware-authdlauncher" ];

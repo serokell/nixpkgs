@@ -12,8 +12,8 @@
 
 buildPythonPackage rec {
   pname = "psycopg2";
-  version = "2.9.5";
-  format = "setuptools";
+  version = "2.9.3";
+  outputs = [ "out" "doc" ];
 
   # Extension modules don't work well with PyPy. Use psycopg2cffi instead.
   # c.f. https://github.com/NixOS/nixpkgs/pull/104151#issuecomment-729750892
@@ -21,10 +21,8 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-pSRtLmg6ly4hh6hxS1ws+BVsBkYp+amxqHPBcw2eJFo=";
+    sha256 = "8e841d1bf3434da985cc5ef13e6f75c8981ced601fd70cc6bf33351b91562981";
   };
-
-  outputs = [ "out" "doc" ];
 
   nativeBuildInputs = [
     postgresql
@@ -38,17 +36,15 @@ buildPythonPackage rec {
 
   sphinxRoot = "doc/src";
 
-  # Requires setting up a PostgreSQL database
+  # requires setting up a postgresql database
   doCheck = false;
 
-  pythonImportsCheck = [
-    "psycopg2"
-  ];
+  pythonImportsCheck = [ "psycopg2" ];
 
   meta = with lib; {
     description = "PostgreSQL database adapter for the Python programming language";
     homepage = "https://www.psycopg.org";
-    license = with licenses; [ lgpl3Plus zpl20 ];
+    license = with licenses; [ lgpl3 zpl20 ];
     maintainers = with maintainers; [ ];
   };
 }

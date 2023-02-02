@@ -26,7 +26,7 @@ buildPythonPackage rec {
     pyparsing
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     chardet
     pytestCheckHook
   ];

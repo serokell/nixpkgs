@@ -1,6 +1,6 @@
 { lib, stdenv, fetchurl, fetchpatch, pkg-config
 , libsndfile, libtool, makeWrapper, perlPackages
-, xorg, libcap, alsa-lib, glib, dconf
+, xlibsWrapper, xorg, libcap, alsa-lib, glib, dconf
 , avahi, libjack2, libasyncns, lirc, dbus
 , sbc, bluez5, udev, openssl, fftwFloat
 , soxr, speexdsp, systemd, webrtc-audio-processing
@@ -9,7 +9,7 @@
 
 , x11Support ? false
 
-, useSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
+, useSystemd ? stdenv.isLinux
 
 , # Whether to support the JACK sound system as a backend.
   jackaudioSupport ? false
@@ -48,9 +48,9 @@ stdenv.mkDerivation rec {
     # Install sysconfdir files inside of the nix store,
     # but use a conventional runtime sysconfdir outside the store
     ./add-option-for-installation-sysconfdir.patch
-    # https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/merge_requests/654 (merged)
+    # https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/merge_requests/654
     ./0001-Make-gio-2.0-optional-16.patch
-    # https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/merge_requests/746 (merged)
+    # TODO (not sent upstream)
     ./0002-Ignore-SCM_CREDS-on-darwin.patch
     ./0003-Ignore-HAVE_CPUID_H-on-aarch64-darwin.patch
     ./0004-Prefer-HAVE_CLOCK_GETTIME-on-darwin.patch
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!libOnly) (
       [ libasyncns webrtc-audio-processing ]
       ++ lib.optional jackaudioSupport libjack2
-      ++ lib.optionals x11Support [ xorg.libICE xorg.libSM xorg.libX11 xorg.libXi xorg.libXtst ]
+      ++ lib.optionals x11Support [ xlibsWrapper xorg.libXtst xorg.libXi ]
       ++ lib.optional useSystemd systemd
       ++ lib.optionals stdenv.isLinux [ alsa-lib udev ]
       ++ lib.optional airtunesSupport openssl
@@ -165,11 +165,6 @@ stdenv.mkDerivation rec {
   + lib.optionalString (!libOnly) ''
     mkdir -p $out/bin
     ln -st $out/bin $out/.bin-unwrapped/*
-
-    # Ensure that service files use the wrapped binaries.
-    find "$out" -name "*.service" | while read f; do
-        substituteInPlace "$f" --replace "$out/.bin-unwrapped/" "$out/bin/"
-    done
   '';
 
   meta = {

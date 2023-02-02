@@ -1,13 +1,15 @@
 { lib, stdenv, fetchFromGitHub }:
 
+with lib;
+
 stdenv.mkDerivation rec {
   pname = "kakoune-unwrapped";
-  version = "2022.10.31";
+  version = "2021.11.08";
   src = fetchFromGitHub {
     repo = "kakoune";
     owner = "mawww";
     rev = "v${version}";
-    sha256 = "sha256-vmzGaGl0KSjseSD/s6DXxvMUTmAle+Iv/ZP9llaFnXk=";
+    sha256 = "sha256-lMGMt0H1G8EN/7zSVSvU1yU4BYPnSF1vWmozLdrRTQk=";
   };
   makeFlags = [ "debug=no" "PREFIX=${placeholder "out"}" ];
 
@@ -31,7 +33,7 @@ stdenv.mkDerivation rec {
     ln -s --relative "$autoload_target" autoload
   '';
 
-  meta = with lib; {
+  meta = {
     homepage = "http://kakoune.org/";
     description = "A vim inspired text editor";
     license = licenses.publicDomain;

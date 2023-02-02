@@ -11,13 +11,13 @@
 
 stdenv.mkDerivation rec {
   pname = "stalonetray";
-  version = "0.8.5";
+  version = "0.8.4";
 
   src = fetchFromGitHub {
     owner = "kolbusa";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-/55oP6xA1LeLawOBkhh9acaDcObO4L4ojcy7e3vwnBw=";
+    sha256 = "sha256-grxPqSYPLUstLIOKqzMActaSQ2ftYrjbalfR4HcPDRY=";
   };
 
   preConfigure =

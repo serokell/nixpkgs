@@ -1,31 +1,37 @@
-{ lib
-, stdenv
-, libusb1
-}:
+{lib, stdenv, fetchurl}:
 
 stdenv.mkDerivation rec {
   pname = "fxload";
-  version = libusb1.version;
-  dontUnpack = true;
-  dontBuild = true;
-  dontConfigure = true;
-  dontInstall = true;
-  dontPatch = true;
-  dontPatchELF = true;
+  version = "2002.04.11";
 
-  # fxload binary exist inside the `examples/bin` directory of `libusb1`
-  postFixup = ''
-    mkdir -p $out/bin
-    ln -s ${passthru.libusb}/examples/bin/fxload $out/bin/fxload
+  src = fetchurl {
+    url = "mirror://sourceforge/linux-hotplug/fxload-${lib.replaceStrings ["."] ["_"] version}.tar.gz";
+    sha256 = "1hql93bp3dxrv1p67nc63xsbqwljyynm997ysldrc3n9ifi6s48m";
+  };
+
+  patches = [
+    # Will be needed after linux-headers is updated to >= 2.6.21.
+    (fetchurl {
+      url = "http://sources.gentoo.org/viewcvs.py/*checkout*/gentoo-x86/sys-apps/fxload/files/fxload-20020411-linux-headers-2.6.21.patch?rev=1.1";
+      sha256 = "0ij0c8nr1rbyl5wmyv1cklhkxglvsqz32h21cjw4bjm151kgmk7p";
+    })
+  ];
+
+  preBuild = ''
+    substituteInPlace Makefile --replace /usr /
+    makeFlagsArray=(INSTALL=install prefix=$out)
   '';
 
-  passthru.libusb = libusb1.override { withExamples = true; };
+  preInstall = ''
+    mkdir -p $out/sbin
+    mkdir -p $out/share/man/man8
+    mkdir -p $out/share/usb
+  '';
 
   meta = with lib; {
-    homepage = "https://github.com/libusb/libusb";
-    description = "Tool to upload firmware to into an21, fx, fx2, fx2lp and fx3 ez-usb devices";
-    license = licenses.gpl2Only;
+    homepage = "http://linux-hotplug.sourceforge.net/?selected=usb";
+    description = "Tool to upload firmware to Cypress EZ-USB microcontrollers";
+    license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ realsnick ];
   };
 }

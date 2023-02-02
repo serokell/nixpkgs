@@ -6,7 +6,8 @@ in
 stdenvNoCC.mkDerivation rec {
   pname = "semgrep-core";
   inherit (common) version;
-  inherit (common.core) src;
+
+  src = common.coreRelease;
 
   installPhase = ''
     runHook preInstall

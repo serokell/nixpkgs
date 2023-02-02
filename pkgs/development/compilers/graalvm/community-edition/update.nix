@@ -67,7 +67,6 @@ let
       "ruby-installable-svm" = ".jar";
       "wasm-installable-svm" = ".jar";
       "python-installable-svm" = ".jar";
-      "js-installable-svm" = ".jar";
     }.${productName};
 
   # getProductSuffix :: String -> String
@@ -78,7 +77,6 @@ let
       "ruby-installable-svm" = "https://github.com/oracle/truffleruby/releases/download";
       "wasm-installable-svm" = "https://github.com/graalvm/graalvm-ce-builds/releases/download";
       "python-installable-svm" = "https://github.com/graalvm/graalpython/releases/download";
-      "js-installable-svm" = "https://github.com/oracle/graaljs/releases/download";
     }.${productName};
 
   # getDevUrl :: String

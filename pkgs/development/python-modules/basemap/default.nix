@@ -16,16 +16,22 @@
 
 buildPythonPackage rec {
   pname = "basemap";
-  version = "1.3.6";
+  version = "1.3.4";
 
   src = fetchFromGitHub {
     owner = "matplotlib";
     repo = "basemap";
     rev = "refs/tags/v${version}";
-    hash = "sha256-BSWifzh+Y1f+x89oNYMBvttWY9qZ0IM5QYqSgyVb1fE=";
+    sha256 = "sha256-F/6xPmdXSJAuASyFaKOP+6Jz8U2JRZdqErEH7PFkr/w=";
   };
 
   sourceRoot = "source/packages/basemap";
+
+  postPatch = ''
+    substituteInPlace requirements.txt \
+      --replace "numpy >= 1.21, < 1.23" "numpy >= 1.21, < 1.24" \
+      --replace "pyshp >= 1.2, < 2.2" "pyshp >= 1.2, < 2.4"
+  '';
 
   nativeBuildInputs = [
     cython

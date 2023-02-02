@@ -23,7 +23,7 @@ buildPythonPackage rec {
     installShellFiles
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

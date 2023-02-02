@@ -7,22 +7,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "qdrant";
-  version = "0.11.2";
+  version = "0.9.1";
 
   src = fetchFromGitHub {
     owner = "qdrant";
     repo = "qdrant";
     rev = "refs/tags/v${version}";
-    sha256 = "sha256-MT2k4k/g97iXVUCz1dYJdL+JBCLKTWqE2u2Yiuvd/nw=";
+    sha256 = "sha256-rOIWiSpAqIUf2V9BMMTZqF/urz754pZV4yHav26dxqY=";
   };
 
-  cargoSha256 = "sha256-86F7B+SKaAxu7c3kyYurI5jPnnbvtdD0jouNCzT0A50=";
-
-  prePatch = lib.optionalString stdenv.isAarch64 ''
-    substituteInPlace .cargo/config.toml \
-      --replace "[target.aarch64-unknown-linux-gnu]" "" \
-      --replace "linker = \"aarch64-linux-gnu-gcc\"" ""
-  '';
+  cargoSha256 = "sha256-ovHxtOYlzVsALw/4bhL9EcFXaKr6Bg/D0w6OPMCLZoQ=";
 
   nativeBuildInputs = [ protobuf rustPlatform.bindgenHook ];
 

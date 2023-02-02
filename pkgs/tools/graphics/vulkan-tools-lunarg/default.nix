@@ -11,7 +11,6 @@
 , libffi
 , libxcb
 , wayland
-, which
 , xcbutilkeysyms
 , xcbutilwm
 , vulkan-headers
@@ -24,18 +23,18 @@
 stdenv.mkDerivation rec {
   pname = "vulkan-tools-lunarg";
   # The version must match that in vulkan-headers
-  version = "1.3.236.0";
+  version = "1.3.224.1";
 
   src = (assert version == vulkan-headers.version;
     fetchFromGitHub {
       owner = "LunarG";
       repo = "VulkanTools";
       rev = "sdk-${version}";
-      hash = "sha256-0dGD3InmEd9hO8+uVGMqBHXXfyX8tswyuOaZCftudz0=";
+      hash = "sha256-YQv6YboyQJjLTEKspZQdV8YFhHux/4RIncHXOsz1cBw=";
       fetchSubmodules = true;
     });
 
-  nativeBuildInputs = [ cmake python3 jq which ];
+  nativeBuildInputs = [ cmake python3 jq ];
 
   buildInputs = [
     expat
@@ -81,8 +80,6 @@ stdenv.mkDerivation rec {
       mv tmp.json "$f"
     done
   '';
-
-  patches = [ ./gtest.patch ];
 
   # Same as vulkan-validation-layers
   dontPatchELF = true;

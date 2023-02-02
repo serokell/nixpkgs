@@ -120,6 +120,7 @@ in {
                     " -conf ${pkgs.writeText "hound.json" cfg.config}";
 
       };
+      path = [ pkgs.git pkgs.mercurial pkgs.openssh ];
     };
   };
 

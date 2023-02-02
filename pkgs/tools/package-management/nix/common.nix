@@ -11,7 +11,6 @@ let
   atLeast25 = lib.versionAtLeast version "2.5pre";
   atLeast27 = lib.versionAtLeast version "2.7pre";
   atLeast210 = lib.versionAtLeast version "2.10pre";
-  atLeast213 = lib.versionAtLeast version "2.13pre";
 in
 { stdenv
 , autoconf-archive
@@ -38,7 +37,6 @@ in
 , libsodium
 , lowdown
 , mdbook
-, mdbook-linkcheck
 , nlohmann_json
 , openssl
 , perl
@@ -85,8 +83,6 @@ self = stdenv.mkDerivation {
   ] ++ lib.optionals (atLeast24 && enableDocumentation) [
     (lib.getBin lowdown)
     mdbook
-  ] ++ lib.optionals (atLeast213 && enableDocumentation) [
-    mdbook-linkcheck
   ] ++ lib.optionals stdenv.isLinux [
     util-linuxMinimal
   ];
@@ -117,7 +113,7 @@ self = stdenv.mkDerivation {
 
   propagatedBuildInputs = [
     boehmgc
-  ] ++ lib.optionals (atLeast27) [
+  ] ++ lib.optional (atLeast27) [
     nlohmann_json
   ];
 

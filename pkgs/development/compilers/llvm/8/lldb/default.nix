@@ -23,9 +23,6 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./gnu-install-dirs.patch
-
-    # Fix darwin build
-    ./lldb-gdb-remote-no-libcompress.patch
   ];
 
   postPatch = ''
@@ -36,9 +33,6 @@ stdenv.mkDerivation rec {
       cmake/modules/LLDBStandalone.cmake
     sed -i 's,"$.LLVM_LIBRARY_DIR.",${libllvm.lib}/lib ${libclang.lib}/lib,' \
       cmake/modules/LLDBStandalone.cmake
-
-    substituteInPlace tools/CMakeLists.txt \
-      --replace "add_subdirectory(debugserver)" ""
   '';
 
   outputs = [ "out" "lib" "dev" ];
@@ -52,11 +46,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals stdenv.isDarwin [
     darwin.libobjc
     darwin.apple_sdk.libs.xpc
-    darwin.apple_sdk.frameworks.Foundation
-    darwin.bootstrap_cmds
-    darwin.apple_sdk.frameworks.Carbon
-    darwin.apple_sdk.frameworks.Cocoa
-    darwin.apple_sdk.frameworks.DebugSymbols
+    darwin.apple_sdk.frameworks.Foundation darwin.bootstrap_cmds darwin.apple_sdk.frameworks.Carbon darwin.apple_sdk.frameworks.Cocoa
   ];
 
   CXXFLAGS = "-fno-rtti";
@@ -65,9 +55,6 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DLLDB_INCLUDE_TESTS=${if doCheck then "YES" else "NO"}"
     "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
-  ] ++ lib.optionals stdenv.isDarwin [
-    # Building debugserver requires the proprietary libcompression
-    "-DLLDB_NO_DEBUGSERVER=ON"
   ] ++ lib.optionals doCheck [
     "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
     "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
@@ -93,7 +80,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = llvm_meta // {
-    broken = stdenv.isDarwin && stdenv.isAarch64;
+    broken = stdenv.isDarwin;
     homepage = "https://lldb.llvm.org/";
     description = "A next-generation high-performance debugger";
     longDescription = ''

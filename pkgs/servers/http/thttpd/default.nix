@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, libxcrypt }:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "thttpd";
@@ -13,10 +13,6 @@ stdenv.mkDerivation rec {
     sed -i -e 's/getline/getlineX/' extras/htpasswd.c
     sed -i -e 's/chmod 2755/chmod 755/' extras/Makefile.in
   '';
-
-  buildInputs = [
-    libxcrypt
-  ];
 
   preInstall = ''
     mkdir -p "$out/man/man1"

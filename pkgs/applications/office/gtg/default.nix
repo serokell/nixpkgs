@@ -55,7 +55,7 @@ python3Packages.buildPythonApplication rec {
     caldav
   ];
 
-  nativeCheckInputs = with python3Packages; [
+  checkInputs = with python3Packages; [
     nose
     mock
     xvfb-run

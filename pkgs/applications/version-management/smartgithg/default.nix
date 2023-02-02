@@ -1,5 +1,4 @@
-{ lib
-, stdenv
+{ lib, stdenv
 , fetchurl
 , makeDesktopItem
 , jre
@@ -13,11 +12,11 @@
 
 stdenv.mkDerivation rec {
   pname = "smartgithg";
-  version = "22.1.1";
+  version = "21.2.2";
 
   src = fetchurl {
     url = "https://www.syntevo.com/downloads/smartgit/smartgit-linux-${builtins.replaceStrings [ "." ] [ "_" ] version}.tar.gz";
-    sha256 = "sha256-twN1Clnj17A2IUOOhvs8hs6PuvC81j9GqF0yKIk3IkQ=";
+    sha256 = "10v6sg0lmjby3v8g3sk2rzzvdx5p69ia4zz2c0hbf30rk0p6gqn3";
   };
 
   nativeBuildInputs = [ wrapGAppsHook ];
@@ -35,10 +34,7 @@ stdenv.mkDerivation rec {
       --prefix JRE_HOME : ${jre} \
       --prefix JAVA_HOME : ${jre} \
       --prefix SMARTGITHG_JAVA_HOME : ${jre} \
-    )
-    # add missing shebang for start script
-    sed -i $out/bin/smartgit \
-      -e '1i#!/bin/bash'
+    ) \
   '';
 
   installPhase = ''

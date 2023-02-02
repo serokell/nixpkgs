@@ -24,7 +24,7 @@ buildPythonPackage rec {
     dbus-python
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     hypothesis
     hs-dbus-signature

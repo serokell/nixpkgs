@@ -30,7 +30,7 @@ buildPythonPackage rec {
     geopy
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     aioresponses
     freezegun
     mock

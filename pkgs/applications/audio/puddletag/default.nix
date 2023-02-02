@@ -1,8 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-, wrapQtAppsHook
-}:
+{ lib, fetchFromGitHub, python3Packages, wrapQtAppsHook }:
 
 # As of 2.1, puddletag has started pinning versions of all dependencies that it
 # was built against which is an issue as the chances of us having the exact same
@@ -18,11 +14,18 @@
 # ignoring the pinned versions, it's just something we will have to accept
 # unless we want to vendor those versions.
 
+let
+  # NOTE: check if we can drop any of these overrides when bumping the version
+  overrideVersions = [
+    "lxml"
+    "pyparsing"
+    "pyqt5"
+  ];
 
-python3.pkgs.buildPythonApplication rec {
+in
+python3Packages.buildPythonApplication rec {
   pname = "puddletag";
   version = "2.2.0";
-  format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "puddletag";
@@ -31,37 +34,33 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-KaFfpOWI9u2ZC/3kuCLneWOOKSmAaIuHPFHptkKMH/g=";
   };
 
-  pythonRelaxDeps = true;
-
-  pythonRemoveDeps = [
-    "chromaprint"
-    "pyqt5-qt5"
-  ];
-
   postPatch = ''
     substituteInPlace setup.py \
       --replace share/pixmaps share/icons
-  '';
 
-  nativeBuildInputs = [
-    python3.pkgs.pythonRelaxDepsHook
-    wrapQtAppsHook
-  ];
+    cp requirements.in requirements.txt
+    sed -i requirements.txt -e 's/^chromaprint$//'
+  '' + lib.concatMapStringsSep "\n"
+    (e: ''
+      sed -i requirements.txt -e 's/^${e}.*/${e}/'
+    '')
+    overrideVersions;
 
-  propagatedBuildInputs = with python3.pkgs; [
+  nativeBuildInputs = [ wrapQtAppsHook ];
+
+  propagatedBuildInputs = with python3Packages; [
+    pyacoustid
     configobj
     levenshtein
     lxml
     mutagen
-    pyacoustid
     pyparsing
     pyqt5
     rapidfuzz
   ];
 
-  # the file should be executable but it isn't so our wrapper doesn't run
   preFixup = ''
-    chmod 555 $out/bin/puddletag
+    makeWrapperArgs+=("''${qtWrapperArgs[@]}")
   '';
 
   doCheck = false; # there are no tests

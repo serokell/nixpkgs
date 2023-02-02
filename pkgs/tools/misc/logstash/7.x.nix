@@ -1,5 +1,4 @@
-{ config
-, elk7Version
+{ elk7Version
 , enableUnfree ? true
 , lib
 , stdenv
@@ -79,10 +78,10 @@ let
       maintainers = with maintainers; [ wjlroe offline basvandijk ];
     };
     passthru.tests =
-      optionalAttrs (config.allowUnfree && enableUnfree) (
-        assert this.drvPath == nixosTests.elk.unfree.ELK-7.elkPackages.logstash.drvPath;
+      optionalAttrs (!enableUnfree) (
+        assert this.drvPath == nixosTests.elk.ELK-7.elkPackages.logstash.drvPath;
         {
-          elk = nixosTests.elk.unfree.ELK-7;
+          elk = nixosTests.elk.ELK-7;
         }
       );
   };

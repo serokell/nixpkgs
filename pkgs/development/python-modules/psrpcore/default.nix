@@ -9,7 +9,7 @@
 
 buildPythonPackage rec {
   pname = "psrpcore";
-  version = "0.2.1";
+  version = "0.1.2";
   format = "pyproject";
 
   disabled = pythonOlder "3.7";
@@ -17,15 +17,15 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "jborean93";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-KMSyqXKhNH+i9Y0Mx3DHCwJZOkl4Va2n0zu0TEitslU=";
+    rev = "v${version}";
+    hash = "sha256-f1NGE+wSgi8yqBicZZRfUqzinsqazuIaoAje2y+dK1w=";
   };
 
   propagatedBuildInputs = [
     cryptography
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     xmldiff
   ];
@@ -38,7 +38,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for the PowerShell Remoting Protocol (PSRP)";
     homepage = "https://github.com/jborean93/psrpcore";
-    changelog = "https://github.com/jborean93/psrpcore/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

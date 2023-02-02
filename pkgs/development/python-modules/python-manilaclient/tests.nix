@@ -16,7 +16,7 @@ buildPythonPackage rec {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [
+  checkInputs = [
     python-manilaclient
     stestr
     ddt

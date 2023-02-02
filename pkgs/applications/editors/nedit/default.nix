@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, motif, libXpm, libXt }:
+{ lib, stdenv, fetchurl, xlibsWrapper, motif, libXpm }:
 
 stdenv.mkDerivation rec {
   pname = "nedit";
@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  buildInputs = [ motif libXpm libXt ];
+  nativeBuildInputs = [ xlibsWrapper ];
+  buildInputs = [ motif libXpm ];
 
   # the linux config works fine on darwin too!
   buildFlags = lib.optional (stdenv.isLinux || stdenv.isDarwin) "linux";

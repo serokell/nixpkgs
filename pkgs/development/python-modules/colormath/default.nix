@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ networkx numpy ];
 
-  nativeCheckInputs = [ nose ];
+  checkInputs = [ nose ];
 
   checkPhase = "nosetests";
 

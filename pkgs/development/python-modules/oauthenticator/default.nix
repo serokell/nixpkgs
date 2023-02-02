@@ -28,7 +28,7 @@ buildPythonPackage rec {
     jupyterhub
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     google-api-python-client
     google-auth-oauthlib
     mwoauth

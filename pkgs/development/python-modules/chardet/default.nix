@@ -4,25 +4,19 @@
 , hypothesis
 , pythonOlder
 , pytestCheckHook
-, setuptools
 }:
 
 buildPythonPackage rec {
   pname = "chardet";
-  version = "5.1.0";
-  format = "pyproject";
+  version = "5.0.0";
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-DWJxK5VrwVT4X7CiZuKjxZE8KWfgA0hwGzJBHW3vMeU=";
+    sha256 = "sha256-A2jfK/14tfwgVyu06bt/tT4sCU9grpmTM56GcdCvuKo=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
-
-  nativeCheckInputs = [
+  checkInputs = [
     hypothesis
     pytestCheckHook
   ];
@@ -35,7 +29,6 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "chardet" ];
 
   meta = with lib; {
-    changelog = "https://github.com/chardet/chardet/releases/tag/${version}";
     description = "Universal encoding detector";
     homepage = "https://github.com/chardet/chardet";
     license = licenses.lgpl21Plus;

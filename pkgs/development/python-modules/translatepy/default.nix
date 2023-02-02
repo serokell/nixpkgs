@@ -28,7 +28,7 @@ buildPythonPackage rec {
     inquirer
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
   disabledTestPaths = [
     # Requires network connection
     "tests/test_translate.py"

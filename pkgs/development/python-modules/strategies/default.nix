@@ -13,7 +13,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ multipledispatch toolz ];
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
 
   meta = {
     description = "A Python library for control flow programming";

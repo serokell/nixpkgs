@@ -9,7 +9,6 @@
 , pygments
 , pyserial
 , pyserial-asyncio
-, pytest-asyncio
 , pytestCheckHook
 , redis
 , sqlalchemy
@@ -19,13 +18,13 @@
 
 buildPythonPackage rec {
   pname = "pymodbus";
-  version = "3.0.2";
+  version = "2.5.3";
 
   src = fetchFromGitHub {
     owner = "riptideio";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-7zuFKJuKc+J4g7qoK22xed8dmXJatQbQXz4aKAOcvN8=";
+    rev = "v${version}";
+    sha256 = "sha256-pf1TU/imBqNVYdG4XX8fnma8O8kQHuOHu6DT3E/PUk4=";
   };
 
   # Twisted asynchronous version is not supported due to a missing dependency
@@ -39,10 +38,9 @@ buildPythonPackage rec {
     tornado
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     asynctest
     mock
-    pytest-asyncio
     pytestCheckHook
     redis
     sqlalchemy

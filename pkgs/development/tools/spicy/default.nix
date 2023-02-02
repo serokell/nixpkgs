@@ -1,19 +1,19 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{ lib, buildGoPackage, fetchFromGitHub }:
 
-buildGoModule rec {
+buildGoPackage rec {
   pname = "spicy";
-  version = "0.6.2";
+  version = "unstable-2020-02-21";
+
+  goPackagePath = "github.com/trhodeos/spicy";
 
   src = fetchFromGitHub {
     owner = "trhodeos";
     repo = "spicy";
-    rev = "v${version}";
-    sha256 = "sha256-TodMm4UbnLB+LiyfPVXT7bcVLbyBFbGoOYQSsz3IMfM=";
+    rev = "47409fb73e0b20b323c46cc06a3858d0a252a817";
+    sha256 = "022r8klmr21vaz5qd72ndrzj7pyqpfxc3jljz7nzsa50fjf82c3a";
   };
 
-  vendorSha256 = "sha256-uy33vfsvyLCep1aN8qO0BMmpPylhzTLhosjjD5ghmHE=";
-
-  ldflags = [ "-s" "-w" ];
+  goDeps = ./deps.nix;
 
   meta = with lib; {
     description = "A Nintendo 64 segment assembler";
@@ -23,6 +23,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/trhodeos/spicy";
     license = licenses.mit;
-    maintainers = with maintainers; [ _414owen ];
+    maintainers = [ maintainers._414owen];
   };
 }

@@ -9,13 +9,13 @@
 
 buildPythonPackage rec {
   pname = "lark";
-  version = "1.1.5";
+  version = "1.1.2";
 
   src = fetchFromGitHub {
     owner = "lark-parser";
     repo = "lark";
-    rev = "refs/tags/${version}";
-    sha256 = "sha256-drvF+0PSOdrha2rfpntrM8xIbeb0S7eNtfioxkdjEKw=";
+    rev = version;
+    sha256 = "sha256-Y1bDSiFnqAKTlIcd8aAgtc+I3TLnWF8hhQK2ez96TQs=";
   };
 
   # Optional import, but fixes some re known bugs & allows advanced regex features
@@ -28,7 +28,7 @@ buildPythonPackage rec {
     "lark.grammars"
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     js2py
     pytestCheckHook
   ];

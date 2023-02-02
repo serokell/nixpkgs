@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   buildInputs = [ zlib ];
 
-  nativeCheckInputs = [ numpy pytest ];
+  checkInputs = [ numpy pytest ];
 
   meta = with lib; {
     homepage = "https://github.com/deeptools/pyBigWig";

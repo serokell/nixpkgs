@@ -10,15 +10,12 @@
 
 buildDotnetModule rec {
   pname = "Pinta";
-  version = "2.1";
+  version = "2.0.2";
 
   nativeBuildInputs = [
     intltool
     wrapGAppsHook
   ];
-
-  dotnet-sdk = dotnetCorePackages.sdk_7_0;
-  dotnet-runtime = dotnetCorePackages.runtime_7_0;
 
   runtimeDeps = [ gtk3 ];
   buildInputs = runtimeDeps;
@@ -36,7 +33,7 @@ buildDotnetModule rec {
     owner = "PintaProject";
     repo = "Pinta";
     rev = version;
-    hash = "sha256-hugV4I13wZhPnVTUlGlaVxdjpGRvWDnfRVXgV+oy+sE=";
+    sha256 = "sha256-Bvzs1beq7I1+10w9pmMePqGCz2TPDp5UK5Wa9hbKERU=";
   };
 
   # https://github.com/NixOS/nixpkgs/issues/38991
@@ -64,11 +61,8 @@ buildDotnetModule rec {
     mv "$out/bin/Pinta" "$out/bin/pinta"
 
     # Copy runtime icons
-    for i in "Pinta.Resources/icons/hicolor/"*; do
-      res="$(basename $i)"
-      mkdir -p "$out/share/icons/hicolor/$res"
-      cp -rv "Pinta.Resources/icons/hicolor/$res/"* "$out/share/icons/hicolor/$res/"
-    done
+    mkdir -p $out/share/icons/hicolor/16x16/
+    cp -r Pinta.Resources/icons/hicolor/16x16/* $out/share/icons/hicolor/16x16/
 
     # Install
     dotnet build installer/linux/install.proj \

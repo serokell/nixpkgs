@@ -1,27 +1,24 @@
 { lib
 , buildPythonPackage
 , fetchPypi
+, tox
 , pytestCheckHook
 , pygame
 }:
-
 buildPythonPackage rec {
-  pname = "pyrect";
+  pname = "PyRect";
   version = "0.2.0";
 
   src = fetchPypi {
-    pname = "PyRect";
-    inherit version;
+    inherit pname version;
     sha256 = "sha256-9lFV9t+bkptnyv+9V8CUfFrlRJ07WA0XgHS/+0egm3g=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook pygame ];
-
+  checkInputs = [ tox pytestCheckHook pygame ];
+  pythonImportsCheck = [ "pyrect" ];
   preCheck = ''
     export LC_ALL="en_US.UTF-8"
   '';
-
-  pythonImportsCheck = [ "pyrect" ];
 
   meta = with lib; {
     description = "Simple module with a Rect class for Pygame-like rectangular areas";

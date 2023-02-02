@@ -5,16 +5,15 @@
   # dejagnu also requires tcl which can't be built statically at the moment
 , doCheck ? !(stdenv.hostPlatform.isStatic)
 , dejagnu
-, nix-update-script
 }:
 
 stdenv.mkDerivation rec {
   pname = "libffi";
-  version = "3.4.4";
+  version = "3.4.3";
 
   src = fetchurl {
     url = "https://github.com/libffi/libffi/releases/download/v${version}/${pname}-${version}.tar.gz";
-    sha256 = "sha256-1mxWrSWags8qnfxAizK/XaUjcVALhHRff7i2RXEt9nY=";
+    sha256 = "sha256-RBbdkrauj8tbEEIecRxNPLMSA9d1Iad9hdAQIxHmw7g=";
   };
 
   # Note: this package is used for bootstrapping fetchurl, and thus
@@ -51,11 +50,7 @@ stdenv.mkDerivation rec {
 
   inherit doCheck;
 
-  nativeCheckInputs = [ dejagnu ];
-
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  checkInputs = [ dejagnu ];
 
   meta = with lib; {
     description = "A foreign function call interface library";

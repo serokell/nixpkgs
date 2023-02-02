@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = lib.optional (!isPy3k) whichcraft;
 
-  nativeCheckInputs = [ util-linux ];
+  checkInputs = [ util-linux ];
 
   meta = {
     description = "An API for running processes safely and securely";

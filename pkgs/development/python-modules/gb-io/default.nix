@@ -9,19 +9,19 @@
 
 buildPythonPackage rec {
   pname = "gb-io";
-  version = "0.2.1";
+  version = "0.1.1";
 
   src = fetchFromGitHub {
     owner = "althonos";
     repo = "gb-io.py";
     rev = "v${version}";
-    sha256 = "sha256-1B7BUJ8H+pTtmDtazfPfYtlXzL/x4rAHtRIFAAsSoWs=";
+    sha256 = "05fpz11rqqjrb8lc8id6ssv7sni9i1h7x1ra5v5flw9ghpf29ncm";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src sourceRoot;
     name = "${pname}-${version}";
-    sha256 = "sha256-lPnOFbEJgcaPPl9bTngugubhW//AUFp9RAjyiFHxC70=";
+    sha256 = "1qh31jysg475f2qc70b3bczmzywmg9987kn2vsmk88h8sx4nnwc5";
   };
 
   sourceRoot = "source";
@@ -32,7 +32,7 @@ buildPythonPackage rec {
     rust.rustc
   ]);
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  checkInputs = [ unittestCheckHook ];
 
   pythonImportsCheck = [ "gb_io" ];
 

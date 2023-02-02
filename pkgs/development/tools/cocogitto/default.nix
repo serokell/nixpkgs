@@ -1,4 +1,4 @@
-{ lib, rustPlatform, fetchFromGitHub, installShellFiles, stdenv, Security, makeWrapper, libgit2 }:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, stdenv, Security, makeWrapper, git }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cocogitto";
@@ -17,15 +17,18 @@ rustPlatform.buildRustPackage rec {
   # and might be failing to create the test repository it works in.
   doCheck = false;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [ installShellFiles makeWrapper ];
 
-  buildInputs = [ libgit2 ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = lib.optional stdenv.isDarwin Security;
 
   postInstall = ''
     installShellCompletion --cmd cog \
       --bash <($out/bin/cog generate-completions bash) \
       --fish <($out/bin/cog generate-completions fish) \
       --zsh  <($out/bin/cog generate-completions zsh)
+
+    wrapProgram $out/bin/cog \
+      --prefix PATH : "${lib.makeBinPath [ git ]}"
   '';
 
   meta = with lib; {

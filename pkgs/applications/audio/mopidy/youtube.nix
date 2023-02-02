@@ -27,7 +27,7 @@ python3.pkgs.buildPythonApplication rec {
     mopidy
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = with python3.pkgs; [
     vcrpy
     pytestCheckHook
   ];

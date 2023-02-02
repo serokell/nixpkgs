@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ click ];
 
-  nativeCheckInputs = [ pytestCheckHook hypothesis ];
+  checkInputs = [ pytestCheckHook hypothesis ];
 
   meta = with lib; {
     description = "Spherical mercator tile and coordinate utilities";

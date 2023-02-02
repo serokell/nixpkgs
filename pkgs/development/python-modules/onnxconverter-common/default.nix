@@ -29,7 +29,7 @@ buildPythonPackage {
     onnx
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     onnxruntime
     unittestCheckHook
   ];

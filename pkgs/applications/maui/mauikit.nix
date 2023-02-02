@@ -6,7 +6,6 @@
 , kcoreaddons
 , ki18n
 , knotifications
-, mauiman
 , qtbase
 , qtquickcontrols2
 , qtx11extras
@@ -25,7 +24,6 @@ mkDerivation {
     kcoreaddons
     ki18n
     knotifications
-    mauiman
     qtquickcontrols2
     qtx11extras
   ];

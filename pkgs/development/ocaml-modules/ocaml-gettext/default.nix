@@ -4,7 +4,9 @@ buildDunePackage rec {
   pname = "gettext";
   version = "0.4.2";
 
-  minimalOCamlVersion = "4.03";
+  minimumOCamlVersion = "4.03";
+
+  useDune2 = true;
 
   src = fetchurl {
     url = "https://github.com/gildor478/ocaml-gettext/releases/download/v${version}/gettext-v${version}.tbz";
@@ -15,10 +17,9 @@ buildDunePackage rec {
 
   propagatedBuildInputs = [ gettext fileutils ];
 
-  # Tests for version 0.4.2 are not compatible with OUnit 2.2.6
-  doCheck = false;
+  doCheck = true;
 
-  nativeCheckInputs = [ ounit ];
+  checkInputs = [ ounit ];
 
   dontStrip = true;
 

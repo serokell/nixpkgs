@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, pam, libxcrypt }:
+{ lib, stdenv, fetchurl, pam }:
 
 stdenv.mkDerivation rec {
   pname = "otpw";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     cp *.8 $out/share/man/man8
   '';
 
-  buildInputs = [ pam libxcrypt ];
+  buildInputs = [ pam ];
 
   hardeningDisable = [ "stackprotector" ];
 

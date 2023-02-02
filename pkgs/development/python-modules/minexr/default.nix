@@ -20,7 +20,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ numpy ];
 
   pythonImportsCheck = [ "minexr" ];
-  nativeCheckInputs = [ pytestCheckHook pillow ];
+  checkInputs = [ pytestCheckHook pillow ];
 
   meta = with lib; {
     description = "Minimal, standalone OpenEXR reader for single-part, uncompressed scan line files.";

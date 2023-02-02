@@ -51,7 +51,7 @@ buildPythonPackage rec {
     importlib-resources
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     tables
     pandas
     pytestCheckHook

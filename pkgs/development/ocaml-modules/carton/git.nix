@@ -1,6 +1,6 @@
 { buildDunePackage, carton, carton-lwt
-, bigstringaf, lwt, fpath, result
-, fmt, decompress, astring
+, bigarray-compat, bigstringaf, lwt, fpath, result
+, mmap, fmt, decompress, astring
 , alcotest, alcotest-lwt, cstruct, logs
 , mirage-flow, rresult, ke
 }:
@@ -13,10 +13,12 @@ buildDunePackage {
   propagatedBuildInputs = [
     carton
     carton-lwt
+    bigarray-compat
     bigstringaf
     lwt
     fpath
     result
+    mmap
     fmt
     decompress
     astring

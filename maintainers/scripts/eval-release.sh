@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#! /bin/sh
 
 if [[ -z "$VERBOSE" ]]; then
   echo "You may set VERBOSE=1 to see debug output or to any other non-empty string to make this script completely silent"

@@ -70,7 +70,7 @@ in {
             --port ${toString cfg.port} \
             ${optionalString cfg.public "--public"} \
             ${optionalString (cfg.allowOrigin != null) "--allow-origin ${cfg.allowOrigin}"} \
-            "--config" ${settingsFormat.generate "languagetool.conf" cfg.settings}
+            "--configuration" ${settingsFormat.generate "languagetool.conf" cfg.settings}
           '';
       };
     };

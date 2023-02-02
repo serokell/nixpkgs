@@ -16,7 +16,7 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ setuptools-scm pytest-runner ];
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
 
   meta = with lib; {
     description = "An implementation of a multiset";

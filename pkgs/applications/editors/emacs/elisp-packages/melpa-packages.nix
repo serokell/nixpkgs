@@ -277,10 +277,9 @@ let
             rm -rf $out/share/emacs/site-lisp/elpa/*/server
           '';
           dontUseCmakeBuildDir = true;
-          doCheck = pkgs.stdenv.isLinux;
+          doCheck = true;
           packageRequires = [ self.emacs ];
-          buildInputs = [ pkgs.llvmPackages.libclang self.emacs ];
-          nativeBuildInputs = [ pkgs.cmake pkgs.llvmPackages.llvm ];
+          nativeBuildInputs = [ pkgs.cmake pkgs.llvmPackages.llvm pkgs.llvmPackages.libclang ];
         });
 
         # tries to write a log file to $HOME
@@ -505,16 +504,6 @@ let
         # missing dependencies
         evil-search-highlight-persist = super.evil-search-highlight-persist.overrideAttrs (attrs: {
           packageRequires = with self; [ evil highlight ];
-        });
-
-        hamlet-mode = super.hamlet-mode.overrideAttrs (attrs: {
-          patches = [
-            # Fix build; maintainer email fails to parse
-            (pkgs.fetchpatch {
-              url = "https://github.com/lightquake/hamlet-mode/commit/253495d1330d6ec88d97fac136c78f57c650aae0.patch";
-              sha256 = "dSxS5yuXzCW96CUyvJWwjkhf1FMGBfiKKoBxeDVdz9Y=";
-            })
-          ];
         });
 
         helm-rtags = fix-rtags super.helm-rtags;

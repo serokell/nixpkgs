@@ -13,15 +13,14 @@
 
 buildPythonPackage rec {
   pname = "line-profiler";
-  version = "4.0.2";
-  format = "setuptools";
+  version = "3.5.1";
 
   disabled = pythonOlder "3.6" || isPyPy;
 
   src = fetchPypi {
     pname = "line_profiler";
     inherit version;
-    hash = "sha256-JejJ1CSNxIkFgBhR/4p1ucdIJ6CHHRGNEQTY5D1/sPw=";
+    sha256 = "sha256-d0ACCL+9XUNBk4qaOk+1GU9a9/wjstSWyRN1X4MQ6Lg=";
   };
 
   nativeBuildInputs = [
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     ipython
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 
@@ -55,7 +54,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Line-by-line profiler";
     homepage = "https://github.com/pyutils/line_profiler";
-    changelog = "https://github.com/pyutils/line_profiler/blob/v${version}/CHANGELOG.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fridh ];
   };

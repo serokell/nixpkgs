@@ -14,10 +14,7 @@ in
     calamares-nixos
     calamares-nixos-autostart
     calamares-nixos-extensions
-    # Get list of locales
-    glibcLocales
+    # Needed for calamares QML module packagechooserq
+    libsForQt5.full
   ];
-
-  # Support choosing from any locale
-  i18n.supportedLocales = [ "all" ];
 }

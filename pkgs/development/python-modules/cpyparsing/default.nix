@@ -1,41 +1,25 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, cython
-, pexpect
-, python
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, cython, pexpect, python }:
 
 buildPythonPackage rec {
   pname = "cpyparsing";
-  version = "2.4.7.1.2.0";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "2.4.7.1.1.0";
 
   src = fetchFromGitHub {
     owner = "evhub";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-cb0Lx+S9WnPa9veHJaYEU7pFCtB6pG/GKf4HK/UbmtU=";
+    rev = "v${version}";
+    sha256 = "1rqj89mb4dz0xk8djh506nrlqfqqdva9qgb5llrvvwjqv3vqnrj4";
   };
 
   nativeBuildInputs = [ cython ];
 
-  nativeCheckInputs = [ pexpect ];
+  checkInputs = [ pexpect ];
 
-  checkPhase = ''
-    ${python.interpreter} tests/cPyparsing_test.py
-  '';
-
-  pythonImportsCheck = [
-    "cPyparsing"
-  ];
+  checkPhase = "${python.interpreter} tests/cPyparsing_test.py";
 
   meta = with lib; {
-    description = "Cython PyParsing implementation";
     homepage = "https://github.com/evhub/cpyparsing";
+    description = "Cython PyParsing implementation";
     license = licenses.asl20;
     maintainers = with maintainers; [ fabianhjr ];
   };

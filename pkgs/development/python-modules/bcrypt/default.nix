@@ -58,7 +58,7 @@ buildPythonPackage rec {
     cffi
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

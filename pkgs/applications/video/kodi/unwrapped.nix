@@ -1,6 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, autoconf, automake, libtool, makeWrapper
+{ stdenv, lib, fetchFromGitHub, autoconf, automake, libtool, makeWrapper
 , pkg-config, cmake, yasm, python3Packages
-, libxcrypt, libgcrypt, libgpg-error, libunistring
+, libgcrypt, libgpg-error, libunistring
 , boost, avahi, lame
 , gettext, pcre-cpp, yajl, fribidi, which
 , openssl, gperf, tinyxml2, taglib, libssh, swig, jre_headless
@@ -34,19 +34,19 @@
 , buildPackages
 }:
 
-assert usbSupport -> !udevSupport; # libusb-compat-0_1 won't be used if udev is available
+assert usbSupport -> !udevSupport; # libusb-compat-0_1 won't be used if udev is avaliable
 assert gbmSupport || waylandSupport || x11Support;
 
 let
-  kodiReleaseDate = "20221204";
-  kodiVersion = "19.5";
+  kodiReleaseDate = "20220303";
+  kodiVersion = "19.4";
   rel = "Matrix";
 
   kodi_src = fetchFromGitHub {
     owner  = "xbmc";
     repo   = "xbmc";
     rev    = "${kodiVersion}-${rel}";
-    sha256 = "sha256-vprhEPxYpY3/AsUgvPNnhBlh0Dl73ekALAblHaUKzd0=";
+    sha256 = "sha256-XDtmY3KthiD91kvueQRSamBcdM7fBpRntmZX6KRsCzE=";
   };
 
   ffmpeg = stdenv.mkDerivation rec {
@@ -107,20 +107,13 @@ in stdenv.mkDerivation {
 
     src = kodi_src;
 
+    # This is a backport of
+    # https://github.com/xbmc/xbmc/commit/a6dedce7ba1f03bdd83b019941d1e369a06f7888
+    # to Kodi 19.4 Matrix.
+    # This can be removed once a new release of Kodi comes out and we upgrade
+    # to it.
     patches = [
-      # This is a backport of
-      # https://github.com/xbmc/xbmc/commit/a6dedce7ba1f03bdd83b019941d1e369a06f7888
-      # to Kodi 19.4 Matrix.
-      # This can be removed once a new major release of Kodi comes out and we upgrade
-      # to it.
       ./add-KODI_WEBSERVER_EXTRA_WHITELIST.patch
-
-      # A patch to fix build until the next major release of Kodi comes out and we upgrade
-      # https://github.com/xbmc/xbmc/pull/22291
-      (fetchpatch {
-        url = "https://github.com/xbmc/xbmc/commit/5449652abf0bb9dddd0d796de4120e60f19f89a5.patch";
-        sha256 = "sha256-vqX08dTSPhIur4aVu2BzXEpAxMOjaadwRNI43GSV9Og=";
-      })
     ];
 
     buildInputs = [
@@ -138,14 +131,14 @@ in stdenv.mkDerivation {
       sqlite libmysqlclient avahi lame
       curl bzip2 zip unzip glxinfo
       libcec libcec_platform dcadec libuuid
-      libxcrypt libgcrypt libgpg-error libunistring
+      libgcrypt libgpg-error libunistring
       libcrossguid libplist
       bluez giflib glib harfbuzz lcms2 libpthreadstubs
       ffmpeg flatbuffers fstrcmp rapidjson
       lirc
       mesa # for libEGL
     ]
-    ++ lib.optionals x11Support [
+    ++ lib.optional x11Support [
       libX11 xorgproto libXt libXmu libXext.dev libXdmcp
       libXinerama libXrandr.dev libXtst libXfixes
     ]
@@ -165,7 +158,7 @@ in stdenv.mkDerivation {
       # Not sure why ".dev" is needed here, but CMake doesn't find libxkbcommon otherwise
       libxkbcommon.dev
     ]
-    ++ lib.optionals gbmSupport [
+    ++ lib.optional gbmSupport [
       libxkbcommon.dev
       mesa.dev
       libinput.dev
@@ -207,7 +200,7 @@ in stdenv.mkDerivation {
       # whitelisted directories). This adds the entire nix store to the Kodi
       # webserver whitelist to avoid this problem.
       "-DKODI_WEBSERVER_EXTRA_WHITELIST=${builtins.storeDir}"
-    ] ++ lib.optionals waylandSupport [
+    ] ++ lib.optional waylandSupport [
       "-DWAYLANDPP_SCANNER=${buildPackages.waylandpp}/bin/wayland-scanner++"
     ];
 
@@ -233,8 +226,7 @@ in stdenv.mkDerivation {
     '';
 
     postInstall = ''
-      # TODO: figure out which binaries should be wrapped this way and which shouldn't
-      for p in $(ls --ignore=kodi-send $out/bin/) ; do
+      for p in $(ls $out/bin/) ; do
         wrapProgram $out/bin/$p \
           --prefix PATH ":" "${lib.makeBinPath ([ python3Packages.python glxinfo ]
             ++ lib.optional x11Support xdpyinfo ++ lib.optional sambaSupport samba)}" \
@@ -243,9 +235,6 @@ in stdenv.mkDerivation {
                  ++ lib.optional nfsSupport libnfs
                  ++ lib.optional rtmpSupport rtmpdump)}"
       done
-
-      wrapProgram $out/bin/kodi-send \
-        --prefix PYTHONPATH : $out/${python3Packages.python.sitePackages}
 
       substituteInPlace $out/share/xsessions/kodi.desktop \
         --replace kodi-standalone $out/bin/kodi-standalone

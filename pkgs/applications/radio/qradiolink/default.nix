@@ -14,23 +14,20 @@
 , libsndfile
 , libftdi
 , limesuite
-, soapysdr-with-plugins
 , protobuf
 , speex
 , speexdsp
-, cppzmq
-, zeromq
 }:
 
 gnuradio3_8.pkgs.mkDerivation rec {
   pname = "qradiolink";
-  version = "0.8.8-1";
+  version = "0.8.6-2";
 
   src = fetchFromGitHub {
     owner = "qradiolink";
     repo = "qradiolink";
     rev = version;
-    sha256 = "sha256-2M5TSTNbbH188GiKqjP+IfBqks379Fw0fiGLBNiaxEg=";
+    sha256 = "1694yyw0vc77m5pbc5rwl6khd8000dbrliz3q4vsa9dqnfnz1777";
   };
 
   preBuild = ''
@@ -59,15 +56,12 @@ gnuradio3_8.pkgs.mkDerivation rec {
     libopus
     libjpeg
     limesuite
-    soapysdr-with-plugins
     speex
     speexdsp
     gnuradio3_8.qt.qtbase
     gnuradio3_8.qt.qtmultimedia
     libftdi
     libsndfile
-    cppzmq
-    zeromq
     gnuradio3_8.qwt
   ] ++ lib.optionals (gnuradio3_8.hasFeature "gr-ctrlport") [
     thrift

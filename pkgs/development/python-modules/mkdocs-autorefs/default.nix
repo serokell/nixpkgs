@@ -1,5 +1,5 @@
 { lib
-, buildPythonPackage
+, buildPythonApplication
 , fetchFromGitHub
 , markdown
 , mkdocs
@@ -8,7 +8,7 @@
 , pythonOlder
 }:
 
-buildPythonPackage rec {
+buildPythonApplication rec {
   pname = "mkdocs-autorefs";
   version = "0.4.1";
   format = "pyproject";
@@ -31,7 +31,7 @@ buildPythonPackage rec {
     mkdocs
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

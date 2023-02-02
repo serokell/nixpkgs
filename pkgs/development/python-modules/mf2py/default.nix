@@ -26,7 +26,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     lxml
     mock
     nose

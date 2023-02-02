@@ -1,18 +1,20 @@
-{ stdenv, lib, fetchurl, guile, pkg-config, guile-fibers }:
+{ stdenv, lib, fetchurl, guile, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "gnu-shepherd";
-  version = "0.9.3";
+  version = "0.8.1";
 
   src = fetchurl {
-    url = "mirror://gnu/shepherd/shepherd-${version}.tar.gz";
-    sha256 = "0qy2yq13xhf05an5ilz7grighdxicx56211yaarqq5qigiiybc32";
+    url = "https://ftp.gnu.org/gnu/shepherd/shepherd-${version}.tar.gz";
+    sha256 = "sha256-0y/lhpS7U1C1/HKFzwyg2cfSQiGqWWnWxGTuPjrIP3U=";
   };
 
-  configureFlags = [ "--localstatedir=/" ];
+  configureFlags = [
+    "--localstatedir=/"
+  ];
 
-  buildInputs = [ guile guile-fibers ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ guile ];
+  nativeBuildInputs = [ pkg-config guile ];
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/shepherd/";

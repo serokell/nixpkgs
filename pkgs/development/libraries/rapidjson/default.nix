@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     "-DRAPIDJSON_BUILD_TESTS=OFF"
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     gtest
   ];
 

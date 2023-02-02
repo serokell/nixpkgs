@@ -3,7 +3,6 @@
 , fastapi
 , fetchFromGitHub
 , flask
-, httpx
 , pytestCheckHook
 , pythonOlder
 , requests
@@ -22,14 +21,13 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "bobbui";
     repo = "json-logging-python";
-    rev = "refs/tags/${version}";
+    rev = version;
     hash = "sha256-WOAEY1pONH+Gx1b8zHZDMNgJJSn7jvMO60LYTA8z/dE=";
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     fastapi
     flask
-    httpx
     pytestCheckHook
     # quart
     requests
@@ -55,7 +53,6 @@ buildPythonPackage rec {
       infrastructure such as ELK, EFK, AWS Cloudwatch, GCP Stackdriver.
     '';
     homepage = "https://github.com/bobbui/json-logging-python";
-    changelog = "https://github.com/bobbui/json-logging-python/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ AluisioASG ];
   };

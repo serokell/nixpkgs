@@ -22,7 +22,6 @@ in stdenv.mkDerivation rec {
   ];
 
   installPhase = ''
-    runHook preInstall
 
     mkdir -p $out/bin
     cp -R ${arch}/{gettext,pstosecps,rastertospl,smfpnetdiscovery,usbresetter} $out/bin
@@ -66,8 +65,6 @@ in stdenv.mkDerivation rec {
     cd $out/share/cups
     ln -s ../ppd .
     ln -s ppd model
-
-    runHook postInstall
   '';
 
   preFixup = ''

@@ -33,7 +33,6 @@
 , libpulseaudio
 , libpwquality
 , librsvg
-, webp-pixbuf-loader
 , libsecret
 , libwacom
 , libxml2
@@ -64,11 +63,11 @@
 
 stdenv.mkDerivation rec {
   pname = "gnome-control-center";
-  version = "43.2";
+  version = "43.0";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
-    sha256 = "sha256-1/JWq6gKkscnsyn9AchgLaS3jw/drsk/zZEJaWRwBWM=";
+    sha256 = "sha256-mIyTNZLL3E5/DbqakyYuYXtzniWSeqFuF3lgx1TjHEg=";
   };
 
   patches = [
@@ -140,17 +139,6 @@ stdenv.mkDerivation rec {
     addToSearchPath "XDG_DATA_DIRS" "${polkit.out}/share"
   '';
 
-  postInstall = ''
-    # Pull in WebP support for gnome-backgrounds.
-    # In postInstall to run before gappsWrapperArgsHook.
-    export GDK_PIXBUF_MODULE_FILE="${gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
-      extraLoaders = [
-        librsvg
-        webp-pixbuf-loader
-      ];
-    }}"
-  '';
-
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix XDG_DATA_DIRS : "${sound-theme-freedesktop}/share"
@@ -164,8 +152,6 @@ stdenv.mkDerivation rec {
       substituteInPlace $i --replace "Exec=gnome-control-center" "Exec=$out/bin/gnome-control-center"
     done
   '';
-
-  separateDebugInfo = true;
 
   passthru = {
     updateScript = gnome.updateScript {

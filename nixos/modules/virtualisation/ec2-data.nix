@@ -18,7 +18,6 @@ with lib;
 
         wantedBy = [ "multi-user.target" "sshd.service" ];
         before = [ "sshd.service" ];
-        after = ["fetch-ec2-metadata.service"];
 
         path = [ pkgs.iproute2 ];
 

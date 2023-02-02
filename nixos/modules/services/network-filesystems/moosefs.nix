@@ -52,7 +52,7 @@ let
   chunkserverCfg = settingsFormat.generate
     "mfschunkserver.cfg" cfg.chunkserver.settings;
 
-  # generic template for all daemons
+  # generic template for all deamons
   systemdService = name: extraConfig: configFile: {
     wantedBy = [ "multi-user.target" ];
     wants = [ "network-online.target" ];
@@ -94,7 +94,7 @@ in {
             Enable Moosefs master daemon.
 
             You need to run `mfsmaster-init` on a freshly installed master server to
-            initialize the `DATA_PATH` directory.
+            initialize the `DATA_PATH` direcory.
           '';
           default = false;
         };

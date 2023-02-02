@@ -1,84 +1,29 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, wrapGAppsHook
-, autoconf
-, autoconf-archive
-, automake
-, gettext
-, intltool
-, libtool
-, pkg-config
-, libICE
-, libSM
-, libXScrnSaver
-, libXtst
-, gobject-introspection
-, glib
-, glibmm
-, gtkmm3
-, atk
-, pango
-, pangomm
-, cairo
-, cairomm
-, dbus
-, dbus-glib
-, gdome2
-, gstreamer
-, gst-plugins-base
-, gst-plugins-good
-, libsigcxx
-, boost
-, jinja2
-}:
+{ lib, stdenv, fetchFromGitHub, wrapGAppsHook
+, autoconf, autoconf-archive, automake, gettext, intltool, libtool, pkg-config
+, libICE, libSM, libXScrnSaver, libXtst, cheetah
+, gobject-introspection, glib, glibmm, gtkmm3, atk, pango, pangomm, cairo
+, cairomm , dbus, dbus-glib, gdome2, gstreamer, gst-plugins-base
+, gst-plugins-good, libsigcxx }:
 
 stdenv.mkDerivation rec {
   pname = "workrave";
-  version = "1.10.50";
+  version = "1.10.31";
 
   src = fetchFromGitHub {
-    repo = "workrave";
-    owner = "rcaelers";
+    sha256 = "0v2mx2idaxlsyv5w66b7pknlill9j9i2gqcs3vq54gak7ix9fj1p";
     rev = with lib;
       "v" + concatStringsSep "_" (splitVersion version);
-    sha256 = "sha256-fSUfgk0PmiteVQis+0NmMMZXBe/377X2k9oS2yp2Qzo=";
+    repo = "workrave";
+    owner = "rcaelers";
   };
 
   nativeBuildInputs = [
-    autoconf
-    autoconf-archive
-    automake
-    gettext
-    intltool
-    libtool
-    pkg-config
-    wrapGAppsHook
-    jinja2
+    autoconf autoconf-archive automake gettext intltool libtool pkg-config wrapGAppsHook
   ];
-
   buildInputs = [
-    libICE
-    libSM
-    libXScrnSaver
-    libXtst
-    gobject-introspection
-    glib
-    glibmm
-    gtkmm3
-    atk
-    pango
-    pangomm
-    cairo
-    cairomm
-    dbus
-    dbus-glib
-    gdome2
-    gstreamer
-    gst-plugins-base
-    gst-plugins-good
-    libsigcxx
-    boost
+    libICE libSM libXScrnSaver libXtst cheetah
+    gobject-introspection glib glibmm gtkmm3 atk pango pangomm cairo cairomm
+    dbus dbus-glib gdome2 gstreamer gst-plugins-base gst-plugins-good libsigcxx
   ];
 
   preConfigure = "./autogen.sh";

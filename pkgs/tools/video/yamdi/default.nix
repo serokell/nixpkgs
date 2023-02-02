@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Yet Another MetaData Injector for FLV";
-    homepage = "https://yamdi.sourceforge.net/";
+    homepage = "http://yamdi.sourceforge.net/";
     license = licenses.bsd3;
     platforms = platforms.all;
     maintainers = [ maintainers.ryanartecona ];

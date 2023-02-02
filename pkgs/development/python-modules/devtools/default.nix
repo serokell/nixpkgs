@@ -2,7 +2,6 @@
 , asttokens
 , buildPythonPackage
 , executing
-, hatchling
 , fetchFromGitHub
 , pygments
 , pytest-mock
@@ -12,21 +11,17 @@
 
 buildPythonPackage rec {
   pname = "devtools";
-  version = "0.10.0";
-  format = "pyproject";
+  version = "0.8.0";
+  format = "setuptools";
 
-  disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "samuelcolvin";
     repo = "python-${pname}";
     rev = "v${version}";
-    sha256 = "sha256-x9dL/FE94OixMAmjnmfzZUcYJBqE5P2AAIFsNJF0Fxo=";
+    sha256 = "0yavcbxzxi1nfa1k326gsl03y8sadi5z5acamwd8b1bsiv15p757";
   };
-
-  nativeBuildInputs = [
-    hatchling
-  ];
 
   propagatedBuildInputs = [
     asttokens
@@ -34,7 +29,7 @@ buildPythonPackage rec {
     pygments
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-mock
   ];
@@ -60,7 +55,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python's missing debug print command and other development tools";
     homepage = "https://python-devtools.helpmanual.io/";
-    changelog = "https://github.com/samuelcolvin/python-devtools/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ jdahm ];
   };

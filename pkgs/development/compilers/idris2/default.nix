@@ -23,18 +23,18 @@ let
 # Uses scheme to bootstrap the build of idris2
 in stdenv.mkDerivation rec {
   pname = "idris2";
-  version = "0.6.0";
+  version = "0.5.1";
 
   src = fetchFromGitHub {
     owner = "idris-lang";
     repo = "Idris2";
     rev = "v${version}";
-    sha256 = "sha256-80MAGM1IEtI09h5aCYfDL4PRrjGq2gT8OUEibOVk8H4=";
+    sha256 = "sha256-6CTn8o5geWSesXO7vTrrV/2EOQ3f+nPQ2M5cem13ZSY=";
   };
 
   strictDeps = true;
   nativeBuildInputs = [ makeWrapper clang platformChez ]
-    ++ lib.optionals stdenv.isDarwin [ zsh ];
+    ++ lib.optional stdenv.isDarwin [ zsh ];
   buildInputs = [ platformChez gmp ];
 
   prePatch = ''
@@ -48,7 +48,7 @@ in stdenv.mkDerivation rec {
   buildFlags = [ "bootstrap" "SCHEME=scheme" ];
 
   checkTarget = "test";
-  nativeCheckInputs = [ gambit nodejs ]; # racket ];
+  checkInputs = [ gambit nodejs ]; # racket ];
   checkFlags = [ "INTERACTIVE=" ];
 
   # TODO: Move this into its own derivation, such that this can be changed

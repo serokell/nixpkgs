@@ -12,7 +12,7 @@ in
 
       port = mkOption {
         default = 8200;
-        type = types.port;
+        type = types.int;
         description = lib.mdDoc ''
           Port serving the web interface
         '';

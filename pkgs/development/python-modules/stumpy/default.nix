@@ -31,7 +31,7 @@ buildPythonPackage rec {
     numba
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pandas
     dask
     distributed

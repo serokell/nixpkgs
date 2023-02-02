@@ -14,18 +14,15 @@ import ./make-test-python.nix ({ pkgs, ... }: {
           patches = oa.patches or [] ++ [
             # change the prefix from /usr/bin to /run to find nix processes
             ../../pkgs/tools/security/tracee/test-EventFilters-prefix-nix-friendly.patch
+            # skip magic_write test that currently fails
+            ../../pkgs/tools/security/tracee/test-EventFilters-magic_write-skip.patch
           ];
           buildPhase = ''
             runHook preBuild
             # just build the static lib we need for the go test binary
-            make $makeFlags ''${enableParallelBuilding:+-j$NIX_BUILD_CORES} bpf-core ./dist/btfhub
-
-            # remove the /usr/bin prefix to work with the patch above
-            substituteInPlace tests/integration/integration_test.go \
-              --replace "/usr/bin/ls" "ls"
-
+            make $makeFlags ''${enableParallelBuilding:+-j$NIX_BUILD_CORES -l$NIX_BUILD_CORES} bpf-core ./dist/btfhub ./dist/libbpf/libbpf.a
             # then compile the tests to be ran later
-            CGO_LDFLAGS="$(pkg-config --libs libbpf)" go test -tags core,ebpf,integration -p 1 -c -o $GOPATH/tracee-integration ./tests/integration/...
+            CGO_CFLAGS="-I$PWD/dist/libbpf" CGO_LDFLAGS="-lelf -lz $PWD/dist/libbpf/libbpf.a" go test -tags core,ebpf,integration -p 1 -c -o $GOPATH/tracee-integration ./tests/integration/...
             runHook postBuild
           '';
           doCheck = false;

@@ -1,13 +1,14 @@
 { lib, mkCoqDerivation, autoreconfHook, coq, version ? null }:
 
-let hasWarning = lib.versionAtLeast coq.ocamlPackages.ocaml.version "4.08"; in
+with lib;
+let hasWarning = versionAtLeast coq.ocamlPackages.ocaml.version "4.08"; in
 
 mkCoqDerivation {
   pname = "dpdgraph";
   owner = "Karmaki";
   repo = "coq-dpdgraph";
   inherit version;
-  defaultVersion = lib.switch coq.coq-version [
+  defaultVersion = switch coq.coq-version [
     { case = "8.16"; out = "1.0+8.16"; }
     { case = "8.15"; out = "1.0+8.15"; }
     { case = "8.14"; out = "1.0+8.14"; }
@@ -46,11 +47,11 @@ mkCoqDerivation {
 
   # dpd_compute.ml uses deprecated Pervasives.compare
   # Versions prior to 0.6.5 do not have the WARN_ERR build flag
-  preConfigure = lib.optionalString hasWarning ''
+  preConfigure = optionalString hasWarning ''
     substituteInPlace Makefile.in --replace "-warn-error +a " ""
   '';
 
-  buildFlags = lib.optional hasWarning "WARN_ERR=";
+  buildFlags = optional hasWarning "WARN_ERR=";
 
   preInstall = ''
     mkdir -p $out/bin
@@ -58,7 +59,7 @@ mkCoqDerivation {
 
   extraInstallFlags = [ "BINDIR=$(out)/bin" ];
 
-  meta = with lib; {
+  meta = {
     description = "Build dependency graphs between Coq objects";
     license = licenses.lgpl21;
     maintainers = with maintainers; [ vbgl ];

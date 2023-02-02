@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pbr ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     oslotest
     stestr
     testscenarios

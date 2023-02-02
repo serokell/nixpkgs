@@ -1,14 +1,14 @@
 { lib, stdenv, fetchFromGitHub, libX11 }:
 
-stdenv.mkDerivation rec {
-  version = "1.0";
+stdenv.mkDerivation {
+  version = "2019-05-09";
   pname = "xcwd";
 
   src = fetchFromGitHub {
     owner   = "schischi";
     repo    = "xcwd";
-    rev     = "v${version}";
-    sha256  = "sha256-M6/1H6hI50Cvx40RTKzZXoUui0FGZfwe1IwdaxMJIQo=";
+    rev     = "99738e1176acf3f39c2e709236c3fd87b806f2ed";
+    sha256  = "1wvhj5x8ysi1q73f9cw1f6znvp2zivd8pp6z1p3znw732h4zlv6v";
   };
 
   buildInputs = [ libX11 ];

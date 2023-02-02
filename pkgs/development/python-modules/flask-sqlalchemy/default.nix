@@ -1,7 +1,6 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, pdm-pep517
 , flask
 , mock
 , sqlalchemy
@@ -10,24 +9,19 @@
 
 buildPythonPackage rec {
   pname = "Flask-SQLAlchemy";
-  version = "3.0.2";
-  format = "pyproject";
+  version = "2.5.1";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-FhmfWz3ftp4N8vUq5Mdq7b/sgjRiNJ2rshobLgorZek=";
+    sha256 = "2bda44b43e7cacb15d4e05ff3cc1f8bc97936cc464623424102bfc2c35e95912";
   };
-
-  nativeBuildInputs = [
-    pdm-pep517
-  ];
 
   propagatedBuildInputs = [
     flask
     sqlalchemy
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     pytestCheckHook
   ];

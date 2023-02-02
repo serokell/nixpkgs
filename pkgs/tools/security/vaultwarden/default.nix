@@ -1,24 +1,26 @@
-{ lib, stdenv, callPackage, rustPlatform, fetchFromGitHub, fetchurl, nixosTests
+{ lib, stdenv, rustPlatform, fetchFromGitHub, fetchurl, nixosTests
 , pkg-config, openssl
 , libiconv, Security, CoreServices
 , dbBackend ? "sqlite", libmysqlclient, postgresql }:
 
-let
-  webvault = callPackage ./webvault.nix {};
-in
-
 rustPlatform.buildRustPackage rec {
   pname = "vaultwarden";
-  version = "1.27.0";
+  version = "1.26.0";
 
   src = fetchFromGitHub {
     owner = "dani-garcia";
     repo = pname;
     rev = version;
-    hash = "sha256-QvU1Y3syr6PZbTRebbZF4sEzI4lIj1enJe2F/gGfvQM=";
+    sha256 = "sha256-LPIc1odUBvjVJty3GYYFNhile4XBWMisLUeVtWH6xgE=";
   };
 
-  cargoHash = "sha256-lylRGg5pzJ4sBS3bY4ObMoJ5s5kakMLTtq1VOnmS5HM";
+  cargoSha256 = "sha256-IfseODaoqlPNBlVjS+9+rKXAOq29TgULMA/ogmqg0NA=";
+
+  postPatch = ''
+    # Upstream specifies 1.57; nixpkgs has 1.56 which also produces a working
+    # vaultwarden when using RUSTC_BOOTSTRAP=1
+    sed -ri 's/^rust-version = .*//g' Cargo.toml
+  '';
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = with lib; [ openssl ]
@@ -32,11 +34,7 @@ rustPlatform.buildRustPackage rec {
 
   buildFeatures = dbBackend;
 
-  passthru = {
-    inherit webvault;
-    tests = nixosTests.vaultwarden;
-    updateScript = callPackage ./update.nix {};
-  };
+  passthru.tests = nixosTests.vaultwarden;
 
   meta = with lib; {
     description = "Unofficial Bitwarden compatible server written in Rust";

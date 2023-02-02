@@ -19,7 +19,7 @@ buildPythonApplication rec {
     py.test
   '';
 
-  nativeCheckInputs = [ coverage coveralls docopt mock pylint pytest vcrpy ];
+  checkInputs = [ coverage coveralls docopt mock pylint pytest vcrpy ];
 
   propagatedBuildInputs = [ beautifulsoup4 decorator kitchen requests six ];
 

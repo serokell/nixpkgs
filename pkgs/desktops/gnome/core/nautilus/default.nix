@@ -21,7 +21,6 @@
 , libexif
 , libseccomp
 , librsvg
-, webp-pixbuf-loader
 , tracker
 , tracker-miners
 , gexiv2
@@ -38,13 +37,13 @@
 
 stdenv.mkDerivation rec {
   pname = "nautilus";
-  version = "43.2";
+  version = "43.0";
 
   outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
-    sha256 = "qGqap6RVURsCnOSaHYtGWcPDVbXYHXNgu00N5jev7eA=";
+    sha256 = "PPVPrAqKvuCQ4VVBf3sW9j6grAwmTvT1RXSvNFgBqRE=";
   };
 
   patches = [
@@ -107,7 +106,6 @@ stdenv.mkDerivation rec {
       # Thumbnailers
       --prefix XDG_DATA_DIRS : "${gdk-pixbuf}/share"
       --prefix XDG_DATA_DIRS : "${librsvg}/share"
-      --prefix XDG_DATA_DIRS : "${webp-pixbuf-loader}/share"
       --prefix XDG_DATA_DIRS : "${shared-mime-info}/share"
     )
   '';

@@ -29,7 +29,7 @@ buildPythonPackage rec {
     py-cid
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-cov
   ];

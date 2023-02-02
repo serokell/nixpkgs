@@ -27,11 +27,10 @@
 , range-v3
 , tl-expected
 , hunspell
-, glibmm_2_68
+, glibmm
 , webkitgtk_4_1
 , jemalloc
 , rnnoise
-, protobuf
 , abseil-cpp
   # Transitive dependencies:
 , util-linuxMinimal
@@ -47,7 +46,6 @@
 , libthai
 , libdatrie
 , xdg-utils
-, xorg
 , libsysprof-capture
 , libpsl
 , brotli
@@ -67,7 +65,7 @@
 let
   tg_owt = callPackage ./tg_owt.nix {
     abseil-cpp = abseil-cpp.override {
-      cxxStandard = "20";
+      cxxStandard = "17";
     };
   };
   # Aarch64 default gcc9 will cause ICE. For reference #108305
@@ -75,7 +73,7 @@ let
 in
 env.mkDerivation rec {
   pname = "telegram-desktop";
-  version = "4.5.3";
+  version = "4.2.4";
   # Note: Update via pkgs/applications/networking/instant-messengers/telegram/tdesktop/update.py
 
   # Telegram-Desktop with submodules
@@ -84,7 +82,7 @@ env.mkDerivation rec {
     repo = "tdesktop";
     rev = "v${version}";
     fetchSubmodules = true;
-    sha256 = "060ajv9dd87qs202jr09i842vww1x25mg7vriyvmyw6rz0qf0d8l";
+    sha256 = "sha256-X2ZbjlL3YbPdXSgS+wqZL3FUW2xQ0DhqiOO5MR1QyLY=";
   };
 
   postPatch = ''
@@ -132,11 +130,10 @@ env.mkDerivation rec {
     range-v3
     tl-expected
     hunspell
-    glibmm_2_68
+    glibmm
     webkitgtk_4_1
     jemalloc
     rnnoise
-    protobuf
     tg_owt
     # Transitive dependencies:
     util-linuxMinimal # Required for libmount thus not nativeBuildInputs.
@@ -173,8 +170,7 @@ env.mkDerivation rec {
     wrapProgram $out/bin/telegram-desktop \
       "''${gappsWrapperArgs[@]}" \
       "''${qtWrapperArgs[@]}" \
-      --prefix LD_LIBRARY_PATH : "${xorg.libXcursor}/lib" \
-      --suffix PATH : ${lib.makeBinPath [ xdg-utils ]} \
+      --suffix PATH : ${lib.makeBinPath [ xdg-utils]} \
       --set XDG_RUNTIME_DIR "XDG-RUNTIME-DIR"
     sed -i $out/bin/telegram-desktop \
       -e "s,'XDG-RUNTIME-DIR',\"\''${XDG_RUNTIME_DIR:-/run/user/\$(id --user)}\","

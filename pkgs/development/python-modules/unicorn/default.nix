@@ -15,7 +15,8 @@ buildPythonPackage rec {
   sourceRoot = "source/bindings/python";
 
   prePatch = ''
-    ln -s ${unicorn-emu}/lib/libunicorn.* prebuilt/
+    ln -s ${unicorn-emu}/lib/libunicorn${stdenv.targetPlatform.extensions.sharedLibrary} prebuilt/
+    ln -s ${unicorn-emu}/lib/libunicorn.a prebuilt/
   '';
 
   # needed on non-x86 linux

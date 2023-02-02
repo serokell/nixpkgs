@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ future ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     nose
     pytestCheckHook
     simplejson

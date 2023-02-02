@@ -1,28 +1,24 @@
 { lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles, makeWrapper, pkg-config
-, withGui ? true, vte
+, tcsh
+, withGui ? stdenv.isLinux, vte # vte is broken on darwin
 }:
 
 buildGoModule rec {
   pname = "o";
-  version = "2.58.0";
+  version = "2.57.0";
 
   src = fetchFromGitHub {
     owner = "xyproto";
     repo = "o";
     rev = "v${version}";
-    hash = "sha256-oYWlciTQ/4mm/gTSQEkD/xPeLfDjIAMksjj1DVodZW4=";
+    hash = "sha256-UKFquf5h1e7gRAZgtcTdEpoNv+TOC8BYb2ED26X274s=";
   };
 
-  vendorSha256 = null;
-
-  postPatch = lib.optionalString stdenv.isDarwin ''
-    substituteInPlace Makefile \
-      --replace "-Wl,--as-needed" ""
-
-    # Requires impure pbcopy and pbpaste
-    substituteInPlace v2/pbcopy_test.go \
-      --replace TestPBcopy SkipTestPBcopy
+  postPatch = ''
+    substituteInPlace ko/main.cpp --replace '/bin/csh' '${tcsh}/bin/tcsh'
   '';
+
+  vendorSha256 = null;
 
   nativeBuildInputs = [ installShellFiles makeWrapper pkg-config ];
 
@@ -35,7 +31,7 @@ buildGoModule rec {
     installManPage o.1
   '' + lib.optionalString withGui ''
     make install-gui PREFIX=$out
-    wrapProgram $out/bin/og --prefix PATH : $out/bin
+    wrapProgram $out/bin/ko --prefix PATH : $out/bin
   '';
 
   meta = with lib; {

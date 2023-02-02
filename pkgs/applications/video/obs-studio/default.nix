@@ -1,6 +1,7 @@
 { config
 , lib
 , stdenv
+, mkDerivation
 , fetchFromGitHub
 , addOpenGLRunpath
 , cmake
@@ -12,6 +13,7 @@
 , libpthreadstubs
 , libXdmcp
 , qtbase
+, qtx11extras
 , qtsvg
 , speex
 , libv4l
@@ -36,34 +38,27 @@
 , pipewireSupport ? stdenv.isLinux
 , pipewire
 , libdrm
-, libajantv2
-, librist
-, libva
-, srt
-, qtwayland
-, wrapQtAppsHook
 }:
 
 let
   inherit (lib) optional optionals;
 
 in
-stdenv.mkDerivation rec {
+mkDerivation rec {
   pname = "obs-studio";
-  version = "29.0.0";
+  version = "27.2.4";
 
   src = fetchFromGitHub {
     owner = "obsproject";
     repo = "obs-studio";
     rev = version;
-    sha256 = "sha256-c+G02k4AACaYfa5Zhsanr6AU3vNbopDMcYtuny/d25Y=";
+    sha256 = "sha256-OiSejQovSmhItrnrQlcVp9PCDRgAhuxTinSpXbH8bo0=";
     fetchSubmodules = true;
   };
 
   patches = [
     # Lets obs-browser build against CEF 90.1.0+
     ./Enable-file-access-and-universal-access-for-file-URL.patch
-    ./Provide-runtime-plugin-destination-as-relative-path.patch
   ];
 
   nativeBuildInputs = [
@@ -71,7 +66,6 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
     wrapGAppsHook
-    wrapQtAppsHook
   ]
   ++ optional scriptingSupport swig;
 
@@ -87,6 +81,7 @@ stdenv.mkDerivation rec {
     libpthreadstubs
     libXdmcp
     qtbase
+    qtx11extras
     qtsvg
     speex
     wayland
@@ -94,11 +89,6 @@ stdenv.mkDerivation rec {
     libvlc
     mbedtls
     pciutils
-    libajantv2
-    librist
-    libva
-    srt
-    qtwayland
   ]
   ++ optionals scriptingSupport [ luajit python3 ]
   ++ optional alsaSupport alsa-lib
@@ -127,7 +117,6 @@ stdenv.mkDerivation rec {
     # Add support for browser source
     "-DBUILD_BROWSER=ON"
     "-DCEF_ROOT_DIR=../../cef"
-    "-DENABLE_JACK=ON"
   ];
 
   dontWrapGApps = true;

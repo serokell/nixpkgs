@@ -1,5 +1,5 @@
 { lib
-, buildPythonPackage
+, buildPythonApplication
 , fetchPypi
 , installShellFiles
 , mock
@@ -10,7 +10,7 @@
 , stestr
 }:
 
-buildPythonPackage rec {
+buildPythonApplication rec {
   pname = "python-swiftclient";
   version = "4.1.0";
   format = "setuptools";
@@ -31,7 +31,7 @@ buildPythonPackage rec {
     python-keystoneclient
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     mock
     openstacksdk
     stestr

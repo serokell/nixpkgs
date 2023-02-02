@@ -17,7 +17,7 @@ buildPythonPackage rec {
   '';
 
   buildInputs = [ keyutils ];
-  nativeCheckInputs = [ pytest pytest-runner ];
+  checkInputs = [ pytest pytest-runner ];
 
   meta = {
     description = "A set of python bindings for keyutils";

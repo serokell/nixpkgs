@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "community" ];
 
-  nativeCheckInputs = [ pandas scipy ];
+  checkInputs = [ pandas scipy ];
 
   meta = with lib; {
     homepage = "https://github.com/taynaud/python-louvain";

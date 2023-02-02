@@ -1,7 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{ lib, buildPythonPackage, fetchPypi
 , django
+
 , azure-storage-blob
 , boto3
 , dropbox
@@ -12,16 +11,14 @@
 
 buildPythonPackage rec {
   pname = "django-storages";
-  version = "1.13.2";
+  version = "1.13.1";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-y63RXJCc63JH1P/FA/Eqm+w2mZ340L73wx5XF31RJog=";
+    sha256 = "sha256-s9mOzAnxsWJ8Kyz0MJZDIs5OCGF9v5tCNsFqModaHgs=";
   };
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
   preCheck = ''
     export DJANGO_SETTINGS_MODULE=tests.settings
@@ -30,8 +27,7 @@ buildPythonPackage rec {
       --replace 'test_accessed_time' 'dont_test_accessed_time' \
       --replace 'test_modified_time' 'dont_test_modified_time'
   '';
-
-  nativeCheckInputs = [
+  checkInputs = [
     azure-storage-blob
     boto3
     dropbox
@@ -40,14 +36,11 @@ buildPythonPackage rec {
     paramiko
   ];
 
-  pythonImportsCheck = [
-    "storages"
-  ];
+  pythonImportsCheck = [ "storages" ];
 
   meta = with lib; {
     description = "Collection of custom storage backends for Django";
     homepage = "https://django-storages.readthedocs.io";
-    changelog = "https://github.com/jschneier/django-storages/blob/${version}/CHANGELOG.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ mmai ];
   };

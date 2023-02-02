@@ -32,7 +32,7 @@ buildPythonPackage rec {
       --replace "future>=0.16" ""
   '';
 
-  nativeCheckInputs = [ nose ];
+  checkInputs = [ nose ];
   checkPhase = "nosetests pyxnat/tests";
   doCheck = false;  # requires a docker container running an XNAT server
 

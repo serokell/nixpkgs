@@ -32,7 +32,7 @@ buildPythonPackage rec {
     pbr
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     openssl
     requests-mock
     stestr

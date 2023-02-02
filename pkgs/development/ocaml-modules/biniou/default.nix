@@ -1,21 +1,29 @@
-{ lib, fetchurl, buildDunePackage, camlp-streams, easy-format }:
+{ lib, fetchFromGitHub, buildDunePackage, easy-format }:
 
 buildDunePackage rec {
   pname = "biniou";
-  version = "1.2.2";
+  version = "1.2.1";
 
-  src = fetchurl {
-    url = "https://github.com/ocaml-community/biniou/releases/download/${version}/biniou-${version}.tbz";
-    hash = "sha256-i/P/F80Oyy1rbR2UywjvCJ1Eyu+W6brmvmg51Cj6MY8=";
+  useDune2 = true;
+
+  src = fetchFromGitHub {
+    owner = "ocaml-community";
+    repo = pname;
+    rev = version;
+    sha256 = "0x2kiy809n1j0yf32l7hj102y628jp5jdrkbi3z7ld8jq04h1790";
   };
 
-  propagatedBuildInputs = [ camlp-streams easy-format ];
+  propagatedBuildInputs = [ easy-format ];
 
   strictDeps = true;
 
+  postPatch = ''
+   patchShebangs .
+  '';
+
   meta = {
     description = "Binary data format designed for speed, safety, ease of use and backward compatibility as protocols evolve";
-    homepage = "https://github.com/ocaml-community/biniou";
+    inherit (src.meta) homepage;
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.vbgl ];
     mainProgram = "bdump";

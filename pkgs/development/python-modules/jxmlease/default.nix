@@ -22,7 +22,7 @@ buildPythonPackage rec {
   # https://github.com/Juniper/jxmlease/issues/26
   doCheck = false;
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  checkInputs = [ unittestCheckHook ];
 
   unittestFlagsArray = [ "-v" ];
 

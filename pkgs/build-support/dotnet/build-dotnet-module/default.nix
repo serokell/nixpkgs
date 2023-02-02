@@ -2,11 +2,13 @@
 , stdenvNoCC
 , callPackage
 , writeShellScript
+, writeText
 , srcOnly
 , linkFarmFromDrvs
 , symlinkJoin
 , makeWrapper
 , dotnetCorePackages
+, dotnetPackages
 , mkNugetSource
 , mkNugetDeps
 , nuget-to-nix
@@ -59,9 +61,6 @@
   # Libraries that need to be available at runtime should be passed through this.
   # These get wrapped into `LD_LIBRARY_PATH`.
 , runtimeDeps ? [ ]
-  # The dotnet runtime ID. If null, fetch-deps will gather dependencies for all
-  # platforms in meta.platforms which are supported by the sdk.
-, runtimeId ? null
 
   # Tests to disable. This gets passed to `dotnet test --filter "FullyQualifiedName!={}"`, to ensure compatibility with all frameworks.
   # See https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test#filter-option-details for more details.
@@ -74,8 +73,6 @@
 , buildType ? "Release"
   # If set to true, builds the application as a self-contained - removing the runtime dependency on dotnet
 , selfContainedBuild ? false
-  # Whether to explicitly enable UseAppHost when building
-, useAppHost ? true
   # The dotnet SDK to use.
 , dotnet-sdk ? dotnetCorePackages.sdk_6_0
   # The dotnet runtime to use.
@@ -93,10 +90,6 @@ let
 
   inherit (callPackage ./hooks {
     inherit dotnet-sdk dotnet-test-sdk disabledTests nuget-source dotnet-runtime runtimeDeps buildType;
-    runtimeId =
-      if runtimeId != null
-      then runtimeId
-      else dotnetCorePackages.systemToDotnetRid stdenvNoCC.targetPlatform.system;
   }) dotnetConfigureHook dotnetBuildHook dotnetCheckHook dotnetInstallHook dotnetFixupHook;
 
   localDeps =
@@ -118,10 +111,13 @@ let
     deps = [ _nugetDeps ] ++ lib.optional (localDeps != null) localDeps;
   };
 
-  # this contains all the nuget packages that are implicitly referenced by the dotnet
+  # this contains all the nuget packages that are implictly referenced by the dotnet
   # build system. having them as separate deps allows us to avoid having to regenerate
   # a packages dependencies when the dotnet-sdk version changes
-  sdkDeps = dotnet-sdk.packages;
+  sdkDeps = mkNugetDeps {
+    name = "dotnet-sdk-${dotnet-sdk.version}-deps";
+    nugetDeps = dotnet-sdk.passthru.packages;
+  };
 
   sdkSource = mkNugetSource {
     name = "dotnet-sdk-${dotnet-sdk.version}-source";
@@ -156,18 +152,22 @@ stdenvNoCC.mkDerivation (args // {
   # gappsWrapperArgs gets included when wrapping for dotnet, as to avoid double wrapping
   dontWrapGApps = args.dontWrapGApps or true;
 
-  inherit selfContainedBuild useAppHost;
-
   passthru = {
     inherit nuget-source;
 
     fetch-deps =
       let
-        flags = dotnetFlags ++ dotnetRestoreFlags;
-        runtimeIds =
-          if runtimeId != null
-          then [ runtimeId ]
-          else map (system: dotnetCorePackages.systemToDotnetRid system) platforms;
+        # Derivations may set flags such as `--runtime <rid>` based on the host platform to avoid restoring/building nuget dependencies they dont have or dont need.
+        # This introduces an issue; In this script we loop over all platforms from `meta` and add the RID flag for it, as to fetch all required dependencies.
+        # The script would inherit the RID flag from the derivation based on the platform building the script, and set the flag for any iteration we do over the RIDs.
+        # That causes conflicts. To circumvent it we remove all occurances of the flag.
+        flags =
+          let
+            hasRid = flag: lib.any (v: v) (map (rid: lib.hasInfix rid flag) (lib.attrValues dotnet-sdk.runtimeIdentifierMap));
+          in
+          builtins.filter (flag: !(hasRid flag)) (dotnetFlags ++ dotnetRestoreFlags);
+
+        runtimeIds = map (system: dotnet-sdk.systemToDotnetRid system) platforms;
       in
       writeShellScript "fetch-${pname}-deps" ''
         set -euo pipefail
@@ -190,13 +190,7 @@ stdenvNoCC.mkDerivation (args // {
             esac
         done
 
-        if [[ ''${TMPDIR:-} == /run/user/* ]]; then
-           # /run/user is usually a tmpfs in RAM, which may be too small
-           # to store all downloaded dotnet packages
-           TMPDIR=
-        fi
-
-        export tmp=$(mktemp -td "deps-${pname}-XXXXXX")
+        export tmp=$(mktemp -td "${pname}-tmp-XXXXXX")
         HOME=$tmp/home
 
         exitTrap() {
@@ -210,9 +204,7 @@ stdenvNoCC.mkDerivation (args // {
             fi
 
             # Since mktemp is used this will be empty if the script didnt succesfully complete
-            if ! test -s "$depsFile"; then
-              rm -rf "$depsFile"
-            fi
+            ! test -s "$depsFile" && rm -rf "$depsFile"
         }
 
         trap exitTrap EXIT INT TERM

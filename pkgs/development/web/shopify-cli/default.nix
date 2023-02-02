@@ -4,7 +4,6 @@ let
   rubyEnv = bundlerEnv {
     name = "shopify-cli";
     gemdir = ./.;
-    ruby = ruby;
   };
 in
 stdenv.mkDerivation rec {

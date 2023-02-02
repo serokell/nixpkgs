@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, substituteAll, pkg-config, cmake, bluez, libusb1, curl
-, libiconv, gettext, sqlite, bash, dialog
+{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, bluez, libusb1, curl
+, libiconv, gettext, sqlite
 , dbiSupport ? false, libdbi ? null, libdbiDrivers ? null
 , postgresSupport ? false, postgresql ? null
 }:
@@ -17,20 +17,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-aeaGHVxOMiXRU6RHws+oAnzdO9RY1jw/X/xuGfSt76I=";
   };
 
-  patches = [
-    ./bashcomp-dir.patch
-    ./systemd.patch
-    (substituteAll {
-      src = ./gammu-config-dialog.patch;
-      dialog = "${dialog}/bin/dialog";
-    })
-  ];
+  patches = [ ./bashcomp-dir.patch ./systemd.patch ];
 
   nativeBuildInputs = [ pkg-config cmake ];
 
   strictDeps = true;
 
-  buildInputs = [ bash bluez libusb1 curl gettext sqlite libiconv ]
+  buildInputs = [ bluez libusb1 curl gettext sqlite libiconv ]
   ++ optionals dbiSupport [ libdbi libdbiDrivers ]
   ++ optionals postgresSupport [ postgresql ];
 

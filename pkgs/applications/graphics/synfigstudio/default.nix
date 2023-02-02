@@ -103,7 +103,6 @@ stdenv.mkDerivation {
     pkg-config
     autoreconfHook
     gettext
-    intltool
     wrapGAppsHook
   ];
   buildInputs = [

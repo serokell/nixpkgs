@@ -5,6 +5,7 @@
 , pytestCheckHook
 , python-dotenv
 , pytest-rerunfailures
+, tox
 , requests
 , python-dateutil
 , websocket-client
@@ -33,11 +34,12 @@ buildPythonPackage rec {
     ibm-cloud-sdk-core
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     responses
     pytestCheckHook
     python-dotenv
     pytest-rerunfailures
+    tox
   ];
 
   postPatch = ''

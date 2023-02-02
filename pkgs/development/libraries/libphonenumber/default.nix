@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gtest, boost, pkg-config, protobuf, icu, Foundation, buildPackages }:
+{ lib, stdenv, fetchFromGitHub, cmake, gtest, boost, pkg-config, protobuf, icu, Foundation }:
 
 stdenv.mkDerivation rec {
   pname = "phonenumber";
@@ -13,6 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
+    gtest
     pkg-config
   ];
 
@@ -20,15 +21,9 @@ stdenv.mkDerivation rec {
     boost
     protobuf
     icu
-    gtest
   ] ++ lib.optional stdenv.isDarwin Foundation;
 
   cmakeDir = "../cpp";
-  cmakeFlags =
-    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "-DBUILD_GEOCODER=OFF"
-      "-DPROTOC_BIN=${buildPackages.protobuf}/bin/protoc"
-    ];
 
   checkPhase = "./libphonenumber_test";
 

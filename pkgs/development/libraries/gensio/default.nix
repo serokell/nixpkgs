@@ -8,17 +8,19 @@
 
 stdenv.mkDerivation rec {
   pname = "gensio";
-  version = "2.6.2";
+  version = "2.5.5";
 
   src = fetchFromGitHub {
     owner = "cminyard";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-lpP/pmM06zIw+9EZe+zywExLOcrN3K7IMK32XSrCmYs=";
+    sha256 = "sha256-K2A61OflKdVVzdV8qH5x/ggZKa4i8yvs5bdPoOwmm7A=";
   };
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      attrPath = pname;
+    };
   };
 
   configureFlags = [

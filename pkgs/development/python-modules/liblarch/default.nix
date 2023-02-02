@@ -21,7 +21,7 @@ buildPythonPackage rec {
     sha256 = "sha256-A2qChe2z6rAhjRVX5VoHQitebf/nMATdVZQgtlquuYg=";
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     gobject-introspection # for setup hook
     gtk3
   ];

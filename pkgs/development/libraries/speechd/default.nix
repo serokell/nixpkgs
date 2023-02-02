@@ -39,7 +39,7 @@ in stdenv.mkDerivation rec {
       src = ./fix-paths.patch;
       utillinux = util-linux;
     })
-  ] ++ lib.optionals (withEspeak && espeak.mbrolaSupport) [
+  ] ++ lib.optionals espeak.mbrolaSupport [
     # Replace FHS paths.
     (substituteAll {
       src = ./fix-mbrola-paths.patch;
@@ -69,9 +69,9 @@ in stdenv.mkDerivation rec {
     espeak
     sonic
     pcaudiolib
-  ] ++ lib.optionals withFlite [
+  ] ++ lib.optional withFlite [
     flite
-  ] ++ lib.optionals withPico [
+  ] ++ lib.optional withPico [
     svox
   ];
 
@@ -83,17 +83,17 @@ in stdenv.mkDerivation rec {
     # Audio method falls back from left to right.
     "--with-default-audio-method=\"libao,pulse,alsa,oss\""
     "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
-  ] ++ lib.optionals withPulse [
+  ] ++ lib.optional withPulse [
   "--with-pulse"
-  ] ++ lib.optionals withAlsa [
+  ] ++ lib.optional withAlsa [
     "--with-alsa"
-  ] ++ lib.optionals withLibao [
+  ] ++ lib.optional withLibao [
     "--with-libao"
-  ] ++ lib.optionals withOss [
+  ] ++ lib.optional withOss [
     "--with-oss"
-  ] ++ lib.optionals withEspeak [
+  ] ++ lib.optional withEspeak [
     "--with-espeak-ng"
-  ] ++ lib.optionals withPico [
+  ] ++ lib.optional withPico [
     "--with-pico"
   ];
 

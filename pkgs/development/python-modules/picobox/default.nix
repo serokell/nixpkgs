@@ -41,7 +41,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     flask
     pytestCheckHook
   ];

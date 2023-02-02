@@ -23,7 +23,7 @@ buildPythonPackage rec {
     pytz-deprecation-shim
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-mock
     pytestCheckHook
   ];

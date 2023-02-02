@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
+{ buildPythonPackage
 , fetchFromGitHub
+, lib
 , pytestCheckHook
 , pythonOlder
+  # Python dependencies
 , colorama
 , intervaltree
 , json5
@@ -14,21 +15,15 @@
 
 buildPythonPackage rec {
   pname = "graphtage";
-  version = "0.2.7";
-
+  version = "0.2.6";
   disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "trailofbits";
     repo = pname;
     rev = "refs/tags/v${version}";
-    hash = "sha256-3PJSjK8citdsfTyTLtDOlLeXWhkOW/4ajLC+j8F0BZw=";
+    sha256 = "sha256-ZazqtrrCsoeJK7acj7Unpl+ZI2JL/khMN2aOSHdCHl0=";
   };
-
-  postPatch = ''
-    substituteInPlace setup.py \
-      --replace "json5==0.9.5" "json5>=0.9.5"
-  '';
 
   propagatedBuildInputs = [
     colorama
@@ -40,18 +35,18 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "graphtage"
-  ];
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace "json5==0.9.5" "json5>=0.9.5"
+  '';
+
+  pythonImportsCheck = [ "graphtage" ];
 
   meta = with lib; {
-    description = "A utility to diff tree-like files such as JSON and XML";
     homepage = "https://github.com/trailofbits/graphtage";
-    changelog = "https://github.com/trailofbits/graphtage/releases/tag/v${version}";
+    description = "A utility to diff tree-like files such as JSON and XML";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ veehaitch ];
   };

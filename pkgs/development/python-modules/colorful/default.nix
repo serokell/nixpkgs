@@ -2,35 +2,25 @@
 , buildPythonPackage
 , fetchFromGitHub
 , pytestCheckHook
-, pythonOlder
 }:
 
 buildPythonPackage rec {
   pname = "colorful";
-  version = "0.5.5";
-  format = "setuptools";
+  version = "0.5.4";
 
-  disabled = pythonOlder "3.7";
-
+  # No tests in the Pypi package.
   src = fetchFromGitHub {
     owner = "timofurrer";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-fgxbj1WE9JcGt+oEcBguL0wQEWIn5toRTLWsvCFO3k8=";
+    rev = "v${version}";
+    sha256 = "1fcz5v8b318a3dsdha4c874jsf3wmcw3f25bv2csixclyzacli98";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
-
-  pythonImportsCheck = [
-    "colorful"
-  ];
+  checkInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description = "Library for terminal string styling";
+    description = "Terminal string styling done right, in Python.";
     homepage = "https://github.com/timofurrer/colorful";
-    changelog = "https://github.com/timofurrer/colorful/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ kalbasit ];
   };

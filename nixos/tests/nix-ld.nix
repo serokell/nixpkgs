@@ -12,6 +12,9 @@ import ./make-test-python.nix ({ lib, pkgs, ...} :
   };
   testScript = ''
     start_all()
-    machine.succeed("hello")
+    path = "${pkgs.stdenv.cc}/nix-support/dynamic-linker"
+    with open(path) as f:
+        real_ld = f.read().strip()
+    machine.succeed(f"NIX_LD={real_ld} hello")
  '';
 })

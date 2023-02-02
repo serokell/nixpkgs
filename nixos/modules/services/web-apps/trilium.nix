@@ -67,7 +67,7 @@ in
     };
 
     port = mkOption {
-      type = types.port;
+      type = types.int;
       default = 8080;
       description = lib.mdDoc ''
         The port number to bind to.

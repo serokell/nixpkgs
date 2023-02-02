@@ -41,7 +41,7 @@ buildPythonPackage rec {
     "keyrings.cryptfile"
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

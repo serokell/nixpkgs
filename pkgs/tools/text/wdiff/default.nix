@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ texinfo ];
 
-  nativeCheckInputs = [ which ];
+  checkInputs = [ which ];
 
   strictDeps = true;
 

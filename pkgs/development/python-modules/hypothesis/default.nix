@@ -13,7 +13,7 @@
 
 buildPythonPackage rec {
   pname = "hypothesis";
-  version = "6.61.0";
+  version = "6.54.5";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -22,7 +22,7 @@ buildPythonPackage rec {
     owner = "HypothesisWorks";
     repo = "hypothesis";
     rev = "hypothesis-python-${version}";
-    hash = "sha256-gTcdJaOgP8Nc4fN8UH6+sLedivq5ZNxMRULajFOVnSo=";
+    hash = "sha256-mr8ctmAzRgWNVpW+PZlOhaQ0l28P0U8PxvjoVjfHX78=";
   };
 
   postUnpack = "sourceRoot=$sourceRoot/hypothesis-python";
@@ -34,7 +34,7 @@ buildPythonPackage rec {
     exceptiongroup
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pexpect
     pytest-xdist
     pytestCheckHook

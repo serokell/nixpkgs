@@ -27,7 +27,7 @@ buildPythonPackage rec {
     py-air-control
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

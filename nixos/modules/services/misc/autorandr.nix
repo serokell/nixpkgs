@@ -254,17 +254,11 @@ in {
         '';
       };
 
-      ignoreLid = mkOption {
-        default = false;
-        type = types.bool;
-        description = lib.mdDoc "Treat outputs as connected even if their lids are closed";
-      };
-
       hooks = mkOption {
         type = hooksModule;
         description = lib.mdDoc "Global hook scripts";
         default = { };
-        example = literalExpression ''
+        example = ''
           {
             postswitch = {
               "notify-i3" = "''${pkgs.i3}/bin/i3-msg restart";
@@ -285,7 +279,7 @@ in {
                     exit 1
                 esac
                 echo "Xft.dpi: $DPI" | ''${pkgs.xorg.xrdb}/bin/xrdb -merge
-              ''';
+              '''
             };
           }
         '';
@@ -346,13 +340,7 @@ in {
       startLimitIntervalSec = 5;
       startLimitBurst = 1;
       serviceConfig = {
-        ExecStart = ''
-          ${pkgs.autorandr}/bin/autorandr \
-            --batch \
-            --change \
-            --default ${cfg.defaultTarget} \
-            ${optionalString cfg.ignoreLid "--ignore-lid"}
-        '';
+        ExecStart = "${pkgs.autorandr}/bin/autorandr --batch --change --default ${cfg.defaultTarget}";
         Type = "oneshot";
         RemainAfterExit = false;
         KillMode = "process";

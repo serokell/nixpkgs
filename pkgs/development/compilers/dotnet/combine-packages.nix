@@ -21,7 +21,7 @@ assert lib.assertMsg ((builtins.length packages) > 0)
       makeWrapper
     ];
     postBuild = ''
-      cp -R ${cli}/{dotnet,share,nix-support} $out/
+      cp -R ${cli}/{dotnet,LICENSE.txt,nix-support,ThirdPartyNotices.txt} $out/
 
       mkdir $out/bin
       ln -s $out/dotnet $out/bin/dotnet

@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Tools for generating DVD files to be played on standalone DVD players";
-    homepage = "https://dvdauthor.sourceforge.net/";
+    homepage = "http://dvdauthor.sourceforge.net/";
     license = licenses.gpl2;
     platforms = platforms.linux ++ platforms.darwin;
   };

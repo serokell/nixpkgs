@@ -2,71 +2,67 @@
 , stdenvNoCC
 , fetchFromGitHub
 , gtk3
-, colloid-gtk-theme
 , gnome-themes-extra
 , gtk-engine-murrine
-, python3
 , sassc
-, accents ? [ "blue" ]
-, size ? "standard"
 , tweaks ? [ ]
-, variant ? "frappe"
+, size ? "standard"
 }:
 let
-  validAccents = [ "blue" "flamingo" "green" "lavender" "maroon" "mauve" "peach" "pink" "red" "rosewater" "sapphire" "sky" "teal" "yellow" ];
   validSizes = [ "standard" "compact" ];
-  validTweaks = [ "black" "rimless" "normal" ];
-  validVariants = [ "latte" "frappe" "macchiato" "mocha" ];
+  validTweaks = [ "nord" "dracula" "black" "rimless" "normal" ];
 
-  pname = "catppuccin-gtk";
+  unknownTweaks = lib.subtractLists validTweaks tweaks;
+  illegalMix = (lib.elem "nord" tweaks) && (lib.elem "dracula" tweaks);
+
+  assertIllegal = lib.assertMsg (!illegalMix) ''
+    Tweaks "nord" and "dracula" cannot be mixed. Tweaks: ${toString tweaks}
+  '';
+
+  assertSize = lib.assertMsg (lib.elem size validSizes) ''
+    You entered a wrong size: ${size}
+    Valid sizes are: ${toString validSizes}
+  '';
+
+  assertUnknown = lib.assertMsg (unknownTweaks == [ ]) ''
+    You entered wrong tweaks: ${toString unknownTweaks}
+    Valid tweaks are: ${toString validTweaks}
+  '';
 in
 
-lib.checkListOfEnum "${pname}: theme accent" validAccents accents
-lib.checkListOfEnum "${pname}: color variant" validVariants [variant]
-lib.checkListOfEnum "${pname}: size variant" validSizes [size]
-lib.checkListOfEnum "${pname}: tweaks" validTweaks tweaks
+assert assertIllegal;
+assert assertSize;
+assert assertUnknown;
 
 stdenvNoCC.mkDerivation rec {
-  inherit pname;
-  version = "0.4.1";
+  pname = "catppuccin-gtk";
+  version = "0.2.7";
 
   src = fetchFromGitHub {
-    owner = "catppuccin";
     repo = "gtk";
-    rev = "v${version}";
-    sha256 = "sha256-dzRXt9/OdPyiy3mu9pmPYeu69OXCnR+zEqbD1C5BKqM=";
+    owner = "catppuccin";
+    rev = "v-${version}";
+    sha256 = "sha256-oTAfURHMWqlKHk4CNz5cn6vO/7GmQJM2rXXGDz2e+0w=";
   };
 
   nativeBuildInputs = [ gtk3 sassc ];
 
-  buildInputs = [
-    gnome-themes-extra
-    (python3.withPackages (ps: [ ps.catppuccin ]))
-  ];
+  buildInputs = [ gnome-themes-extra ];
 
   propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
-  postUnpack = ''
-    rm -rf source/colloid
-    cp -r ${colloid-gtk-theme.src} source/colloid
-    chmod -R +w source/colloid
-  '';
-
   postPatch = ''
-    patchShebangs --build colloid/clean-old-theme.sh colloid/install.sh
+    patchShebangs --build clean-old-theme.sh install.sh
   '';
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/share/themes
     export HOME=$(mktemp -d)
 
-    python3 install.py ${variant} \
-      ${lib.optionalString (accents != []) "--accent " + builtins.toString accents} \
-      ${lib.optionalString (size != []) "--size " + size} \
-      ${lib.optionalString (tweaks != []) "--tweaks " + builtins.toString tweaks} \
-      --dest $out/share/themes
+    bash install.sh -d $out/share/themes -t all \
+      ${lib.optionalString (size != "") "-s ${size}"} \
+      ${lib.optionalString (tweaks != []) "--tweaks " + builtins.toString tweaks}
 
     runHook postInstall
   '';

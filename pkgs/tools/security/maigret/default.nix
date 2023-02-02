@@ -57,7 +57,7 @@ python3.pkgs.buildPythonApplication rec {
     yarl
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
+  checkInputs = with python3.pkgs; [
     pytest-httpserver
     pytest-asyncio
     pytestCheckHook

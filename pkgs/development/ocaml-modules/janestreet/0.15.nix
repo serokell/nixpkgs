@@ -1,7 +1,5 @@
 { self
-, bash
 , fetchpatch
-, fzf
 , lib
 , openssl
 , zstd
@@ -89,7 +87,6 @@ with self;
 
   async_js = janePackage {
     pname = "async_js";
-    duneVersion = "3";
     hash = "184j077bz686k5lrqswircnrdqldb316ngpzq7xri1pcsl39sy3q";
     meta.description = "A small library that provide Async support for JavaScript platforms";
     buildInputs = [ js_of_ocaml-ppx ];
@@ -111,7 +108,6 @@ with self;
   };
 
   async_rpc_websocket = janePackage {
-    duneVersion = "3";
     pname = "async_rpc_websocket";
     hash = "1n93jhkz5r76xcc40c4i4sxcyfz1dbppz8sjfxpwcwjyi6lyhp1p";
     meta.description = "Library to serve and dispatch Async RPCs over websockets";
@@ -133,7 +129,6 @@ with self;
   };
 
   async_smtp = janePackage {
-    duneVersion = "3";
     pname = "async_smtp";
     hash = "1m00j7wcb0blipnc1m6by70gd96a1k621b4dgvgffp8as04a461r";
     minimumOCamlVersion = "4.12";
@@ -162,7 +157,6 @@ with self;
   };
 
   async_websocket = janePackage {
-    duneVersion = "3";
     pname = "async_websocket";
     hash = "16ixqfnx9jp77bvx11dlzsq0pzfpyiif60hl2q06zncyswky9xgb";
     meta.description = "A library that implements the websocket protocol on top of Async";
@@ -171,13 +165,12 @@ with self;
 
   base = janePackage {
     pname = "base";
-    version = "0.15.1";
-    hash = "sha256-CDKQVF+hAvJTo5QmRvyOfQNrdRgz6m+64q9UzNHlJEA=";
+    hash = "1qyycqqr4dijvxm4hhy79c964wd91kpsfvb89kna1qwgllg0hrpj";
     minimumOCamlVersion = "4.10";
     meta.description = "Full standard library replacement for OCaml";
     buildInputs = [ dune-configurator ];
     propagatedBuildInputs = [ sexplib0 ];
-    nativeCheckInputs = [ alcotest ];
+    checkInputs = [ alcotest ];
   };
 
   base_bigstring = janePackage {
@@ -213,7 +206,6 @@ with self;
 
   bonsai = janePackage {
     pname = "bonsai";
-    duneVersion = "3";
     hash = "150zx2g1dmhyrxwqq8j7f2m3hjpmk5bk182ihx2gdbarhw1ainpm";
     meta.description = "A library for building dynamic webapps, using Js_of_ocaml";
     buildInputs = [ ppx_pattern_bind ];
@@ -247,7 +239,6 @@ with self;
   };
 
   cohttp_async_websocket = janePackage {
-    duneVersion = "3";
     pname = "cohttp_async_websocket";
     hash = "0d0smavnxpnwrmhlcf3b5a3cm3n9kz1y8fh6l28xv6zrn4sc7ik8";
     meta.description = "Websocket library for use with cohttp and async";
@@ -256,8 +247,7 @@ with self;
 
   core = janePackage {
     pname = "core";
-    version = "0.15.1";
-    hash = "sha256-SHjnNFl+JAjdgVoRgmnz0wqrrc3zoh0ZyG2UhUsUbJ8=";
+    hash = "1m2ybvlz9zlb2d0jc0j7wdgd18mx9sh3ds2ylkv0cfjx1pzi0l25";
     meta.description = "Industrial strength alternative to OCaml's standard library";
     buildInputs = [ jst-config ];
     propagatedBuildInputs = [ base base_bigstring base_quickcheck ppx_jane time_now ];
@@ -289,8 +279,7 @@ with self;
 
   core_unix = janePackage {
     pname = "core_unix";
-    version = "0.15.2";
-    hash = "sha256-9f2PiLo+4Bjnfvh3scvIiPHj0wPZozmMMiCTe7vC1EA=";
+    hash = "1xzxqzg23in5ivz0v3qshzpr4w92laayscqj9im7jylh2ar1xi0a";
     meta.description = "Unix-specific portions of Core";
     buildInputs = [ jst-config ];
     propagatedBuildInputs = [ core_kernel expect_test_helpers_core ocaml_intrinsics ppx_jane timezone spawn ];
@@ -301,8 +290,7 @@ with self;
 
   csvfields = janePackage {
     pname = "csvfields";
-    version = "0.15.1";
-    hash = "sha256-bBupsarwjte2NCncNDFSkrrmMR3EYPn+D7xI9zQOhFA=";
+    hash = "0z47pq17bw776hzvk48ypbd92ps9vlvl86mnhw3j6cqx4ahbjik3";
     propagatedBuildInputs = [ core num ];
     meta.description = "Runtime support for ppx_xml_conv and ppx_csv_conv";
   };
@@ -322,7 +310,6 @@ with self;
   };
 
   email_message = janePackage {
-    duneVersion = "3";
     pname = "email_message";
     hash = "00h66l2g5rjaay0hbyqy4v9i866g779miriwv20h9k4mliqdq7in";
     meta.description = "E-mail message parser";
@@ -351,39 +338,11 @@ with self;
     propagatedBuildInputs = [ base ];
   };
 
-  file_path = janePackage {
-    pname = "file_path";
-    minimumOCamlVersion = "4.11";
-    hash = "0vjvxviryywwwfdazcijwhpajp2d4mavlki7lj4qaafjrw62x14k";
-    meta.description =
-      "A library for typed manipulation of UNIX-style file paths";
-    propagatedBuildInputs = [
-      async
-      core
-      core_kernel
-      core_unix
-      expect_test_helpers_async
-      expect_test_helpers_core
-      ppx_jane
-    ];
-  };
-
   fuzzy_match = janePackage {
     pname = "fuzzy_match";
     hash = "0s5w81698b07l5m11nwx8xbjcpmp54dnf5fcrnlva22jrlsf14h4";
     meta.description = "A library for fuzzy string matching";
     propagatedBuildInputs = [ core ppx_jane ];
-  };
-
-  fzf = janePackage {
-    pname = "fzf";
-    minimumOCamlVersion = "4.08";
-    hash = "1ha0i6dx5bgwzbdi4rn98wjwi2imv5p2i7qs7hy0c6cmg88xbdry";
-    meta.description = "A library for running the fzf command line tool";
-    propagatedBuildInputs = [ async core_kernel ppx_jane ];
-    postPatch = ''
-      substituteInPlace src/fzf.ml --replace /usr/bin/fzf ${fzf}/bin/fzf
-    '';
   };
 
   higher_kinded = janePackage {
@@ -396,7 +355,6 @@ with self;
 
   incr_dom = janePackage {
     pname = "incr_dom";
-    duneVersion = "3";
     hash = "1sija9w2im8vdp61h387w0mww9hh7jgkgsjcccps4lbv936ac7c1";
     meta.description = "A library for building dynamic webapps, using Js_of_ocaml";
     buildInputs = [ js_of_ocaml-ppx ];
@@ -497,10 +455,6 @@ with self;
   patdiff = janePackage {
     pname = "patdiff";
     hash = "0623a7n5r659rkxbp96g361mvxkcgc6x9lcbkm3glnppplk5kxr9";
-
-    # Used by patdiff-git-wrapper.  Providing it here also causes the shebang
-    # line to be automatically patched.
-    buildInputs = [ bash ];
     propagatedBuildInputs = [ core_unix patience_diff ocaml_pcre ];
     meta = {
       description = "File Diff using the Patience Diff algorithm";
@@ -589,7 +543,6 @@ with self;
 
   ppx_css = janePackage {
     pname = "ppx_css";
-    duneVersion = "3";
     hash = "09dpmj3f3m3z1ji9hq775iqr3cfmv5gh7q9zlblizj4wx4y0ibyi";
     meta.description = "A ppx that takes in css strings and produces a module for accessing the unique names defined within";
     propagatedBuildInputs = [ core_kernel ppxlib js_of_ocaml js_of_ocaml-ppx sedlex ];
@@ -613,8 +566,7 @@ with self;
 
   ppx_expect = janePackage {
     pname = "ppx_expect";
-    version = "0.15.1";
-    hash = "sha256-qlOipzTTdN9yQ35sItKmWpCv74kbuJLDg4IHNVTKvow=";
+    hash = "134dl5qhjxsj2mcmrx9f3m0iys0n5mjfpz9flj8zn8d2jir43776";
     minimumOCamlVersion = "4.04.2";
     meta.description = "Cram like framework for OCaml";
     propagatedBuildInputs = [ ppx_here ppx_inline_test re ];
@@ -677,16 +629,6 @@ with self;
     minimumOCamlVersion = "4.04.2";
     meta.description = "Standard Jane Street ppx rewriters";
     propagatedBuildInputs = [ base_quickcheck ppx_bin_prot ppx_disable_unused_warnings ppx_expect ppx_fixed_literal ppx_ignore_instrumentation ppx_log ppx_module_timer ppx_optcomp ppx_optional ppx_pipebang ppx_stable ppx_string ppx_typerep_conv ppx_variants_conv ];
-  };
-
-  ppx_jsonaf_conv = janePackage {
-    pname = "ppx_jsonaf_conv";
-    version = "0.15.1";
-    hash = "0wprs7qmscklyskj4famhaqqisi6jypy414aqba14qdyi43w0cv3";
-    minimumOCamlVersion = "4.08";
-    meta.description =
-      "[@@deriving] plugin to generate Jsonaf conversion functions";
-    propagatedBuildInputs = [ base jsonaf ppx_jane ppxlib ];
   };
 
   ppx_js_style = janePackage {
@@ -762,9 +704,8 @@ with self;
 
   ppx_sexp_conv = janePackage {
     pname = "ppx_sexp_conv";
-    version = "0.15.1";
-    minimalOCamlVersion = "4.08.0";
-    hash = "sha256-NYknZHyDklr71hihM2pPFQ7uAKkuKO2DJkjtsF+xc5g=";
+    minimumOCamlVersion = "4.04.2";
+    hash = "1fyf7hgxprn7pj58rmmrfpv938a0avpzvvk6wzihpmfm6whgbdm8";
     meta.description = "[@@deriving] plugin to generate S-expression conversion functions";
     propagatedBuildInputs = [ ppxlib sexplib0 base ];
   };
@@ -840,11 +781,11 @@ with self;
 
   pythonlib = janePackage {
     pname = "pythonlib";
-    version = "0.15.1";
-    hash = "sha256-j8WXVTEiBmHtoTjkbnIh31vC4IghfAMaEL19nDLx3mc=";
+    hash = "0p88vmp19zmr0r58dz6sawsmbn4yi2vyymad2c82kp93kg66nm1v";
     meta.description = "A library to help writing wrappers around ocaml code for python";
-    buildInputs = [ ppx_optcomp ];
+    patches = lib.optional (lib.versionAtLeast ocaml.version "4.13") ./pythonlib.patch;
     propagatedBuildInputs = [ ppx_expect ppx_let ppx_python stdio typerep ];
+    meta.broken = lib.versionAtLeast ocaml.version "4.14";
   };
 
   re2 = janePackage {
@@ -871,13 +812,6 @@ with self;
     hash = "004nqcmwll0vy47mb3d3jlk21cc6adcjy62dkv2k966n9jkh472h";
     meta.description = "A library which provides traversal of records with an applicative";
     propagatedBuildInputs = [ base ppx_jane ];
-  };
-
-  redis-async = janePackage {
-    pname = "redis-async";
-    hash = "0pccf4gkm880yyk8x4kgy5rwblkbscxav2sbis13abpms9vr7jfn";
-    meta.description = "Redis client for Async applications";
-    propagatedBuildInputs = [ async bignum core core_kernel ppx_jane ];
   };
 
   resource_cache = janePackage {
@@ -920,8 +854,7 @@ with self;
 
   sexp_pretty = janePackage {
     pname = "sexp_pretty";
-    version = "0.15.1";
-    hash = "sha256-UJEO2P4C7ZaD110MEfkG4FXfGDVAAW2TAK489faV6SM=";
+    hash = "1p1jspwjvrhm8li22xl0n8wngs12d9g7nc1svk6xc32jralnxblg";
     minimumOCamlVersion = "4.07";
     meta.description = "S-expression pretty-printer";
     propagatedBuildInputs = [ ppx_base re sexplib ];
@@ -937,16 +870,14 @@ with self;
 
   sexplib0 = janePackage {
     pname = "sexplib0";
-    version = "0.15.1";
-    hash = "sha256-6K0yrCbVFcUalN4cQuDI1TvWvNDjfXXRDhJKUskbqRY=";
+    hash = "0jag0bz2173b0n7hx013fhghydhh92arqjlrcnf5x025bw8nz66v";
     minimumOCamlVersion = "4.04.2";
     meta.description = "Library containing the definition of S-expressions and some base converters";
   };
 
   sexplib = janePackage {
     pname = "sexplib";
-    version = "0.15.1";
-    hash = "sha256-LkGNnp717LMHeWe1Ka6qUZcpw8fKSsd5MusaLgFjm70=";
+    hash = "05h34fm3p0179xivc14bixc50pzc8zws46l5gsq310kpm37srq3c";
     minimumOCamlVersion = "4.04.2";
     meta.description = "Library for serializing OCaml values to and from S-expressions";
     propagatedBuildInputs = [ num parsexp ];
@@ -958,7 +889,7 @@ with self;
     meta.description = "Yet another implementation of fork&exec and related functionality";
     buildInputs = [ jst-config ];
     propagatedBuildInputs = [ textutils ];
-    nativeCheckInputs = [ ounit ];
+    checkInputs = [ ounit ];
     # This currently fails with dune
     strictDeps = false;
   };
@@ -1066,7 +997,6 @@ with self;
     hash = "15xia9v4ighzm0gv3vbqk9nvg47cvzqmfnl2zr67yxv4b98kyzv3";
     meta.description = "OCaml bindings for the virtual-dom library";
     buildInputs = [ js_of_ocaml-ppx ];
-    duneVersion = "3";
     propagatedBuildInputs = [ core_kernel gen_js_api js_of_ocaml lambdasoup tyxml ];
   };
 

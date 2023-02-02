@@ -1,5 +1,5 @@
 { stdenv, lib, fetchurl, makeWrapper, gnused, db, openssl, cyrus_sasl, libnsl
-, coreutils, findutils, gnugrep, gawk, icu, pcre2, m4
+, coreutils, findutils, gnugrep, gawk, icu, pcre, m4
 , fetchpatch
 , buildPackages, nixosTests
 , withLDAP ? true, openldap
@@ -25,15 +25,15 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "postfix";
-  version = "3.7.4";
+  version = "3.6.6";
 
   src = fetchurl {
     url = "http://cdn.postfix.johnriley.me/mirrors/postfix-release/official/${pname}-${version}.tar.gz";
-    hash = "sha256-TBN6IwNEjyWZODaDfe6uh/rF1NA68Rrejpvq2AYyhkU=";
+    hash = "sha256-CYpxT0EEaO/ibiGR3I8xy6RQfVv0iPVvnrVUXjaG8NY=";
   };
 
   nativeBuildInputs = [ makeWrapper m4 ];
-  buildInputs = [ db openssl cyrus_sasl icu libnsl pcre2 ]
+  buildInputs = [ db openssl cyrus_sasl icu libnsl pcre ]
     ++ lib.optional withPgSQL postgresql
     ++ lib.optional withMySQL libmysqlclient
     ++ lib.optional withSQLite sqlite
@@ -101,11 +101,7 @@ in stdenv.mkDerivation rec {
       --prefix PATH ":" ${lib.makeBinPath [ coreutils findutils gnugrep gawk gnused ]}
   '';
 
-  passthru = {
-    tests = { inherit (nixosTests) postfix postfix-raise-smtpd-tls-security-level; };
-
-    updateScript = ./update.sh;
-  };
+  passthru.tests = { inherit (nixosTests) postfix postfix-raise-smtpd-tls-security-level; };
 
   meta = with lib; {
     homepage = "http://www.postfix.org/";

@@ -20,7 +20,7 @@ buildPythonPackage rec {
     ujson
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

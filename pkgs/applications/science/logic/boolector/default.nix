@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       "-DUSE_LINGELING=YES"
     ] ++ (lib.optional (gmp != null) "-DUSE_GMP=YES");
 
-  nativeCheckInputs = [ python3 ];
+  checkInputs = [ python3 ];
   doCheck = true;
   preCheck =
     let var = if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";

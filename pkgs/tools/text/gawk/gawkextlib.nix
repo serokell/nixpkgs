@@ -38,7 +38,7 @@ let
         inherit gawk;
 
         inherit doCheck;
-        nativeCheckInputs = [ more ];
+        checkInputs = [ more ];
 
         meta = with lib; {
           homepage = "https://sourceforge.net/projects/gawkextlib/";

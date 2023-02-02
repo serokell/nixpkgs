@@ -8,7 +8,7 @@ let
         src = oldAttrs.src.override {
           inherit (oldAttrs) pname;
           inherit version;
-          hash = "sha256-OpHLh5pCzGooQ5yxAa0+85m/szAafV+l+OfipQcfLtU=";
+          sha256 = "sha256-OpHLh5pCzGooQ5yxAa0+85m/szAafV+l+OfipQcfLtU=";
         };
       });
     };
@@ -37,7 +37,7 @@ in python.pkgs.buildPythonApplication rec {
     pyyaml
   ];
 
-  nativeCheckInputs = with python.pkgs; [
+  checkInputs = with python.pkgs; [
     pytestCheckHook
   ];
 

@@ -4,7 +4,7 @@ ocamlPackages.buildDunePackage rec {
   pname = "orpie";
   version = "1.6.1";
 
-  duneVersion = "3";
+  useDune2 = true;
 
   src = fetchFromGitHub {
     owner = "pelzlpj";

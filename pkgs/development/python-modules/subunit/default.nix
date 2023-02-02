@@ -9,46 +9,30 @@
 # python dependencies
 , fixtures
 , hypothesis
-, pytestCheckHook
-, setuptools
+, pytest
 , testscenarios
 , testtools
+, unittest2
 }:
 
 buildPythonPackage {
   inherit (subunit) name src meta;
-  format = "pyproject";
 
-  disabled = pythonOlder "3.6";
-
-  postPatch = ''
-    substituteInPlace setup.py \
-      --replace "version=VERSION" 'version="${subunit.version}"'
-  '';
-
-  nativeBuildInputs = [
-    pkg-config
-    setuptools
-  ];
-
+  nativeBuildInputs = [ pkg-config ];
   buildInputs = [ check cppunit ];
   propagatedBuildInputs = [ testtools ];
 
-  nativeCheckInputs = [
-    testscenarios
-    hypothesis
-    fixtures
-    pytestCheckHook
-  ];
+  checkInputs = [ testscenarios hypothesis fixtures pytest unittest2 ];
 
-  pytestFlagsArray = [
-    "python/subunit"
-  ];
+  # requires unittest2, which no longer supported in 3.10
+  doCheck = pythonOlder "3.10";
+  # ignore tests which call shell code, or call methods which haven't been implemented
+  checkPhase = ''
+    pytest python/subunit \
+      --ignore=python/subunit/tests/test_{output_filter,test_protocol{,2}}.py
+  '';
 
-  disabledTestPaths = [
-    # these tests require testtools and don't work with pytest
-    "python/subunit/tests/test_output_filter.py"
-    "python/subunit/tests/test_test_protocol.py"
-    "python/subunit/tests/test_test_protocol2.py"
-  ];
+  postPatch = ''
+    sed -i 's/version=VERSION/version="${subunit.version}"/' setup.py
+  '';
 }

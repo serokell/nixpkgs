@@ -32,7 +32,7 @@ buildPythonPackage rec {
     pillow
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

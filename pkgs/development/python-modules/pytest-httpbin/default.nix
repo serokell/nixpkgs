@@ -38,7 +38,7 @@ buildPythonPackage rec {
       --replace "assert response.headers['Location'].startswith('https://')" ""
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     requests
   ];

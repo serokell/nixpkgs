@@ -13,11 +13,11 @@
 
 buildPythonPackage rec {
   pname = "particle";
-  version = "0.21.0";
+  version = "0.20.1";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-SDdIg05+gfLNaQ+glitTf3Z/6K9HBci62mjIu9rIoX0=";
+    sha256 = "sha256-HoWWwoGMrkRqlYzrF2apGsxsZAHwHbHSO5TCSCelxUc=";
   };
   nativeBuildInputs = [
     setuptools-scm
@@ -41,7 +41,7 @@ buildPythonPackage rec {
     rm tests/particle/test_performance.py
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     tabulate
     pandas

@@ -1,22 +1,17 @@
-{ lib, buildGoModule, fetchFromGitHub, llvmPackages, getconf }:
+{ lib, buildGoPackage, fetchFromGitHub }:
 
-buildGoModule rec {
+buildGoPackage rec {
   pname = "gllvm";
-  version = "1.3.1";
+  version = "1.3.0";
+
+  goPackagePath = "github.com/SRI-CSL/gllvm";
 
   src = fetchFromGitHub {
     owner = "SRI-CSL";
     repo = "gllvm";
     rev = "v${version}";
-    sha256 = "sha256-CoreqnMRuPuv+Ci1uyF3HJCJFwK2jwB79okynv6AHTA=";
+    sha256 = "sha256-nu6PRFk+GoN1gT1RTbX6mTPZByAGf0bSsj2C5YriGp8=";
   };
-
-  vendorSha256 = null;
-
-  nativeCheckInputs = with llvmPackages; [
-    clang
-    llvm
-  ] ++ lib.optionals stdenv.isDarwin [ getconf ];
 
   meta = with lib; {
     homepage = "https://github.com/SRI-CSL/gllvm";

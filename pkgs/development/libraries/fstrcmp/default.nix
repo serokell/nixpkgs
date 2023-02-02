@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       comparisons of strings and byte arrays, including multi-byte character
       strings.
     '';
-    homepage = "https://fstrcmp.sourceforge.net/";
+    homepage = "http://fstrcmp.sourceforge.net/";
     downloadPage = "https://sourceforge.net/projects/fstrcmp/";
     license = licenses.gpl3;
     maintainers = [ maintainers.sephalon ];

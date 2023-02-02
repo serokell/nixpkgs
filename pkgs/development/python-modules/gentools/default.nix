@@ -18,7 +18,7 @@ buildPythonPackage rec {
     lib.optionals (pythonOlder "3.5") [ typing ] ++
     lib.optionals (pythonOlder "3.4") [ funcsigs ];
 
-  nativeCheckInputs = [ pytest ];
+  checkInputs = [ pytest ];
   checkPhase = "pytest";
 
   meta = with lib; {

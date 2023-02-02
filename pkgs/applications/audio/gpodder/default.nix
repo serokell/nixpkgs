@@ -41,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     gnome.adwaita-icon-theme
   ];
 
-  nativeCheckInputs = with python3Packages; [
+  checkInputs = with python3Packages; [
     minimock
     pytest
     pytest-httpserver

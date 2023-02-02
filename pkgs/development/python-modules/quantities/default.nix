@@ -18,13 +18,15 @@ buildPythonPackage rec {
     numpy
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 
   disabledTests = [
-    # test fails with numpy 1.24
-    "test_mul"
+    # Tests don't work with current numpy
+    # https://github.com/python-quantities/python-quantities/pull/195
+    "test_arctan2"
+    "test_fix"
   ];
 
   pythonImportsCheck = [ "quantities" ];

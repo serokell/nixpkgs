@@ -49,7 +49,7 @@ with lib;
       };
       services.openssh = {
         enable = mkDefault true;
-        settings.PasswordAuthentication = mkDefault false;
+        passwordAuthentication = mkDefault false;
       };
       services.do-agent.enable = mkDefault true;
       networking = {

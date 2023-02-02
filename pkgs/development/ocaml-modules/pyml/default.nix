@@ -1,37 +1,23 @@
-{ buildDunePackage
-, lib
-, fetchFromGitHub
-, fetchpatch
-, utop
-, python3
-, stdcompat
-}:
+{ stdenv, lib, fetchFromGitHub, ocaml, findlib, utop, python3, stdcompat, ncurses }:
 
-buildDunePackage rec {
+stdenv.mkDerivation rec {
   pname = "pyml";
-  version = "20220905";
+  version = "20220615";
 
   src = fetchFromGitHub {
-    owner = "thierry-martinez";
-    repo = "pyml";
-    rev = version;
-    sha256 = "PL4tFIKQLRutSn9Sf84/ImJv0DqkstNnJaNBqWDTKDQ=";
+    owner  = "thierry-martinez";
+    repo   = pname;
+    rev    = version;
+    sha256 = "sha256-my/xn9vrYTcHyjXGBNamgqpBz2/6bTyQHuE9ViVGLjw=";
   };
 
-  patches = [
-    # Fixes test crash.
-    # https://github.com/thierry-martinez/pyml/issues/85
-    (fetchpatch {
-      url = "https://github.com/thierry-martinez/pyml/commit/a0bc5aca8632bea273f869d622cad2f55e754a7c.patch";
-      sha256 = "bOqAokm5DE5rlvkBMQZtwMppRmoK9cvjJeGeP6BusnE=";
-      excludes = [
-        "CHANGES.md"
-      ];
-    })
+  nativeBuildInputs = [
+    ocaml
+    findlib
   ];
-
   buildInputs = [
     utop
+    ncurses
   ];
 
   propagatedBuildInputs = [
@@ -39,17 +25,24 @@ buildDunePackage rec {
     stdcompat
   ];
 
-  nativeCheckInputs = [
-    python3.pkgs.numpy
-  ];
-
   strictDeps = true;
+
+  buildPhase = ''
+    make all pymltop pymlutop PREFIX=$out
+  '';
+
+  installPhase = ''
+    runHook preInstall
+    mkdir -p $out/bin
+    mkdir -p $OCAMLFIND_DESTDIR/stublibs
+    make install PREFIX=$out
+    runHook postInstall
+  '';
 
   doCheck = true;
 
   meta = {
     description = "OCaml bindings for Python";
-    homepage = "https://github.com/thierry-martinez/pyml";
     license = lib.licenses.bsd2;
   };
 }

@@ -21,7 +21,7 @@
 , docbook_xml_dtd_412
 , gtk-doc
 , coreutils
-, useSystemd ? lib.meta.availableOn stdenv.hostPlatform systemdMinimal
+, useSystemd ? stdenv.isLinux
 , systemdMinimal
 , elogind
 # A few tests currently fail on musl (polkitunixusertest, polkitunixgrouptest, polkitidentitytest segfault).
@@ -37,7 +37,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "polkit";
-  version = "122";
+  version = "121";
 
   outputs = [ "bin" "dev" "out" ]; # small man pages in $bin
 
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     owner = "polkit";
     repo = "polkit";
     rev = version;
-    sha256 = "fLY8i8h4McAnwVt8dLOqbyHM7v3SkbWqATz69NkUudU=";
+    sha256 = "Lj7KSGILc6CBsNqPO0G0PNt6ClikbRG45E8FZbb46yY=";
   };
 
   patches = [
@@ -56,6 +56,14 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       url = "https://gitlab.freedesktop.org/polkit/polkit/-/commit/7ba07551dfcd4ef9a87b8f0d9eb8b91fabcb41b3.patch";
       sha256 = "ebbLILncq1hAZTBMsLm+vDGw6j0iQ0crGyhzyLZQgKA=";
+    })
+    # Make netgroup support optional (musl does not have it)
+    # Upstream MR: https://gitlab.freedesktop.org/polkit/polkit/merge_requests/10
+    # NOTE: Remove after the next release
+    (fetchpatch {
+      name = "make-innetgr-optional.patch";
+      url = "https://gitlab.freedesktop.org/polkit/polkit/-/commit/b57deee8178190a7ecc75290fa13cf7daabc2c66.patch";
+      sha256 = "8te6gatT9Fp+fIT05fQBym5mEwHeHfaUNUNEMfSbtLc=";
     })
   ];
 
@@ -104,14 +112,14 @@ stdenv.mkDerivation rec {
     glib # in .pc Requires
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     dbus
   ];
 
   mesonFlags = [
     "--datadir=${system}/share"
     "--sysconfdir=/etc"
-    "-Dsystemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
+    "-Dsystemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
     "-Dpolkitd_user=polkituser" #TODO? <nixos> config.ids.uids.polkituser
     "-Dos_type=redhat" # only affects PAM includes
     "-Dtests=${lib.boolToString doCheck}"
@@ -144,7 +152,7 @@ stdenv.mkDerivation rec {
       --replace   /bin/false ${coreutils}/bin/false
   '';
 
-  postConfigure = lib.optionalString doCheck ''
+  postConfigure = lib.optionalString (!stdenv.hostPlatform.isMusl) ''
     # Unpacked by meson
     chmod +x subprojects/mocklibc-1.0/bin/mocklibc
     patchShebangs subprojects/mocklibc-1.0/bin/mocklibc
@@ -167,7 +175,7 @@ stdenv.mkDerivation rec {
     rsync --archive "${DESTDIR}${system}"/* "$out"
     rm --recursive "${DESTDIR}${system}"/*
     rmdir --parents --ignore-fail-on-non-empty "${DESTDIR}${system}"
-    for o in $(getAllOutputNames); do
+    for o in $outputs; do
         rsync --archive "${DESTDIR}/''${!o}" "$(dirname "''${!o}")"
         rm --recursive "${DESTDIR}/''${!o}"
     done
@@ -180,7 +188,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.freedesktop.org/wiki/Software/polkit";
     description = "A toolkit for defining and handling the policy that allows unprivileged processes to speak to privileged processes";
     license = licenses.lgpl2Plus;
-    platforms = platforms.linux;
+    platforms = platforms.unix;
     maintainers = teams.freedesktop.members ++ (with maintainers; [ ]);
   };
 }

@@ -11,8 +11,8 @@
 , passlib
 , platformdirs
 , pluggy
-, py
 , pyramid
+, pytest-flake8
 , pytestCheckHook
 , repoze_lru
 , setuptools
@@ -25,7 +25,6 @@
 buildPythonApplication rec {
   pname = "devpi-server";
   version = "6.7.0";
-  format = "setuptools";
 
   disabled = isPy27;
 
@@ -37,11 +36,6 @@ buildPythonApplication rec {
   };
 
   sourceRoot = "source/server";
-
-  postPatch = ''
-    substituteInPlace tox.ini \
-      --replace "--flake8" ""
-  '';
 
   propagatedBuildInputs = [
     aiohttp
@@ -61,10 +55,10 @@ buildPythonApplication rec {
     waitress
   ] ++ passlib.optional-dependencies.argon2;
 
-  nativeCheckInputs = [
+  checkInputs = [
     beautifulsoup4
     nginx
-    py
+    pytest-flake8
     pytestCheckHook
     webtest
   ];

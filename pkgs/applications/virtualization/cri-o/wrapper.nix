@@ -3,6 +3,7 @@
 , makeWrapper
 , lib
 , extraPackages ? []
+, cri-o
 , runc # Default container runtime
 , crun # Container runtime (default with cgroups v2 for podman/buildah)
 , conmon # Container runtime monitor
@@ -11,6 +12,8 @@
 }:
 
 let
+  cri-o = cri-o-unwrapped;
+
   binPath = lib.makeBinPath ([
     runc
     crun
@@ -19,13 +22,13 @@ let
     iptables
   ] ++ extraPackages);
 
-in runCommand cri-o-unwrapped.name {
-  name = "${cri-o-unwrapped.pname}-wrapper-${cri-o-unwrapped.version}";
-  inherit (cri-o-unwrapped) pname version passthru;
+in runCommand cri-o.name {
+  name = "${cri-o.pname}-wrapper-${cri-o.version}";
+  inherit (cri-o) pname version passthru;
 
   preferLocalBuild = true;
 
-  meta = builtins.removeAttrs cri-o-unwrapped.meta [ "outputsToInstall" ];
+  meta = builtins.removeAttrs cri-o.meta [ "outputsToInstall" ];
 
   outputs = [
     "out"
@@ -37,10 +40,9 @@ in runCommand cri-o-unwrapped.name {
   ];
 
 } ''
-  ln -s ${cri-o-unwrapped.man} $man
+  ln -s ${cri-o.man} $man
 
   mkdir -p $out/bin
-  ln -s ${cri-o-unwrapped}/etc $out/etc
   ln -s ${cri-o-unwrapped}/share $out/share
 
   for p in ${cri-o-unwrapped}/bin/*; do

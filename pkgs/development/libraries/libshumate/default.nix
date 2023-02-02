@@ -18,7 +18,7 @@
 
 stdenv.mkDerivation rec {
   pname = "libshumate";
-  version = "1.0.3";
+  version = "1.0.1";
 
   outputs = [ "out" "dev" "devdoc" ];
   outputBin = "devdoc"; # demo app
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     owner = "GNOME";
     repo = "libshumate";
     rev = version;
-    sha256 = "gT6jpFN0mkSdDs+8GQa0qKuL5KLzxanBMGwA4EATW7Y=";
+    sha256 = "fpHMfxnPnGJSfJe4kJ28+704QjjRwYddOZAB17QxXno=";
   };
 
   nativeBuildInputs = [
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     gtk4
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     xvfb-run
   ];
 
@@ -61,10 +61,7 @@ stdenv.mkDerivation rec {
   checkPhase = ''
     runHook preCheck
 
-    env \
-      HOME="$TMPDIR" \
-      GTK_A11Y=none \
-      xvfb-run meson test --print-errorlogs
+    HOME=$TMPDIR xvfb-run meson test --print-errorlogs
 
     runHook postCheck
   '';

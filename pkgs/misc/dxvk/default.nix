@@ -1,5 +1,6 @@
 { lib
 , pkgs
+, hostPlatform
 , stdenvNoCC
 , fetchFromGitHub
 , pkgsCross
@@ -7,8 +8,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs:
   let
-    system = lib.toLower stdenvNoCC.targetPlatform.uname.system;
-
+    inherit (hostPlatform.uname) system;
     # DXVK needs to be a separate derivation because it’s actually a set of DLLs for Windows that
     # needs to be built with a cross-compiler.
     dxvk32 = pkgsCross.mingw32.callPackage ./dxvk.nix {
@@ -22,15 +22,11 @@ stdenvNoCC.mkDerivation (finalAttrs:
     # platforms diverge (due to the need for Darwin-specific patches that would fail to apply).
     # Should that happen, set `darwin` to the last working `rev` and `hash`.
     srcs = rec {
-      darwin = {
+      darwin = { inherit (default) rev hash version; };
+      default = {
         rev = "v${finalAttrs.version}";
         hash = "sha256-T93ZylxzJGprrP+j6axZwl2d3hJowMCUOKNjIyNzkmE=";
         version = "1.10.3";
-      };
-      default = {
-        rev = "v${finalAttrs.version}";
-        hash = "sha256-mboVLdPgZMzmqyeF0jAloEz6xqfIDiY/X98e7l2KZnw=";
-        version = "2.0";
       };
     };
   in
@@ -64,12 +60,10 @@ stdenvNoCC.mkDerivation (finalAttrs:
 
     installPhase = ''
       mkdir -p $out/bin $bin $lib
-      # Replace both basedir forms to support both DXVK 2.0 and older versions.
       substitute setup_dxvk.sh $out/bin/setup_dxvk.sh \
         --subst-var-by mcfgthreads32 "${pkgsCross.mingw32.windows.mcfgthreads}" \
         --subst-var-by mcfgthreads64 "${pkgsCross.mingwW64.windows.mcfgthreads}" \
-        --replace 'basedir=$(dirname "$(readlink -f $0)")' "basedir=$bin" \
-        --replace 'basedir="$(dirname "$(readlink -f "$0")")"' "basedir=$bin"
+        --replace 'basedir=$(dirname "$(readlink -f $0)")' "basedir=$bin"
       chmod a+x $out/bin/setup_dxvk.sh
       declare -A dxvks=( [x32]=${dxvk32} [x64]=${dxvk64} )
       for arch in "''${!dxvks[@]}"; do

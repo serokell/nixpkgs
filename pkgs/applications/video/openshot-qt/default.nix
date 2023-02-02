@@ -2,24 +2,23 @@
 , stdenv
 , mkDerivationWith
 , fetchFromGitHub
-, fetchpatch
 , doxygen
 , gtk3
 , libopenshot
-, python3
+, python3Packages
 , qtsvg
 , wrapGAppsHook
 }:
 
-mkDerivationWith python3.pkgs.buildPythonApplication rec {
+mkDerivationWith python3Packages.buildPythonApplication rec {
   pname = "openshot-qt";
-  version = "3.0.0";
+  version = "2.6.1";
 
   src = fetchFromGitHub {
     owner = "OpenShot";
     repo = "openshot-qt";
     rev = "v${version}";
-    hash = "sha256-h4R2txi038m6tzdKYiXIB8CiqWt2MFFRNerp1CFP5as=";
+    sha256 = "0pa8iwl217503bjlqg2zlrw5lxyq5hvxrf5apxrh3843hj1w1myv";
   };
 
   nativeBuildInputs = [
@@ -31,40 +30,36 @@ mkDerivationWith python3.pkgs.buildPythonApplication rec {
     gtk3
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
+  propagatedBuildInputs = with python3Packages; [
     httplib2
     libopenshot
-    pyqtwebengine
+    pyqt5_with_qtwebkit
     pyzmq
     requests
     sip_4
   ];
+
+  dontWrapGApps = true;
+  dontWrapQtApps = true;
 
   preConfigure = ''
     # tries to create caching directories during install
     export HOME=$(mktemp -d)
   '';
 
-  doCheck = false;
-
-  dontWrapGApps = true;
-  dontWrapQtApps = true;
-
   postFixup = ''
     wrapProgram $out/bin/openshot-qt \
   ''
   # Fix toolbar icons on Darwin
   + lib.optionalString stdenv.isDarwin ''
-    --suffix QT_PLUGIN_PATH : "${lib.getBin qtsvg}/lib/qt-5.12.7/plugins" \
-  '' + ''
-    "''${gappsWrapperArgs[@]}" \
-    "''${qtWrapperArgs[@]}"
+      --suffix QT_PLUGIN_PATH : "${lib.getBin qtsvg}/lib/qt-5.12.7/plugins" \
+  ''
+  + ''
+      "''${gappsWrapperArgs[@]}" \
+      "''${qtWrapperArgs[@]}"
   '';
 
-  passthru = {
-    inherit libopenshot;
-    inherit (libopenshot) libopenshot-audio;
-  };
+  doCheck = false;
 
   meta = with lib; {
     homepage = "http://openshot.org/";
@@ -79,5 +74,10 @@ mkDerivationWith python3.pkgs.buildPythonApplication rec {
     license = with licenses; gpl3Plus;
     maintainers = with maintainers; [ AndersonTorres ];
     platforms = with platforms; unix;
+  };
+
+  passthru = {
+    inherit libopenshot;
+    inherit (libopenshot) libopenshot-audio;
   };
 }

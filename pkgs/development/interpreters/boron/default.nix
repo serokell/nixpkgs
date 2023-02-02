@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = "https://urlan.sourceforge.net/boron/";
+    homepage = "http://urlan.sourceforge.net/boron/";
     description = "Scripting language and C library useful for building DSLs";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;

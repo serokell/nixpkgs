@@ -34,7 +34,7 @@ buildPythonPackage rec {
     flit-core
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     cerberus
     django

@@ -1,9 +1,7 @@
 { lib
-, aiohttp
 , buildPythonPackage
 , fetchFromGitHub
 , home-assistant-bluetooth
-, mac-vendor-lookup
 , poetry-core
 , pytestCheckHook
 , pythonOlder
@@ -11,7 +9,7 @@
 
 buildPythonPackage rec {
   pname = "ibeacon-ble";
-  version = "1.0.1";
+  version = "0.7.4";
   format = "pyproject";
 
   disabled = pythonOlder "3.9";
@@ -20,27 +18,25 @@ buildPythonPackage rec {
     owner = "Bluetooth-Devices";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-iYgGflM0IpSIMNgPpJAFAl9FYoMfRinM3sP6VRcBSMc=";
+    hash = "sha256-B+ftS/oNCECjCqB396K5iCl0aeJSBGVXshlvZ1kvEuo=";
   };
-
-  postPatch = ''
-    substituteInPlace pyproject.toml \
-      --replace " --cov=ibeacon_ble --cov-report=term-missing:skip-covered" ""
-  '';
 
   nativeBuildInputs = [
     poetry-core
   ];
 
   propagatedBuildInputs = [
-    aiohttp
     home-assistant-bluetooth
-    mac-vendor-lookup
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
+
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace " --cov=ibeacon_ble --cov-report=term-missing:skip-covered" ""
+  '';
 
   pythonImportsCheck = [
     "ibeacon_ble"

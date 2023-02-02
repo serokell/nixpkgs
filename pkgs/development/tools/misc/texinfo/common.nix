@@ -52,13 +52,13 @@ stdenv.mkDerivation {
   installFlags = [ "TEXMF=$(out)/texmf-dist" ];
   installTargets = [ "install" "install-tex" ];
 
-  nativeCheckInputs = [ procps ];
+  checkInputs = [ procps ];
 
   doCheck = interactive
     && !stdenv.isDarwin
     && !stdenv.isSunOS; # flaky
 
-  checkFlags = lib.optionals (!stdenv.hostPlatform.isMusl) [
+  checkFlagsArray = [
     # Test is known to fail on various locales on texinfo-6.8:
     #   https://lists.gnu.org/r/bug-texinfo/2021-07/msg00012.html
     "XFAIL_TESTS=test_scripts/layout_formatting_fr_icons.sh"

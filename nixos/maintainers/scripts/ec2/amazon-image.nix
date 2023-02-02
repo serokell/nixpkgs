@@ -43,7 +43,7 @@ in {
 
     sizeMB = mkOption {
       type = with types; either (enum [ "auto" ]) int;
-      default = 2048;
+      default = if config.ec2.hvm then 2048 else 8192;
       example = 8192;
       description = lib.mdDoc "The size in MB of the image";
     };
@@ -60,6 +60,9 @@ in {
       ''
         { modulesPath, ... }: {
           imports = [ "''${modulesPath}/virtualisation/amazon-image.nix" ];
+          ${optionalString config.ec2.hvm ''
+            ec2.hvm = true;
+          ''}
           ${optionalString config.ec2.efi ''
             ec2.efi = true;
           ''}
@@ -126,7 +129,9 @@ in {
       pkgs = import ../../../.. { inherit (pkgs) system; }; # ensure we use the regular qemu-kvm package
 
       fsType = "ext4";
-      partitionTableType = if config.ec2.efi then "efi" else "legacy+gpt";
+      partitionTableType = if config.ec2.efi then "efi"
+                           else if config.ec2.hvm then "legacy+gpt"
+                           else "none";
 
       diskSize = cfg.sizeMB;
 

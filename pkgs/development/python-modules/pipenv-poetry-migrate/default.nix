@@ -2,41 +2,34 @@
 , buildPythonPackage
 , fetchFromGitHub
 , pytestCheckHook
-, pythonOlder
-, poetry-core
-, tomlkit
-, typer
+, poetry
+, rich
 , setuptools
 }:
 
 buildPythonPackage rec {
-  version = "0.3.0";
+  version = "0.2.0";
   pname = "pipenv-poetry-migrate";
   format = "pyproject";
-  disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "yhino";
     repo = "pipenv-poetry-migrate";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-j6YAHMjgaQgHpKBH67PFEUHhLi+kg3L966GbEyMPphM=";
+    rev = "v${version}";
+    hash = "sha256-2/e6uGwpUvzxXlz+51gUriE054bgNeJNyLDCIyiGflM=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
-
   propagatedBuildInputs = [
-    setuptools # for pkg_resources
-    tomlkit
-    typer
+    poetry
+    rich
+    setuptools
   ];
 
   postPatch = ''
-    substituteInPlace pyproject.toml --replace 'typer = "^0.4.0"' 'typer = ">=0.4"'
+  substituteInPlace pyproject.toml --replace 'rich = "^9.6.1"' 'rich = ">9"'
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

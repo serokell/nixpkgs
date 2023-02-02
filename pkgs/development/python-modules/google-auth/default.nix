@@ -11,7 +11,6 @@
 , pyopenssl
 , pyu2f
 , requests
-, pythonOlder
 , aioresponses
 , asynctest
 , flask
@@ -28,14 +27,11 @@
 
 buildPythonPackage rec {
   pname = "google-auth";
-  version = "2.15.0";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.6";
+  version = "2.11.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-cvEqbPyWjXVNe9qzacXFwWAyEG5S0yxt/YSE5MAabR8=";
+    sha256 = "sha256-7WXs+faBgyKY4pMo4e8KNnbjcysuVvQVMtRfcKIt4Ps=";
   };
 
   propagatedBuildInputs = [
@@ -60,12 +56,9 @@ buildPythonPackage rec {
     reauth = [
       pyu2f
     ];
-    requests = [
-      requests
-    ];
   };
 
-  nativeCheckInputs = [
+  checkInputs = [
     aioresponses
     asynctest
     flask
@@ -99,7 +92,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Google Auth Python Library";
     longDescription = ''
-      This library simplifies using Google's various server-to-server
+      This library simplifies using Google’s various server-to-server
       authentication mechanisms to access Google APIs.
     '';
     homepage = "https://github.com/googleapis/google-auth-library-python";

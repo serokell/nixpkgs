@@ -1,4 +1,5 @@
 { lib, mkCoqDerivation, coq, version ? null }:
+with lib;
 
 (mkCoqDerivation {
   pname = "zorns-lemma";
@@ -15,8 +16,8 @@
   release."8.5.0".sha256 = "sha256-mH/v02ObMjbVPYx2H+Jhz+Xp0XRKN67iMAdA1VNFzso=";
 
   inherit version;
-  defaultVersion = with lib.versions; lib.switch coq.coq-version [
-    { case = range "8.10" "8.16"; out = "9.0.0"; }
+  defaultVersion = with versions; switch coq.coq-version [
+    { case = isGe "8.10"; out = "9.0.0"; }
     { case = "8.9"; out = "8.9.0"; }
     { case = "8.8"; out = "8.8.0"; }
     { case = "8.7"; out = "8.7.0"; }
@@ -24,9 +25,9 @@
     { case = "8.5"; out = "8.5.0"; }
   ] null;
 
-  useDuneifVersion = lib.versions.isGe "9.0";
+  useDuneifVersion = versions.isGe "9.0";
 
-  meta = with lib; {
+  meta = {
     description = "Development of basic set theory";
     longDescription = ''
       This Coq library develops some basic set theory.  The main
@@ -36,4 +37,4 @@
     maintainers = with maintainers; [ siraben ];
     license = licenses.lgpl21Plus;
   };
-}).overrideAttrs({version, ...}: if lib.versions.isGe "9.0" version then { repo =  "topology"; } else {})
+}).overrideAttrs({version, ...}: if versions.isGe "9.0" version then { repo =  "topology"; } else {})

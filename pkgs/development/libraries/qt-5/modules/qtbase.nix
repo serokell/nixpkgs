@@ -9,12 +9,12 @@
 
 , dbus, fontconfig, freetype, glib, harfbuzz, icu, libdrm, libX11, libXcomposite
 , libXcursor, libXext, libXi, libXrender, libinput, libjpeg, libpng , libxcb
-, libxkbcommon, libxml2, libxslt, openssl, pcre2, sqlite, udev, xcbutil
+, libxkbcommon, libxml2, libxslt, openssl, pcre16, pcre2, sqlite, udev, xcbutil
 , xcbutilimage, xcbutilkeysyms, xcbutilrenderutil, xcbutilwm , zlib, at-spi2-core
 
   # optional dependencies
 , cups ? null, libmysqlclient ? null, postgresql ? null
-, withGtk3 ? false, dconf, gtk3
+, withGtk3 ? false, dconf ? null, gtk3 ? null
 
   # options
 , libGLSupported ? !stdenv.isDarwin
@@ -26,7 +26,12 @@
 , decryptSslTraffic ? false
 }:
 
+assert withGtk3 -> dconf != null;
+assert withGtk3 -> gtk3 != null;
+
 let
+  compareVersion = v: builtins.compareVersions version v;
+  qmakeCacheName = if compareVersion "5.12.4" < 0 then ".qmake.cache" else ".qmake.stash";
   debugSymbols = debug || developerBuild;
 in
 
@@ -43,7 +48,7 @@ stdenv.mkDerivation {
 
     # Image formats
     libjpeg libpng
-    pcre2
+    (if compareVersion "5.9.0" < 0 then pcre16 else pcre2)
   ] ++ (
     if stdenv.isDarwin then [
       # TODO: move to buildInputs, this should not be propagated.
@@ -114,7 +119,7 @@ stdenv.mkDerivation {
 
     # https://bugs.gentoo.org/803470
     sed -i 's/-lpthread/-pthread/' mkspecs/common/linux.conf src/corelib/configure.json
-
+  '' + lib.optionalString (compareVersion "5.15.0" >= 0) ''
     patchShebangs ./bin
   '' + (
     if stdenv.isDarwin then ''
@@ -144,18 +149,22 @@ stdenv.mkDerivation {
   setOutputFlags = false;
   preConfigure = ''
     export LD_LIBRARY_PATH="$PWD/lib:$PWD/plugins/platforms''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
+    ${lib.optionalString (compareVersion "5.9.0" < 0) ''
+    # We need to set LD to CXX or otherwise we get nasty compile errors
+    export LD=$CXX
+    ''}
 
     NIX_CFLAGS_COMPILE+=" -DNIXPKGS_QT_PLUGIN_PREFIX=\"$qtPluginPrefix\""
 
     # paralellize compilation of qtmake, which happens within ./configure
     export MAKEFLAGS+=" -j$NIX_BUILD_CORES"
-
+  '' + lib.optionalString (compareVersion "5.15.0" >= 0) ''
     ./bin/syncqt.pl -version $version
   '';
 
   postConfigure = ''
     qmakeCacheInjectNixOutputs() {
-        local cache="$1/.qmake.stash"
+        local cache="$1/${qmakeCacheName}"
         echo "qmakeCacheInjectNixOutputs: $cache"
         if ! [ -f "$cache" ]; then
             echo >&2 "qmakeCacheInjectNixOutputs: WARNING: $cache does not exist"
@@ -178,7 +187,7 @@ stdenv.mkDerivation {
   NIX_CFLAGS_COMPILE = toString ([
     "-Wno-error=sign-compare" # freetype-2.5.4 changed signedness of some struct fields
     ''-DNIXPKGS_QTCOMPOSE="${libX11.out}/share/X11/locale"''
-    ''-DLIBRESOLV_SO="${stdenv.cc.libc.out}/lib/libresolv"''
+    ''-D${if compareVersion "5.11.0" >= 0 then "LIBRESOLV_SO" else "NIXPKGS_LIBRESOLV"}="${stdenv.cc.libc.out}/lib/libresolv"''
     ''-DNIXPKGS_LIBXCURSOR="${libXcursor.out}/lib/libXcursor"''
   ] ++ lib.optional libGLSupported ''-DNIXPKGS_MESA_GL="${libGL.out}/lib/libGL"''
     ++ lib.optional stdenv.isLinux "-DUSE_X11"
@@ -186,10 +195,14 @@ stdenv.mkDerivation {
       # ignore "is only available on macOS 10.12.2 or newer" in obj-c code
       "-Wno-error=unguarded-availability"
     ]
-    ++ lib.optionals withGtk3 [
+    ++ lib.optionals ((compareVersion "5.15.0" >= 0) && stdenv.isDarwin) [
+      # .moc/moc_qprintdialog.cpp:96:31: error: no member named '_q_togglePageSetCombo' in 'QPrintDialogPrivate'
+      "-DQ_OS_MAC"
+    ] ++ lib.optionals withGtk3 [
          ''-DNIXPKGS_QGTK3_XDG_DATA_DIRS="${gtk3}/share/gsettings-schemas/${gtk3.name}"''
          ''-DNIXPKGS_QGTK3_GIO_EXTRA_MODULES="${dconf.lib}/lib/gio/modules"''
-  ] ++ lib.optional decryptSslTraffic "-DQT_DECRYPT_SSL_TRAFFIC");
+       ]
+    ++ lib.optional decryptSslTraffic "-DQT_DECRYPT_SSL_TRAFFIC");
 
   prefixKey = "-prefix ";
 
@@ -223,14 +236,18 @@ stdenv.mkDerivation {
     "-L" "${icu.out}/lib"
     "-I" "${icu.dev}/include"
     "-pch"
-  ]
-  ++ lib.optional debugSymbols "-debug"
-  ++ lib.optionals developerBuild [
+  ] ++ lib.optional debugSymbols "-debug"
+    ++ lib.optionals (compareVersion "5.11.0" < 0) [
+    "-qml-debug"
+  ] ++ lib.optionals (compareVersion "5.9.0" < 0) [
+    "-c++11"
+    "-no-reduce-relocations"
+  ] ++ lib.optionals developerBuild [
     "-developer-build"
     "-no-warnings-are-errors"
   ] ++ (if (!stdenv.hostPlatform.isx86_64) then [
     "-no-sse2"
-  ] else [
+  ] else lib.optionals (compareVersion "5.9.0" >= 0) [
     "-sse2"
     "${lib.optionalString (!stdenv.hostPlatform.sse3Support)   "-no"}-sse3"
     "${lib.optionalString (!stdenv.hostPlatform.ssse3Support)  "-no"}-ssse3"
@@ -264,7 +281,7 @@ stdenv.mkDerivation {
     "-make tools"
     ''-${lib.optionalString (!buildExamples) "no"}make examples''
     ''-${lib.optionalString (!buildTests) "no"}make tests''
-  ]
+  ] ++ lib.optional (compareVersion "5.15.0" < 0) "-v"
     ++ (
       if stdenv.isDarwin then [
       "-no-fontconfig"
@@ -272,8 +289,9 @@ stdenv.mkDerivation {
       "-qt-libpng"
       "-no-framework"
     ] else [
-      "-rpath"
-    ] ++ [
+      "-${lib.optionalString (compareVersion "5.9.0" < 0) "no-"}rpath"
+    ] ++ lib.optional (compareVersion "5.15.0" < 0) "-system-xcb"
+      ++ [
       "-xcb"
       "-qpa xcb"
       "-L" "${libX11.out}/lib"
@@ -288,11 +306,20 @@ stdenv.mkDerivation {
       ''-${lib.optionalString (cups == null) "no-"}cups''
       "-dbus-linked"
       "-glib"
-    ] ++ [
+    ] ++ lib.optional (compareVersion "5.15.0" < 0) "-system-libjpeg"
+      ++ [
       "-system-libpng"
     ] ++ lib.optional withGtk3 "-gtk"
-      ++ [
-        "-inotify"
+      ++ lib.optional (compareVersion "5.9.0" >= 0) "-inotify"
+      ++ lib.optionals (compareVersion "5.10.0" >= 0) [
+      # Without these, Qt stops working on kernels < 3.17. See:
+      # https://github.com/NixOS/nixpkgs/issues/38832
+      "-no-feature-renameat2"
+      "-no-feature-getentropy"
+    ] ++ lib.optionals (compareVersion "5.12.1" < 0) [
+      # use -xkbcommon and -xkbcommon-evdev for versions before 5.12.1
+      "-system-xkbcommon"
+      "-xkbcommon-evdev"
     ] ++ lib.optionals (cups != null) [
       "-L" "${cups.lib}/lib"
       "-I" "${cups.dev}/include"
@@ -341,9 +368,15 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://www.qt.io/";
     description = "A cross-platform application framework for C++";
-    license = with licenses; [ fdl13Plus gpl2Plus lgpl21Plus lgpl3Plus ];
+    license = with licenses; [ fdl13 gpl2 lgpl21 lgpl3 ];
     maintainers = with maintainers; [ qknight ttuegel periklis bkchr ];
     platforms = platforms.unix;
+    # Qt5 is broken on aarch64-darwin
+    # the build ends up with the following error:
+    #   error: unknown target CPU 'armv8.3-a+crypto+sha2+aes+crc+fp16+lse+simd+ras+rdm+rcpc'
+    #   note: valid target CPU values are: nocona, core2, penryn, ..., znver1, znver2, x86-64
+    # it seems the qmake/cmake passes x86_64 as preferred architecture somewhere
+    broken = stdenv.isDarwin && stdenv.isAarch64 && (compareVersion "5.15.3" < 0);
   };
 
 }

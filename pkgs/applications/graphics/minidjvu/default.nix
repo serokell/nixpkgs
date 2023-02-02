@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = "https://djvu.sourceforge.net/djview4.html";
+    homepage = "http://djvu.sourceforge.net/djview4.html";
     description = "Black-and-white djvu page encoder and decoder that use interpage information";
     license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.viric ];

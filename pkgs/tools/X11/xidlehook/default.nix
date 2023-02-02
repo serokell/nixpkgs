@@ -3,6 +3,7 @@
 , rustPlatform
 , fetchFromGitLab
 , python3
+, xlibsWrapper
 , xorg
 , libpulseaudio
 , pkg-config
@@ -26,7 +27,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "1y7m61j07gvqfqz97mda39nc602sv7a826c06m8l22i7z380xfms";
 
-  buildInputs = [ xorg.libX11 xorg.libXScrnSaver libpulseaudio ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [ xlibsWrapper xorg.libXScrnSaver libpulseaudio ] ++ lib.optional stdenv.isDarwin Security;
   nativeBuildInputs = [ pkg-config patchelf python3 ];
 
   buildNoDefaultFeatures = !stdenv.isLinux;

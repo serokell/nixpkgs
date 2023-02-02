@@ -26,7 +26,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeCheckInputs = [ pytestCheckHook flaky mock pytest-mock ];
+  checkInputs = [ pytestCheckHook flaky mock pytest-mock ];
   propagatedBuildInputs = [ numpy pandas pytz six requests ];
 
   # Skip a few tests that try to access some URLs

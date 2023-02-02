@@ -160,12 +160,10 @@ in
           List of database names and their initial schemas that should be used to create databases on the first startup
           of MySQL. The schema attribute is optional: If not specified, an empty database is created.
         '';
-        example = literalExpression ''
-          [
-            { name = "foodatabase"; schema = ./foodatabase.sql; }
-            { name = "bardatabase"; }
-          ]
-        '';
+        example = [
+          { name = "foodatabase"; schema = literalExpression "./foodatabase.sql"; }
+          { name = "bardatabase"; }
+        ];
       };
 
       initialScript = mkOption {

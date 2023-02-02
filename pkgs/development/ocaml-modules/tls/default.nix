@@ -6,15 +6,15 @@
 
 buildDunePackage rec {
   pname = "tls";
-  version = "0.15.4";
+  version = "0.15.3";
 
   src = fetchurl {
     url = "https://github.com/mirleft/ocaml-tls/releases/download/v${version}/tls-${version}.tbz";
-    sha256 = "sha256-X40dVrBvYGnv0dCj3gxFy0iNPRPrfxMshOx7o/DRw4I=";
+    sha256 = "0nj6fhgrirn8ky4hb24m3ilhr41ynzgk6bqmjs17g8rdibwmdd2x";
   };
 
-  minimalOCamlVersion = "4.08";
-  duneVersion = "3";
+  minimumOCamlVersion = "4.08";
+  useDune2 = true;
 
   propagatedBuildInputs = [
     cstruct
@@ -38,7 +38,7 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [
+  checkInputs = [
     alcotest
     cstruct-unix
     ounit2

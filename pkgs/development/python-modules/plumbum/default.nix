@@ -12,18 +12,18 @@
 
 buildPythonPackage rec {
   pname = "plumbum";
-  version = "1.8.0";
+  version = "1.7.2";
 
   src = fetchFromGitHub {
     owner = "tomerfiliba";
     repo = "plumbum";
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-SqZO9qYOtBB+KWP0DLsImI64QTTpYKzWMYwSua9k2S0=";
+    rev = "v${version}";
+    sha256 = "sha256-bCCcNFz+ZsbKSF7aCfy47lBHb873tDYN0qFuSCxJp1w=";
   };
 
   postPatch = ''
-    substituteInPlace pyproject.toml \
-      --replace '"--cov-config=setup.cfg", ' ""
+    substituteInPlace setup.cfg \
+      --replace "--cov-config=setup.cfg" ""
   '';
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
@@ -32,7 +32,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     openssh
     ps
     psutil
@@ -61,7 +61,6 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog = "https://github.com/tomerfiliba/plumbum/releases/tag/v${version}";
     description = " Plumbum: Shell Combinators ";
     homepage = " https://github.com/tomerfiliba/plumbum ";
     license = licenses.mit;

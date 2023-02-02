@@ -28,7 +28,7 @@ buildPythonApplication rec {
     installShellCompletion --fish watson.fish
   '';
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mock mock pytest-datafiles ];
+  checkInputs = [ pytestCheckHook pytest-mock mock pytest-datafiles ];
   propagatedBuildInputs = [ arrow click click-didyoumean requests ];
   nativeBuildInputs = [ installShellFiles ];
 

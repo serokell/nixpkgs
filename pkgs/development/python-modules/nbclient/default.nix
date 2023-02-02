@@ -1,7 +1,6 @@
 { async_generator
 , buildPythonPackage
 , fetchFromGitHub
-, hatchling
 , ipykernel
 , ipywidgets
 , jupyter-client
@@ -12,15 +11,14 @@
 , pytest-asyncio
 , pytestCheckHook
 , pythonOlder
-, testpath
 , traitlets
 , xmltodict
 }:
 
 let nbclient = buildPythonPackage rec {
   pname = "nbclient";
-  version = "0.7.2";
-  format = "pyproject";
+  version = "0.6.8";
+  format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
@@ -28,31 +26,20 @@ let nbclient = buildPythonPackage rec {
     owner = "jupyter";
     repo = pname;
     rev = "refs/tags/v${version}";
-    hash = "sha256-2H6Oi1tK/GrtfMTR1j12tZdRzQkFUxXzMSpfCtGPyWE=";
+    hash = "sha256-+GQkEGWReo9y8bgcysslQdzJUcvQiZkQTQiwmWJ1mx8=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
-
-  propagatedBuildInputs = [
-    async_generator
-    traitlets
-    nbformat
-    nest-asyncio
-    jupyter-client
-  ];
+  propagatedBuildInputs = [ async_generator traitlets nbformat nest-asyncio jupyter-client ];
 
   # circular dependencies if enabled by default
   doCheck = false;
 
-  nativeCheckInputs = [
+  checkInputs = [
     ipykernel
     ipywidgets
     nbconvert
     pytest-asyncio
     pytestCheckHook
-    testpath
     xmltodict
   ];
 

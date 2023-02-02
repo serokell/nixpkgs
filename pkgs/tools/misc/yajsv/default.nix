@@ -1,9 +1,7 @@
 { buildGoModule, fetchFromGitHub, lib }:
 
-let
-  version = "1.4.1";
-in
-buildGoModule {
+let version = "1.4.0";
+in buildGoModule {
   pname = "yajsv";
   version = version;
 
@@ -11,15 +9,16 @@ buildGoModule {
     owner = "neilpa";
     repo = "yajsv";
     rev = "v${version}";
-    hash = "sha256-dp7PBN8yR+gPPUWA+ug11dUN7slU6CJAojuxt5eNTxA=";
+    sha256 = "0smaij3905fqgcjmnfs58r6silhp3hyv7ccshk7n13fmllmsm7v7";
   };
 
-  vendorHash = "sha256-f45climGKl7HxD+1vz2TGqW/d0dqJ0RfvgJoRRM6lUk=";
+  patches = [
+    ./go.mod.patch
+  ];
 
-  ldflags = [ "-s" "-w" ];
+  vendorSha256 = "0jcm789las02prgl89va8xvvz98sjcyvzd9zqk3mwal656b5r3kz";
 
   doInstallCheck = true;
-
   installCheckPhase = ''
     $out/bin/yajsv -v > /dev/null
   '';

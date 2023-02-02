@@ -20,7 +20,7 @@ buildPythonPackage rec {
     rm -r pycrfsuite
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
   ];
 

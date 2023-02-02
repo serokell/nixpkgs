@@ -12,8 +12,8 @@ deployAndroidPackage {
   nativeBuildInputs = [ makeWrapper ]
     ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
   autoPatchelfIgnoreMissingDeps = true;
-  buildInputs = lib.optionals (os == "linux") [ pkgs.zlib ];
-  patchInstructions = ''
+  buildInputs = lib.optional (os == "linux") [ pkgs.zlib ];
+  patchInstructions = lib.optionalString (os == "linux") (''
     patchShebangs .
 
     # TODO: allow this stuff
@@ -37,11 +37,9 @@ deployAndroidPackage {
         addAutoPatchelfSearchPath $out/libexec/android-sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/lib64
     fi
 
-    if [ -d toolchains/llvm/prebuilt/linux-x86_64 ]; then
-        find toolchains/llvm/prebuilt/linux-x86_64 -type d -name bin -or -name lib64 | while read dir; do
-            autoPatchelf "$dir"
-        done
-    fi
+    find toolchains -type d -name bin -or -name lib64 | while read dir; do
+        autoPatchelf "$dir"
+    done
 
     # fix ineffective PROGDIR / MYNDKDIR determination
     for progname in ndk-build; do
@@ -49,9 +47,7 @@ deployAndroidPackage {
     done
 
     # Patch executables
-    if [ -d prebuild/linux-x86_64 ]; then
-        autoPatchelf prebuilt/linux-x86_64
-    fi
+    autoPatchelf prebuilt/linux-x86_64
 
     # wrap
     for progname in ndk-build; do
@@ -63,6 +59,6 @@ deployAndroidPackage {
     for progname in ndk-build; do
         ln -sf ../libexec/android-sdk/ndk-bundle/$progname $out/bin/$progname
     done
-  '';
+  '');
   noAuditTmpdir = true; # Audit script gets invoked by the build/ component in the path for the make standalone script
 }

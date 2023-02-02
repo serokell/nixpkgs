@@ -6,9 +6,9 @@
 buildDunePackage rec {
   pname = "webmachine";
   version = "0.7.0";
-  duneVersion = "3";
+  useDune2 = true;
 
-  minimalOCamlVersion = "4.03";
+  minimumOCamlVersion = "4.04";
 
   src = fetchFromGitHub {
     owner = "inhabitedtype";
@@ -19,12 +19,12 @@ buildDunePackage rec {
 
   propagatedBuildInputs = [ cohttp dispatch ptime ];
 
-  nativeCheckInputs = [ ounit ];
+  checkInputs = [ ounit ];
 
   doCheck = true;
 
   meta = {
-    homepage = "https://github.com/inhabitedtype/ocaml-webmachine";
+    inherit (src.meta) homepage;
     license = lib.licenses.bsd3;
     description = "A REST toolkit for OCaml";
     maintainers = [ lib.maintainers.vbgl ];

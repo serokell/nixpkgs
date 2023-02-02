@@ -6,7 +6,6 @@
 , libtool
 , zlib
 , cunit
-, libxcrypt
 }:
 stdenv.mkDerivation rec {
   pname = "dcap";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoconf automake libtool ];
-  buildInputs = [ zlib libxcrypt ];
+  buildInputs = [ zlib ];
 
   preConfigure = ''
     patchShebangs bootstrap.sh
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeCheckInputs = [ cunit ];
+  checkInputs = [ cunit ];
 
   outputs = [ "bin" "dev" "out" "man" "doc" ];
 

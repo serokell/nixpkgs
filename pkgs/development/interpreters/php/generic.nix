@@ -27,10 +27,6 @@ let
     , system-sendmail
     , valgrind
     , xcbuild
-    , writeShellScript
-    , common-updater-scripts
-    , curl
-    , jq
 
     , version
     , hash
@@ -47,12 +43,12 @@ let
     , phpdbgSupport ? true
 
       # Misc flags
-    , apxs2Support ? false
+    , apxs2Support ? !stdenv.isDarwin
     , argon2Support ? true
     , cgotoSupport ? false
     , embedSupport ? false
     , ipv6Support ? true
-    , systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd
+    , systemdSupport ? stdenv.isLinux
     , valgrindSupport ? !stdenv.isDarwin && lib.meta.availableOn stdenv.hostPlatform valgrind
     , ztsSupport ? apxs2Support
     }@args:
@@ -95,7 +91,7 @@ let
               [ ]
               allExtensionFunctions;
 
-          getExtName = ext: ext.extensionName;
+          getExtName = ext: lib.removePrefix "php-" (builtins.parseDrvName ext.name).name;
 
           # Recursively get a list of all internal dependencies
           # for a list of extensions.
@@ -210,7 +206,7 @@ let
             [ pcre2 ]
 
             # Enable sapis
-            ++ lib.optionals pearSupport [ libxml2.dev ]
+            ++ lib.optional pearSupport [ libxml2.dev ]
 
             # Misc deps
             ++ lib.optional apxs2Support apacheHttpd
@@ -234,7 +230,7 @@ let
             ++ lib.optional (!cgiSupport) "--disable-cgi"
             ++ lib.optional (!cliSupport) "--disable-cli"
             ++ lib.optional fpmSupport "--enable-fpm"
-            ++ lib.optionals pearSupport [ "--with-pear" "--enable-xml" "--with-libxml" ]
+            ++ lib.optional pearSupport [ "--with-pear" "--enable-xml" "--with-libxml" ]
             ++ lib.optional pharSupport "--enable-phar"
             ++ lib.optional (!phpdbgSupport) "--disable-phpdbg"
 
@@ -304,19 +300,6 @@ let
           outputs = [ "out" "dev" ];
 
           passthru = {
-            updateScript =
-              let
-                script = writeShellScript "php${lib.versions.major version}${lib.versions.minor version}-update-script" ''
-                  set -o errexit
-                  PATH=${lib.makeBinPath [ common-updater-scripts curl jq ]}
-                  new_version=$(curl --silent "https://www.php.net/releases/active" | jq --raw-output '."${lib.versions.major version}"."${lib.versions.majorMinor version}".version')
-                  update-source-version "$UPDATE_NIX_ATTR_PATH.unwrapped" "$new_version" "--file=$1"
-                '';
-              in [
-                script
-                # Passed as an argument so that update.nix can ensure it does not become a store path.
-                (./. + "/${lib.versions.majorMinor version}.nix")
-              ];
             buildEnv = mkBuildEnv { } [ ];
             withExtensions = mkWithExtensions { } [ ];
             overrideAttrs =

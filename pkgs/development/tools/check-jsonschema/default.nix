@@ -21,7 +21,7 @@ buildPythonApplication rec {
     click
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytestCheckHook
     pytest-xdist
     responses

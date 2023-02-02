@@ -61,7 +61,7 @@ in
 
       description = lib.mdDoc ''
         Listen addresses for this virtual host.
-        Compared to `listen` this only sets the addresses
+        Compared to `listen` this only sets the addreses
         and the ports are chosen automatically.
       '';
       default = [ "*" ];

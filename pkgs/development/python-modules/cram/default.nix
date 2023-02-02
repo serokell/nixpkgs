@@ -4,7 +4,7 @@ buildPythonPackage rec {
   version = "0.7";
   pname = "cram";
 
-  nativeCheckInputs = [ which ];
+  checkInputs = [ which ];
 
   src = fetchPypi {
     inherit pname version;

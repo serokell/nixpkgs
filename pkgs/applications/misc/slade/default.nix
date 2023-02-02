@@ -1,68 +1,24 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, which
-, zip
-, wxGTK
-, gtk3
-, sfml
-, fluidsynth
-, curl
-, freeimage
-, ftgl
-, glew
-, lua
-, mpg123
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, wxGTK, gtk2, sfml, fluidsynth, curl, freeimage, ftgl, glew, zip }:
 
 stdenv.mkDerivation rec {
   pname = "slade";
-  version = "3.2.1";
+  version = "3.1.1.5";
 
   src = fetchFromGitHub {
     owner = "sirjuddington";
     repo = "SLADE";
     rev = version;
-    sha256 = "sha256-KFRX3sfI//Op/h/EfEuAZOY22RO5qNXmvhSksC0aS4U=";
+    sha256 = "0mdn59jm6ab4cdh99bgvadif3wdlqmk5mq635gg7krq35njgw6f6";
   };
 
-  postPatch = lib.optionalString (!stdenv.hostPlatform.isx86) ''
-    sed -i '/-msse/d' src/CMakeLists.txt
-  '';
-
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    which
-    zip
-  ];
-
-  buildInputs = [
-    wxGTK
-    gtk3
-    sfml
-    fluidsynth
-    curl
-    freeimage
-    ftgl
-    glew
-    lua
-    mpg123
-  ];
-
-  cmakeFlags = [
-    "-DwxWidgets_LIBRARIES=${wxGTK}/lib"
-  ];
-
-  NIX_CFLAGS_COMPILE = "-Wno-narrowing";
+  nativeBuildInputs = [ cmake pkg-config zip ];
+  buildInputs = [ wxGTK gtk2 sfml fluidsynth curl freeimage ftgl glew ];
 
   meta = with lib; {
     description = "Doom editor";
     homepage = "http://slade.mancubus.net/";
-    license = licenses.gpl2Plus;
-    platforms = platforms.linux;
+    license = licenses.gpl2;
+    platforms = [ "x86_64-linux" "i686-linux" ];
     maintainers = with maintainers; [ abbradar ];
   };
 }

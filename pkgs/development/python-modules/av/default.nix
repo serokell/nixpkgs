@@ -19,7 +19,7 @@
 
 buildPythonPackage rec {
   pname = "av";
-  version = "10.0.0";
+  version = "9.2.0";
   format = "pyproject";
 
   disabled = pythonOlder "3.7";
@@ -28,7 +28,7 @@ buildPythonPackage rec {
     owner = "mikeboers";
     repo = "PyAV";
     rev = "v${version}";
-    hash = "sha256-XcHP8RwC2iwD64Jc7SS+t9OxjFTsz3FbrnjMgJnN7Ak=";
+    hash = "sha256-I7j+EzpvgKCNY8TbcaHsaWtetyvmno6YYhQTer2+Ds0=";
   };
 
   nativeBuildInputs = [
@@ -46,7 +46,7 @@ buildPythonPackage rec {
     rm -r av
   '';
 
-  nativeCheckInputs = [
+  checkInputs = [
     numpy
     pillow
     pytestCheckHook

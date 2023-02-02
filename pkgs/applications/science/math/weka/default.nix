@@ -2,17 +2,17 @@
 
 stdenv.mkDerivation rec {
   pname = "weka";
-  version = "3.9.6";
+  version = "3.9.2";
 
   src = fetchurl {
-    url = "mirror://sourceforge/weka/${lib.replaceStrings ["."]["-"] "${pname}-${version}"}.zip";
-    sha256 = "sha256-8fVN4MXYqXNEmyVtXh1IrauHTBZWgWG8AvsGI5Y9Aj0=";
+    url = "mirror://sourceforge/weka/${lib.replaceChars ["."]["-"] "${pname}-${version}"}.zip";
+    sha256 = "0zwmhspmqb0a7cm6k6i0s6q3w19ws1g9dx3cp2v3g3vsif6cdh31";
   };
 
   nativeBuildInputs = [ makeWrapper unzip ];
 
   # The -Xmx1000M comes suggested from their download page:
-  # https://www.cs.waikato.ac.nz/ml/weka/downloading.html
+  # http://www.cs.waikato.ac.nz/ml/weka/downloading.html
   installPhase = ''
     mkdir -pv $out/share/weka
     cp -Rv * $out/share/weka
@@ -21,12 +21,11 @@ stdenv.mkDerivation rec {
       --add-flags "-Xmx1000M -jar $out/share/weka/weka.jar"
   '';
 
-  meta = with lib; {
-    homepage = "https://www.cs.waikato.ac.nz/ml/weka/";
+  meta = {
+    homepage = "http://www.cs.waikato.ac.nz/ml/weka/";
     description = "Collection of machine learning algorithms for data mining tasks";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.gpl2Plus;
-    maintainers = [ maintainers.mimame ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl2Plus;
+    maintainers = [ lib.maintainers.mimame ];
+    platforms = lib.platforms.unix;
   };
 }

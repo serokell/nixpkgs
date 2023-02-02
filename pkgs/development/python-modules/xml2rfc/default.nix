@@ -1,33 +1,32 @@
 { lib
-, appdirs
 , buildPythonPackage
-, configargparse
-, decorator
-, dict2xml
 , fetchFromGitHub
-, google-i18n-address
-, html5lib
+, pythonOlder
 , intervaltree
-, jinja2
-, lxml
-, markupsafe
-, pycairo
-, pycountry
 , pyflakes
+, requests
+, lxml
+, google-i18n-address
+, pycountry
+, html5lib
+, six
+, kitchen
 , pypdf2
+, dict2xml
+, weasyprint
+, pyyaml
+, jinja2
+, configargparse
+, appdirs
+, decorator
+, pycairo
 , pytestCheckHook
 , python-fontconfig
-, pythonOlder
-, pyyaml
-, requests
-, six
-, wcwidth
 }:
 
 buildPythonPackage rec {
   pname = "xml2rfc";
-  version = "3.16.0";
-  format = "setuptools";
+  version = "3.15.0";
 
   disabled = pythonOlder "3.6";
 
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     owner = "ietf-tools";
     repo = "xml2rfc";
     rev = "refs/tags/v${version}";
-    hash = "sha256-H2m6WZTIu2xLIz3ysOZcicIibPj8mErrxYM2+F07aS0=";
+    sha256 = "sha256-sCpV4pmBIBFxFpDK7H9riQ+0174xCn6uVztGDAEeoII=";
   };
 
   postPatch = ''
@@ -47,46 +46,43 @@ buildPythonPackage rec {
   '';
 
   propagatedBuildInputs = [
-    appdirs
-    configargparse
-    dict2xml
-    google-i18n-address
-    html5lib
     intervaltree
     jinja2
-    lxml
-    markupsafe
-    pycountry
     pyflakes
-    pypdf2
     pyyaml
     requests
+    lxml
+    google-i18n-address
+    pycountry
+    html5lib
     six
-    wcwidth
+    kitchen
+    pypdf2
+    dict2xml
+    weasyprint
+    configargparse
+    appdirs
   ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     decorator
     pycairo
     pytestCheckHook
     python-fontconfig
   ];
 
-   # Requires Noto Serif and Roboto Mono font
+   # requires Noto Serif and Roboto Mono font
   doCheck = false;
 
   checkPhase = ''
     make tests-no-network
   '';
 
-  pythonImportsCheck = [
-    "xml2rfc"
-  ];
+  pythonImportsCheck = [ "xml2rfc" ];
 
   meta = with lib; {
     description = "Tool generating IETF RFCs and drafts from XML sources";
     homepage = "https://github.com/ietf-tools/xml2rfc";
-    changelog = "https://github.com/ietf-tools/xml2rfc/blob/v${version}/CHANGELOG.md";
     # Well, parts might be considered unfree, if being strict; see:
     # http://metadata.ftp-master.debian.org/changelogs/non-free/x/xml2rfc/xml2rfc_2.9.6-1_copyright
     license = licenses.bsd3;
