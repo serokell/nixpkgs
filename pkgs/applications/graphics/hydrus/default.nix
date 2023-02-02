@@ -1,7 +1,7 @@
 { lib
 , fetchFromGitHub
 , wrapQtAppsHook
-, miniupnpc_2
+, miniupnpc
 , ffmpeg
 , enableSwftools ? false
 , swftools
@@ -10,14 +10,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "hydrus";
-  version = "502a";
+  version = "503";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "hydrusnetwork";
     repo = "hydrus";
     rev = "refs/tags/v${version}";
-    hash = "sha256-GmYjf2r5dyxkPWTmypChKbkeifCMFKi1lzRhPNe7Ckw=";
+    hash = "sha256-nJn5EphbmVYAAOisV3fym/nHlJl/aPZ2Iyp+Z2/N3Jc=";
   };
 
   nativeBuildInputs = [
@@ -37,7 +37,6 @@ python3Packages.buildPythonPackage rec {
     opencv4
     pillow
     psutil
-    pylzma
     pyopenssl
     pyside2
     pysocks
@@ -52,7 +51,7 @@ python3Packages.buildPythonPackage rec {
     twisted
   ];
 
-  checkInputs = with python3Packages; [
+  nativeCheckInputs = with python3Packages; [
     nose
     mock
     httmock
@@ -109,7 +108,7 @@ python3Packages.buildPythonPackage rec {
   dontWrapQtApps = true;
   preFixup = ''
     makeWrapperArgs+=("''${qtWrapperArgs[@]}")
-    makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ ffmpeg miniupnpc_2 ]})
+    makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ ffmpeg miniupnpc ]})
   '';
 
   meta = with lib; {

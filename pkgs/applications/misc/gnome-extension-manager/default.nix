@@ -54,14 +54,13 @@ stdenv.mkDerivation rec {
     text-engine
   ];
 
-  # See https://github.com/NixOS/nixpkgs/issues/36468.
-  mesonFlags = [ "-Dc_args=-I${glib.dev}/include/gio-unix-2.0" ];
-
   meta = with lib; {
     description = "Desktop app for managing GNOME shell extensions";
     homepage = "https://github.com/mjakeman/extension-manager";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ foo-dogsquared ];
+    # never built on aarch64-linux since first introduction in nixpkgs
+    broken = stdenv.isLinux && stdenv.isAarch64;
   };
 }

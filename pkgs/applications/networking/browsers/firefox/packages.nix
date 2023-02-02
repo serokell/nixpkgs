@@ -3,22 +3,14 @@
 rec {
   firefox = buildMozillaMach rec {
     pname = "firefox";
-    version = "106.0";
+    version = "109.0";
     src = fetchurl {
       url = "mirror://mozilla/firefox/releases/${version}/source/firefox-${version}.source.tar.xz";
-      sha512 = "30ced2fff818858267eaab23974f6962c5d39433ce8e26507589535fc9348f00cf5e45b90997dfb6e2361b70900547fdb0e70d741127cc6705089ea585ea2296";
+      sha512 = "9e2b6e20353e414da3d2eb9dcd3d77757664a98a4438a8e84f19a1c7c203e40136b08bf96a458fac05ddc627347217d32f1f6337980c5ca918874993657a58e7";
     };
 
-    # This patch could be applied anywhere (just rebuild, no effect)
-    extraPatches = lib.optionals stdenv.isAarch64 [
-      (fetchpatch { # https://bugzilla.mozilla.org/show_bug.cgi?id=1791275
-        name = "no-sysctl-aarch64.patch";
-        url = "https://hg.mozilla.org/mozilla-central/raw-rev/0efaf5a00aaceeed679885e4cd393bd9a5fcd0ff";
-        hash = "sha256-wS/KufeLFxCexQalGGNg8+vnQhzDiL79OLt8FtL/JJ8=";
-      })
-    ];
-
     meta = {
+      changelog = "https://www.mozilla.org/en-US/firefox/${version}/releasenotes/";
       description = "A web browser built from Firefox source tree";
       homepage = "http://www.mozilla.com/en-US/firefox/";
       maintainers = with lib.maintainers; [ lovesegfault hexa ];
@@ -37,14 +29,15 @@ rec {
 
   firefox-esr-102 = buildMozillaMach rec {
     pname = "firefox-esr-102";
-    version = "102.4.0esr";
+    version = "102.7.0esr";
     applicationName = "Mozilla Firefox ESR";
     src = fetchurl {
       url = "mirror://mozilla/firefox/releases/${version}/source/firefox-${version}.source.tar.xz";
-      sha512 = "30d9e6ef04fd86516e2cea3c797ec99af4c96b08576bb3409c0026da4fd1218167f89a007109e1fa4e2571f98f2dbe5ab58a26473533d45301f75b90ec3dbf28";
+      sha512 = "2a9d212b5d15e1bf7a6156495126cbc9161d2057aeedea8f7a5a0670a19a9b00cf35044075935c8f3c788118856ba2cc00f9b297c5ac713f094857683f7cd13b";
     };
 
     meta = {
+      changelog = "https://www.mozilla.org/en-US/firefox/${lib.removeSuffix "esr" version}/releasenotes/";
       description = "A web browser built from Firefox Extended Support Release source tree";
       homepage = "http://www.mozilla.com/en-US/firefox/";
       maintainers = with lib.maintainers; [ hexa ];

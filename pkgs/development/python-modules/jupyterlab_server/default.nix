@@ -8,7 +8,7 @@
 , pytestCheckHook
 , json5
 , babel
-, jupyter_server
+, jupyter-server
 , tomli
 , openapi-core
 , pytest-timeout
@@ -19,14 +19,14 @@
 
 buildPythonPackage rec {
   pname = "jupyterlab_server";
-  version = "2.16.0";
+  version = "2.17.0";
   format = "pyproject";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-0bo0LPfoQ+yyw6Pf4z3hS4Nd+Xiqe0Ecqt3/lacr0so=";
+    hash = "sha256-pbaSPiqeopn5jeW1DN6Qci10748HE6dcvL+/0/Qa0Fg=";
   };
 
   nativeBuildInputs = [
@@ -38,13 +38,13 @@ buildPythonPackage rec {
     jsonschema
     json5
     babel
-    jupyter_server
+    jupyter-server
     tomli
-  ] ++ lib.optional (pythonOlder "3.10") [
+  ] ++ lib.optionals (pythonOlder "3.10") [
     importlib-metadata
   ];
 
-  checkInputs = [
+  nativeCheckInputs = [
     openapi-core
     pytestCheckHook
     pytest-timeout

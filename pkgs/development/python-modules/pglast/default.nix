@@ -8,14 +8,14 @@
 
 buildPythonPackage rec {
   pname = "pglast";
-  version = "3.15";
+  version = "4.1";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-xm4ySCqa+hHlgjdz8WwkHjevLc79YX/XRKKD/SdIttw=";
+    hash = "sha256-JXgU2uoMhfqKlQOksbdYZtnJbs7UZKlTxZNo7OIGEig=";
   };
 
   propagatedBuildInputs = [
@@ -27,7 +27,7 @@ buildPythonPackage rec {
       --replace "--cov=pglast --cov-report term-missing" ""
   '';
 
-  checkInputs = [
+  nativeCheckInputs = [
     pytest
   ];
 

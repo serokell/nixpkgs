@@ -14,7 +14,7 @@
 
 buildPythonPackage rec {
   pname = "dinghy";
-  version = "0.13.4";
+  version = "1.0.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.8";
@@ -23,7 +23,7 @@ buildPythonPackage rec {
     owner = "nedbat";
     repo = pname;
     rev = version;
-    hash = "sha256-H3AFKKtSiFD3LqyWaIYB4LncPaH2/eptuKS4BN0cNBQ=";
+    hash = "sha256-hrRs4hBRckUMsDGix+6GMr5VwyhXl/ib3jon7VNca1Y=";
   };
 
   propagatedBuildInputs = [
@@ -36,7 +36,7 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  checkInputs = [
+  nativeCheckInputs = [
     pytestCheckHook
   ];
 
