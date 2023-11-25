@@ -27535,7 +27535,8 @@ with pkgs;
 
   yaws = callPackage ../servers/http/yaws { };
 
-  youtrack = callPackage ../servers/jetbrains/youtrack.nix { };
+  inherit (callPackages ../servers/jetbrains/youtrack.nix {})
+    youtrack_2022_3 youtrack;
 
   zabbixFor = version: rec {
     agent = (callPackages ../servers/monitoring/zabbix/agent.nix {}).${version};
