@@ -65,6 +65,8 @@ in {
       ln -s ${statePath}/temp $out/temp
       runHook postInstall
     '';
+
+    passthru.updateScript = ./youtrack-update.sh;
     inherit meta;
   });
 }
