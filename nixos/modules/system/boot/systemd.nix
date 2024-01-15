@@ -450,6 +450,25 @@ in
             type = service.serviceConfig.Type or "";
             restart = service.serviceConfig.Restart or "no";
             hasDeprecated = builtins.hasAttr "StartLimitInterval" service.serviceConfig;
+
+            # We exclude systemd services in nixpkgs to reduce noise,
+            # so we can notice restart policy warnings associated with our services
+            isExternalService = !(elem name serviceNames) && !(any (pref: lib.hasPrefix pref name) extraServiceNames);
+            # File serviceNames is created manually using
+            # grep -RPho '(?<=systemd\.services\.)(?!.*\$)(.*?)(?=\.| )' ./nixos/modules --include=\*.nix | sort | uniq | sed 's/\"//g' > ./nixos/modules/system/boot/serviceNames
+            serviceNames = lib.splitString "\n" (builtins.readFile ./serviceNames);
+            # Some services are missing from the serviceNames, so we need to add them separately
+            extraServiceNames = [
+              "network-"
+              "nix-optimise"
+              "mount-pstore"
+              "wireguard-"
+              "acme-"
+              "mdmonitor"
+              "iodined"
+              "restic-backups-"
+              "borgbackup-"
+            ];
           in
             concatLists [
               (optional (type == "oneshot" && (restart == "always" || restart == "on-success"))
@@ -461,6 +480,8 @@ in
               (optional (service.reloadIfChanged && service.reloadTriggers != [])
                 "Service '${name}.service' has both 'reloadIfChanged' and 'reloadTriggers' set. This is probably not what you want, because 'reloadTriggers' behave the same whay as 'restartTriggers' if 'reloadIfChanged' is set."
               )
+              (optional (restart == "no" && isExternalService)
+                "Service '${name}.service' does not have a restart policy, please consider adding one.")
             ]
         )
         cfg.services
