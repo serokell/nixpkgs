@@ -1,3 +1,4 @@
+*
 3proxy
 accounts-daemon
 acme-dns
@@ -63,7 +64,6 @@ bbswitch
 bcg
 beanstalkd
 bee
-bee-clef
 biboumi
 bigclown-mqtt2influxdb
 bind
@@ -112,6 +112,7 @@ clamav-daemon
 clamav-fangfrisch
 clamav-fangfrisch-init
 clamav-freshclam
+clamdscan
 clickhouse
 clightd
 cloud-config
@@ -127,6 +128,7 @@ cockpit-wsinstance-https@
 cockpit-wsinstance-https-factory@
 cockroachdb
 coder
+code-server
 collectd
 conduit
 confd
@@ -140,6 +142,7 @@ consume-hypervisor-entropy
 containerd
 container-getty@
 convos
+coolercontrold
 coredns
 corerad
 corosync
@@ -157,7 +160,10 @@ dae
 dante
 darkhttpd
 das_watchdog
+davis-db-migrate
+davis-env-setup
 davmail
+db-rest
 dbus
 dbus-broker
 ddclient
@@ -193,12 +199,14 @@ dnscrypt-wrapper
 dnscrypt-wrapper-rotate
 dnsdist
 dnsmasq
+dnsproxy
 do-agent
 docker
 docker-prune
 docker-registry
 docker-registry-garbage-collect
 documize-server
+docuum
 doh-proxy-rust
 dolibarr-config
 domainname
@@ -206,6 +214,7 @@ domoticz
 dovecot2
 dragonflydb
 drbd
+drkonqi-coredump-processor@
 drone
 dspam
 dspam-maintenance
@@ -230,10 +239,9 @@ ergo
 ergochat
 erigon
 eris-server
-esdm-cuse-random
-esdm-cuse-urandom
-esdm-proc
 esdm-server
+esdm-server-resume
+esdm-server-suspend
 esphome
 etcd
 etebase-server
@@ -260,6 +268,8 @@ fetch-ec2-metadata
 fetch-ssh-keys
 filebeat
 firebird
+firefly-iii-cron
+firefly-iii-setup
 firefox-syncserver
 firefox-syncserver-setup
 fireqos
@@ -315,10 +325,12 @@ gitolite-init
 gitweb
 glusterd
 glustereventsd
+gns3-server
 gnunet
 go2rtc
 gobgp
 gobgpd
+go-camo
 gocd-agent
 gocd-server
 goeland
@@ -333,6 +345,7 @@ go-shadowsocks2-server
 goss
 gotify-server
 gotosocial
+govee2mqtt
 gpm
 gpsd
 gpservice
@@ -346,8 +359,12 @@ greetd
 grocy-setup
 growpart
 guacamole-server
+guix-daemon
+guix-gc
+guix-publish
 gvpe
 haka
+handheld-daemon
 haproxy
 harmonia
 haste-server
@@ -359,6 +376,7 @@ headphones
 headscale
 heapster
 heartbeat
+hebbot
 hedgedoc
 heisenbridge
 hercules-ci-agent
@@ -369,7 +387,6 @@ hockeypuck
 hologram-agent
 hologram-server
 home-assistant
-homeassistant-satellite
 homepage-dashboard
 honk
 honk-initdb
@@ -377,6 +394,7 @@ hoogle
 hostapd
 hound
 htpdate
+http3-ytproxy
 httpd
 httpd-config-reload
 https-dns-proxy
@@ -412,9 +430,9 @@ input-remapper
 inspircd
 install-vagrant-ssh-key
 interception-tools
-invidious
-invidious-db-clean
+invidious-router
 invoiceplane-config
+ipa-activation
 iperf3
 ipfs
 ipp-usb
@@ -426,6 +444,7 @@ irqbalance
 iscsi
 iscsid
 iscsi-target
+isolate
 isso
 ivpn-service
 iwd
@@ -433,7 +452,6 @@ jack
 jackett
 jack-session
 jboss
-jellyfin
 jellyseerr
 jenkins
 jenkins-job-builder
@@ -441,6 +459,7 @@ jibri
 jibri-icewm
 jibri-xorg
 jicofo
+jigasi
 jitsi-excalidraw
 jitsi-meet-init-secrets
 jitsi-videobridge2
@@ -505,9 +524,11 @@ lighthouse-beacon
 lighthouse-validator
 lighttpd
 limesurvey-init
+linger-users
 lircd
 listmonk
 litestream
+llama-cpp
 lldap
 lldpd
 load-keter-bundle
@@ -548,12 +569,14 @@ matrix-sliding-sync
 matterbridge
 matterircd
 mattermost
+matter-server
 maubot
 mautrix-facebook
 mautrix-telegram
 mautrix-whatsapp
 mbpfan
 mchprs
+mealie
 mediamtx
 mediatomb
 mediawiki-init
@@ -568,7 +591,9 @@ mfs-chunkserver
 mfs-master
 mfs-metalogger
 microbin
+microsocks
 mighttpd2
+mihomo
 mimir
 minecraft-server
 minetest-server
@@ -586,6 +611,7 @@ mobilizon-postgresql
 mobilizon-setup-secrets
 ModemManager
 molly-brown
+mollysocket
 monero
 monetdb
 mongodb
@@ -612,7 +638,10 @@ munin-node
 murmur
 mxisd
 mx-puppet-discord
+mycelium
+mympd
 mysql
+mysql-auth-pw-init
 n8n
 nagios
 <name>
@@ -626,7 +655,8 @@ ncdns
 ndppd
 neo4j
 netatalk
-netbird
+netbird-management
+netbird-signal
 netclient
 net-connman-vpn
 netdata
@@ -638,6 +668,7 @@ NetworkManager-wait-online
 nextcloud-notify_push
 nextdns
 nexus
+nezha-agent
 nfs-blkmap
 nfs-idmapd
 nfs-mountd
@@ -654,6 +685,7 @@ nix-daemon`
 nix-gc
 nixops-dns
 nixos-upgrade
+nixseparatedebuginfod
 nix-serve
 nncp-caller
 nncp-config
@@ -669,9 +701,11 @@ nsd-dnssec
 ntfy-sh
 ntopng
 ntpd
+ntpd-rs
+ntpd-rs-metrics
 nullidentdmod@
 nullmailer
-nvidia-fabricmanager
+nvidia-container-toolkit-cdi-generator
 nzbget
 nzbhydra2
 oauth2_proxy
@@ -682,6 +716,7 @@ oddjobd
 odoo
 ofono
 oidentd
+ollama
 ombi
 openarena
 opendkim
@@ -690,7 +725,6 @@ openntpd
 openrgb
 opensearch
 opensmtpd
-opensnitchd
 openstack-init
 opentelemetry-collector
 opentracker
@@ -703,6 +737,7 @@ orangefs-server
 osqueryd
 osrm
 outline
+outline-postgresql
 ovsdb
 ovs-vswitchd
 owamp
@@ -711,8 +746,6 @@ oxidized
 pacemaker
 pam-duo
 paperless-consumer
-paperless-copy-password
-paperless-download-nltk-data
 paperless-scheduler
 paperless-task-queue
 paperless-web
@@ -732,9 +765,12 @@ pgadmin
 pgbouncer
 pgmanage
 phosh
+photonvision
 photoprism
+phpfpm-davis
 phpfpm-dolibarr
 phpfpm-engelsystem
+phpfpm-firefly-iii
 phpfpm-pixelfed
 phpfpm-roundcube
 phylactery
@@ -760,6 +796,7 @@ plymouth-read-write
 plymouth-reboot
 plymouth-start
 podgrab
+podman
 podman-prune
 polaris
 polipo
@@ -800,6 +837,7 @@ pufferpanel
 pulseaudio
 pushgateway
 pykms
+pyload
 q3ds
 qdrant
 qemu-guest-agent
@@ -818,8 +856,6 @@ reload-systemd-vconsole-setup
 resilio
 resolvconf
 restic-rest-server
-restya-board-init
-restya-board-timers
 rethinkdb
 riemann
 riemann-dash
@@ -843,6 +879,8 @@ rshim
 rspamd
 rss2email
 rstudio-server
+rustdesk-relay
+rustdesk-signal
 rust-motd
 rustus
 rxe
@@ -856,7 +894,12 @@ sanoid
 saslauthd
 sa-update
 save-hwclock
+scion-control
+scion-daemon
+scion-dispatcher
+scion-router
 scollector
+scrutiny
 sdrplayApi
 searx
 searx-init
@@ -884,13 +927,13 @@ shorewall6
 shout
 sickbeard
 signald
+silverbullet
 sing-box
 siproxd
 sitespeed-io
 skydns
 slimserver
 slskd
-slskd-rotatelogs
 slurmctld
 slurmd
 slurmdbd
@@ -904,6 +947,7 @@ snapper-timeline
 snapserver
 snipe-it-setup
 sniproxy
+snmpd
 snowflake-proxy
 softether-init
 soft-serve
@@ -943,6 +987,7 @@ sundtek
 supergfxd
 supybot
 surrealdb
+suwayomi-server
 svnserve
 sympa
 sympa-archive
@@ -967,6 +1012,9 @@ SystemdJournal2Gelf
 systemd-journald@
 systemd-journald
 systemd-journal-flush
+systemd-journal-gatewayd
+systemd-journal-remote
+systemd-journal-upload
 systemd-logind
 systemd-makefs@
 systemd-mkswap@
@@ -983,6 +1031,7 @@ systemd-resolved
 systemd-sysctl
 systemd-timedated
 systemd-timesyncd
+systemd-tmpfiles-resetup
 systemd-udevd
 systemd-udev-settle
 systemd-update-utmp
@@ -991,6 +1040,7 @@ systemd-vconsole-setup
 systemd-zram-setup@
 tailscaled
 tailscaled-autoconnect
+tailscale-nginx-auth
 tandoor-recipes
 tangd@
 taskserver
@@ -1002,6 +1052,7 @@ tcpcrypt
 tcsd
 teamspeak3-server
 teamviewerd
+technitium-dns-server
 teeworlds
 telegraf
 teleport
@@ -1020,6 +1071,7 @@ thelounge
 thermald
 throttled
 thttpd
+tigerbeetle
 tinydns
 tinyproxy
 tmate-ssh-server
@@ -1037,9 +1089,11 @@ tox-node
 toxvpn
 tp-auto-kbbl
 tpm2-abrmd
+trackpoint
 traefik
 traffic_db
 trafficserver
+transfer-sh
 transmission
 tremor-rs
 trezord
@@ -1084,7 +1138,7 @@ vboxnet0
 vdr
 vector
 victoriametrics
-vikunja-api
+vikunja
 virtchd
 virtlockd
 virtlogd
@@ -1096,12 +1150,15 @@ vmware-authdlauncher
 vmware-networks
 vmware-networks-configuration
 vmware-usbarbitrator
+vmware-wrappers
 vnstat
 vpnbridge
 vpnclient
 vpnserver
 waagent
 wasabibackend
+wastebin
+watchdogd
 waydroid-container
 webdav
 webdav-server-rs
@@ -1113,12 +1170,14 @@ wg-netmanager
 whitebophir
 wiki-js
 wireplumber
+workout-tracker
 wpa_supplicant
 writefreely
 writefreely-mysql-init
 writefreely-sqlite-init
 wwsympa
 wyoming-openwakeword
+wyoming-satellite
 x2goserver
 xandikos
 xe-daemon
@@ -1143,14 +1202,15 @@ yandex-disk
 yarn-nodemanager
 yarn-resourcemanager
 yggdrasil
+yggdrasil-persistent-keys
 ympd
 youtrack
 zabbix-agent
 zabbix-proxy
 zabbix-server
-zammad-scheduler
 zammad-web
 zammad-websocket
+zammad-worker
 zerobin
 zeronet
 zerotierone
