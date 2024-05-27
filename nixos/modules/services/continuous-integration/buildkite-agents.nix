@@ -32,7 +32,7 @@ let
         default = {};
         type = lib.types.attrs;
         description = "Attributes recursively merged into each unit's serviceConfig";
-        example = lib.literalExample ''
+        example = lib.literalExpression ''
           {
             EnvironmentFile = "/run/secrets/buildkite/environment";
           }
