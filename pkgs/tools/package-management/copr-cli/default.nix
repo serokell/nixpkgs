@@ -17,7 +17,7 @@ let
   };
 in buildPythonApplication rec {
   propagatedBuildInputs = with python39Packages;
-    [ requests humanize jinja2 simplejson python-copr ];
+    [ requests humanize jinja2 simplejson python-copr setuptools ];
   src = "${common-src}/cli";
   name = "copr-cli";
   version = "1.95-1";
