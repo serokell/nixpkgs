@@ -1,0 +1,25 @@
+diff --git a/src/http/modules/ngx_http_gzip_filter_module.c b/src/http/modules/ngx_http_gzip_filter_module-zlib-ng-compat.c
+index b555278..008d651 100644
+--- a/src/http/modules/ngx_http_gzip_filter_module.c
++++ b/src/http/modules/ngx_http_gzip_filter_module-zlib-ng-compat.c
+@@ -509,8 +509,18 @@ ngx_http_gzip_filter_memory(ngx_http_request_t *r, ngx_http_gzip_ctx_t *ctx)
+      */
+ 
+     if (!ngx_http_gzip_assume_zlib_ng) {
+-        ctx->allocated = 8192 + 16 + (1 << (wbits + 2))
+-                         + (1 << (memlevel + 9));
++        ctx->allocated = 6144 // State
++						 + 65536 // Window
++						 + 65536 // Prev
++						 + 131072 // Head
++						 + 163840 // Pending
++						 + 56 + 8 // Alloc struct + padding
++#if (defined(__s390__) || defined(__s390x__) || defined(__zarch__))
++						 + 4096 // Required to fix allocation alignment
++#else
++						 + 64 // Required to fix allocation alignment
++#endif
++						 + 256; // Extra to allow for future changes
+ 
+     } else {
+         /*
